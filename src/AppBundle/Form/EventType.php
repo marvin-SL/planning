@@ -9,7 +9,15 @@ class EventType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title');
+        $builder
+        ->add('title', 'text', array('label' => 'Titre'))
+        ->add('start','date', array('label' => 'Début'))
+        ->add('end', 'date', array('label' => 'Fin'))
+        ->add('calendar', 'entity', array(
+              'class' => 'AppBundle:Calendar',
+              'choice_label' => 'title'))
+        ->add('save','submit', array('label' =>'Créer'))
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -18,4 +26,9 @@ class EventType extends AbstractType
             'data_class' => 'AppBundle\Entity\Event',
         ));
     }
+
+    public function getName()
+   {
+
+   }
 }

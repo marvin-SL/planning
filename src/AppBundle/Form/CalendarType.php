@@ -9,7 +9,10 @@ class CalendarType extends AbstractType
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title');
+        $builder
+        ->add('title', 'text', array('label' => 'Titre'))
+        ->add('events', 'collection', array('type' => new EventType()))
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -18,4 +21,9 @@ class CalendarType extends AbstractType
             'data_class' => 'AppBundle\Entity\Calendar',
         ));
     }
+
+    public function getName()
+   {
+    
+   }
 }
