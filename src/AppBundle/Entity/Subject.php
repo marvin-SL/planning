@@ -31,9 +31,9 @@ class Subject
     /**
      * @var integer
      *
-     * @ORM\Column(name="roomNb", type="integer")
+    * @ORM\Column(name="room", type="string", length=255)
      */
-    private $roomNb;
+    private $room;
 
     /**
      * @var string
@@ -83,27 +83,27 @@ class Subject
     }
 
     /**
-     * Set roomNb
+     * Set room
      *
-     * @param integer $roomNb
+     * @param integer $room
      *
      * @return Subject
      */
-    public function setRoomNb($roomNb)
+    public function setroom($room)
     {
-        $this->roomNb = $roomNb;
+        $this->room = $room;
 
         return $this;
     }
 
     /**
-     * Get roomNb
+     * Get room
      *
      * @return integer
      */
-    public function getRoomNb()
+    public function getroom()
     {
-        return $this->roomNb;
+        return $this->room;
     }
 
     /**
