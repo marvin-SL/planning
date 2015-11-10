@@ -12,6 +12,7 @@ class CalendarType extends AbstractType
         $builder
         ->add('title', 'text', array('label' => 'Titre'))
         ->add('events', 'collection', array('type' => new EventType()))
+        ->add('save','submit', array('label' =>'Créer'))
         ;
     }
 
@@ -24,6 +25,6 @@ class CalendarType extends AbstractType
 
     public function getName()
    {
-    
+
    }
 }

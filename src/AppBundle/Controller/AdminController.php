@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Calendar;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
+use AppBundle\Form\CalendarType;
 
 class AdminController extends Controller
 {
@@ -30,6 +31,29 @@ class AdminController extends Controller
       return $this->render('AppBundle:Admin:index.html.twig', array(
          'form' => $form->createView(),
       ));
+
+  }
+
+  public function createCalendarAction(Request $request)
+  {
+    // replace this example code with whatever you need
+    $calendar = new Calendar();
+
+    $form = $this->createForm(new CalendarType(), $calendar);
+
+    $form->handleRequest($request);
+
+    if ($form->isValid())
+    {
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($calendar);
+      $em->flush();
+    }
+
+    return $this->render('AppBundle:Admin:createCalendar.html.twig', array(
+       'form' => $form->createView(),
+    ));
+
   }
 
 }
