@@ -1,3 +1,7 @@
 admin_dashboard:
     path:       /admin/dashboard
     defaults:  {_controller: AppBundle:Admin:index}
+
+admin_create_calendar:
+     path:        /admin/calendar/new
+     defaults:  {_controller: AppBundle:Admin:createCalendar}   
