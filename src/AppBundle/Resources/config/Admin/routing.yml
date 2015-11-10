@@ -4,4 +4,8 @@ admin_dashboard:
 
 admin_create_calendar:
      path:        /admin/calendar/new
-     defaults:  {_controller: AppBundle:Admin:createCalendar}   
+     defaults:  {_controller: AppBundle:Admin:createCalendar}
+
+admin_create_event:
+      path:    /admin/event/new
+      defaults:  {_controller: AppBundle:Admin:createEvent}
