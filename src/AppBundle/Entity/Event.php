@@ -43,11 +43,16 @@ class Event
     private $end;
 
     /**
-
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events")
    * @ORM\JoinColumn(nullable=false)
    */
     private $calendar;
+
+    /**
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject", cascade={"persist"}, inversedBy="events")
+   * @ORM\JoinColumn(nullable=false)
+   */
+    private $subject;
 
     /**
      * Get id
@@ -153,5 +158,29 @@ class Event
     public function getCalendar()
     {
         return $this->calendar;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param \AppBundle\Entity\Subject $subject
+     *
+     * @return Event
+     */
+    public function setSubject(\AppBundle\Entity\Subject $subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return \AppBundle\Entity\Subject
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }

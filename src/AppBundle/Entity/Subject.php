@@ -42,6 +42,11 @@ class Subject
      */
     private $teacher;
 
+    /**
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="subject")
+    */
+    private $events;
+
 
     /**
      * Get id
@@ -124,5 +129,45 @@ class Subject
     {
         return $this->teacher;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add event
+     *
+     * @param \AppBundle\Entity\Event $event
+     *
+     * @return Subject
+     */
+    public function addEvent(\AppBundle\Entity\Event $event)
+    {
+        $this->events[] = $event;
+
+        return $this;
+    }
+
+    /**
+     * Remove event
+     *
+     * @param \AppBundle\Entity\Event $event
+     */
+    public function removeEvent(\AppBundle\Entity\Event $event)
+    {
+        $this->events->removeElement($event);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+}
