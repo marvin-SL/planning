@@ -11,8 +11,21 @@ class EventType extends AbstractType
     {
         $builder
         ->add('title', 'text', array('label' => 'Titre'))
-        ->add('start','date', array('label' => 'Début'))
-        ->add('end', 'date', array('label' => 'Fin'))
+        
+        ->add('start','datetime', array(
+                'input'  => 'datetime',
+                'widget' => 'choice',
+                'years'=> array('2015', '2016'),
+                'label' => 'Début',
+              ))
+
+        ->add('end', 'datetime', array(
+            'input'  => 'datetime',
+            'widget' => 'choice',
+            'years'=> array('2015', '2016'),
+            'label' => 'Fin',
+        ))
+
         ->add('calendar', 'entity', array(
               'class' => 'AppBundle:Calendar',
               'choice_label' => 'title'))
