@@ -9,3 +9,7 @@ admin_create_calendar:
 admin_create_event:
       path:    /admin/event/new
       defaults:  {_controller: AppBundle:Admin:createEvent}
+
+admin_create_subjet:
+      path:    /admin/subject/new
+      defaults:  {_controller: AppBundle:Admin:createSubject}      
