@@ -35,12 +35,6 @@ class Teacher
      */
     private $lastName;
 
-    /**
-   * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Subject", cascade={"persist"}, inversedBy="teachers")
-   * @ORM\JoinColumn(nullable=false)
-   */
-    private $subject;
-
 
     /**
      * Get id
@@ -99,45 +93,5 @@ class Teacher
     {
         return $this->lastName;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->subject = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
-    /**
-     * Add subject
-     *
-     * @param \AppBundle\Entity\Subject $subject
-     *
-     * @return Teacher
-     */
-    public function addSubject(\AppBundle\Entity\Subject $subject)
-    {
-        $this->subject[] = $subject;
-
-        return $this;
-    }
-
-    /**
-     * Remove subject
-     *
-     * @param \AppBundle\Entity\Subject $subject
-     */
-    public function removeSubject(\AppBundle\Entity\Subject $subject)
-    {
-        $this->subject->removeElement($subject);
-    }
-
-    /**
-     * Get subject
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
 }

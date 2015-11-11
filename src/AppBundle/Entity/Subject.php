@@ -36,8 +36,7 @@ class Subject
     private $classRoom;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher", mappedBy="subject")
-     * @ORM\Column(name="teacher", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher")
      */
     private $teachers;
 
@@ -106,29 +105,6 @@ class Subject
     }
 
     /**
-     * Set teacher
-     *
-     * @param string $teacher
-     *
-     * @return Subject
-     */
-    public function setTeacher($teacher)
-    {
-        $this->teacher = $teacher;
-
-        return $this;
-    }
-
-    /**
-     * Get teacher
-     *
-     * @return string
-     */
-    public function getTeacher()
-    {
-        return $this->teacher;
-    }
-    /**
      * Constructor
      */
     public function __construct()
@@ -192,5 +168,29 @@ class Subject
     public function getTeachers()
     {
         return $this->teachers;
+    }
+
+    /**
+     * Add teacher
+     *
+     * @param \AppBundle\Entity\Teacher $teacher
+     *
+     * @return Subject
+     */
+    public function addTeacher(\AppBundle\Entity\Teacher $teacher)
+    {
+        $this->teachers[] = $teacher;
+
+        return $this;
+    }
+
+    /**
+     * Remove teacher
+     *
+     * @param \AppBundle\Entity\Teacher $teacher
+     */
+    public function removeTeacher(\AppBundle\Entity\Teacher $teacher)
+    {
+        $this->teachers->removeElement($teacher);
     }
 }
