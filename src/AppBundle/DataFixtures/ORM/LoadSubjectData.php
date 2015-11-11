@@ -19,16 +19,16 @@ class LoadSubjectData extends AbstractFixture implements OrderedFixtureInterface
     $subject3 =  new Subject();
 
     $subject1->setName('Angais');
-    $subject2->setName('PHP');
-    $subject3->setName('Socio');
-
     $subject1->setRoom('B212 Bois d\'ébène');
-    $subject2->setRoom('C343, Copernic (en face des chiottes)');
-    $subject3->setRoom('Parking');
+    $subject1->setTeachers($this->getReference('teacher1'));
 
-    $subject1->setTeacher('Trudy');
-    $subject2->setTeacher('Dyan');
-    $subject3->setTeacher('Cardon, Aguiton, Bonzon, Thenoux');
+    $subject2->setName('PHP');
+    $subject2->setRoom('C343, Copernic (en face des chiottes)');
+    $subject1->setTeachers($this->getReference('teacher2'));
+
+    $subject3->setName('Socio');
+    $subject3->setRoom('Parking');
+    $subject1->setTeachers($this->getReference('teacher3'));
 
     $this->addReference('subject1', $subject1);
     $this->addReference('subject2', $subject2);
@@ -39,10 +39,10 @@ class LoadSubjectData extends AbstractFixture implements OrderedFixtureInterface
   }
 
   /**
-    * {@inheritDoc}
-    */
-   public function getOrder()
-   {
-       return 1; // the order in which fixtures will be loaded
-   }
+  * {@inheritDoc}
+  */
+  public function getOrder()
+  {
+    return 2; // the order in which fixtures will be loaded
+  }
 }
