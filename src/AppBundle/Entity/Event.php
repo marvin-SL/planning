@@ -55,6 +55,12 @@ class Event
     private $subject;
 
     /**
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ClassRoom", cascade={"persist"}, inversedBy="events")
+   * @ORM\JoinColumn(nullable=false)
+   */
+    private $classRoom;
+
+    /**
      * Get id
      *
      * @return integer
@@ -182,5 +188,29 @@ class Event
     public function getSubject()
     {
         return $this->subject;
+    }
+
+    /**
+     * Set classRoom
+     *
+     * @param \AppBundle\Entity\ClassRoom $classRoom
+     *
+     * @return Event
+     */
+    public function setClassRoom(\AppBundle\Entity\ClassRoom $classRoom)
+    {
+        $this->classRoom = $classRoom;
+
+        return $this;
+    }
+
+    /**
+     * Get classRoom
+     *
+     * @return \AppBundle\Entity\ClassRoom
+     */
+    public function getClassRoom()
+    {
+        return $this->classRoom;
     }
 }
