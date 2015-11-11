@@ -31,16 +31,15 @@ class Subject
     /**
      * @var integer
      *
-    * @ORM\Column(name="room", type="string", length=255)
+    * @ORM\Column(name="classRoom", type="string", length=255)
      */
-    private $room;
+    private $classRoom;
 
     /**
-     * @var string
-     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher", mappedBy="subject")
      * @ORM\Column(name="teacher", type="string", length=255)
      */
-    private $teacher;
+    private $teachers;
 
     /**
     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="subject")
@@ -83,27 +82,27 @@ class Subject
     }
 
     /**
-     * Set room
+     * Set classclassRoom
      *
-     * @param integer $room
+     * @param integer $classRoom
      *
      * @return Subject
      */
-    public function setroom($room)
+    public function setclassRoom($classRoom)
     {
-        $this->room = $room;
+        $this->classRoom = $classRoom;
 
         return $this;
     }
 
     /**
-     * Get room
+     * Get classRoom
      *
      * @return integer
      */
-    public function getroom()
+    public function getclassRoom()
     {
-        return $this->room;
+        return $this->classRoom;
     }
 
     /**
@@ -169,5 +168,29 @@ class Subject
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * Set teachers
+     *
+     * @param string $teachers
+     *
+     * @return Subject
+     */
+    public function setTeachers($teachers)
+    {
+        $this->teachers = $teachers;
+
+        return $this;
+    }
+
+    /**
+     * Get teachers
+     *
+     * @return string
+     */
+    public function getTeachers()
+    {
+        return $this->teachers;
     }
 }
