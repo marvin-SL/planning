@@ -26,6 +26,10 @@ class LoadCalendarData extends AbstractFixture implements OrderedFixtureInterfac
     $this->addReference('calendar2', $calendar2);
     $this->addReference('calendar3', $calendar3);
 
+    $manager->persist($calendar1);
+    $manager->persist($calendar2);
+    $manager->persist($calendar3);
+
     $manager->flush();
 
   }
@@ -35,6 +39,6 @@ class LoadCalendarData extends AbstractFixture implements OrderedFixtureInterfac
     */
    public function getOrder()
    {
-       return 3; // the order in which fixtures will be loaded
+       return 4; // the order in which fixtures will be loaded
    }
 }

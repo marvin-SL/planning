@@ -19,20 +19,24 @@ class LoadSubjectData extends AbstractFixture implements OrderedFixtureInterface
     $subject3 =  new Subject();
 
     $subject1->setName('Angais');
-    $subject1->setRoom('B212 Bois d\'ébène');
-    $subject1->setTeachers($this->getReference('teacher1'));
+    $subject1->setTeachers(array($this->getReference('teacher1')));
 
     $subject2->setName('PHP');
-    $subject2->setRoom('C343, Copernic (en face des chiottes)');
-    $subject1->setTeachers($this->getReference('teacher2'));
+    $subject2->setTeachers(array($this->getReference('teacher2')));
 
     $subject3->setName('Socio');
-    $subject3->setRoom('Parking');
-    $subject1->setTeachers($this->getReference('teacher3'));
+    $subject3->setTeachers(array($this->getReference('teacher3'),$this->getReference('teacher2')));
+
+
 
     $this->addReference('subject1', $subject1);
     $this->addReference('subject2', $subject2);
     $this->addReference('subject3', $subject3);
+
+
+        $manager->persist($subject1);
+        $manager->persist($subject2);
+        $manager->persist($subject3);
 
     $manager->flush();
 

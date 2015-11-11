@@ -31,6 +31,10 @@ class LoadTeacherData extends AbstractFixture implements OrderedFixtureInterface
     $this->addReference('teacher2', $teacher2);
     $this->addReference('teacher3', $teacher3);
 
+    $manager->persist($teacher1);
+    $manager->persist($teacher2);
+    $manager->persist($teacher3);
+
     $manager->flush();
 
   }
