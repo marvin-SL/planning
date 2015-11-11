@@ -29,19 +29,12 @@ class Subject
     private $name;
 
     /**
-     * @var integer
-     *
-    * @ORM\Column(name="classRoom", type="string", length=255)
-     */
-    private $classRoom;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher", cascade={"persist"})
      */
     private $teachers;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="subject")
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="subject", cascade={"persist"})
     */
     private $events;
 
@@ -87,7 +80,7 @@ class Subject
      *
      * @return Subject
      */
-    public function setclassRoom($classRoom)
+    public function setClassRoom($classRoom)
     {
         $this->classRoom = $classRoom;
 
@@ -99,7 +92,7 @@ class Subject
      *
      * @return integer
      */
-    public function getclassRoom()
+    public function getClassRoom()
     {
         return $this->classRoom;
     }
