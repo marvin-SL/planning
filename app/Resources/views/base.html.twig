@@ -7,7 +7,10 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        {% block body %}
+          {% block titre %}{% endblock %}
+        {% endblock %}
         {% block javascripts %}
           <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
           <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
