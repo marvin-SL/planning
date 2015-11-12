@@ -24,9 +24,10 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="notice", type="string", length=255)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $title;
+    private $notice;
 
     /**
      * @var \DateTime
@@ -68,30 +69,6 @@ class Event
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return Event
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
     }
 
     /**
@@ -212,5 +189,29 @@ class Event
     public function getClassRoom()
     {
         return $this->classRoom;
+    }
+
+    /**
+     * Set notice
+     *
+     * @param string $notice
+     *
+     * @return Event
+     */
+    public function setNotice($notice)
+    {
+        $this->notice = $notice;
+
+        return $this;
+    }
+
+    /**
+     * Get notice
+     *
+     * @return string
+     */
+    public function getNotice()
+    {
+        return $this->notice;
     }
 }

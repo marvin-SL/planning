@@ -10,8 +10,6 @@ class EventType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('title', 'text', array('label' => 'Titre'))
-
         ->add('start','datetime', array(
                 'input'  => 'datetime',
                 'widget' => 'choice',
@@ -28,11 +26,22 @@ class EventType extends AbstractType
 
         ->add('calendar', 'entity', array(
               'class' => 'AppBundle:Calendar',
-              'choice_label' => 'title'
+              'choice_label' => 'title',
+              'label' => 'Calendrier :'
             ))
         ->add('subject', 'entity', array(
             'class' => 'AppBundle:Subject',
-            'choice_label' => 'name'
+            'choice_label' => 'name',
+            'label' => 'Matière :'
+        ))
+        ->add('classRoom', 'entity', array(
+            'class' => 'AppBundle:ClassRoom',
+            'choice_label' => 'name',
+            'label' => 'Salle/Bâtiment :'
+        ))
+        ->add('notice', 'text', array(
+          'label' => 'Info :',
+          'required' => 'false',
         ))
         ->add('save','submit', array('label' =>'Créer'))
         ;
