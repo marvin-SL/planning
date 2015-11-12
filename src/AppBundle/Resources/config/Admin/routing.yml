@@ -10,6 +10,14 @@ admin_create_event:
       path:    /admin/event/new
       defaults:  {_controller: AppBundle:Admin:createEvent}
 
-admin_create_subjet:
+admin_create_subject:
       path:    /admin/subject/new
-      defaults:  {_controller: AppBundle:Admin:createSubject}      
+      defaults:  {_controller: AppBundle:Admin:createSubject}
+
+admin_create_teacher:
+      path:    /admin/teacher/new
+      defaults:   {_controller: AppBundle:Admin:createTeacher}
+
+admin_create_classRoom:
+      path:    /admin/class-room/new
+      defaults:    {_controller: AppBundle:Admin:createClassRoom}
