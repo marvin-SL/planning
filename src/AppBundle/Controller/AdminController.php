@@ -38,7 +38,7 @@ class AdminController extends Controller
       $em->persist($calendar);
       $em->flush();
     }
-
+    
     return $this->render('AppBundle:Admin:createCalendar.html.twig', array(
        'form' => $form->createView(),
     ));
