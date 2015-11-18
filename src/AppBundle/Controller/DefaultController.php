@@ -13,4 +13,12 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('AppBundle:Default:index.html.twig');
     }
+
+    public function xmlWriterAction(Request $request)
+    {
+        $data = $request->request->get("data");
+        file_put_contents("./public/events.xml",$data);
+
+        return $this->redirect($this->generateUrl('index'));
+    }
 }
