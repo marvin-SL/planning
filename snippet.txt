@@ -1,0 +1,7 @@
+SELECT t.firstName, t.lastName, s.name FROM `subject_teacher` st, `event` e,  `subject` s, `teacher` t
+where e.subject_id = s.id
+and s.id = st.subject_id
+and t.id = st.teacher_id
+and e.subject_id = 75
+
+liste des enseignants d'une matière donnée ('ici socio pour 75') 
