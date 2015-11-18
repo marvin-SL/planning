@@ -3,3 +3,7 @@ index:
       defaults:  { _controller: AppBundle:Default:index }
       options:
           expose: true
+
+xmlWriter:
+    path:       /xmlWriter
+    defaults:   {_controller: AppBundle:Default:xmlWriter }
