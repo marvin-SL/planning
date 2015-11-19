@@ -10,4 +10,4 @@
 /vendor/
 /web/bundles/
 *~
-/web/public/events.xml
+/web/public/*.xml
