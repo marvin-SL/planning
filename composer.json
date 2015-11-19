@@ -22,7 +22,9 @@
         "doctrine/doctrine-fixtures-bundle": "^2.2",
         "knplabs/knp-menu-bundle": "~2",
         "friendsofsymfony/jsrouting-bundle": "^1.5",
-        "adesigns/calendar-bundle": "^1.1"
+        "adesigns/calendar-bundle": "^1.1",
+        "symfony/serializer": "^2.7",
+        "symfony/property-access": "^2.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
