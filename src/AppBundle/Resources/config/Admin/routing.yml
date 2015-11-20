@@ -6,9 +6,9 @@ admin_calendar_new:
      path:        /admin/calendar/new
      defaults:  {_controller: AppBundle:Admin/Calendar:new}
 
-admin_create_event:
+admin_event_new:
       path:    /admin/event/new
-      defaults:  {_controller: AppBundle:Admin:createEvent}
+      defaults:  {_controller: AppBundle:Admin/Event:new}
 
 admin_create_subject:
       path:    /admin/subject/new
