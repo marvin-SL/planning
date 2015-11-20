@@ -5,8 +5,11 @@ Nouveau cours
 {{ parent() }}
 {% endblock %}
 
-{% block contentBody %}
+{% block titre %}Planning d'ajout de cours{% endblock %}
+
+{% block body %}
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
+
 {% endblock %}
