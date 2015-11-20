@@ -1,14 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends '::base.html.twig' %}
+
 {% block title %}
-test
+Tableau de bord
+{{ parent() }}
 {% endblock %}
 
-{% block body %}
-{#{% include 'ADesignsCalendarBundle::calendar.html.twig' %}#}
-  <!-- <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
-  <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script> -->
+{% block titre %}Tableau de bord{% endblock %}
 
+{% block body %}
 
 {% endblock %}

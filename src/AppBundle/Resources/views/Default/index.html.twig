@@ -1,77 +1,49 @@
 {% extends '::base.html.twig' %}
+{% block head %}<script src="http://code.jquery.com/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script> {% endblock %}
 
-
-{% block title %}
-test
-{% endblock %}
+{% block title %}test{% endblock %}
 
 {% block stylesheets %}
-    {% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
-    {% endstylesheets %}
+{% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
 {% endblock %}
 
 {% block body %}
 
-<style type="text/css" media="screen">
-	html, body{
-		margin:0px;
-		padding:0px;
-		height:100%;
-		overflow:hidden;
-	}
+<style type="text/css">
+html, body{
+    margin:0px;
+    padding:0px;
+    height:100%;
+    overflow:hidden;
+}
 </style>
 
-<body onload="init();">
-
-    <form id="xml_form" action="{{ path('xmlWriter')}}" method="post" target="hidden_frame" >
-        <input type="hidden" name="data" value="" id="data">
-        <input type="button" name="save" value="save" onclick="enregistrer()" >
-    </form>
-
-    <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
-  		<div class="dhx_cal_navline">
-  			<div class="dhx_cal_prev_button">&nbsp;</div>
-  			<div class="dhx_cal_next_button">&nbsp;</div>
-  			<div class="dhx_cal_today_button"></div>
-  			<div class="dhx_cal_date"></div>
-  			<div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
-  			<div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
-  			<div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
-  		</div>
-  		<div class="dhx_cal_header">
-  		</div>
-  		<div class="dhx_cal_data">
-  		</div>
-  	</div>
-
-</body>
+<div class="calendar" style='width:auto; height:50px;'>
+    <div class="myscheduler" style='width:100%; height:100%;'></div>
+</div>
 
 {% endblock %}
 
 {% block javascripts %}
-  {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
-      <script src="{{ asset_url }}"></script>
-  {% endjavascripts %}
-  {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_serialize.js' %}
-      <script src="{{ asset_url }}"></script>
-  {% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_serialize.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 
-  <script>
-      function init() {
-          scheduler.config.xml_date="%Y-%m-%d %H:%i";
-          scheduler.init('scheduler_here',new Date(2015,0,10),"week");
-          scheduler.load("{{ asset('public/events.xml')}}")
-          scheduler.config.multi_day = false;
-          scheduler.config.time_step = 30;
+<script type="text/javascript" charset="utf-8">
+$(function(){
+    $(".myscheduler").dhx_scheduler({
+        xml_date:"%Y-%m-%d %H:%i",
+        date:new Date(2014,4,25),
+        mode:"month"
+    });
 
-      }
-
-      function enregistrer(){
-          var form = document.getElementById("xml_form");
-          form.elements.data.value = scheduler.toXML();
-          form.submit();
-      }
-  </script>
+    scheduler.load("{{ asset('public/events.xml')}}")
+});
+</script>
 
 {% endblock %}

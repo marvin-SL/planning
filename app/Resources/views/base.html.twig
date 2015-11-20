@@ -4,8 +4,6 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %}</title>
-
-        {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('bundles/app/css/pure/pure-min.css') }}">
             <!--[if lte IE 8]>
             <link rel="stylesheet" href="{{ asset('bundles/app/css/pure/app-old-ie.css') }}">
@@ -13,8 +11,9 @@
             <!--[if gt IE 8]><!-->
             <link rel="stylesheet" href="{{ asset('bundles/app/css/pure/app.css') }}">
             <!--<![endif]-->
-        {% endblock %}
+            {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block head %}{% endblock %}
     </head>
 
     <body>
@@ -60,31 +59,33 @@
 
                       <div class="app-content-body">
                           {% block body %}{% endblock %}
+                        
                       </div>
+
                   </div>
               </div>
           </div>
 
 
-        {% block javascripts %}
           <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
           <script src="{{ asset('bundles/app/js/pure/yui-min.js') }}"></script>
           <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
           <script>
-          YUI().use('node-base', 'node-event-delegate', function (Y) {
+              YUI().use('node-base', 'node-event-delegate', function (Y) {
 
-              var menuButton = Y.one('.nav-menu-button'),
-              nav        = Y.one('#nav');
+                  var menuButton = Y.one('.nav-menu-button'),
+                  nav        = Y.one('#nav');
 
-              // Setting the active class name expands the menu vertically on small screens.
-              menuButton.on('click', function (e) {
-                  nav.toggleClass('active');
+                  // Setting the active class name expands the menu vertically on small screens.
+                  menuButton.on('click', function (e) {
+                      nav.toggleClass('active');
+                  });
+
+                  // Your application code goes here...
+
               });
-
-              // Your application code goes here...
-
-          });
           </script>
-        {% endblock %}
+             {% block javascripts %}{% endblock %}
 </body>
+
 </html>
