@@ -8,7 +8,7 @@ admin_calendar_new:
 
 admin_calendar_show:
     path:    /admin/calendar/show
-    defaults:  {_controller: AppBundle:Admin/Calendar:show}     
+    defaults:  {_controller: AppBundle:Admin/Calendar:show}
 
 admin_event_new:
       path:    /admin/event/new
@@ -16,7 +16,7 @@ admin_event_new:
 
 admin_event_xmlWriter:
     path:       /admin/event/xmlWriter
-    defaults:   {_controller: AppBundle:Default/Event:xmlWriter }
+    defaults:   {_controller: AppBundle:Admin/Event:xmlWriter }
 
 admin_subject_new:
       path:    /admin/subject/new

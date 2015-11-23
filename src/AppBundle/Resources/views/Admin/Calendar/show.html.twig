@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
+{% block head %}<script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script> {% endblock %}
 {% block title %} {% endblock %}
 
 {% block stylesheets %}
-{% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler_flat.css' %}
+{% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler.css' %}
 <link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
 {% endstylesheets %}
 
@@ -30,6 +31,11 @@
 		</div>
 	</div>
 
+    <form id="xml_form" action="{{ path('admin_event_xmlWriter')}}" method="post" target="hidden_frame" >
+        <input type="hidden" name="data" value="" id="data">
+    </form>
+    <input type="button" name="save" value="save" onclick="enregistrer()" >
+
 	<div class="dhx_cal_container panel" id="scheduler_here">
 		<div class="dhx_cal_navline">
 			<div class="dhx_cal_prev_button">&nbsp;</div>
@@ -56,35 +62,29 @@
 
 {% endblock %}
 {% block javascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_serialize.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
+scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 
+scheduler.config.first_hour = 8;
+scheduler.config.limit_time_select = true;
 
-	scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+scheduler.init('scheduler_here',new Date(2014,5,30),"week");
+scheduler.load("{{ asset('bundles/app/events.xml') }}")
 
-
-	scheduler.config.first_hour = 8;
-	scheduler.config.limit_time_select = true;
-
-
-	scheduler.init('scheduler_here',new Date(2014,5,30),"week");
-	scheduler.parse([
-		{ start_date: "2014-06-30 09:00", end_date: "2014-06-30 12:00", text:"Task A-12458", section_id:1},
-		{ start_date: "2014-06-30 10:00", end_date: "2014-06-30 16:00", text:"Task A-89411", section_id:1},
-		{ start_date: "2014-06-30 10:00", end_date: "2014-06-30 14:00", text:"Task A-64168", section_id:1},
-		{ start_date: "2014-06-30 16:00", end_date: "2014-06-30 17:00", text:"Task A-46598", section_id:1},
-
-		{ start_date: "2014-06-30 12:00", end_date: "2014-06-30 20:00", text:"Task B-48865", section_id:2},
-		{ start_date: "2014-06-30 14:00", end_date: "2014-06-30 16:00", text:"Task B-44864", section_id:2},
-		{ start_date: "2014-06-30 16:30", end_date: "2014-06-30 18:00", text:"Task B-46558", section_id:2},
-		{ start_date: "2014-06-30 18:30", end_date: "2014-06-30 20:00", text:"Task B-45564", section_id:2},
-
-		{ start_date: "2014-06-30 08:00", end_date: "2014-06-30 12:00", text:"Task C-32421", section_id:3},
-		{ start_date: "2014-06-30 14:30", end_date: "2014-06-30 16:45", text:"Task C-14244", section_id:3},
-
-		{ start_date: "2014-06-30 09:20", end_date: "2014-06-30 12:20", text:"Task D-52688", section_id:4},
-		{ start_date: "2014-06-30 11:40", end_date: "2014-06-30 16:30", text:"Task D-46588", section_id:4},
-		{ start_date: "2014-06-30 12:00", end_date: "2014-06-30 18:00", text:"Task D-12458", section_id:4}
-	],"json");
+function enregistrer(){
+    var form = document.getElementById("xml_form");
+    form.elements.data.value = scheduler.toXML();
+    form.submit();
+}
 
 </script>
 {% endblock %}
