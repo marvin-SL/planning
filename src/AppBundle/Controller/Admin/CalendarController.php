@@ -33,4 +33,9 @@ class CalendarController extends Controller
 
     }
 
+    public function showAction(Request $request)
+    {
+        return $this->render('AppBundle:Admin/Calendar:show.html.twig');
+    }
+
 }
