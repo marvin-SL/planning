@@ -26,6 +26,6 @@ admin_teacher_new:
       path:    /admin/teacher/new
       defaults:   {_controller: AppBundle:Admin/Teacher:new}
 
-admin_create_classRoom:
-      path:    /admin/class-room/new
-      defaults:    {_controller: AppBundle:Admin:createClassRoom}
+admin_class_room:
+      path:    /admin/classroom/new
+      defaults:    {_controller: AppBundle:Admin/ClassRoom:new}

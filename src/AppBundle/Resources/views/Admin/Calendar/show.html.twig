@@ -71,7 +71,20 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+var event_opts = [
+    {% for label in item %}
+     { key: {{loop.index}}, label: '{% autoescape true %}{{label.name }}{% endautoescape %}' },
+    {% endfor %}
+];
+
+scheduler.locale.labels.section_select = 'Salle';
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+
+scheduler.config.lightbox.sections = [
+    { name:"text", height:50, map_to:"text", type:"textarea", focus:true },
+    { name:"select", height:40, map_to:"type", type:"select", options:event_opts},
+    { name:"time", height:72, type:"time", map_to:"auto"}
+];
 
 scheduler.config.first_hour = 8;
 scheduler.config.limit_time_select = true;
