@@ -1,23 +1,31 @@
 admin_dashboard:
     path:       /admin/dashboard
-    defaults:  {_controller: AppBundle:Admin:index}
+    defaults:  {_controller: AppBundle:Admin/Dashboard:index}
 
-admin_create_calendar:
+admin_calendar_new:
      path:        /admin/calendar/new
-     defaults:  {_controller: AppBundle:Admin:createCalendar}
+     defaults:  {_controller: AppBundle:Admin/Calendar:new}
 
-admin_create_event:
+admin_calendar_show:
+    path:    /admin/calendar/show
+    defaults:  {_controller: AppBundle:Admin/Calendar:show}
+
+admin_event_new:
       path:    /admin/event/new
-      defaults:  {_controller: AppBundle:Admin:createEvent}
+      defaults:  {_controller: AppBundle:Admin/Event:new}
 
-admin_create_subject:
+admin_event_xmlWriter:
+    path:       /admin/event/xmlWriter
+    defaults:   {_controller: AppBundle:Admin/Event:xmlWriter }
+
+admin_subject_new:
       path:    /admin/subject/new
-      defaults:  {_controller: AppBundle:Admin:createSubject}
+      defaults:  {_controller: AppBundle:Admin/Subject:new}
 
-admin_create_teacher:
+admin_teacher_new:
       path:    /admin/teacher/new
-      defaults:   {_controller: AppBundle:Admin:createTeacher}
+      defaults:   {_controller: AppBundle:Admin/Teacher:new}
 
-admin_create_classRoom:
-      path:    /admin/class-room/new
-      defaults:    {_controller: AppBundle:Admin:createClassRoom}
+admin_class_room:
+      path:    /admin/classroom/new
+      defaults:    {_controller: AppBundle:Admin/ClassRoom:new}

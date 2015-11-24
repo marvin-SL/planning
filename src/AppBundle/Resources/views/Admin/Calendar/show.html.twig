@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+{% block head %}<script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script> {% endblock %}
+{% block title %} {% endblock %}
+
+{% block stylesheets %}
+{% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
+
+<style type="text/css">
+    html, body{ height:100%; padding:0px; margin:0px; }
+    .well {
+        text-align: right;
+    }
+    .container-fluid #scheduler_here {
+        height: 700px;
+        width: 100%;
+        border: 1px solid #cecece;
+        top : 50px;
+    }
+    #scheduler_here {
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+
+    <form id="xml_form" action="{{ path('admin_event_xmlWriter')}}" method="post" target="hidden_frame" >
+        <input type="hidden" name="data" value="" id="data">
+    </form>
+
+
+	<div class="dhx_cal_container panel" id="scheduler_here">
+
+		<div class="dhx_cal_navline">
+			<div class="dhx_cal_prev_button">&nbsp;</div>
+			<div class="dhx_cal_next_button">&nbsp;</div>
+			<div class="dhx_cal_today_button"></div>
+			<div class="dhx_cal_date"></div>
+
+			<div class="dhx_cal_tab" name="day_tab"></div>
+			<div class="dhx_cal_tab" name="week_tab"></div>
+			<div class="dhx_cal_tab" name="month_tab"></div>
+			<div class="dhx_cal_tab" name="year_tab"></div>
+		</div>
+		<div class="dhx_cal_header"></div>
+		<div class="dhx_cal_data"></div>
+	</div>
+
+	<div class="well">
+		<div>
+			<a class="logo" title="DHTMLX - JavaScript Web App Framework &amp; UI Widgets" href="http://dhtmlx.com/docs/products/dhtmlxScheduler/"></a>
+		</div>
+	</div>
+
+</div>
+        <input type="button" name="save" value="save" onclick="enregistrer()" >
+
+{% endblock %}
+{% block javascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_serialize.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+var event_opts = [
+    {% for label in item %}
+     { key: {{loop.index}}, label: '{% autoescape true %}{{label.name }}{% endautoescape %}' },
+    {% endfor %}
+];
+
+scheduler.locale.labels.section_select = 'Salle';
+scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+
+scheduler.config.lightbox.sections = [
+    { name:"text", height:50, map_to:"text", type:"textarea", focus:true },
+    { name:"select", height:40, map_to:"type", type:"select", options:event_opts},
+    { name:"time", height:72, type:"time", map_to:"auto"}
+];
+
+scheduler.config.first_hour = 8;
+scheduler.config.limit_time_select = true;
+
+scheduler.init('scheduler_here',new Date(2014,5,30),"week");
+scheduler.load("{{ asset('bundles/app/events.xml') }}")
+
+function enregistrer(){
+    var form = document.getElementById("xml_form");
+    form.elements.data.value = scheduler.toXML();
+    form.submit();
+}
+
+</script>
+{% endblock %}

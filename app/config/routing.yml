@@ -9,6 +9,10 @@ admin:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+fos_user_registration_register:
+    path:      /inscription
+    defaults:  { _controller: FOSUserBundle:Registration:register }
+
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
