@@ -73,7 +73,7 @@
 <script type="text/javascript">
 var event_opts = [
     {% for label in item %}
-     { key: {{loop.index}}, label: '{% autoescape true %}{{label.name }}{% endautoescape %}' },
+     { key: "{{label.name }}", label: '{% autoescape true %}{{label.name }}{% endautoescape %}' },
     {% endfor %}
 ];
 
