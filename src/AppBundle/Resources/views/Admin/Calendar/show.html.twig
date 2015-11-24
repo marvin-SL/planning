@@ -16,6 +16,7 @@
         height: 700px;
         width: 100%;
         border: 1px solid #cecece;
+        top : 50px;
     }
     #scheduler_here {
         border-radius: 4px;
@@ -25,18 +26,15 @@
 
 {% block body %}
 <div class="container-fluid">
-	<div class="navbar navbar-inverse">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">dhtmlxScheduler</a>
-		</div>
-	</div>
+
 
     <form id="xml_form" action="{{ path('admin_event_xmlWriter')}}" method="post" target="hidden_frame" >
         <input type="hidden" name="data" value="" id="data">
     </form>
-    <input type="button" name="save" value="save" onclick="enregistrer()" >
+
 
 	<div class="dhx_cal_container panel" id="scheduler_here">
+
 		<div class="dhx_cal_navline">
 			<div class="dhx_cal_prev_button">&nbsp;</div>
 			<div class="dhx_cal_next_button">&nbsp;</div>
@@ -54,11 +52,12 @@
 
 	<div class="well">
 		<div>
-			<a class="logo" title="DHTMLX - JavaScript Web App Framework &amp; UI Widgets" href="http://dhtmlx.com/docs/products/dhtmlxScheduler/">&copy; DHTMLX</a>
+			<a class="logo" title="DHTMLX - JavaScript Web App Framework &amp; UI Widgets" href="http://dhtmlx.com/docs/products/dhtmlxScheduler/"></a>
 		</div>
 	</div>
 
 </div>
+        <input type="button" name="save" value="save" onclick="enregistrer()" >
 
 {% endblock %}
 {% block javascripts %}
