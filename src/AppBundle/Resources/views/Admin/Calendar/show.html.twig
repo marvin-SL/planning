@@ -71,9 +71,28 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+{#}{{dump(item.0.subject.teachers.owner.teachers.0.firstName )}}#}
 var event_opts = [
-    {% for label in item %}
+    {#{% for label in item %}
      { key: "{{label.name }}", label: '{% autoescape true %}{{label.name }}{% endautoescape %}' },
+    {% endfor %}#}
+];
+
+var subjects = [
+    {% for key in item %}
+     { key: "{{key.subject.name }}", label: '{% autoescape true %}{{key.subject.name }}{% endautoescape %}' },
+    {% endfor %}
+];
+
+var rooms = [
+    {% for key in item %}
+     { key: "{{key.classRoom.name }}", label: '{% autoescape true %}{{key.classRoom.name }}{% endautoescape %}' },
+    {% endfor %}
+];
+
+var teachers = [
+    {% for key, value in item %}
+     { key: "{{value.subject.teachers.owner.teachers.0.firstName }}", label: '{% autoescape true %}{{value.subject.teachers.owner.teachers.0.firstName }}{% endautoescape %}' },
     {% endfor %}
 ];
 
@@ -82,7 +101,9 @@ scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 
 scheduler.config.lightbox.sections = [
     { name:"text", height:50, map_to:"text", type:"textarea", focus:true },
-    { name:"Salle", height:40, map_to:"room", type:"select", options:event_opts},
+    { name:"Matière :", height:40, map_to:"subject", type:"select", options:subjects},
+    { name:"Salle :", height:40, map_to:"room", type:"select", options:rooms},
+    { name:"Enseignant :", height:40, map_to:"teachers", type:"select", options:teachers},
     { name:"time", height:72, type:"time", map_to:"auto"}
 ];
 
@@ -91,7 +112,9 @@ scheduler.data_attributes = function(){
         ["start_date", scheduler.templates.xml_format],
         ["end_date", scheduler.templates.xml_format],
         ["text"],
+        ["subject"],
         ["room"],
+        ["teachers"],
         ["id"],
     ];
 };
