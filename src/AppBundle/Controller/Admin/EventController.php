@@ -35,7 +35,7 @@ class EventController extends Controller
     public function xmlWriterAction(Request $request)
     {
         $data = $request->request->get("data");
-        //dump($data);die;
+        // var_dump(dirname("web/bundles/app/events.xml"));die;
         file_put_contents("../web/bundles/app/events.xml",$data);
         // $event = new Event();
         // $event->setNotice("test");
