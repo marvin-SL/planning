@@ -6,9 +6,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Calendar;
-use AppBundle\Form\CalendarType;
 use AppBundle\Entity\ClassRoom;
-use AppBundle\Form\ClassRoomType;
+use AppBundle\Entity\Teacher;
+use AppBundle\Entity\Subject;
+
+
 
 class CalendarController extends Controller
 {
@@ -37,24 +39,38 @@ class CalendarController extends Controller
 
     public function showAction(Request $request)
     {
-        $entity = new ClassRoom();
-        $repository = $this->getDoctrine()
+
+        $teachers = new Teacher();
+        $subjects = new Subject();
+        $classRooms = new ClassRoom();
+
+        $teacherRepository = $this->getDoctrine()
+        ->getRepository('AppBundle:Teacher');
+
+        $subjectRepository = $this->getDoctrine()
+        ->getRepository('AppBundle:Subject');
+
+        $classRoomRepository = $this->getDoctrine()
             ->getRepository('AppBundle:ClassRoom');
 
-        $item= $repository->findAll();
+        $teacherNode = $teacherRepository->findAll();
+        $subjectNode = $subjectRepository->findAll();
+        $classRoomNode = $classRoomRepository->findAll();
 
-        $form = $this->createForm(new ClassRoomType(), $entity);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid())
-        {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
-            $em->flush();
-        }
+        // $form = $this->createForm(new EventType(), $entity);
+        //
+        // $form->handleRequest($request);
+        //
+        // if ($form->isValid())
+        // {
+        //     $em = $this->getDoctrine()->getManager();
+        //     $em->persist($event);
+        //     $em->flush();
+        // }
         return $this->render('AppBundle:Admin/Calendar:show.html.twig', array(
-            'item' => $item,
+            'teacherNode' => $teacherNode,
+            'subjectNode' => $subjectNode,
+            'classRoomNode' => $classRoomNode,
         ));
     }
 
