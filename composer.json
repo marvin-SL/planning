@@ -24,7 +24,8 @@
         "friendsofsymfony/jsrouting-bundle": "^1.5",
         "adesigns/calendar-bundle": "^1.1",
         "symfony/serializer": "^2.7",
-        "symfony/property-access": "^2.7"
+        "symfony/property-access": "^2.7",
+        "knplabs/knp-menu": "^2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
