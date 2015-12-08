@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -144,10 +142,14 @@
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
-                        <li class="active">
-                            <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <li {% block activeMenu1 %}
+                            {% set tab = "class=deactive" %}
+                        {{tab}}{% endblock %}>
+                            <a href="{{ path("admin_dashboard")}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                         </li>
-                        <li>
+                        <li {% block activeMenu2 %}
+                            {% set tab = "class=deactive" %}
+                        {{tab}}{% endblock %}>
                             <a href="{{ path("admin_calendar_show")}}"><i class="fa fa-fw fa-table"></i> Planning</a>
                         </li>
                         <li>
@@ -184,7 +186,10 @@
             <div id="page-wrapper">
 
 
-                {% block body %}{% endblock %}
+                {% block body %}
+                    {% set tabDashboard = "class=deactivate" %}
+                    {% set tabPlanning = "class=deactivate" %}
+                {% endblock %}
                 <!-- /.container-fluid -->
 
             </div>

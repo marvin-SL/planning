@@ -1,8 +1,13 @@
 {% extends '::base.html.twig' %}
-
+{% block head %} {% endblock %}
 {% block title %}
 Tableau de bord
 {{ parent() }}
+{% endblock %}
+
+{% block activeMenu1 %}
+    {% set tab = "class=active" %}
+    {{tab}}
 {% endblock %}
 
 {% block titre %}Tableau de bord{% endblock %}
