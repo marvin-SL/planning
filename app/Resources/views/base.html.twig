@@ -21,6 +21,8 @@
             <![endif]-->
             {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <!-- jQuery -->
+        <script src="{{ asset('bundles/app/js/jquery.js') }}"></script>
         {% block head %}{% endblock %}
     </head>
 
@@ -192,8 +194,7 @@
         <!-- /#wrapper -->
 
 
-            <!-- jQuery -->
-            <script src="{{ asset('bundles/app/js/jquery.js') }}"></script>
+
 
             <!-- Bootstrap Core JavaScript -->
             <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
