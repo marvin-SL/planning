@@ -29,7 +29,7 @@ class Subject
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Teacher", cascade={"persist"})
      */
     private $teachers;
 
