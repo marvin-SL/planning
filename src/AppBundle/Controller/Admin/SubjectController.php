@@ -10,6 +10,12 @@ use AppBundle\Form\SubjectType;
 
 class SubjectController extends Controller
 {
+
+    public function indexAction(Request $request)
+    {
+        return $this->render('AppBundle:Admin/Subject:index.html.twig');
+    }
+    
     public function newAction(Request $request)
     {
         // replace this example code with whatever you need
