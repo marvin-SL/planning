@@ -140,21 +140,7 @@
                     </li>
                 </ul>
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-                <!-- <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav side-nav">
-                        <li {% block activeMenu1 %}
-                            {% set tab = "class=deactive" %}
-                        {{tab}}{% endblock %}>
-                            <a href="{{ path("admin_dashboard")}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                        </li>
-                        <li {#}{% block activeMenu2 %}#}
-                            {#}{% set tab = "class=deactive" %}#}
-                        {#}{{tab}}{% endblock %}>#}
-                            <a href="{#}{{ path("admin_calendar_show")}}#}"><i class="fa fa-fw fa-table"></i> Planning</a>
-                        </li>
-                    </ul>
-                </div> -->
-                {{knp_menu_render('main', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
+                {{knp_menu_render('main', {'template': 'AppBundle:Menu:knp_menu.html.twig', 'currentClass': 'active'})}}
                 <!-- /.navbar-collapse -->
             </nav>
 
