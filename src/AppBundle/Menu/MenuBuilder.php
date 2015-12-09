@@ -37,8 +37,23 @@ class MenuBuilder
         ));
 
         $menu->addChild('Planning', array('route' => 'admin_calendar_show',
-        'label' => 'Planning',
-        'extras'    => array('icon'  => 'fa fa-fw fa-table')
+        'label' => 'Plannings',
+        'extras'    => array('icon'  => 'fa fa-fw fa-calendar')
+        ));
+
+        $menu->addChild('Subject', array('route' => 'admin_subject_index',
+        'label' => 'Matières',
+        'extras'    => array('icon'  => 'fa fa-fw fa-language ')
+        ));
+
+        $menu->addChild('Teacher', array('route' => 'admin_teacher_index',
+        'label' => 'Enseignants',
+        'extras'    => array('icon'  => 'fa fa-fw fa-users')
+        ));
+
+        $menu->addChild('ClassRoom', array('route' => 'admin_class_room_index',
+        'label' => 'Salles',
+        'extras'    => array('icon'  => 'fa fa-fw fa-map-marker ')
         ));
     // ... ajoutez ici les autres liens de base
 
