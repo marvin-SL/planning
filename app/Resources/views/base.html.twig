@@ -140,46 +140,21 @@
                     </li>
                 </ul>
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <!-- <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
                         <li {% block activeMenu1 %}
                             {% set tab = "class=deactive" %}
                         {{tab}}{% endblock %}>
                             <a href="{{ path("admin_dashboard")}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                         </li>
-                        <li {% block activeMenu2 %}
-                            {% set tab = "class=deactive" %}
-                        {{tab}}{% endblock %}>
-                            <a href="{{ path("admin_calendar_show")}}"><i class="fa fa-fw fa-table"></i> Planning</a>
+                        <li {#}{% block activeMenu2 %}#}
+                            {#}{% set tab = "class=deactive" %}#}
+                        {#}{{tab}}{% endblock %}>#}
+                            <a href="{#}{{ path("admin_calendar_show")}}#}"><i class="fa fa-fw fa-table"></i> Planning</a>
                         </li>
-                        <!-- <li>
-                            <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                        </li>
-                        <li>
-                            <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                        </li>
-                        <li>
-                            <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                            <ul id="demo" class="collapse">
-                                <li>
-                                    <a href="#">Dropdown Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Dropdown Item</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                        </li>
-                        <li>
-                            <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                        </li> -->
                     </ul>
-                </div>
+                </div> -->
+                {{knp_menu_render('main', {'template': 'AppBundle:Menu:knp_menu.html.twig'}) }}
                 <!-- /.navbar-collapse -->
             </nav>
 
@@ -197,7 +172,7 @@
 
         </div>
         <!-- /#wrapper -->
-{{ knp_menu_render('main') }}
+
 
 
 
