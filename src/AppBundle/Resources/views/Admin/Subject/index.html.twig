@@ -3,6 +3,31 @@
 {% endblock %}
 
 {% block body %}
-
-
+<h1 class="page-header">
+    Matières
+</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Bordered Table</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Libellé</th>
+                        <th>Enseignant</th>
+                        <th>Editer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{dump(subjects.0)}}
+                    <tr>
+                        <td>/index.html</td>
+                        <td>1265</td>
+                        <td>32.3%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

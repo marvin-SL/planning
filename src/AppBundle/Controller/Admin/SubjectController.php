@@ -13,9 +13,16 @@ class SubjectController extends Controller
 
     public function indexAction(Request $request)
     {
-        return $this->render('AppBundle:Admin/Subject:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $subjects = $em->getRepository('AppBundle:Subject')->findAll();
+dump($subjects);die;
+
+        return $this->render('AppBundle:Admin/Subject:index.html.twig', array(
+            'subjects' =>$subjects
+        ));
     }
-    
+
     public function newAction(Request $request)
     {
         // replace this example code with whatever you need
