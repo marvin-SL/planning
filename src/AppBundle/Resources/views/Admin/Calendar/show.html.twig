@@ -120,7 +120,7 @@ scheduler.init('scheduler_here',new Date(2014,5,30),"week");
 scheduler.templates.event_text=function(start,end,event){
 			return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classRoom+"</b><br> Enseignant: <b>"+event.teacher+"</b><br>"+"infos: <b>"+event.infos+"</b></br>";
 		}
-scheduler.load("{{ asset('bundles/app/events.xml') }}")
+scheduler.load("{{ asset('data/events.xml') }}")
 
 function enregistrer(){
     var form = document.getElementById("xml_form");
