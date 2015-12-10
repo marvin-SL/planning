@@ -18,7 +18,7 @@
                 <thead>
                     <tr>
                         <th>Libellé</th>
-                        <th>Enseignant</th>
+                        <th>Enseignant(s)</th>
                         <th>Editer</th>
                     </tr>
                 </thead>
@@ -27,9 +27,11 @@
                     {% for subject in subjects %}
                     <tr>
                         <td>{{subject.name}}</td>
+                        <td>
                         {% for teacher in subject.teachers %}
-                            <td>{{ teacher.firstName }}, {{ teacher.lastName }}</td>
+                            {{ teacher.firstName }}, {{ teacher.lastName }}</br>
                         {% endfor %}
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
