@@ -15,8 +15,20 @@ class SubjectController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $subjects = $em->getRepository('AppBundle:Subject')->findAll();
-        
+        $teachers = $em->getRepository('AppBundle:Teacher')->findAll();
+
+        $rslt = $em->getRepository('AppBundle:Subject')->findByTeachers($teachers);
+        // foreach ($teachers as $teacher) {
+        //
+        //     $teachersSubject = $em->getRepository('AppBundle:Subject')->findTeachersSubject($teacher);
+        //
+        //         dump($teachersSubject);
+        // }die;
+        dump($rslt);die;
+
+
+        $subjects = $em->getRepository('AppBundle:Subject')->findTeachersSubject();
+
         return $this->render('AppBundle:Admin/Subject:index.html.twig', array(
             'subjects' =>$subjects
         ));
@@ -32,7 +44,7 @@ class SubjectController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid())
-        {   //dump($subject);die;
+        {
             $em = $this->getDoctrine()->getManager();
             $em->persist($subject);
             $em->flush();
