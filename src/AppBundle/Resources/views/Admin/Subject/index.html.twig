@@ -4,6 +4,9 @@
 
 {% block body %}
 
+
+{% for teacher in subjects %}
+{% endfor %}
 <h1 class="page-header">
     Matières
 </h1>
@@ -23,7 +26,7 @@
                     {% for subject in subjects %}
                     <tr>
                         <td>{{subject.name}}</td>
-                        <td>{{subject.teacher.lastName}}</td>
+                        <td></td>
                         <td>
                     </tr>
                     {% endfor %}
