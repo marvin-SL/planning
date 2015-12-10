@@ -19,7 +19,7 @@ admin_event_xmlWriter:
     defaults:   {_controller: AppBundle:Admin/Event:xmlWriter }
 
 admin_subject_index:
-      path:    /admin/subject
+      path:    /admin/subjects
       defaults:  {_controller: AppBundle:Admin/Subject:index}
 
 admin_subject_new:
