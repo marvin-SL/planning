@@ -29,9 +29,9 @@ class Subject
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Teacher", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher", cascade={"persist"})
      */
-    private $teacher;
+    private $teachers;
 
     /**
     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="subject", cascade={"persist"})
@@ -103,6 +103,7 @@ class Subject
     public function __construct()
     {
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->teachers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -140,27 +141,13 @@ class Subject
     }
 
     /**
-     * Set teacher
-     *
-     * @param string $teacher
-     *
-     * @return Subject
-     */
-    public function setTeacher($teacher)
-    {
-        $this->teacher = $teacher;
-
-        return $this;
-    }
-
-    /**
-     * Get teacher
+     * Get teachers
      *
      * @return string
      */
-    public function getTeacher()
+    public function getTeachers()
     {
-        return $this->teacher;
+        return $this->teachers;
     }
 
     /**
@@ -172,7 +159,7 @@ class Subject
      */
     public function addTeacher(\AppBundle\Entity\Teacher $teacher)
     {
-        $this->teacher[] = $teacher;
+        $this->teachers[] = $teacher;
 
         return $this;
     }
@@ -184,6 +171,6 @@ class Subject
      */
     public function removeTeacher(\AppBundle\Entity\Teacher $teacher)
     {
-        $this->teacher->removeElement($teacher);
+        $this->teachers->removeElement($teacher);
     }
 }
