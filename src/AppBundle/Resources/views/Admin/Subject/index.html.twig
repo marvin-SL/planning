@@ -23,11 +23,13 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     {% for subject in subjects %}
                     <tr>
                         <td>{{subject.name}}</td>
-                        <td></td>
-                        <td>
+                        {% for teacher in subject.teachers %}
+                            <td>{{ teacher.firstName }}, {{ teacher.lastName }}</td>
+                        {% endfor %}
                     </tr>
                     {% endfor %}
                 </tbody>

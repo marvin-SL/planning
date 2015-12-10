@@ -8,8 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Subject
  *
  * @ORM\Table()
- * @ORM\Entity
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\SubjectRepository")
+* @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\SubjectRepository")
  */
 class Subject
 {
@@ -75,7 +74,7 @@ class Subject
     }
 
     /**
-     * Set classclassRoom
+     * Set classRoom
      *
      * @param integer $classRoom
      *
