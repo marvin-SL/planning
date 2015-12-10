@@ -3,6 +3,7 @@
 {% endblock %}
 
 {% block body %}
+
 <h1 class="page-header">
     Matières
 </h1>
@@ -19,12 +20,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{dump(subjects.0)}}
+                    {% for subject in subjects %}
                     <tr>
-                        <td>/index.html</td>
-                        <td>1265</td>
-                        <td>32.3%</td>
+                        <td>{{subject.name}}</td>
+                        <td>{{subject.teacher.lastName}}</td>
+                        <td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

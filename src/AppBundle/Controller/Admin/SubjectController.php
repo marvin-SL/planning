@@ -16,8 +16,7 @@ class SubjectController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $subjects = $em->getRepository('AppBundle:Subject')->findAll();
-dump($subjects);die;
-
+        
         return $this->render('AppBundle:Admin/Subject:index.html.twig', array(
             'subjects' =>$subjects
         ));
@@ -33,7 +32,7 @@ dump($subjects);die;
         $form->handleRequest($request);
 
         if ($form->isValid())
-        {
+        {   //dump($subject);die;
             $em = $this->getDoctrine()->getManager();
             $em->persist($subject);
             $em->flush();
