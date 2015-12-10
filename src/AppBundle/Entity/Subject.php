@@ -31,7 +31,7 @@ class Subject
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Teacher", cascade={"persist"})
      */
-    private $teachers;
+    private $teacher;
 
     /**
     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="subject", cascade={"persist"})
@@ -140,27 +140,27 @@ class Subject
     }
 
     /**
-     * Set teachers
+     * Set teacher
      *
-     * @param string $teachers
+     * @param string $teacher
      *
      * @return Subject
      */
-    public function setTeachers($teachers)
+    public function setTeacher($teacher)
     {
-        $this->teachers = $teachers;
+        $this->teacher = $teacher;
 
         return $this;
     }
 
     /**
-     * Get teachers
+     * Get teacher
      *
      * @return string
      */
-    public function getTeachers()
+    public function getTeacher()
     {
-        return $this->teachers;
+        return $this->teacher;
     }
 
     /**
@@ -172,7 +172,7 @@ class Subject
      */
     public function addTeacher(\AppBundle\Entity\Teacher $teacher)
     {
-        $this->teachers[] = $teacher;
+        $this->teacher[] = $teacher;
 
         return $this;
     }
@@ -184,6 +184,6 @@ class Subject
      */
     public function removeTeacher(\AppBundle\Entity\Teacher $teacher)
     {
-        $this->teachers->removeElement($teacher);
+        $this->teacher->removeElement($teacher);
     }
 }
