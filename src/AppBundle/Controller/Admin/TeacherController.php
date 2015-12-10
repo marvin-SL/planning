@@ -10,6 +10,12 @@ use AppBundle\Form\TeacherType;
 
 class TeacherController extends Controller
 {
+
+    public function indexAction(Request $request)
+    {
+        return $this->render('AppBundle:Admin/Teacher:index.html.twig');
+    }
+
     public function newAction(Request $request)
     {
         // replace this example code with whatever you need

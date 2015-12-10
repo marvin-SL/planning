@@ -10,6 +10,11 @@ use AppBundle\Form\ClassRoomType;
 
 class ClassRoomController extends Controller
 {
+    public function indexAction(Request $request)
+    {
+        return $this->render('AppBundle:Admin/classRoom:index.html.twig');
+    }
+
     public function newAction(Request $request)
     {
         $classRoom = new ClassRoom();

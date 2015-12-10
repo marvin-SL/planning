@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block head %}<script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script> {% endblock %}
+{% block head %} {% endblock %}
 {% block title %} {% endblock %}
 
 {% block stylesheets %}
@@ -26,7 +26,6 @@
 
 {% block body %}
 <div class="container-fluid">
-
 
     <form id="xml_form" action="{{ path('admin_event_xmlWriter')}}" method="post" target="hidden_frame" >
         <input type="hidden" name="data" value="" id="data">
@@ -68,8 +67,6 @@
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
 <script type="text/javascript">
 
 
@@ -97,7 +94,7 @@ scheduler.locale.labels.section_select = 'Salle';
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 
 scheduler.config.lightbox.sections = [
-    { name:"infos", height:50, map_to:"text", type:"textarea", focus:true },
+    { name:"infos", height:50, map_to:"infos", type:"textarea", focus:true },
     { name:"Matière :", height:40, map_to:"subject", type:"select", options:subjects},
     { name:"Salle :", height:40, map_to:"classRoom", type:"select", options:classRooms},
     { name:"Enseignant :", height:40, map_to:"teacher", type:"select", options:teachers},
@@ -123,7 +120,7 @@ scheduler.init('scheduler_here',new Date(2014,5,30),"week");
 scheduler.templates.event_text=function(start,end,event){
 			return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classRoom+"</b><br> Enseignant: <b>"+event.teacher+"</b><br>"+"infos: <b>"+event.infos+"</b></br>";
 		}
-scheduler.load("{{ asset('bundles/app/events.xml') }}")
+scheduler.load("{{ asset('data/events.xml') }}")
 
 function enregistrer(){
     var form = document.getElementById("xml_form");

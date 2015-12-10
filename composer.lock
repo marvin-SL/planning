@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "704ad82becb59474861215bf930eb27f",
-    "content-hash": "9b1108efb4ed62990d8f828f1750f099",
+    "hash": "19b34ab3ad92c2c405ae7fa3fd446d6e",
+    "content-hash": "acc1752f502c1e5518daf0eb373c33d3",
     "packages": [
         {
             "name": "adesigns/calendar-bundle",
@@ -997,7 +997,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/45d6f40178216a840885b4ca6d7de9e67068568a",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/e39b040e272c72f0a090c67d802e1d3b2d0b0313",
                 "reference": "d5b28c367d393f9d9fbc48c4138b2a74d51c0c83",
                 "shasum": ""
             },

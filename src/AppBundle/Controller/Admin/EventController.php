@@ -36,7 +36,8 @@ class EventController extends Controller
     {
         $data = $request->request->get("data");
         // var_dump(dirname("web/bundles/app/events.xml"));die;
-        file_put_contents("../web/bundles/app/events.xml",$data);
+        $path = $this->get('kernel')->getRootDir() . '/../web/data/events.xml';
+        file_put_contents($path,$data);
         // $event = new Event();
         // $event->setNotice("test");
         //

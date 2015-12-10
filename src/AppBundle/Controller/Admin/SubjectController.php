@@ -10,6 +10,36 @@ use AppBundle\Form\SubjectType;
 
 class SubjectController extends Controller
 {
+
+    public function indexAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+         $teachers = $em->getRepository('AppBundle:Teacher')->findAll();
+
+
+
+$subjects = $em->getRepository('AppBundle:Subject')->findAll();
+//
+// $results = [];
+//     foreach ($subjects as $subject) {
+//          $results[]['name'] = $subject->getName();
+//
+//         foreach ($subject->getTeachers() as $teacher){
+//
+//              $results[]['teacher_firstname'] = $teacher->getFirstName();
+//              $results[]['teacher_lastname'] = $teacher->getLastName();
+//         }
+//      }
+
+// dump($subjects);die;
+
+
+        return $this->render('AppBundle:Admin/Subject:index.html.twig', array(
+            'subjects' =>$subjects
+        ));
+    }
+
     public function newAction(Request $request)
     {
         // replace this example code with whatever you need

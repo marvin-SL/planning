@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Subject
  *
  * @ORM\Table()
- * @ORM\Entity
+* @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\SubjectRepository")
  */
 class Subject
 {
@@ -74,7 +74,7 @@ class Subject
     }
 
     /**
-     * Set classclassRoom
+     * Set classRoom
      *
      * @param integer $classRoom
      *
@@ -103,6 +103,7 @@ class Subject
     public function __construct()
     {
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->teachers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -137,20 +138,6 @@ class Subject
     public function getEvents()
     {
         return $this->events;
-    }
-
-    /**
-     * Set teachers
-     *
-     * @param string $teachers
-     *
-     * @return Subject
-     */
-    public function setTeachers($teachers)
-    {
-        $this->teachers = $teachers;
-
-        return $this;
     }
 
     /**
