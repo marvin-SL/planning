@@ -53,9 +53,23 @@ class CalendarController extends Controller
         $classRoomRepository = $this->getDoctrine()
             ->getRepository('AppBundle:ClassRoom');
 
-        $teacherNode = $teacherRepository->findAll();
-        $subjectNode = $subjectRepository->findAll();
-        $classRoomNode = $classRoomRepository->findAll();
+        $teachers = $teacherRepository->findAll();
+        $subjects = $subjectRepository->findAll();
+        $classRooms = $classRoomRepository->findAll();
+
+        $results = [];
+
+        for($i = 0; $i < sizeof($subjects); $i++){
+            $results['subject'][$i]['subjectName']=$subjects[$i]->getName();
+            //   $results['subject'][]['subjectName'][$subjects[$i]->getName()]['firstname'][] = $teacher->getFirstName();
+            foreach ($subjects[$i]->getTeachers() as $teacher){
+                for($y = 0; $y < sizeof($subjects[$i]); $y++){
+
+                    $results['subject'][$i]['firstname'][] = $teacher->getFirstName();
+                    $results['subject'][$i]['lastname'][] = $teacher->getLastName();
+                }
+            }
+        }
 
         // $form = $this->createForm(new EventType(), $entity);
         //
@@ -67,10 +81,12 @@ class CalendarController extends Controller
         //     $em->persist($event);
         //     $em->flush();
         // }
+
         return $this->render('AppBundle:Admin/Calendar:show.html.twig', array(
-            'teacherNode' => $teacherNode,
-            'subjectNode' => $subjectNode,
-            'classRoomNode' => $classRoomNode,
+            'teachers' => $teachers,
+            'subjects' => $subjects,
+            'classRooms' => $classRooms,
+            'results' => $results,
         ));
     }
 

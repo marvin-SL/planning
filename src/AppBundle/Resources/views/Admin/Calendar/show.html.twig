@@ -67,28 +67,45 @@
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
+
+{% for result in results %}
+{% for subject in result %}
+
+    matiere : {{subject.subjectName}} <br>
+
+    {% for lastname in subject.lastname %}
+        prof : {{lastname}} -
+
+
+    {% endfor %}
+
+    {% for firstname in subject.firstname %}
+        {{firstname}} <br>
+    {% endfor %}
+
+
+-------
+
+{% endfor %}
+{% endfor %}
+
 <script type="text/javascript">
 
 
+
 var subjects = [
-    {% for key in subjectNode %}
-     { key: "{{key.name }}", label: '{% autoescape true %}{{key.name }}{% endautoescape %}' },
+    {% for subject in subjects %}
+        {% for teacher in subject.teachers %}
+            { key: "{{subject.name }}, {{teacher.firstName}}", label: '{% autoescape true %}{{subject.name }} - {{teacher.firstName}}{% endautoescape %}' },
+         {% endfor %}
     {% endfor %}
 ];
 
 var classRooms = [
-    {% for key in classRoomNode %}
-     { key: "{{key.name }}", label: '{% autoescape true %}{{key.name }}{% endautoescape %}' },
+    {% for classRoom in classRooms %}
+     { key: "{{classRoom.name }}", label: '{% autoescape true %}{{classRoom.name }}{% endautoescape %}' },
     {% endfor %}
 ];
-
-var teachers = [
-    {% for key in teacherNode %}
-     { key: "{{key.firstName }}", label: '{% autoescape true %}{{key.firstName }}{% endautoescape %}' },
-    {% endfor %}
-];
-
-
 
 scheduler.locale.labels.section_select = 'Salle';
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
@@ -97,7 +114,6 @@ scheduler.config.lightbox.sections = [
     { name:"infos", height:50, map_to:"infos", type:"textarea", focus:true },
     { name:"Matière :", height:40, map_to:"subject", type:"select", options:subjects},
     { name:"Salle :", height:40, map_to:"classRoom", type:"select", options:classRooms},
-    { name:"Enseignant :", height:40, map_to:"teacher", type:"select", options:teachers},
     { name:"time", height:72, type:"time", map_to:"auto"}
 ];
 
