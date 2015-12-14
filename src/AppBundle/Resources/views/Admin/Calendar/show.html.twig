@@ -69,37 +69,33 @@
 
 
 {% for result in results %}
-{% for subject in result %}
-
-    matiere : {{subject.subjectName}} <br>
-
-    {% for lastname in subject.lastname %}
-        prof : {{lastname}} -
-
-
+    {% for subject in result %}
+        {{subject.subjectName}}
+        {% for lastname in subject.lastname %}
+                {{lastname}}
+        {% endfor %}
     {% endfor %}
-
-    {% for firstname in subject.firstname %}
-        {{firstname}} <br>
-    {% endfor %}
-
-
--------
-
-{% endfor %}
 {% endfor %}
 
 <script type="text/javascript">
-
-
-
 var subjects = [
-    {% for subject in subjects %}
-        {% for teacher in subject.teachers %}
-            { key: "{{subject.name }}, {{teacher.firstName}}", label: '{% autoescape true %}{{subject.name }} - {{teacher.firstName}}{% endautoescape %}' },
-         {% endfor %}
+    {% for result in results %}
+        {% for subject in result %}
+
+             {% set nomMatiere = "{{subject.subjectName}}" %}
+
+            {% for lastname in subject.lastname %}
+
+                {% set string2 = '{ key: "'"#{subject.subjectName}-#{lastname}"'",'%}
+                {% set string3 = 'label:"' "#{subject.subjectName}-#{lastname}" '"},'   %}
+
+                 {{string2|striptags|raw }}
+                 {{string3|striptags|raw }}
+             {% endfor %}
+        {% endfor %}
     {% endfor %}
 ];
+
 
 var classRooms = [
     {% for classRoom in classRooms %}
