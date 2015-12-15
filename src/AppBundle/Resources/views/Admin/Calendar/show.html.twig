@@ -93,11 +93,11 @@ var subjects = [
                         {% set nomMatiere = "{{subject.subjectName}}" %}
                             {% for lastname in subject.lastname %}
                                 {% set var = var ~ lastname %}
-                                {% set string2 = '{ key: "'"#{subject.subjectName}-#{lastname}"'",'%}
+                                {% set string2 = '{ key: "'"#{subject.subjectName}-#{subject.lastname|join(' - ')}"'",'%}
                                 {% set string3 = 'label:"' "#{subject.subjectName} : #{subject.lastname|join(' - ')}" '"},'%}
                             {% endfor %}
-                            {{string2|striptags|raw}}
-                            {{string3|striptags|raw}}
+                            {{string2|raw}}
+                            {{string3|raw}}
                 {% endfor %}
 
     {% endfor %}
@@ -126,7 +126,6 @@ scheduler.data_attributes = function(){
         ["end_date", scheduler.templates.xml_format],
         ["subject"],
         ["classRoom"],
-        ["teacher"],
         ["infos"],
         ["id"],
     ];
