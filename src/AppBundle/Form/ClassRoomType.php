@@ -10,7 +10,7 @@ class ClassRoomType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('name', 'text', array('label' => 'Nom matière'))
+        ->add('name', 'text', array('label' => 'Salle:'))
         ->add('save', 'submit', array('label' => 'Créer'))
         ;
     }
@@ -18,7 +18,7 @@ class ClassRoomType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Subject',
+            'data_class' => 'AppBundle\Entity\ClassRoom',
         ));
     }
 

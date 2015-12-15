@@ -32,16 +32,16 @@ class Event
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="start", type="datetime")
+     * @ORM\Column(name="start_date", type="datetime")
      */
-    private $start;
+    private $startDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="end", type="datetime")
+     * @ORM\Column(name="end_date", type="datetime")
      */
-    private $end;
+    private $endDate;
 
     /**
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events")
@@ -72,51 +72,27 @@ class Event
     }
 
     /**
-     * Set start
+     * Set startDate
      *
-     * @param \DateTime $start
+     * @param \DateTime $startDate
      *
      * @return Event
      */
-    public function setStart($start)
+    public function setStartDate($startDate)
     {
-        $this->start = $start;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
     /**
-     * Get start
+     * Get startDate
      *
      * @return \DateTime
      */
-    public function getStart()
+    public function getStartDate()
     {
-        return $this->start;
-    }
-
-    /**
-     * Set end
-     *
-     * @param \DateTime $end
-     *
-     * @return Event
-     */
-    public function setEnd($end)
-    {
-        $this->end = $end;
-
-        return $this;
-    }
-
-    /**
-     * Get end
-     *
-     * @return \DateTime
-     */
-    public function getEnd()
-    {
-        return $this->end;
+        return $this->startDate;
     }
 
     /**
@@ -213,5 +189,29 @@ class Event
     public function getNotice()
     {
         return $this->notice;
+    }
+
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     *
+     * @return Event
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \DateTime
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 }

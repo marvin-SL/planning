@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+{% endblock %}
+
+{% block body %}
+
+
+{% for teacher in subjects %}
+{% endfor %}
+<h1 class="page-header">
+    Matières
+</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Bordered Table</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Libellé</th>
+                        <th>Enseignant(s)</th>
+                        <th>Editer</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for subject in subjects %}
+                    <tr>
+                        <td>{{subject.name}}</td>
+                        <td>
+                        {% for teacher in subject.teachers %}
+                            {{ teacher.firstName }}, {{ teacher.lastName }}</br>
+                        {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

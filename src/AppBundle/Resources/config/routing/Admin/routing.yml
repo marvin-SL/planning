@@ -1,0 +1,43 @@
+admin_dashboard:
+    path:       /admin/dashboard
+    defaults:  {_controller: AppBundle:Admin/Dashboard:index}
+
+admin_calendar_new:
+     path:        /admin/calendar/new
+     defaults:  {_controller: AppBundle:Admin/Calendar:new}
+
+admin_calendar_show:
+    path:    /admin/calendar/show
+    defaults:  {_controller: AppBundle:Admin/Calendar:show}
+
+admin_event_new:
+      path:    /admin/event/new
+      defaults:  {_controller: AppBundle:Admin/Event:new}
+
+admin_event_xmlWriter:
+    path:       /admin/event/xmlWriter
+    defaults:   {_controller: AppBundle:Admin/Event:xmlWriter }
+
+admin_subject_index:
+      path:    /admin/subjects
+      defaults:  {_controller: AppBundle:Admin/Subject:index}
+
+admin_subject_new:
+      path:    /admin/subject/new
+      defaults:  {_controller: AppBundle:Admin/Subject:new}
+
+admin_teacher_index:
+      path:    /admin/teacher
+      defaults:   {_controller: AppBundle:Admin/Teacher:index}
+
+admin_teacher_new:
+      path:    /admin/teacher/new
+      defaults:   {_controller: AppBundle:Admin/Teacher:new}
+
+admin_class_room_index:
+      path:    /admin/classroom
+      defaults:    {_controller: AppBundle:Admin/ClassRoom:index}
+
+admin_class_room:
+      path:    /admin/classroom/new
+      defaults:    {_controller: AppBundle:Admin/ClassRoom:new}

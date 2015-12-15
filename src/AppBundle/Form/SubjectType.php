@@ -14,7 +14,8 @@ class SubjectType extends AbstractType
         ->add('teachers', 'entity', array(
               'class' => 'AppBundle:Teacher',
               'choice_label' => 'lastName',
-              'label' => 'Professeur'
+              'label' => 'Enseignant',
+              'multiple'    => true,
             ))
         ->add('save', 'submit', array('label' => 'Créer'))
         ;

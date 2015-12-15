@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+{% block head %} {% endblock %}
+{% block title %} {% endblock %}
+
+{% block stylesheets %}
+{% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
+
+<style type="text/css">
+    html, body{ height:100%; padding:0px; margin:0px; }
+    .well {
+        text-align: right;
+    }
+    .container-fluid #scheduler_here {
+        height: 700px;
+        width: 100%;
+        border: 1px solid #cecece;
+        top : 50px;
+    }
+    #scheduler_here {
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <form id="xml_form" action="{{ path('admin_event_xmlWriter')}}" method="post" target="hidden_frame" >
+        <input type="hidden" name="data" value="" id="data">
+    </form>
+
+
+	<div class="dhx_cal_container panel" id="scheduler_here">
+
+		<div class="dhx_cal_navline">
+			<div class="dhx_cal_prev_button">&nbsp;</div>
+			<div class="dhx_cal_next_button">&nbsp;</div>
+			<div class="dhx_cal_today_button"></div>
+			<div class="dhx_cal_date"></div>
+
+			<div class="dhx_cal_tab" name="day_tab"></div>
+			<div class="dhx_cal_tab" name="week_tab"></div>
+			<div class="dhx_cal_tab" name="month_tab"></div>
+			<div class="dhx_cal_tab" name="year_tab"></div>
+		</div>
+		<div class="dhx_cal_header"></div>
+		<div class="dhx_cal_data"></div>
+	</div>
+
+	<div class="well">
+		<div>
+			<a class="logo" title="DHTMLX - JavaScript Web App Framework &amp; UI Widgets" href="http://dhtmlx.com/docs/products/dhtmlxScheduler/"></a>
+		</div>
+	</div>
+
+</div>
+        <input type="button" name="save" value="save" onclick="enregistrer()" >
+
+{% endblock %}
+{% block javascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_serialize.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+{% for result in results %}
+    {% for subject in result %}
+        {{subject.subjectName}}
+        {% for lastname in subject.lastname %}
+                {{lastname}}
+        {% endfor %}
+    {% endfor %}
+{% endfor %}
+
+<script type="text/javascript">
+{% set string2 = null %}
+{% set string3 = null %}
+
+var subjects = [
+    {% for result in results %}
+
+            {% for key, subject in result %}
+
+                        {% set nomMatiere = "{{subject.subjectName}}" %}
+                            {% for lastname in subject.lastname %}
+                                {% set string2 = '{ key: "'"#{subject.subjectName} : #{subject.lastname|join(' - ')}"'",'%}
+                                {% set string3 = 'label:"' "#{subject.subjectName} : #{subject.lastname|join(' - ')}" '"},'%}
+                            {% endfor %}
+                            {{string2|raw}}
+                            {{string3|raw}}
+                {% endfor %}
+
+    {% endfor %}
+
+];
+
+var classRooms = [
+    {% for classRoom in classRooms %}
+     { key: "{{classRoom.name }}", label: '{% autoescape true %}{{classRoom.name }}{% endautoescape %}' },
+    {% endfor %}
+];
+
+scheduler.locale.labels.section_select = 'Salle';
+scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+
+scheduler.config.lightbox.sections = [
+    { name:"infos", height:50, map_to:"notice", type:"textarea", focus:true },
+    { name:"Matière :", height:40, map_to:"subject", type:"select", options:subjects},
+    { name:"Salle :", height:40, map_to:"classRoom", type:"select", options:classRooms},
+    { name:"time", height:72, type:"time", map_to:"auto"}
+];
+
+scheduler.data_attributes = function(){
+    return [
+        ["start_date", scheduler.templates.xml_format],
+        ["end_date", scheduler.templates.xml_format],
+        ["subject"],
+        ["classRoom"],
+        ["notice"],
+        ["id"],
+    ];
+};
+
+scheduler.config.first_hour = 8;
+scheduler.config.limit_time_select = true;
+
+scheduler.init('scheduler_here',new Date(2014,5,30),"week");
+scheduler.templates.event_text=function(start,end,event){
+			return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classRoom+"</b><br>"+"infos: <b>"+event.infos+"</b></br>";
+		}
+scheduler.load("{{ asset('data/events.xml') }}")
+
+function enregistrer(){
+    var form = document.getElementById("xml_form");
+    form.elements.data.value = scheduler.toXML();
+    form.submit();
+}
+
+</script>
+{% endblock %}
