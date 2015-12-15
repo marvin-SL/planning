@@ -66,7 +66,9 @@
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_serialize.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
-
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
 
 {% for result in results %}
     {% for subject in result %}
@@ -78,10 +80,6 @@
 {% endfor %}
 
 <script type="text/javascript">
-{% set tab = [] %}
-{% set tabKeys = [] %}
-{% set tabLabels = [] %}
-{% set var = null %}
 {% set string2 = null %}
 {% set string3 = null %}
 
@@ -92,7 +90,6 @@ var subjects = [
 
                         {% set nomMatiere = "{{subject.subjectName}}" %}
                             {% for lastname in subject.lastname %}
-                                {% set var = var ~ lastname %}
                                 {% set string2 = '{ key: "'"#{subject.subjectName} : #{subject.lastname|join(' - ')}"'",'%}
                                 {% set string3 = 'label:"' "#{subject.subjectName} : #{subject.lastname|join(' - ')}" '"},'%}
                             {% endfor %}
@@ -114,7 +111,7 @@ scheduler.locale.labels.section_select = 'Salle';
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 
 scheduler.config.lightbox.sections = [
-    { name:"infos", height:50, map_to:"infos", type:"textarea", focus:true },
+    { name:"infos", height:50, map_to:"notice", type:"textarea", focus:true },
     { name:"Matière :", height:40, map_to:"subject", type:"select", options:subjects},
     { name:"Salle :", height:40, map_to:"classRoom", type:"select", options:classRooms},
     { name:"time", height:72, type:"time", map_to:"auto"}
@@ -126,7 +123,7 @@ scheduler.data_attributes = function(){
         ["end_date", scheduler.templates.xml_format],
         ["subject"],
         ["classRoom"],
-        ["infos"],
+        ["notice"],
         ["id"],
     ];
 };
