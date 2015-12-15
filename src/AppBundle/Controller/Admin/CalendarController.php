@@ -9,6 +9,8 @@ use AppBundle\Entity\Calendar;
 use AppBundle\Entity\ClassRoom;
 use AppBundle\Entity\Teacher;
 use AppBundle\Entity\Subject;
+use AppBundle\Entity\Event;
+use AppBundle\Form\EventType;
 
 
 
@@ -70,6 +72,19 @@ class CalendarController extends Controller
             }
         }
 
+        $event = new Event();
+
+        $form = $this->createForm(new EventType(), $event);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+        }
+
         // $form = $this->createForm(new EventType(), $entity);
         //
         // $form->handleRequest($request);
@@ -86,6 +101,7 @@ class CalendarController extends Controller
             'subjects' => $subjects,
             'classRooms' => $classrooms,
             'results' => $results,
+            'form' => $form->createView(),
         ));
     }
 

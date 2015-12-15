@@ -39,8 +39,11 @@ class EventController extends Controller
     public function xmlWriterAction(Request $request)
     {
         $data = $request->request->get("data");
+
+        $a = $request->request->all();
+        dump($a);die;
         // var_dump(dirname("web/bundles/app/events.xml"));die;
-        
+
         $path = $this->get('kernel')->getRootDir() . '/../web/data/events.xml';
 
         file_put_contents($path,$data);
@@ -55,8 +58,6 @@ class EventController extends Controller
 
         $xmlContent = $serializer->serialize($event, 'xml');
 
-        dump($xmlContent);
-        dump($data);die;
 
         return $this->redirect($this->generateUrl('admin_calendar_show'));
     }
