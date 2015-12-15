@@ -53,9 +53,8 @@ class CalendarController extends Controller
         $classRoomRepository = $this->getDoctrine()
             ->getRepository('AppBundle:ClassRoom');
 
-        $teachers = $teacherRepository->findAll();
+        $classrooms = $classRoomRepository->findAll();
         $subjects = $subjectRepository->findAll();
-        $classRooms = $classRoomRepository->findAll();
 
         $results = [];
 
@@ -85,7 +84,7 @@ class CalendarController extends Controller
         return $this->render('AppBundle:Admin/Calendar:show.html.twig', array(
             'teachers' => $teachers,
             'subjects' => $subjects,
-            'classRooms' => $classRooms,
+            'classRooms' => $classrooms,
             'results' => $results,
         ));
     }

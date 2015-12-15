@@ -93,7 +93,7 @@ var subjects = [
                         {% set nomMatiere = "{{subject.subjectName}}" %}
                             {% for lastname in subject.lastname %}
                                 {% set var = var ~ lastname %}
-                                {% set string2 = '{ key: "'"#{subject.subjectName}-#{subject.lastname|join(' - ')}"'",'%}
+                                {% set string2 = '{ key: "'"#{subject.subjectName} : #{subject.lastname|join(' - ')}"'",'%}
                                 {% set string3 = 'label:"' "#{subject.subjectName} : #{subject.lastname|join(' - ')}" '"},'%}
                             {% endfor %}
                             {{string2|raw}}
@@ -136,7 +136,7 @@ scheduler.config.limit_time_select = true;
 
 scheduler.init('scheduler_here',new Date(2014,5,30),"week");
 scheduler.templates.event_text=function(start,end,event){
-			return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classRoom+"</b><br> Enseignant: <b>"+event.teacher+"</b><br>"+"infos: <b>"+event.infos+"</b></br>";
+			return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classRoom+"</b><br>"+"infos: <b>"+event.infos+"</b></br>";
 		}
 scheduler.load("{{ asset('data/events.xml') }}")
 
