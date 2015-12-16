@@ -44,19 +44,19 @@ class Event
     private $endDate;
 
     /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events", fetch="EAGER")
    * @ORM\JoinColumn(nullable=false)
    */
     private $calendar;
 
     /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject", cascade={"persist"}, inversedBy="events")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject", cascade={"persist"}, inversedBy="events", fetch="EAGER")
    * @ORM\JoinColumn(nullable=false)
    */
     private $subject;
 
     /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ClassRoom", cascade={"persist"}, inversedBy="events")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ClassRoom", cascade={"persist"}, inversedBy="events", fetch="EAGER")
    * @ORM\JoinColumn(nullable=false)
    */
     private $classRoom;

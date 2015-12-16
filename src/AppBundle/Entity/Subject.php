@@ -73,29 +73,6 @@ class Subject
         return $this->name;
     }
 
-    /**
-     * Set classRoom
-     *
-     * @param integer $classRoom
-     *
-     * @return Subject
-     */
-    public function setClassRoom($classRoom)
-    {
-        $this->classRoom = $classRoom;
-
-        return $this;
-    }
-
-    /**
-     * Get classRoom
-     *
-     * @return integer
-     */
-    public function getClassRoom()
-    {
-        return $this->classRoom;
-    }
 
     /**
      * Constructor

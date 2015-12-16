@@ -58,6 +58,7 @@ class EventController extends Controller
 
         $xmlContent = $serializer->serialize($event, 'xml');
 
+        dump($xmlContent);die;
 
         return $this->redirect($this->generateUrl('admin_calendar_show'));
     }
