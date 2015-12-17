@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\HttpFoundation\Response;
+use JMS\Serializer\SerializationContext;
 
 
 
@@ -60,6 +61,8 @@ class CalendarController extends Controller
 
         $classRoomRepository = $this->getDoctrine()
             ->getRepository('AppBundle:ClassRoom');
+        $eventRepository = $this->getDoctrine()
+            ->getRepository('AppBundle:Event');
 
         $classrooms = $classRoomRepository->findAll();
         $subjects = $subjectRepository->findAll();
@@ -78,26 +81,38 @@ class CalendarController extends Controller
             }
         }
 
+        $query = $eventRepository->createQueryBuilder ( 'e' )->getQuery ()->getResult ();
+
+		$rootNode = new \SimpleXMLElement( "<data></data>" );
+
+
+		foreach($query as $value){
+         //dump($value);die;
+                //  $eventNode->addChild("subject", $value->getSubject()->getName()."-".$value->getSubject()->getTeachers()->getFirstName());
+                 foreach($value->getSubject()->getTeachers() as $teacher){
+                     dump($teacher);
+                 }
+            $eventNode = $rootNode->addChild('event');
+            $eventNode->addChild("start_date", $value->getStartDate()->format('Y-m-d H:i:s'));
+            $eventNode->addChild("end_date", $value->getEndDate()->format('Y-m-d H:i:s'));
+            $eventNode->addChild("classroom", $value->getClassRoom()->getName());
+            $eventNode->addChild("id", $value->getId());
+
+		}
+        dump($rootNode->asXML());die;
+
         $eventRepository = $this->getDoctrine()
         ->getRepository('AppBundle:Event');
 
         $event = new Event();
 
         $eventList = $eventRepository->findAll();
-        //
-        // $encoder = array(new XmlEncoder());
-        // $normalizer = array(new ObjectNormalizer());
-        // $normalizer[0]->setIgnoredAttributes(array('calendar', 'timezone', 'timestamp', 'offset', ));
-        // $normalizer[0]->setCircularReferenceHandler(function ($object) {
-        //     return $object->getId();
-        // });
-        //
-        // $serializer = new Serializer($normalizer, $encoder);
+
 
         $serializer = $this->get('jms_serializer');
+        $context = new SerializationContext();
 
-
-        $xmlContent = $serializer->serialize($eventList, 'xml');
+        $xmlContent = $serializer->serialize($eventList, 'xml', SerializationContext::create()->setGroups(array('xml')));
         //dump($xmlContent);die;
         $path = $this->get('kernel')->getRootDir() . '/../web/data/events2.xml';
 

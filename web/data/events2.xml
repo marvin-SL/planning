@@ -1,435 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <result>
   <entry>
-    <id>17</id>
+    <class_room>
+      <name><![CDATA[C343, Copernic (en face des chiottes)]]></name>
+    </class_room>
     <notice><![CDATA[]]></notice>
     <start_date><![CDATA[2015-10-28T16:15:30+0100]]></start_date>
     <end_date><![CDATA[2015-10-28T13:15:30+0100]]></end_date>
-    <calendar>
-      <id>16</id>
-      <title><![CDATA[groupe 1]]></title>
-      <events>
-        <entry/>
-        <entry>
-          <id>18</id>
-          <notice><![CDATA[]]></notice>
-          <start_date><![CDATA[2015-10-29T09:15:30+0100]]></start_date>
-          <end_date><![CDATA[2015-10-29T12:15:30+0100]]></end_date>
-          <subject>
-            <id>19</id>
-            <name><![CDATA[PHP]]></name>
-            <teachers>
-              <entry>
-                <id>17</id>
-                <first_name><![CDATA[Dominique]]></first_name>
-                <last_name><![CDATA[Cardon]]></last_name>
-              </entry>
-            </teachers>
-            <events>
-              <entry/>
-            </events>
-          </subject>
-          <class_room>
-            <id>23</id>
-            <name><![CDATA[B212 Bois d'ébène]]></name>
-            <events>
-              <entry/>
-            </events>
-          </class_room>
-        </entry>
-      </events>
-    </calendar>
     <subject>
-      <id>18</id>
       <name><![CDATA[Angais]]></name>
       <teachers>
         <entry>
-          <id>16</id>
           <first_name><![CDATA[Trudy]]></first_name>
           <last_name><![CDATA[Julian]]></last_name>
         </entry>
       </teachers>
-      <events>
-        <entry/>
-        <entry>
-          <id>20</id>
-          <notice><![CDATA[En association avec le master Numi]]></notice>
-          <start_date><![CDATA[2015-10-31T09:15:30+0100]]></start_date>
-          <end_date><![CDATA[2015-10-31T12:15:30+0100]]></end_date>
-          <calendar>
-            <id>18</id>
-            <title><![CDATA[groupe 3]]></title>
-            <events>
-              <entry/>
-            </events>
-          </calendar>
-          <class_room>
-            <id>24</id>
-            <name><![CDATA[Parking]]></name>
-            <events>
-              <entry/>
-            </events>
-          </class_room>
-        </entry>
-      </events>
     </subject>
-    <class_room>
-      <id>22</id>
-      <name><![CDATA[C343, Copernic (en face des chiottes)]]></name>
-      <events>
-        <entry/>
-        <entry>
-          <id>19</id>
-          <notice><![CDATA[Bonzon]]></notice>
-          <start_date><![CDATA[2015-10-30T09:15:30+0100]]></start_date>
-          <end_date><![CDATA[2015-10-30T12:15:30+0100]]></end_date>
-          <calendar>
-            <id>17</id>
-            <title><![CDATA[groupe 2]]></title>
-            <events>
-              <entry/>
-            </events>
-          </calendar>
-          <subject>
-            <id>20</id>
-            <name><![CDATA[Socio]]></name>
-            <teachers>
-              <entry>
-                <id>18</id>
-                <first_name><![CDATA[Thierry]]></first_name>
-                <last_name><![CDATA[Bonzon]]></last_name>
-              </entry>
-            </teachers>
-            <events>
-              <entry/>
-            </events>
-          </subject>
-        </entry>
-      </events>
-    </class_room>
   </entry>
   <entry>
-    <id>18</id>
+    <class_room>
+      <name><![CDATA[B212 Bois d'ébène]]></name>
+    </class_room>
     <notice><![CDATA[]]></notice>
     <start_date><![CDATA[2015-10-29T09:15:30+0100]]></start_date>
     <end_date><![CDATA[2015-10-29T12:15:30+0100]]></end_date>
-    <calendar>
-      <id>16</id>
-      <title><![CDATA[groupe 1]]></title>
-      <events>
-        <entry>
-          <id>17</id>
-          <notice><![CDATA[]]></notice>
-          <start_date><![CDATA[2015-10-28T16:15:30+0100]]></start_date>
-          <end_date><![CDATA[2015-10-28T13:15:30+0100]]></end_date>
-          <subject>
-            <id>18</id>
-            <name><![CDATA[Angais]]></name>
-            <teachers>
-              <entry>
-                <id>16</id>
-                <first_name><![CDATA[Trudy]]></first_name>
-                <last_name><![CDATA[Julian]]></last_name>
-              </entry>
-            </teachers>
-            <events>
-              <entry/>
-              <entry>
-                <id>20</id>
-                <notice><![CDATA[En association avec le master Numi]]></notice>
-                <start_date><![CDATA[2015-10-31T09:15:30+0100]]></start_date>
-                <end_date><![CDATA[2015-10-31T12:15:30+0100]]></end_date>
-                <calendar>
-                  <id>18</id>
-                  <title><![CDATA[groupe 3]]></title>
-                  <events>
-                    <entry/>
-                  </events>
-                </calendar>
-                <class_room>
-                  <id>24</id>
-                  <name><![CDATA[Parking]]></name>
-                  <events>
-                    <entry/>
-                  </events>
-                </class_room>
-              </entry>
-            </events>
-          </subject>
-          <class_room>
-            <id>22</id>
-            <name><![CDATA[C343, Copernic (en face des chiottes)]]></name>
-            <events>
-              <entry/>
-              <entry>
-                <id>19</id>
-                <notice><![CDATA[Bonzon]]></notice>
-                <start_date><![CDATA[2015-10-30T09:15:30+0100]]></start_date>
-                <end_date><![CDATA[2015-10-30T12:15:30+0100]]></end_date>
-                <calendar>
-                  <id>17</id>
-                  <title><![CDATA[groupe 2]]></title>
-                  <events>
-                    <entry/>
-                  </events>
-                </calendar>
-                <subject>
-                  <id>20</id>
-                  <name><![CDATA[Socio]]></name>
-                  <teachers>
-                    <entry>
-                      <id>18</id>
-                      <first_name><![CDATA[Thierry]]></first_name>
-                      <last_name><![CDATA[Bonzon]]></last_name>
-                    </entry>
-                  </teachers>
-                  <events>
-                    <entry/>
-                  </events>
-                </subject>
-              </entry>
-            </events>
-          </class_room>
-        </entry>
-        <entry/>
-      </events>
-    </calendar>
     <subject>
-      <id>19</id>
       <name><![CDATA[PHP]]></name>
       <teachers>
         <entry>
-          <id>17</id>
           <first_name><![CDATA[Dominique]]></first_name>
           <last_name><![CDATA[Cardon]]></last_name>
         </entry>
       </teachers>
-      <events>
-        <entry/>
-      </events>
     </subject>
-    <class_room>
-      <id>23</id>
-      <name><![CDATA[B212 Bois d'ébène]]></name>
-      <events>
-        <entry/>
-      </events>
-    </class_room>
   </entry>
   <entry>
-    <id>19</id>
+    <class_room>
+      <name><![CDATA[C343, Copernic (en face des chiottes)]]></name>
+    </class_room>
     <notice><![CDATA[Bonzon]]></notice>
     <start_date><![CDATA[2015-10-30T09:15:30+0100]]></start_date>
     <end_date><![CDATA[2015-10-30T12:15:30+0100]]></end_date>
-    <calendar>
-      <id>17</id>
-      <title><![CDATA[groupe 2]]></title>
-      <events>
-        <entry/>
-      </events>
-    </calendar>
     <subject>
-      <id>20</id>
       <name><![CDATA[Socio]]></name>
       <teachers>
         <entry>
-          <id>18</id>
           <first_name><![CDATA[Thierry]]></first_name>
           <last_name><![CDATA[Bonzon]]></last_name>
         </entry>
       </teachers>
-      <events>
-        <entry/>
-      </events>
     </subject>
-    <class_room>
-      <id>22</id>
-      <name><![CDATA[C343, Copernic (en face des chiottes)]]></name>
-      <events>
-        <entry>
-          <id>17</id>
-          <notice><![CDATA[]]></notice>
-          <start_date><![CDATA[2015-10-28T16:15:30+0100]]></start_date>
-          <end_date><![CDATA[2015-10-28T13:15:30+0100]]></end_date>
-          <calendar>
-            <id>16</id>
-            <title><![CDATA[groupe 1]]></title>
-            <events>
-              <entry/>
-              <entry>
-                <id>18</id>
-                <notice><![CDATA[]]></notice>
-                <start_date><![CDATA[2015-10-29T09:15:30+0100]]></start_date>
-                <end_date><![CDATA[2015-10-29T12:15:30+0100]]></end_date>
-                <subject>
-                  <id>19</id>
-                  <name><![CDATA[PHP]]></name>
-                  <teachers>
-                    <entry>
-                      <id>17</id>
-                      <first_name><![CDATA[Dominique]]></first_name>
-                      <last_name><![CDATA[Cardon]]></last_name>
-                    </entry>
-                  </teachers>
-                  <events>
-                    <entry/>
-                  </events>
-                </subject>
-                <class_room>
-                  <id>23</id>
-                  <name><![CDATA[B212 Bois d'ébène]]></name>
-                  <events>
-                    <entry/>
-                  </events>
-                </class_room>
-              </entry>
-            </events>
-          </calendar>
-          <subject>
-            <id>18</id>
-            <name><![CDATA[Angais]]></name>
-            <teachers>
-              <entry>
-                <id>16</id>
-                <first_name><![CDATA[Trudy]]></first_name>
-                <last_name><![CDATA[Julian]]></last_name>
-              </entry>
-            </teachers>
-            <events>
-              <entry/>
-              <entry>
-                <id>20</id>
-                <notice><![CDATA[En association avec le master Numi]]></notice>
-                <start_date><![CDATA[2015-10-31T09:15:30+0100]]></start_date>
-                <end_date><![CDATA[2015-10-31T12:15:30+0100]]></end_date>
-                <calendar>
-                  <id>18</id>
-                  <title><![CDATA[groupe 3]]></title>
-                  <events>
-                    <entry/>
-                  </events>
-                </calendar>
-                <class_room>
-                  <id>24</id>
-                  <name><![CDATA[Parking]]></name>
-                  <events>
-                    <entry/>
-                  </events>
-                </class_room>
-              </entry>
-            </events>
-          </subject>
-        </entry>
-        <entry/>
-      </events>
-    </class_room>
   </entry>
   <entry>
-    <id>20</id>
+    <class_room>
+      <name><![CDATA[Parking]]></name>
+    </class_room>
     <notice><![CDATA[En association avec le master Numi]]></notice>
     <start_date><![CDATA[2015-10-31T09:15:30+0100]]></start_date>
     <end_date><![CDATA[2015-10-31T12:15:30+0100]]></end_date>
-    <calendar>
-      <id>18</id>
-      <title><![CDATA[groupe 3]]></title>
-      <events>
-        <entry/>
-      </events>
-    </calendar>
     <subject>
-      <id>18</id>
       <name><![CDATA[Angais]]></name>
       <teachers>
         <entry>
-          <id>16</id>
           <first_name><![CDATA[Trudy]]></first_name>
           <last_name><![CDATA[Julian]]></last_name>
         </entry>
       </teachers>
-      <events>
-        <entry>
-          <id>17</id>
-          <notice><![CDATA[]]></notice>
-          <start_date><![CDATA[2015-10-28T16:15:30+0100]]></start_date>
-          <end_date><![CDATA[2015-10-28T13:15:30+0100]]></end_date>
-          <calendar>
-            <id>16</id>
-            <title><![CDATA[groupe 1]]></title>
-            <events>
-              <entry/>
-              <entry>
-                <id>18</id>
-                <notice><![CDATA[]]></notice>
-                <start_date><![CDATA[2015-10-29T09:15:30+0100]]></start_date>
-                <end_date><![CDATA[2015-10-29T12:15:30+0100]]></end_date>
-                <subject>
-                  <id>19</id>
-                  <name><![CDATA[PHP]]></name>
-                  <teachers>
-                    <entry>
-                      <id>17</id>
-                      <first_name><![CDATA[Dominique]]></first_name>
-                      <last_name><![CDATA[Cardon]]></last_name>
-                    </entry>
-                  </teachers>
-                  <events>
-                    <entry/>
-                  </events>
-                </subject>
-                <class_room>
-                  <id>23</id>
-                  <name><![CDATA[B212 Bois d'ébène]]></name>
-                  <events>
-                    <entry/>
-                  </events>
-                </class_room>
-              </entry>
-            </events>
-          </calendar>
-          <class_room>
-            <id>22</id>
-            <name><![CDATA[C343, Copernic (en face des chiottes)]]></name>
-            <events>
-              <entry/>
-              <entry>
-                <id>19</id>
-                <notice><![CDATA[Bonzon]]></notice>
-                <start_date><![CDATA[2015-10-30T09:15:30+0100]]></start_date>
-                <end_date><![CDATA[2015-10-30T12:15:30+0100]]></end_date>
-                <calendar>
-                  <id>17</id>
-                  <title><![CDATA[groupe 2]]></title>
-                  <events>
-                    <entry/>
-                  </events>
-                </calendar>
-                <subject>
-                  <id>20</id>
-                  <name><![CDATA[Socio]]></name>
-                  <teachers>
-                    <entry>
-                      <id>18</id>
-                      <first_name><![CDATA[Thierry]]></first_name>
-                      <last_name><![CDATA[Bonzon]]></last_name>
-                    </entry>
-                  </teachers>
-                  <events>
-                    <entry/>
-                  </events>
-                </subject>
-              </entry>
-            </events>
-          </class_room>
-        </entry>
-        <entry/>
-      </events>
     </subject>
+  </entry>
+  <entry>
     <class_room>
-      <id>24</id>
       <name><![CDATA[Parking]]></name>
-      <events>
-        <entry/>
-      </events>
     </class_room>
+    <notice><![CDATA[à poil]]></notice>
+    <start_date><![CDATA[2015-01-01T00:00:00+0100]]></start_date>
+    <end_date><![CDATA[2015-01-01T00:00:00+0100]]></end_date>
+    <subject>
+      <name><![CDATA[Sport]]></name>
+      <teachers>
+        <entry>
+          <first_name><![CDATA[Trudy]]></first_name>
+          <last_name><![CDATA[Julian]]></last_name>
+        </entry>
+        <entry>
+          <first_name><![CDATA[Dominique]]></first_name>
+          <last_name><![CDATA[Cardon]]></last_name>
+        </entry>
+        <entry>
+          <first_name><![CDATA[Thierry]]></first_name>
+          <last_name><![CDATA[Bonzon]]></last_name>
+        </entry>
+      </teachers>
+    </subject>
   </entry>
 </result>

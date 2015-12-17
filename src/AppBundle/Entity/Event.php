@@ -5,12 +5,16 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\VirtualProperty;
 use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Event
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ExclusionPolicy("all")
  */
 class Event
 {
@@ -28,6 +32,8 @@ class Event
      *
      * @ORM\Column(name="notice", type="string", length=255)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"xml"})
+     * @Expose
      */
     private $notice;
 
@@ -35,6 +41,8 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(name="start_date", type="datetime")
+     * @Groups({"xml"})
+     * @Expose
      */
     private $startDate;
 
@@ -42,24 +50,31 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(name="end_date", type="datetime")
+     * @Groups({"xml"})
+     * @Expose
      */
     private $endDate;
 
     /**
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events", fetch="EAGER")
    * @ORM\JoinColumn(nullable=false)
+   * @Groups({"xml"})
    */
     private $calendar;
 
     /**
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject", cascade={"persist"}, inversedBy="events", fetch="EAGER")
    * @ORM\JoinColumn(nullable=false)
+   * @Groups({"xml"})
+   * @Expose
    */
     private $subject;
 
     /**
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ClassRoom", cascade={"persist"}, inversedBy="events", fetch="EAGER")
    * @ORM\JoinColumn(nullable=false)
+   * @Groups({"xml"})
+      * @Expose
    */
     private $classRoom;
 
@@ -137,9 +152,6 @@ class Event
 
     /**
      * Get subject
-
-     * @VirtualProperty
-     * @SerializedName("")
      *
      * @return \AppBundle\Entity\Subject
      */
@@ -164,7 +176,8 @@ class Event
 
     /**
      * Get classRoom
-     *
+     * @VirtualProperty
+     * @SerializedName("test")
      * @return \AppBundle\Entity\ClassRoom
      */
     public function getClassRoom()

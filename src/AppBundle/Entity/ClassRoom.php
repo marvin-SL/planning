@@ -3,6 +3,11 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * ClassRoom
@@ -25,6 +30,8 @@ class ClassRoom
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Groups({"xml"})
+     * @Expose
      */
     private $name;
 
@@ -60,7 +67,8 @@ class ClassRoom
 
     /**
      * Get name
-     *
+     * @VirtualProperty
+     * @SerializedName("test")
      * @return string
      */
     public function getName()

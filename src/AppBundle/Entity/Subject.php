@@ -3,12 +3,18 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Subject
  *
  * @ORM\Table()
-* @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\SubjectRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\SubjectRepository")
+ * @ExclusionPolicy("all")
  */
 class Subject
 {
@@ -25,11 +31,15 @@ class Subject
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Groups({"xml"})
+     * @Expose
      */
     private $name;
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher", cascade={"persist"})
+     * @Groups({"xml"})
+     * @Expose
      */
     private $teachers;
 
@@ -65,6 +75,7 @@ class Subject
 
     /**
      * Get name
+     * @VirtualProperty
      *
      * @return string
      */
