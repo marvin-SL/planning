@@ -3,7 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\AccessorOrder;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\SerializedName;
 
 /**
  * Event
@@ -102,7 +103,6 @@ class Event
      * @param \AppBundle\Entity\Calendar $calendar
      *
      * @return Event
-     * @VirtualProperty
      */
     public function setCalendar(\AppBundle\Entity\Calendar $calendar)
     {
@@ -127,8 +127,6 @@ class Event
      * @param \AppBundle\Entity\Subject $subject
      *
      * @return Event
-     * @VirtualProperty
-     * @SerializedName("foo")
      */
     public function setSubject(\AppBundle\Entity\Subject $subject)
     {
@@ -139,6 +137,9 @@ class Event
 
     /**
      * Get subject
+
+     * @VirtualProperty
+     * @SerializedName("")
      *
      * @return \AppBundle\Entity\Subject
      */
