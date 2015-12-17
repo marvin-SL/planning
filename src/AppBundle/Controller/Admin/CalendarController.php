@@ -84,18 +84,21 @@ class CalendarController extends Controller
         $event = new Event();
 
         $eventList = $eventRepository->findAll();
+        //
+        // $encoder = array(new XmlEncoder());
+        // $normalizer = array(new ObjectNormalizer());
+        // $normalizer[0]->setIgnoredAttributes(array('calendar', 'timezone', 'timestamp', 'offset', ));
+        // $normalizer[0]->setCircularReferenceHandler(function ($object) {
+        //     return $object->getId();
+        // });
+        //
+        // $serializer = new Serializer($normalizer, $encoder);
 
-        $encoder = array(new XmlEncoder());
-        $normalizer = array(new ObjectNormalizer());
-        $normalizer[0]->setIgnoredAttributes(array('calendar', 'timezone', 'timestamp', 'offset', ));
-        $normalizer[0]->setCircularReferenceHandler(function ($object) {
-            return $object->getId();
-        });
+        $serializer = $this->get('jms_serializer');
 
-        $serializer = new Serializer($normalizer, $encoder);
 
         $xmlContent = $serializer->serialize($eventList, 'xml');
-
+        //dump($xmlContent);die;
         $path = $this->get('kernel')->getRootDir() . '/../web/data/events2.xml';
 
         file_put_contents($path,$xmlContent);
