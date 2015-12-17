@@ -57,39 +57,7 @@ class Calendar
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
 
-    /**
-     * Set event
-     *
-     * @param \AppBundle\Entity\Event $event
-     *
-     * @return Calendar
-     */
-    public function setEvent(\AppBundle\Entity\Event $event)
-    {
-        $this->event = $event;
-
-        return $this;
-    }
-
-    /**
-     * Get event
-     *
-     * @return \AppBundle\Entity\Event
-     */
-    public function getEvent()
-    {
-        return $this->event;
-    }
 
     /**
      * Get title

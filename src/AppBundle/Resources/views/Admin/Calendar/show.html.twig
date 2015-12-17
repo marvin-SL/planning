@@ -58,6 +58,32 @@
 </div>
         <input type="button" name="save" value="save" onclick="enregistrer()" >
 
+        <!-- Trigger the modal with a button -->
+        <button style="visibility:hidden" type="button" id="modal" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+        <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+          {{ form_start(form) }}
+          {{ form_widget(form) }}
+          {{ form_end(form) }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 {% endblock %}
 {% block javascripts %}
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
@@ -134,7 +160,15 @@ scheduler.config.limit_time_select = true;
 scheduler.init('scheduler_here',new Date(2014,5,30),"week");
 scheduler.templates.event_text=function(start,end,event){
 			return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classRoom+"</b><br>"+"infos: <b>"+event.infos+"</b></br>";
+
 		}
+
+scheduler.showLightbox = function(id){
+    var event = scheduler.getEvent(id);
+    document.getElementById("modal").click();
+    //window.location.href = 'edit.php?event=' + id;
+
+}
 scheduler.load("{{ asset('data/events.xml') }}")
 
 function enregistrer(){

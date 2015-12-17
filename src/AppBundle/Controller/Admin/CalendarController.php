@@ -11,7 +11,15 @@ use AppBundle\Entity\Teacher;
 use AppBundle\Entity\Subject;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
+<<<<<<< HEAD
 
+=======
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+>>>>>>> cec8660b678a211d1d4374c8565d7bb3eb88ab2a
 
 
 class CalendarController extends Controller
@@ -72,19 +80,48 @@ class CalendarController extends Controller
             }
         }
 
+<<<<<<< HEAD
         $event = new Event();
 
+=======
+
+        $eventRepository = $this->getDoctrine()
+        ->getRepository('AppBundle:Event');
+
+        $event = new Event();
+
+        $eventList = $eventRepository->findAll();
+
+        $encoder = array(new XmlEncoder());
+        $normalizer = array(new ObjectNormalizer());
+        //$normalizer[0]->setIgnoredAttributes(array('lazyPropertiesDefaults'));
+        $normalizer[0]->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+
+        $serializer = new Serializer($normalizer, $encoder);
+
+        $xmlContent = $serializer->serialize($eventList, 'xml');
+
+        dump($xmlContent);die;
+
+>>>>>>> cec8660b678a211d1d4374c8565d7bb3eb88ab2a
         $form = $this->createForm(new EventType(), $event);
 
         $form->handleRequest($request);
 
         if ($form->isValid())
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> cec8660b678a211d1d4374c8565d7bb3eb88ab2a
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
         }
 
+<<<<<<< HEAD
         // $form = $this->createForm(new EventType(), $entity);
         //
         // $form->handleRequest($request);
@@ -95,6 +132,9 @@ class CalendarController extends Controller
         //     $em->persist($event);
         //     $em->flush();
         // }
+=======
+
+>>>>>>> cec8660b678a211d1d4374c8565d7bb3eb88ab2a
 
         return $this->render('AppBundle:Admin/Calendar:show.html.twig', array(
             'teachers' => $teachers,
