@@ -145,9 +145,9 @@ scheduler.config.lightbox.sections = [
 
 scheduler.data_attributes = function(){
     return [
-        ["start_date", scheduler.templates.xml_format],
-        ["end_date", scheduler.templates.xml_format],
-        ["subject"],
+        ["startDate", scheduler.templates.xml_format],
+        ["endDate", scheduler.templates.xml_format],
+        ["subject", "id"],
         ["classRoom"],
         ["notice"],
         ["id"],
@@ -169,7 +169,7 @@ scheduler.showLightbox = function(id){
     //window.location.href = 'edit.php?event=' + id;
 
 }
-scheduler.load("{{ asset('data/events.xml') }}")
+scheduler.load("{{ asset('data/events2.xml') }}")
 
 function enregistrer(){
     var form = document.getElementById("xml_form");

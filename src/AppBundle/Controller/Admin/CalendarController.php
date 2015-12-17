@@ -11,15 +11,13 @@ use AppBundle\Entity\Teacher;
 use AppBundle\Entity\Subject;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
-<<<<<<< HEAD
-
-=======
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
->>>>>>> cec8660b678a211d1d4374c8565d7bb3eb88ab2a
+use Symfony\Component\HttpFoundation\Response;
+
 
 
 class CalendarController extends Controller
@@ -80,11 +78,6 @@ class CalendarController extends Controller
             }
         }
 
-<<<<<<< HEAD
-        $event = new Event();
-
-=======
-
         $eventRepository = $this->getDoctrine()
         ->getRepository('AppBundle:Event');
 
@@ -94,7 +87,7 @@ class CalendarController extends Controller
 
         $encoder = array(new XmlEncoder());
         $normalizer = array(new ObjectNormalizer());
-        //$normalizer[0]->setIgnoredAttributes(array('lazyPropertiesDefaults'));
+        $normalizer[0]->setIgnoredAttributes(array('calendar', 'timezone', 'timestamp', 'offset', ));
         $normalizer[0]->setCircularReferenceHandler(function ($object) {
             return $object->getId();
         });
@@ -103,38 +96,21 @@ class CalendarController extends Controller
 
         $xmlContent = $serializer->serialize($eventList, 'xml');
 
-        dump($xmlContent);die;
+        $path = $this->get('kernel')->getRootDir() . '/../web/data/events2.xml';
 
->>>>>>> cec8660b678a211d1d4374c8565d7bb3eb88ab2a
+        file_put_contents($path,$xmlContent);
+
         $form = $this->createForm(new EventType(), $event);
 
         $form->handleRequest($request);
 
         if ($form->isValid())
         {
-<<<<<<< HEAD
-=======
-
->>>>>>> cec8660b678a211d1d4374c8565d7bb3eb88ab2a
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
         }
 
-<<<<<<< HEAD
-        // $form = $this->createForm(new EventType(), $entity);
-        //
-        // $form->handleRequest($request);
-        //
-        // if ($form->isValid())
-        // {
-        //     $em = $this->getDoctrine()->getManager();
-        //     $em->persist($event);
-        //     $em->flush();
-        // }
-=======
-
->>>>>>> cec8660b678a211d1d4374c8565d7bb3eb88ab2a
 
         return $this->render('AppBundle:Admin/Calendar:show.html.twig', array(
             'teachers' => $teachers,

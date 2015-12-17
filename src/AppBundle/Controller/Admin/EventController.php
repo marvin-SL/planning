@@ -23,6 +23,7 @@ class EventController extends Controller
 
         $form->handleRequest($request);
 
+        
         if ($form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
@@ -40,8 +41,6 @@ class EventController extends Controller
     {
         $data = $request->request->get("data");
 
-        $a = $request->request->all();
-        dump($a);die;
         // var_dump(dirname("web/bundles/app/events.xml"));die;
 
         $path = $this->get('kernel')->getRootDir() . '/../web/data/events.xml';
@@ -57,6 +56,8 @@ class EventController extends Controller
         $serializer = new Serializer($normalizers, $encoders);
 
         $xmlContent = $serializer->serialize($event, 'xml');
+
+
 
 
         return $this->redirect($this->generateUrl('admin_calendar_show'));
