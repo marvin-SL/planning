@@ -52,6 +52,7 @@ class CalendarController extends Controller
         $teachers = new Teacher();
         $subjects = new Subject();
         $classRooms = new ClassRoom();
+        $event = new Event();
 
         $teacherRepository = $this->getDoctrine()
         ->getRepository('AppBundle:Teacher');
@@ -72,13 +73,19 @@ class CalendarController extends Controller
         for($i = 0; $i < sizeof($subjects); $i++){
             $results['subject'][$i]['subjectName']=$subjects[$i]->getName();
             //   $results['subject'][]['subjectName'][$subjects[$i]->getName()]['firstname'][] = $teacher->getFirstName();
-            foreach ($subjects[$i]->getTeachers() as $teacher){
-                for($y = 0; $y < sizeof($subjects[$i]); $y++){
+            foreach ($subjects[$i]->getTeachers() as $teacher)
+            {
+                for($y = 0; $y < sizeof($subjects[$i]); $y++)
+                {
 
                     $results['subject'][$i]['firstname'][] = $teacher->getFirstName();
                     $results['subject'][$i]['lastname'][] = $teacher->getLastName();
+
                 }
+
             }
+
+
         }
 
         $query = $eventRepository->createQueryBuilder ( 'e' )->getQuery ()->getResult ();
@@ -86,37 +93,33 @@ class CalendarController extends Controller
 		$rootNode = new \SimpleXMLElement( "<data></data>" );
 
 
-		foreach($query as $value){
-         //dump($value);die;
-                //  $eventNode->addChild("subject", $value->getSubject()->getName()."-".$value->getSubject()->getTeachers()->getFirstName());
-                 foreach($value->getSubject()->getTeachers() as $teacher){
-                     dump($teacher);
-                 }
+		foreach($query as $eventList){
+
             $eventNode = $rootNode->addChild('event');
-            $eventNode->addChild("start_date", $value->getStartDate()->format('Y-m-d H:i:s'));
-            $eventNode->addChild("end_date", $value->getEndDate()->format('Y-m-d H:i:s'));
-            $eventNode->addChild("classroom", $value->getClassRoom()->getName());
-            $eventNode->addChild("id", $value->getId());
+            $eventNode->addChild("start_date", $eventList->getStartDate()->format('Y-m-d H:i:s'));
+            $eventNode->addChild("end_date", $eventList->getEndDate()->format('Y-m-d H:i:s'));
+            $eventNode->addChild("classroom", $eventList->getClassRoom()->getName());
+            $eventNode->addChild("id", $eventList->getId());
 
 		}
-        dump($rootNode->asXML());die;
+
+        foreach($results as $matiereTab) // récupération des profs par matiere
+        {
+            foreach($matiereTab as $matiere)
+            {
+                    $teachersString = implode(",", $matiere['lastname']);
+                    $eventNode->addChild("subject", $matiere['subjectName']."-".$teachersString);
+            }
+        }
 
         $eventRepository = $this->getDoctrine()
         ->getRepository('AppBundle:Event');
 
-        $event = new Event();
-
         $eventList = $eventRepository->findAll();
 
-
-        $serializer = $this->get('jms_serializer');
-        $context = new SerializationContext();
-
-        $xmlContent = $serializer->serialize($eventList, 'xml', SerializationContext::create()->setGroups(array('xml')));
-        //dump($xmlContent);die;
         $path = $this->get('kernel')->getRootDir() . '/../web/data/events2.xml';
 
-        file_put_contents($path,$xmlContent);
+        file_put_contents($path,$rootNode->asXML());
 
         $form = $this->createForm(new EventType(), $event);
 
