@@ -92,26 +92,28 @@ class CalendarController extends Controller
 
 		$rootNode = new \SimpleXMLElement( "<data></data>" );
 
-
+        $i=0;
+        dump($results['subject'][0]['subjectName']);die;
 		foreach($query as $eventList){
 
             $eventNode = $rootNode->addChild('event');
+            $eventNode->addChild("id", $eventList->getId());
             $eventNode->addChild("start_date", $eventList->getStartDate()->format('Y-m-d H:i:s'));
             $eventNode->addChild("end_date", $eventList->getEndDate()->format('Y-m-d H:i:s'));
             $eventNode->addChild("classroom", $eventList->getClassRoom()->getName());
-            $eventNode->addChild("id", $eventList->getId());
-
-		}
-
-        foreach($results as $matiereTab) // récupération des profs par matiere
-        {
-            foreach($matiereTab as $matiere)
+            $eventNode->addChild("notice", $eventList->getNotice());
+            $eventNode->addChild("subject", $matiereTab[0]['subjectName']."-".$teachersString);
+            foreach($results as $matiereTab) // récupération des profs par matiere
             {
-                    $teachersString = implode(",", $matiere['lastname']);
-                    $eventNode->addChild("subject", $matiere['subjectName']."-".$teachersString);
+                foreach($matiereTab as $matiere)
+                {   dump($matiereTab[0]["subjectName"]);
+                        $teachersString = implode(",", $matiere['lastname']);
+                        $eventNode->addChild("subject", $matiere['subjectName']."-".$teachersString);
+                }
             }
-        }
+	      }
 
+        //dump($rootNode->asXML());die;
         $eventRepository = $this->getDoctrine()
         ->getRepository('AppBundle:Event');
 
