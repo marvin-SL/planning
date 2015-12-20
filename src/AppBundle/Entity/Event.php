@@ -31,9 +31,6 @@ class Event
      * @var string
      *
      * @ORM\Column(name="notice", type="string", length=255)
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"xml"})
-     * @Expose
      */
     private $notice;
 
@@ -41,8 +38,6 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(name="start_date", type="datetime")
-     * @Groups({"xml"})
-     * @Expose
      */
     private $startDate;
 
@@ -50,31 +45,25 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(name="end_date", type="datetime")
-     * @Groups({"xml"})
-     * @Expose
      */
     private $endDate;
 
     /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events", fetch="EAGER")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events"
    * @ORM\JoinColumn(nullable=false)
    * @Groups({"xml"})
    */
     private $calendar;
 
     /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject", cascade={"persist"}, inversedBy="events", fetch="EAGER")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject", cascade={"persist"}, inversedBy="events")
    * @ORM\JoinColumn(nullable=false)
-   * @Groups({"xml"})
-   * @Expose
    */
     private $subject;
 
     /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ClassRoom", cascade={"persist"}, inversedBy="events", fetch="EAGER")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ClassRoom", cascade={"persist"}, inversedBy="events")
    * @ORM\JoinColumn(nullable=false)
-   * @Groups({"xml"})
-      * @Expose
    */
     private $classRoom;
 

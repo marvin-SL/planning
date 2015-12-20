@@ -30,8 +30,6 @@ class Teacher
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
-     * @Groups({"xml"})
-     * @Expose
      */
     private $firstName;
 
@@ -39,8 +37,6 @@ class Teacher
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=255)
-     * @Groups({"xml"})
-     * @Expose
      */
     private $lastName;
 

@@ -31,15 +31,11 @@ class Subject
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Groups({"xml"})
-     * @Expose
      */
     private $name;
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher", cascade={"persist"})
-     * @Groups({"xml"})
-     * @Expose
      */
     private $teachers;
 
