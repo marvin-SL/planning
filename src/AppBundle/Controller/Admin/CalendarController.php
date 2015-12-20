@@ -69,31 +69,38 @@ class CalendarController extends Controller
         $subjects = $subjectRepository->findAll();
 
         $results = [];
+        $tabTeachers = [];
 
         for($i = 0; $i < sizeof($subjects); $i++){
             $results['subject'][$i]['subjectName']=$subjects[$i]->getName();
-            //   $results['subject'][]['subjectName'][$subjects[$i]->getName()]['firstname'][] = $teacher->getFirstName();
             foreach ($subjects[$i]->getTeachers() as $teacher)
             {
                 for($y = 0; $y < sizeof($subjects[$i]); $y++)
                 {
-
                     $results['subject'][$i]['firstname'][] = $teacher->getFirstName();
                     $results['subject'][$i]['lastname'][] = $teacher->getLastName();
+                }
+            }
+        }
+
+        for($i = 0; $i < sizeof($subjects); $i++){
+            $tabTeachers[]=$subjects[$i]->getName();
+            foreach ($subjects[$i]->getTeachers() as $teacher)
+            {
+
+                for($y = 0; $y < sizeof($subjects[$i]); $y++)
+                {
+
+                    $tabTeachers[$subjects[$i]->getName()][] = $teacher->getFirstName();
 
                 }
-
             }
-
-
         }
 
         $query = $eventRepository->createQueryBuilder ( 'e' )->getQuery ()->getResult ();
 
 		$rootNode = new \SimpleXMLElement( "<data></data>" );
 
-        $i=0;
-        dump($results['subject'][0]['subjectName']);die;
 		foreach($query as $eventList){
 
             $eventNode = $rootNode->addChild('event');
@@ -102,18 +109,9 @@ class CalendarController extends Controller
             $eventNode->addChild("end_date", $eventList->getEndDate()->format('Y-m-d H:i:s'));
             $eventNode->addChild("classroom", $eventList->getClassRoom()->getName());
             $eventNode->addChild("notice", $eventList->getNotice());
-            $eventNode->addChild("subject", $matiereTab[0]['subjectName']."-".$teachersString);
-            foreach($results as $matiereTab) // récupération des profs par matiere
-            {
-                foreach($matiereTab as $matiere)
-                {   dump($matiereTab[0]["subjectName"]);
-                        $teachersString = implode(",", $matiere['lastname']);
-                        $eventNode->addChild("subject", $matiere['subjectName']."-".$teachersString);
-                }
-            }
-	      }
+            $eventNode->addChild("subject", $eventList->getSubject()->getName()." / ".implode(",", $tabTeachers[$eventList->getSubject()->getName()]));
+        }
 
-        //dump($rootNode->asXML());die;
         $eventRepository = $this->getDoctrine()
         ->getRepository('AppBundle:Event');
 
