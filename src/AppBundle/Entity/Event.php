@@ -14,7 +14,6 @@ use JMS\Serializer\Annotation\Groups;
  *
  * @ORM\Table()
  * @ORM\Entity
- * @ExclusionPolicy("all")
  */
 class Event
 {
@@ -49,9 +48,8 @@ class Event
     private $endDate;
 
     /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events"
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events")
    * @ORM\JoinColumn(nullable=false)
-   * @Groups({"xml"})
    */
     private $calendar;
 
