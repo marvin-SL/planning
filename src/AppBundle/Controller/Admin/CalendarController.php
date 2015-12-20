@@ -142,4 +142,8 @@ class CalendarController extends Controller
         ));
     }
 
+    public function SerializeToXmlAction(Calendar $calendrier, Event $event){
+
+    }
+
 }
