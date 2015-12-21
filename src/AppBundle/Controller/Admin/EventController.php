@@ -7,10 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class EventController extends Controller
 {
@@ -23,7 +19,7 @@ class EventController extends Controller
 
         $form->handleRequest($request);
 
-        
+
         if ($form->isValid())
         {
             $em = $this->getDoctrine()->getManager();

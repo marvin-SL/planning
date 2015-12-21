@@ -11,13 +11,8 @@ use AppBundle\Entity\Teacher;
 use AppBundle\Entity\Subject;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\HttpFoundation\Response;
-use JMS\Serializer\SerializationContext;
+
 
 
 

@@ -71,7 +71,6 @@ class Subject
 
     /**
      * Get name
-     * @VirtualProperty
      *
      * @return string
      */
