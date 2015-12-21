@@ -18,7 +18,6 @@ class LoadSubjectData extends AbstractFixture implements OrderedFixtureInterface
     $subject2 =  new Subject();
     $subject3 =  new Subject();
 
-
     $subject1->setName('Angais');
     $subject1->addTeacher($this->getReference('teacher1'));
 
@@ -32,11 +31,9 @@ class LoadSubjectData extends AbstractFixture implements OrderedFixtureInterface
     $this->addReference('subject2', $subject2);
     $this->addReference('subject3', $subject3);
 
-
-
-        $manager->persist($subject1);
-        $manager->persist($subject2);
-        $manager->persist($subject3);
+    $manager->persist($subject1);
+    $manager->persist($subject2);
+    $manager->persist($subject3);
 
     $manager->flush();
 

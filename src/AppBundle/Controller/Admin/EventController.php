@@ -7,10 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class EventController extends Controller
 {
@@ -22,6 +18,7 @@ class EventController extends Controller
         $form = $this->createForm(new EventType(), $event);
 
         $form->handleRequest($request);
+
 
         if ($form->isValid())
         {
@@ -40,8 +37,6 @@ class EventController extends Controller
     {
         $data = $request->request->get("data");
 
-        $a = $request->request->all();
-        dump($a);die;
         // var_dump(dirname("web/bundles/app/events.xml"));die;
 
         $path = $this->get('kernel')->getRootDir() . '/../web/data/events.xml';
@@ -57,6 +52,8 @@ class EventController extends Controller
         $serializer = new Serializer($normalizers, $encoders);
 
         $xmlContent = $serializer->serialize($event, 'xml');
+
+
 
 
         return $this->redirect($this->generateUrl('admin_calendar_show'));

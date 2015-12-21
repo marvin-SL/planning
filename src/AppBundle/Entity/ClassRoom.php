@@ -60,13 +60,13 @@ class ClassRoom
 
     /**
      * Get name
-     *
      * @return string
      */
     public function getName()
     {
         return $this->name;
     }
+    
     /**
      * Constructor
      */

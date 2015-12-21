@@ -25,7 +25,6 @@ class Event
      * @var string
      *
      * @ORM\Column(name="notice", type="string", length=255)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $notice;
 

@@ -58,6 +58,32 @@
 </div>
         <input type="button" name="save" value="save" onclick="enregistrer()" >
 
+        <!-- Trigger the modal with a button -->
+        <button style="visibility:hidden" type="button" id="modal" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+        <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+          {{ form_start(form) }}
+          {{ form_widget(form) }}
+          {{ form_end(form) }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 {% endblock %}
 {% block javascripts %}
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
@@ -66,63 +92,27 @@
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_serialize.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+
 {{ form_start(form) }}
 {{ form_widget(form) }}
 {{ form_end(form) }}
 
-{% for result in results %}
-    {% for subject in result %}
-        {{subject.subjectName}}
-        {% for lastname in subject.lastname %}
-                {{lastname}}
-        {% endfor %}
-    {% endfor %}
-{% endfor %}
 
 <script type="text/javascript">
 {% set string2 = null %}
 {% set string3 = null %}
 
-var subjects = [
-    {% for result in results %}
-
-            {% for key, subject in result %}
-
-                        {% set nomMatiere = "{{subject.subjectName}}" %}
-                            {% for lastname in subject.lastname %}
-                                {% set string2 = '{ key: "'"#{subject.subjectName} : #{subject.lastname|join(' - ')}"'",'%}
-                                {% set string3 = 'label:"' "#{subject.subjectName} : #{subject.lastname|join(' - ')}" '"},'%}
-                            {% endfor %}
-                            {{string2|raw}}
-                            {{string3|raw}}
-                {% endfor %}
-
-    {% endfor %}
-
-];
-
-var classRooms = [
-    {% for classRoom in classRooms %}
-     { key: "{{classRoom.name }}", label: '{% autoescape true %}{{classRoom.name }}{% endautoescape %}' },
-    {% endfor %}
-];
 
 scheduler.locale.labels.section_select = 'Salle';
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 
-scheduler.config.lightbox.sections = [
-    { name:"infos", height:50, map_to:"notice", type:"textarea", focus:true },
-    { name:"Matière :", height:40, map_to:"subject", type:"select", options:subjects},
-    { name:"Salle :", height:40, map_to:"classRoom", type:"select", options:classRooms},
-    { name:"time", height:72, type:"time", map_to:"auto"}
-];
 
 scheduler.data_attributes = function(){
     return [
         ["start_date", scheduler.templates.xml_format],
         ["end_date", scheduler.templates.xml_format],
         ["subject"],
-        ["classRoom"],
+        ["classroom"],
         ["notice"],
         ["id"],
     ];
@@ -133,8 +123,16 @@ scheduler.config.limit_time_select = true;
 
 scheduler.init('scheduler_here',new Date(2014,5,30),"week");
 scheduler.templates.event_text=function(start,end,event){
-			return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classRoom+"</b><br>"+"infos: <b>"+event.infos+"</b></br>";
+			return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classroom+"</b><br>"+"infos: <b>"+event.notice+"</b></br>";
+
 		}
+
+scheduler.showLightbox = function(id){
+    var event = scheduler.getEvent(id);
+    document.getElementById("modal").click();
+    //window.location.href = 'edit.php?event=' + id;
+
+}
 scheduler.load("{{ asset('data/events.xml') }}")
 
 function enregistrer(){
