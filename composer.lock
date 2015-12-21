@@ -4,55 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "19b34ab3ad92c2c405ae7fa3fd446d6e",
-    "content-hash": "acc1752f502c1e5518daf0eb373c33d3",
+    "hash": "aa623dc5d90a6dbfec7657a80383546b",
+    "content-hash": "0adcbf10588de75d1668472e4194deeb",
     "packages": [
-        {
-            "name": "adesigns/calendar-bundle",
-            "version": "1.1",
-            "target-dir": "ADesigns/CalendarBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/adesigns/calendar-bundle.git",
-                "reference": "1bd71821f2ca727671967ab8b5e05425145b7c11"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/adesigns/calendar-bundle/zipball/1bd71821f2ca727671967ab8b5e05425145b7c11",
-                "reference": "1bd71821f2ca727671967ab8b5e05425145b7c11",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/collections": ">=1.0",
-                "friendsofsymfony/jsrouting-bundle": "~1.1",
-                "symfony/symfony": "~2.1"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "ADesigns\\CalendarBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mike Yudin",
-                    "email": "mikeyudin@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "This bundle allows you to integrate the jQuery FullCalendar plugin into your Symfony2 application.",
-            "homepage": "http://github.com/adesigns/calendar-bundle",
-            "keywords": [
-                "calendar",
-                "fullcalendar",
-                "jquery calendar"
-            ],
-            "time": "2014-04-24 15:48:09"
-        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.7",

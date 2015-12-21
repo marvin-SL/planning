@@ -20,4 +20,12 @@
         </service>
     </services> -->
 
+    <services>
+        <service id="app.serializer" class="AppBundle\Controller\Admin\CalendarController">
+            <call method="setContainer">
+              <argument type="service" id="service_container" />
+          </call>
+        </service>
+    </services>
+
 </container>

@@ -61,7 +61,7 @@ class CalendarController extends Controller
         ));
     }
 
-    public function SerializeToXmlAction()
+    public function serializeToXmlAction()
     {
         $subjectRepository = $this->getDoctrine()
         ->getRepository('AppBundle:Subject');
