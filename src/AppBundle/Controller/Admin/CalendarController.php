@@ -100,6 +100,7 @@ class CalendarController extends Controller
 
             $eventNode = $rootNode->addChild('event');
             $eventNode->addChild("id", $eventList->getId());
+            $eventNode->addChild("calendar", $eventList->getCalendar()->getTitle());
             $eventNode->addChild("start_date", $eventList->getStartDate()->format('Y-m-d H:i:s'));
             $eventNode->addChild("end_date", $eventList->getEndDate()->format('Y-m-d H:i:s'));
             $eventNode->addChild("classroom", $eventList->getClassRoom()->getName());
@@ -112,7 +113,7 @@ class CalendarController extends Controller
 
         $eventList = $eventRepository->findAll();
 
-        $path = $this->get('kernel')->getRootDir() . '/../web/data/events2.xml';
+        $path = $this->get('kernel')->getRootDir() . '/../web/data/events.xml';
 
         file_put_contents($path,$rootNode->asXML());
 
@@ -137,7 +138,8 @@ class CalendarController extends Controller
         ));
     }
 
-    public function SerializeToXmlAction(Calendar $calendrier, Event $event){
+    public function SerializeToXmlAction(Calendar $calendrier, Event $event)
+    {
 
     }
 
