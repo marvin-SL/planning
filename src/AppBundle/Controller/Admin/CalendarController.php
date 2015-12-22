@@ -13,9 +13,6 @@ use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
 use Symfony\Component\HttpFoundation\Response;
 
-
-
-
 class CalendarController extends Controller
 {
 
@@ -40,7 +37,7 @@ class CalendarController extends Controller
 
     }
 
-    public function showAction(Request $request)
+    public function indexAction(Request $request)
     {
         $event = new Event();
 
@@ -55,8 +52,9 @@ class CalendarController extends Controller
             $em->flush();
             $this->SerializeToXmlAction();
         }
+        $this->SerializeToXmlAction();
 
-        return $this->render('AppBundle:Admin/Calendar:show.html.twig', array(
+        return $this->render('AppBundle:Admin/Calendar:index.html.twig', array(
             'form' => $form->createView(),
         ));
     }

@@ -2,6 +2,6 @@ admin_calendar_new:
      path:        /new
      defaults:  {_controller: AppBundle:Admin/Calendar:new}
 
-admin_calendar_show:
-    path:    /show
-    defaults:  {_controller: AppBundle:Admin/Calendar:show}
+admin_calendar_index:
+    path:    /index
+    defaults:  {_controller: AppBundle:Admin/Calendar:index}

@@ -36,7 +36,7 @@ class MenuBuilder
         'extras'    => array('icon'  => 'fa fa-fw fa-dashboard'),
         ));
 
-        $menu->addChild('Planning', array('route' => 'admin_calendar_show',
+        $menu->addChild('Planning', array('route' => 'admin_calendar_index',
         'label' => 'Plannings',
         'extras'    => array('icon'  => 'fa fa-fw fa-calendar')
         ));

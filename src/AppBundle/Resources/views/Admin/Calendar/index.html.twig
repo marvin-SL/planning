@@ -92,11 +92,11 @@
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_serialize.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
-
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
-
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_quick_info.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
 <script type="text/javascript">
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
@@ -114,8 +114,9 @@ scheduler.data_attributes = function(){
 
 scheduler.config.first_hour = 8;
 scheduler.config.limit_time_select = true;
+scheduler.config.show_loading = true;
 
-scheduler.init('scheduler_here',new Date().toJSON().slice(0,10),"week");
+scheduler.init('scheduler_here',new Date().toJSON().slice(0,10),"week"); //TODO: impossible de changer de jour avec les fleches
 scheduler.templates.event_text=function(start,end,event){
 			return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classroom+"</b><br>"+"infos: <b>"+event.notice+"</b></br>";
 
@@ -134,6 +135,14 @@ function enregistrer(){
     form.elements.data.value = scheduler.toXML();
     form.submit();
 }
+
+scheduler.attachEvent("onClick", function (id, e){
+        var event = scheduler.getEvent(id);
+        var edit = Routing.generate('admin_event_edit', {id : id});
+      // scheduler.showQuickInfo(id);
+      window.location = edit;
+       return true;
+  });
 
 </script>
 {% endblock %}
