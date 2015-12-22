@@ -27,8 +27,8 @@ $subjects = $em->getRepository('AppBundle:Subject')->findAll();
 //
 //         foreach ($subject->getTeachers() as $teacher){
 //
-//              $results[]['teacher_firstname'] = $teacher->getFirstName();
-//              $results[]['teacher_lastname'] = $teacher->getLastName();
+//              $results[]['teacher_firstname'] = $teacher->getFirstname();
+//              $results[]['teacher_lastname'] = $teacher->getLastname();
 //         }
 //      }
 

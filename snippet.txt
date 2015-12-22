@@ -1,4 +1,4 @@
-SELECT t.firstName, t.lastName, s.name FROM `subject_teacher` st, `event` e,  `subject` s, `teacher` t
+SELECT t.firstname, t.lastname, s.name FROM `subject_teacher` st, `event` e,  `subject` s, `teacher` t
 where e.subject_id = s.id
 and s.id = st.subject_id
 and t.id = st.teacher_id
