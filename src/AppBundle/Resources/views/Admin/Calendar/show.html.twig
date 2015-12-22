@@ -99,13 +99,7 @@
 
 
 <script type="text/javascript">
-{% set string2 = null %}
-{% set string3 = null %}
-
-
-scheduler.locale.labels.section_select = 'Salle';
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-
 
 scheduler.data_attributes = function(){
     return [
@@ -121,7 +115,7 @@ scheduler.data_attributes = function(){
 scheduler.config.first_hour = 8;
 scheduler.config.limit_time_select = true;
 
-scheduler.init('scheduler_here',new Date(2014,5,30),"week");
+scheduler.init('scheduler_here',new Date().toJSON().slice(0,10),"week");
 scheduler.templates.event_text=function(start,end,event){
 			return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classroom+"</b><br>"+"infos: <b>"+event.notice+"</b></br>";
 
