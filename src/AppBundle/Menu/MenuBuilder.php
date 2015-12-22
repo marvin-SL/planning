@@ -51,7 +51,7 @@ class MenuBuilder
         'extras'    => array('icon'  => 'fa fa-fw fa-users')
         ));
 
-        $menu->addChild('ClassRoom', array('route' => 'admin_class_room_index',
+        $menu->addChild('Classroom', array('route' => 'admin_classroom_index',
         'label' => 'Salles',
         'extras'    => array('icon'  => 'fa fa-fw fa-map-marker ')
         ));

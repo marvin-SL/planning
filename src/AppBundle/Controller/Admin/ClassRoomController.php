@@ -5,32 +5,32 @@ namespace AppBundle\Controller\Admin;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\ClassRoom;
-use AppBundle\Form\ClassRoomType;
+use AppBundle\Entity\Classroom;
+use AppBundle\Form\ClassroomType;
 
-class ClassRoomController extends Controller
+class ClassroomController extends Controller
 {
     public function indexAction(Request $request)
     {
-        return $this->render('AppBundle:Admin/classRoom:index.html.twig');
+        return $this->render('AppBundle:Admin/classroom:index.html.twig');
     }
 
     public function newAction(Request $request)
     {
-        $classRoom = new ClassRoom();
+        $classroom = new Classroom();
 
-        $form = $this->createForm(new ClassRoomType(), $classRoom);
+        $form = $this->createForm(new ClassroomType(), $classroom);
 
         $form->handleRequest($request);
 
         if ($form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($classRoom);
+            $em->persist($classroom);
             $em->flush();
         }
 
-        return $this->render('AppBundle:Admin/ClassRoom:new.html.twig', array(
+        return $this->render('AppBundle:Admin/Classroom:new.html.twig', array(
             'form' => $form->createView(),
         ));
 

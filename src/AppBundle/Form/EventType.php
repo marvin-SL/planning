@@ -34,8 +34,8 @@ class EventType extends AbstractType
             'choice_label' => 'name',
             'label' => 'Matière :'
         ))
-        ->add('classRoom', 'entity', array(
-            'class' => 'AppBundle:ClassRoom',
+        ->add('classroom', 'entity', array(
+            'class' => 'AppBundle:Classroom',
             'choice_label' => 'name',
             'label' => 'Salle/Bâtiment :'
         ))

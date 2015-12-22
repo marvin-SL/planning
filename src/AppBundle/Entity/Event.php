@@ -55,10 +55,10 @@ class Event
     private $subject;
 
     /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ClassRoom", cascade={"persist"}, inversedBy="events")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Classroom", cascade={"persist"}, inversedBy="events")
    * @ORM\JoinColumn(nullable=false)
    */
-    private $classRoom;
+    private $classroom;
 
     /**
      * Get id
@@ -143,27 +143,27 @@ class Event
     }
 
     /**
-     * Set classRoom
+     * Set classroom
      *
-     * @param \AppBundle\Entity\ClassRoom $classRoom
+     * @param \AppBundle\Entity\Classroom $classroom
      *
      * @return Event
      */
-    public function setClassRoom(\AppBundle\Entity\ClassRoom $classRoom)
+    public function setClassroom(\AppBundle\Entity\Classroom $classroom)
     {
-        $this->classRoom = $classRoom;
+        $this->classroom = $classroom;
 
         return $this;
     }
 
     /**
-     * Get classRoom
+     * Get classroom
      *
-     * @return \AppBundle\Entity\ClassRoom
+     * @return \AppBundle\Entity\Classroom
      */
-    public function getClassRoom()
+    public function getClassroom()
     {
-        return $this->classRoom;
+        return $this->classroom;
     }
 
     /**

@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Calendar;
-use AppBundle\Entity\ClassRoom;
+use AppBundle\Entity\Classroom;
 use AppBundle\Entity\Teacher;
 use AppBundle\Entity\Subject;
 use AppBundle\Entity\Event;
@@ -97,7 +97,7 @@ class CalendarController extends Controller
             $eventNode->addChild("calendar", $eventList->getCalendar()->getTitle());
             $eventNode->addChild("start_date", $eventList->getStartDate()->format('Y-m-d H:i:s'));
             $eventNode->addChild("end_date", $eventList->getEndDate()->format('Y-m-d H:i:s'));
-            $eventNode->addChild("classroom", $eventList->getClassRoom()->getName());
+            $eventNode->addChild("classroom", $eventList->getClassroom()->getName());
             $eventNode->addChild("notice", $eventList->getNotice());
             $eventNode->addChild("subject", $eventList->getSubject()->getName()." / ".implode(",", $tabTeachers[$eventList->getSubject()->getName()]));
         }
