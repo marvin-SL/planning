@@ -1,0 +1,23 @@
+admin_calendar:
+    resource: "@AppBundle/Resources/config/routing/Admin/admin_calendar.yml"
+    prefix:   /admin/calendars
+
+admin_classroom:
+    resource: "@AppBundle/Resources/config/routing/Admin/admin_classroom.yml"
+    prefix:   /admin/classrooms
+
+admin_dashboard:
+    resource: "@AppBundle/Resources/config/routing/Admin/admin_dashboard.yml"
+    prefix:   /admin/dashboard
+
+admin_event:
+    resource: "@AppBundle/Resources/config/routing/Admin/admin_event.yml"
+    prefix:   /admin/event
+
+admin_subject:
+    resource: "@AppBundle/Resources/config/routing/Admin/admin_subject.yml"
+    prefix:   /admin/subjects
+
+admin_teacher:
+    resource: "@AppBundle/Resources/config/routing/Admin/admin_teacher.yml"
+    prefix:   /admin/teachers
