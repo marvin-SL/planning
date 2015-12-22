@@ -33,7 +33,7 @@ class LoadUserData extends AbstractFixture implements ContainerAwareInterface
         $user->setEnabled('1');
 
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
-        $user->setPassword($encoder->encodePassword('Culture&MetiersDuWeb2014-2016', $user->getSalt()));
+        $user->setPassword($encoder->encodePassword('cmw', $user->getSalt()));
 
         $manager->persist($user);
 
