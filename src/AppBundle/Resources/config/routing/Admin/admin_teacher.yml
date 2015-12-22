@@ -1,0 +1,7 @@
+admin_teacher_index:
+      path:    /
+      defaults:   {_controller: AppBundle:Admin/Teacher:index}
+
+admin_teacher_new:
+      path:    /new
+      defaults:   {_controller: AppBundle:Admin/Teacher:new}
