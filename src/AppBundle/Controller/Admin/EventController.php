@@ -33,11 +33,36 @@ class EventController extends Controller
 
     }
 
+    public function editAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Event')->find($id);
+
+        $editForm = $this->createForm(new EventType(), $entity);
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_calendar_index'));
+        }
+
+        return $this->render('AppBundle:Admin/Event:edit.html.twig', array(
+            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+        ));
+    }
+
     public function xmlWriterAction(Request $request)
     {
         $serializer = $this->get('app.serializer');
         $serializer->serializeToXmlAction();
 
-        return $this->redirect($this->generateUrl('admin_calendar_show'));
+        return $this->redirect($this->generateUrl('admin_calendar_index'));
     }
 }

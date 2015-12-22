@@ -43,15 +43,15 @@ class EventType extends AbstractType
           'label' => 'Info :',
           'required' => 'false',
         ))
-        ->add('save','submit', array('label' =>'Créer'))
+        ->add('save','submit', array('label' =>'Enregistrer'))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Event',
-        ));
+        // $resolver->setDefaults(array(
+        //     'data_class' => 'AppBundle\Entity\Event',
+        // ));
     }
 
     public function getName()
