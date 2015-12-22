@@ -1,0 +1,7 @@
+admin_subject_index:
+      path:    /
+      defaults:  {_controller: AppBundle:Admin/Subject:index}
+
+admin_subject_new:
+      path:    /new
+      defaults:  {_controller: AppBundle:Admin/Subject:new}

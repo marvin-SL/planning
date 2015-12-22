@@ -1,0 +1,7 @@
+admin_calendar_new:
+     path:        /new
+     defaults:  {_controller: AppBundle:Admin/Calendar:new}
+
+admin_calendar_show:
+    path:    /show
+    defaults:  {_controller: AppBundle:Admin/Calendar:show}
