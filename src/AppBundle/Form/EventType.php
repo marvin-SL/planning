@@ -41,7 +41,7 @@ class EventType extends AbstractType
         ))
         ->add('notice', 'text', array(
           'label' => 'Info :',
-          'required' => 'false',
+          'required' => false,
         ))
         ->add('save','submit', array('label' =>'Enregistrer'))
         ;

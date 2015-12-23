@@ -19,7 +19,7 @@ class LoadClassroomData extends AbstractFixture implements OrderedFixtureInterfa
     $classroom3 =  new Classroom();
         $classroom4 =  new Classroom();
 
-    $classroom1->setName('C343, Copernic (en face des chiottes)');
+    $classroom1->setName('C343, Copernic (en face des machines)');
     $classroom2->setName('B212 Bois d\'ébène');
     $classroom3->setName('Parking');
     $classroom4->setName('test');
