@@ -40,7 +40,7 @@ class CalendarController extends Controller
     public function indexAction(Request $request)
     {
         $event = new Event();
-
+        
         $form = $this->createForm(new EventType(), $event);
 
         $form->handleRequest($request);

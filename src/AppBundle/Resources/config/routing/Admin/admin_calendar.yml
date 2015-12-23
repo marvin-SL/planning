@@ -5,3 +5,5 @@ admin_calendar_new:
 admin_calendar_index:
     path:    /index
     defaults:  {_controller: AppBundle:Admin/Calendar:index}
+    options:
+        expose: true
