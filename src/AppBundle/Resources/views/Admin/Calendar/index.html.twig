@@ -138,49 +138,34 @@ function enregistrer(){
     form.submit();
 }
 
-// scheduler.attachEvent("onClick", function (id, e){
-//     var event = scheduler.getEvent(id);
-//     var start_date = event.start_date;
-//     var end_date = event.end_date;
-//     var id = id;
-//     var edit = Routing.generate('admin_event_edit', {id : id});
+scheduler.attachEvent("onClick", function (id, e){
+    var event = scheduler.getEvent(id);
+    var start_date = event.start_date;
+    var end_date = event.end_date;
+    var id = id;
+    var edit = Routing.generate('admin_event_edit', {id : id});
+    // alert(end_date);
+    // alert(id);
+    // alert(start_date);
+
+//scheduler.showQuickInfo(id);
 //
-//     //scheduler.showQuickInfo(id);
-// //
-// // $.ajax({
-// //         url: edit,
-// //         type: "POST",
-// //         data:  start_date,
-// //         dataType : "text",
-// //         success: function(data) {
-// //
-// //           // data.redirect contains the string URL to redirect to
-// //
-// //         },
-// //         error: function(){
-// //             alert('error');
-// //         }
-// //     });
-//
-// $.ajax({
-//     url: Routing.generate('admin_event_edit', {id : id}),
-//     type: "POST",
-//     dataType : "text",
-//     data: id,
-//     success: function(data) {
-//         // var route = Routing.generate('admin_event_edit', {id : id});
-//         // window.location.href = route;
-//            },
-//     error: function () {
-//         alert('Error');
-//     }
-//
-// });
-//
-//     //  window.location.replace = edit;
-//     //window.location.href = edit;
-//     return true;
-// });
+$.ajax({
+        url: Routing.generate('admin_event_edit', {id : id}),
+        type: "PUT",
+        data: { id : id, start_date : start_date, end_date : end_date},
+        success: function(data) {
+            alert('ok');
+        },
+        error: function(){
+            alert('error');
+        }
+    });
+
+    // window.location.href = edit;
+
+    return true;
+});
 
 </script>
 {% endblock %}
