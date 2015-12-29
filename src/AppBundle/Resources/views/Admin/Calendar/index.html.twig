@@ -118,6 +118,8 @@ scheduler.config.limit_time_select = true;
 scheduler.config.show_loading = true;
 scheduler.config.show_quick_info = false;
 
+var formatFunc = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
+
 scheduler.init('scheduler_here',new Date().toJSON().slice(0,10),"week"); //TODO: impossible de changer de jour avec les fleches
 scheduler.templates.event_text=function(start,end,event){
     return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classroom+"</b><br>"+"infos: <b>"+event.notice+"</b></br>";
@@ -140,29 +142,25 @@ function enregistrer(){
 
 scheduler.attachEvent("onClick", function (id, e){
     var event = scheduler.getEvent(id);
-    var start_date = event.start_date;
-    var end_date = event.end_date;
+    var start_date = formatFunc(event.start_date);
+    var end_date = formatFunc(event.end_date);
+    var token = document.getElementById("_token");
     var id = id;
     var edit = Routing.generate('admin_event_edit', {id : id});
-    // alert(end_date);
-    // alert(id);
-    // alert(start_date);
+
 
 //scheduler.showQuickInfo(id);
 //
-$.ajax({
-        url: Routing.generate('admin_event_edit', {id : id}),
-        type: "PUT",
-        data: { id : id, start_date : start_date, end_date : end_date},
-        success: function(data) {
-            alert('ok');
-        },
-        error: function(){
-            alert('error');
-        }
-    });
-
-    // window.location.href = edit;
+    $.ajax({
+            url: edit,
+            type: "POST",
+            data: { id : id, start_date : start_date, end_date : end_date},
+            success: function(data) {
+            },
+            error: function(){
+                alert('Erreur ajax');
+            }
+        });
 
     return true;
 });

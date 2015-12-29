@@ -39,37 +39,39 @@ class EventController extends Controller
 
     public function editAction(Request $request, $id)
     {
-        // $path = $this->get('kernel')->getRootDir() . '/../web/data/test.xml';
-        // $var = $request->request->get("start_date");
-        // file_put_contents($path,$var);
-        //
-        //      $em = $this->getDoctrine()->getManager();
-        //      $entity = $em->getRepository('AppBundle:Event')->find($id);
-        //
-        //      $entity->setStartDate('2016-12-23 14:22:00');
-        //
-        //      $em = $this->getDoctrine()->getManager();
-        //      $em->persist($entity);
-        //     dump($entity);die;
+         $em = $this->getDoctrine()->getManager();
+         $entity = $em->getRepository('AppBundle:Event')->find($id);
+         $path = $this->get('kernel')->getRootDir() . '/../web/data/test.xml';
+         $startDate = $request->request->get('start_date');
+         $endDate = $request->request->get('end_date');
+         $editForm = $this->createForm(new EventType(), $entity);
 
+        if ($request->isMethod('POST'))
+         {
+            $editForm->handleRequest($request);
 
+            if($request->isXmlHttpRequest())
+            {
+                $entity->setStartDate(new \DateTime($startDate));
+                $entity->setEndDate(new \DateTime($endDate));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
 
-        //$editForm = $this->createForm(new EventType(), $entity);
+            }
+            // if($editForm->isValid()){
+            //
+            //     $em = $this->getDoctrine()->getManager();
+            //         $entity->setStartDate(new \DateTime('2016-12-23 14:22:00'));
+            //     $em->persist($entity);
+            //     $em->flush();
+            // }
 
-    //    $editForm->handleRequest($request);
-
-        // if ($editForm->isValid())
-        // {
-        //     $em = $this->getDoctrine()->getManager();
-        //     $em->persist($entity);
-        //     $em->flush();
-        //
-        //     return $this->redirect($this->generateUrl('admin_calendar_index'));
-        // }
+        }
 
         return $this->render('AppBundle:Admin/Event:edit.html.twig', array(
-        //    'edit_form'   => $editForm->createView(),
-        //    'entity' => $entity,
+           'edit_form'   => $editForm->createView(),
+           'entity' => $entity,
         ));
     }
 
