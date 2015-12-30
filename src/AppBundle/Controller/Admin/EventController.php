@@ -59,12 +59,17 @@ class EventController extends Controller
                 $em->flush();
 
             }
-            if($editForm->isValid()){
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($entity);
-                $em->flush();
+
+            else
+            {
+                if($editForm->isValid()){
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($entity);
+                    $em->flush();
+                }
+                 return $this->redirect($this->generateUrl('admin_calendar_index'));
+
             }
-             return $this->redirect($this->generateUrl('admin_calendar_index'));
 
         }
 
