@@ -39,7 +39,8 @@ html, body{ height:100%; padding:0px; margin:0px; }
             <div class="dhx_cal_next_button">&nbsp;</div>
             <div class="dhx_cal_today_button"></div>
             <div class="dhx_cal_date"></div>
-
+            <div class="dhx_minical_icon" id="dhx_minical_icon"
+    onclick="show_minical()">&nbsp;</div>
             <div class="dhx_cal_tab" name="day_tab"></div>
             <div class="dhx_cal_tab" name="week_tab"></div>
             <div class="dhx_cal_tab" name="month_tab"></div>
@@ -70,7 +71,7 @@ html, body{ height:100%; padding:0px; margin:0px; }
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">Nouvel évenement</h4>
             </div>
             <div class="modal-body">
                 {{ form_start(form) }}
@@ -94,6 +95,9 @@ html, body{ height:100%; padding:0px; margin:0px; }
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_quick_info.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_minical.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
@@ -169,5 +173,25 @@ scheduler.attachEvent("onDblClick", function(id, e){
     var event = scheduler.getEvent(id);
     window.location.href = Routing.generate('admin_event_edit', {id : id});
  });
+
+ scheduler.attachEvent("onScaleDblClick", function (id, e){
+    alert('dlbclick');
+});
+
+function show_minical(){
+    if (scheduler.isCalendarVisible()){
+        scheduler.destroyCalendar();
+    } else {
+        scheduler.renderCalendar({
+            position:"dhx_minical_icon",
+            date:scheduler._date,
+            navigation:true,
+            handler:function(date,calendar){
+                scheduler.setCurrentView(date);
+                scheduler.destroyCalendar()
+            }
+        });
+    }
+}
 </script>
 {% endblock %}
