@@ -140,7 +140,7 @@ function enregistrer(){
     form.submit();
 }
 
-scheduler.attachEvent("onClick", function (id, e){
+scheduler.attachEvent("onDragEnd", function (id){
     var event = scheduler.getEvent(id);
     var start_date = formatFunc(event.start_date);
     var end_date = formatFunc(event.end_date);
@@ -162,8 +162,12 @@ scheduler.attachEvent("onClick", function (id, e){
             }
         });
 
-    return true;
+
 });
 
+scheduler.attachEvent("onDblClick", function(id, e){
+    var event = scheduler.getEvent(id);
+    window.location.href = Routing.generate('admin_event_edit', {id : id});
+ });
 </script>
 {% endblock %}
