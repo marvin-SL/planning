@@ -15,7 +15,28 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CalendarController extends Controller
 {
+    public function indexAction(Request $request)
+    {
+        $event = new Event();
 
+        $form = $this->createForm(new EventType(), $event);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+            $this->SerializeToXmlAction();
+        }
+        $this->SerializeToXmlAction();
+
+        return $this->render('AppBundle:Admin/Calendar:index.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+    
     public function newAction(Request $request)
     {
         $calendar = new Calendar();
@@ -35,28 +56,6 @@ class CalendarController extends Controller
             'form' => $form->createView(),
         ));
 
-    }
-
-    public function indexAction(Request $request)
-    {
-        $event = new Event();
-        
-        $form = $this->createForm(new EventType(), $event);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid())
-        {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
-            $em->flush();
-            $this->SerializeToXmlAction();
-        }
-        $this->SerializeToXmlAction();
-
-        return $this->render('AppBundle:Admin/Calendar:index.html.twig', array(
-            'form' => $form->createView(),
-        ));
     }
 
     public function serializeToXmlAction()
