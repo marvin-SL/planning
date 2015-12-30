@@ -1,0 +1,198 @@
+{% extends 'base.html.twig' %}
+{% block head %} {% endblock %}
+{% block title %}{{entity.title}} {% endblock %}
+
+{% block stylesheets %}
+{% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
+
+<style type="text/css">
+html, body{ height:100%; padding:0px; margin:0px; }
+.well {
+    text-align: right;
+}
+.container-fluid #scheduler_here {
+    height: 700px;
+    width: 100%;
+    border: 1px solid #cecece;
+    top : 50px;
+}
+#scheduler_here {
+    border-radius: 4px;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <form id="xml_form" action="{{ path('admin_event_xmlWriter')}}" method="post" target="hidden_frame" >
+        <input type="hidden" name="data" value="" id="data">
+    </form>
+
+
+    <div class="dhx_cal_container panel" id="scheduler_here">
+
+        <div class="dhx_cal_navline">
+            <div class="dhx_cal_prev_button">&nbsp;</div>
+            <div class="dhx_cal_next_button">&nbsp;</div>
+            <div class="dhx_cal_today_button"></div>
+            <div class="dhx_cal_date"></div>
+            <div class="dhx_minical_icon" id="dhx_minical_icon"
+    onclick="show_minical()">&nbsp;</div>
+            <div class="dhx_cal_tab" name="day_tab"></div>
+            <div class="dhx_cal_tab" name="week_tab"></div>
+            <div class="dhx_cal_tab" name="month_tab"></div>
+            <div class="dhx_cal_tab" name="year_tab"></div>
+        </div>
+        <div class="dhx_cal_header"></div>
+        <div class="dhx_cal_data"></div>
+    </div>
+
+    <div class="well">
+        <div>
+            <a class="logo" title="DHTMLX - JavaScript Web App Framework &amp; UI Widgets" href="http://dhtmlx.com/docs/products/dhtmlxScheduler/"></a>
+        </div>
+    </div>
+
+</div>
+<input type="button" name="save" value="save" onclick="enregistrer()" >
+
+
+<button style="visibility:hidden" type="button" id="new" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newEvent">Open Modal</button>
+<button style="visibility:hidden" type="button" id="edit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#editEvent">Open Modal</button>
+
+<!-- Modal -->
+<div id="newEvent" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nouvel évenement</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_serialize.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_quick_info.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_minical.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
+<script type="text/javascript">
+scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+
+scheduler.data_attributes = function(){
+    return [
+        ["start_date", scheduler.templates.xml_format],
+        ["end_date", scheduler.templates.xml_format],
+        ["subject"],
+        ["classroom"],
+        ["notice"],
+        ["id"],
+    ];
+};
+
+scheduler.config.first_hour = 8;
+scheduler.config.limit_time_select = true;
+scheduler.config.show_loading = true;
+scheduler.config.show_quick_info = false;
+scheduler.config.time_step = 30;
+
+var formatFunc = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
+
+scheduler.init('scheduler_here',new Date().toJSON().slice(0,10),"week"); //TODO: impossible de changer de jour avec les fleches
+scheduler.templates.event_text=function(start,end,event){
+    return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classroom+"</b><br>"+"infos: <b>"+event.notice+"</b></br>";
+
+}
+
+scheduler.showLightbox = function(id){
+    var event = scheduler.getEvent(id);
+    document.getElementById("new").click();
+    //window.location.href = 'edit.php?event=' + id;
+
+}
+scheduler.load("/planning/data/{{entity.title}}.xml");
+
+function enregistrer(){
+    var form = document.getElementById("xml_form");
+    form.elements.data.value = scheduler.toXML();
+    form.submit();
+}
+
+scheduler.attachEvent("onDragEnd", function (id){
+    var event = scheduler.getEvent(id);
+    var start_date = formatFunc(event.start_date);
+    var end_date = formatFunc(event.end_date);
+    var token = document.getElementById("_token");
+    var id = id;
+    var edit = Routing.generate('admin_event_edit', {id : id});
+
+
+//scheduler.showQuickInfo(id);
+//
+    $.ajax({
+            url: edit,
+            type: "POST",
+            data: { id : id, start_date : start_date, end_date : end_date},
+            success: function(data) {
+            },
+            error: function(){
+                alert('Erreur ajax');
+            }
+        });
+
+
+});
+
+scheduler.attachEvent("onDblClick", function(id, e){
+    var event = scheduler.getEvent(id);
+    window.location.href = Routing.generate('admin_event_edit', {id : id});
+ });
+
+ scheduler.attachEvent("onScaleDblClick", function (id, e){
+    alert('dlbclick');
+});
+
+function show_minical(){
+    if (scheduler.isCalendarVisible()){
+        scheduler.destroyCalendar();
+    } else {
+        scheduler.renderCalendar({
+            position:"dhx_minical_icon",
+            date:scheduler._date,
+            navigation:true,
+            handler:function(date,calendar){
+                scheduler.setCurrentView(date);
+                scheduler.destroyCalendar()
+            }
+        });
+    }
+}
+</script>
+{% endblock %}

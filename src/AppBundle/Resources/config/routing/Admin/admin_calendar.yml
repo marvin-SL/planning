@@ -1,9 +1,13 @@
-admin_calendar_new:
-     path:        /new
-     defaults:  {_controller: AppBundle:Admin/Calendar:new}
-
 admin_calendar_index:
     path:    /index
     defaults:  {_controller: AppBundle:Admin/Calendar:index}
     options:
         expose: true
+
+admin_calendar_new:
+     path:        /new
+     defaults:  {_controller: AppBundle:Admin/Calendar:new}
+
+admin_calendar_show:
+  path:        /{id}/show
+  defaults:  {_controller: AppBundle:Admin/Calendar:show}

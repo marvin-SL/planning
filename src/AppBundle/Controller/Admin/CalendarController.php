@@ -67,7 +67,34 @@ class CalendarController extends Controller
 
     }
 
-    public function serializeToXmlAction()
+    public function showAction(Request $request, $id)
+    {
+        $event = new Event();
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:Calendar')->find($id);
+
+        $form = $this->createForm(new EventType(), $event);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($event);
+            $em->flush();
+            $this->SerializeToXmlAction();
+        }
+        $this->SerializeToXmlAction($entity);
+
+        return $this->render('AppBundle:Admin/Calendar:show.html.twig', array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+        ));
+
+    }
+
+    public function serializeToXmlAction(Calendar $entity)
     {
         $subjectRepository = $this->getDoctrine()
         ->getRepository('AppBundle:Subject');
@@ -113,7 +140,7 @@ class CalendarController extends Controller
 
         $eventList = $eventRepository->findAll();
 
-        $path = $this->get('kernel')->getRootDir() . '/../web/data/events.xml';
+        $path = $this->get('kernel')->getRootDir() . '/../web/data/'.$entity->getTitle().'.xml';
 
         file_put_contents($path,$rootNode->asXML());
 
