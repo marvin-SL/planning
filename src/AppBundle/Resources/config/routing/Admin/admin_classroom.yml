@@ -2,6 +2,6 @@ admin_classroom_index:
       path:    /
       defaults:    {_controller: AppBundle:Admin/Classroom:index}
 
-admin_classroom:
+admin_classroom_new:
       path:    /new
       defaults:    {_controller: AppBundle:Admin/Classroom:new}

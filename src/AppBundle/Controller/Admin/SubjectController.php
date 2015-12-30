@@ -77,11 +77,11 @@ if($session->get('introduction') == 'true')
                     'notice',
                     ''
                 );
-                $session->remove('introduction');
-                
-                return $this->render('AppBundle:Admin/Subject:new.html.twig', array(
-                    'form' => $form->createView(),
-                ));
+            $session->remove('introduction');
+
+            return $this->render('AppBundle:Admin/Subject:new.html.twig', array(
+                'form' => $form->createView(),
+            ));
         }
 
 

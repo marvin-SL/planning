@@ -1,8 +1,55 @@
 {% extends 'base.html.twig' %}
 {% block title %}
+Gestion des salles
+{{ parent() }}
 {% endblock %}
-
+{% block titre %}Gestion des salles){% endblock %}
 {% block body %}
 
+{% for flash_message in app.session.flashbag.get('notice') %}
+<div class="flash-notice">
+
+</div>
+
+{% endfor %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Gestion des salles
+            </h1>
+            <div class="alert alert-info">
+                <h3>Ici se trouve la liste des salles.</h3><br>
+                <h4>Pour créer une nouvelle entrée, cliquez sur le bouton <em>Ajouter</em></h4><br>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Intitulé</th>
+                        <th>Editer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for classroom in classrooms %}
+                    <tr>
+                        <td>{{classroom.name}}</td>
+                        <td>lien</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4">
+            <a class="btn btn-success" href="{{path('admin_classroom_new')}}">Ajouter</a>
+    </div>
+
+</div>
 
 {% endblock %}
