@@ -16,6 +16,7 @@ class SubjectType extends AbstractType
               'choice_label' => 'lastname',
               'label' => 'Enseignant',
               'multiple'    => true,
+              'label' => 'Enseignant(e)s / Intervenant(e)s'
             ))
         ->add('save', 'submit', array('label' => 'Créer'))
         ;

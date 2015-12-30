@@ -11,7 +11,9 @@ use AppBundle\Entity\Teacher;
 use AppBundle\Entity\Subject;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
+use AppBundle\Form\CalendarType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class CalendarController extends Controller
 {
@@ -36,10 +38,14 @@ class CalendarController extends Controller
             'form' => $form->createView(),
         ));
     }
-    
+
     public function newAction(Request $request)
     {
         $calendar = new Calendar();
+
+        $session = $request->getSession();
+
+        $session->set('introduction', 'true');
 
         $form = $this->createForm(new CalendarType(), $calendar);
 
@@ -50,7 +56,10 @@ class CalendarController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($calendar);
             $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_teacher_index'));
         }
+
 
         return $this->render('AppBundle:Admin/Calendar:new.html.twig', array(
             'form' => $form->createView(),

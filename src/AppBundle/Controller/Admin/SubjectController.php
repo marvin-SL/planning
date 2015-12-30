@@ -14,12 +14,9 @@ class SubjectController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $subjects = $em->getRepository('AppBundle:Subject')->findAll();
 
-         $teachers = $em->getRepository('AppBundle:Teacher')->findAll();
-
-
-
-$subjects = $em->getRepository('AppBundle:Subject')->findAll();
+        $session = $request->getSession();
 //
 // $results = [];
 //     foreach ($subjects as $subject) {
@@ -34,6 +31,19 @@ $subjects = $em->getRepository('AppBundle:Subject')->findAll();
 
 // dump($subjects);die;
 
+if($session->get('introduction') == 'true')
+{
+
+    $session->getFlashBag()->add(
+            'notice',
+            ''
+        );
+
+        return $this->render('AppBundle:Admin/Subject:index.html.twig', array(
+            'subjects' =>$subjects
+        ));
+}
+
 
         return $this->render('AppBundle:Admin/Subject:index.html.twig', array(
             'subjects' =>$subjects
@@ -45,6 +55,8 @@ $subjects = $em->getRepository('AppBundle:Subject')->findAll();
         // replace this example code with whatever you need
         $subject = new Subject();
 
+        $session = $request->getSession();
+
         $form = $this->createForm(new SubjectType(), $subject);
 
         $form->handleRequest($request);
@@ -54,7 +66,24 @@ $subjects = $em->getRepository('AppBundle:Subject')->findAll();
             $em = $this->getDoctrine()->getManager();
             $em->persist($subject);
             $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_subject_index'));
         }
+
+        if($session->get('introduction') == 'true')
+        {
+
+            $session->getFlashBag()->add(
+                    'notice',
+                    ''
+                );
+                $session->remove('introduction');
+                
+                return $this->render('AppBundle:Admin/Subject:new.html.twig', array(
+                    'form' => $form->createView(),
+                ));
+        }
+
 
         return $this->render('AppBundle:Admin/Subject:new.html.twig', array(
             'form' => $form->createView(),
