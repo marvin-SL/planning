@@ -119,7 +119,7 @@ class CalendarController extends Controller
             }
         }
 
-        $query = $eventRepository->createQueryBuilder ( 'e' )->getQuery ()->getResult ();
+        $query =  $this->getDoctrine()->getRepository('AppBundle:Event')->findCalendarEvents($entity);
 
 		$rootNode = new \SimpleXMLElement( "<data></data>" );
 
