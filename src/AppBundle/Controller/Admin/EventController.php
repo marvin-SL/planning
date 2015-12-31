@@ -7,10 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class EventController extends Controller
 {
@@ -40,11 +36,21 @@ class EventController extends Controller
     public function editAction(Request $request, $id)
     {
          $em = $this->getDoctrine()->getManager();
+
          $entity = $em->getRepository('AppBundle:Event')->find($id);
+
          $path = $this->get('kernel')->getRootDir() . '/../web/data/test.xml';
+
          $startDate = $request->request->get('start_date');
          $endDate = $request->request->get('end_date');
+
          $editForm = $this->createForm(new EventType(), $entity);
+
+         $serializer  = $this->get('app.serializer');
+
+         $calendar = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
+             'id' => $id
+         ));
 
         if ($request->isMethod('POST'))
          {
@@ -57,7 +63,7 @@ class EventController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
-
+                $serializer->serializeToXmlAction($calendar);
             }
 
             else
@@ -66,6 +72,7 @@ class EventController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($entity);
                     $em->flush();
+                    $serializer->serializeToXmlAction($calendar);
                 }
                  return $this->redirect($this->generateUrl('admin_calendar_index'));
 
@@ -79,17 +86,4 @@ class EventController extends Controller
         ));
     }
 
-    public function xmlWriterAction(Request $request)
-    {
-
-        $serializer = $this->get('jms_serializer');
-        $data = "<event><id>102</id><calendar>groupe 1</calendar><start_date>2015-12-23 14:22:12</start_date><end_date>2015-12-23 17:22:12</end_date><classroom>C343, Copernic (en face des machines)</classroom><notice/><subject>Angais / Trudy</subject></event>";
-
-        $d = $serializer->deserialize($data, 'AppBundle\Entity\Event', 'xml');
-        dump($d);die;
-        // $serializer = $this->get('app.serializer');
-        // $serializer->serializeToXmlAction();
-
-        return $this->redirect($this->generateUrl('admin_calendar_index'));
-    }
 }

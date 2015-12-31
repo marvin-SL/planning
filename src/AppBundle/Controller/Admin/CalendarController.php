@@ -73,9 +73,9 @@ class CalendarController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
-            $this->SerializeToXmlAction();
+            $this->SerializeToXmlAction($entity);
         }
-        $this->SerializeToXmlAction($entity);
+        //$this->SerializeToXmlAction($entity);
 
         return $this->render('AppBundle:Admin/Calendar:show.html.twig', array(
             'entity' => $entity,
