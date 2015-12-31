@@ -52,6 +52,8 @@ class EventController extends Controller
              'id' => $id
          ));
 
+          $slug = $calendar->getSlug();
+
         if ($request->isMethod('POST'))
          {
             $editForm->handleRequest($request);
@@ -64,6 +66,7 @@ class EventController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $serializer->serializeToXmlAction($calendar);
+
             }
 
             else
@@ -73,6 +76,8 @@ class EventController extends Controller
                     $em->persist($entity);
                     $em->flush();
                     $serializer->serializeToXmlAction($calendar);
+
+                    return $this->redirect($this->generateUrl('admin_calendar_show', array('slug' => $slug)));
                 }
                  return $this->redirect($this->generateUrl('admin_calendar_index'));
 
