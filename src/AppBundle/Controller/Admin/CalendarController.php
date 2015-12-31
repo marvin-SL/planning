@@ -19,23 +19,11 @@ class CalendarController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $event = new Event();
-
-        $form = $this->createForm(new EventType(), $event);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid())
-        {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
-            $em->flush();
-            $this->SerializeToXmlAction();
-        }
-        $this->SerializeToXmlAction();
+        $calendars = $this->getDoctrine()
+        ->getRepository('AppBundle:Calendar')->findAll();
 
         return $this->render('AppBundle:Admin/Calendar:index.html.twig', array(
-            'form' => $form->createView(),
+            "calendars" => $calendars,
         ));
     }
 

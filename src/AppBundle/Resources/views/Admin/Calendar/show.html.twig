@@ -125,7 +125,7 @@ scheduler.config.time_step = 30;
 
 var formatFunc = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
 
-scheduler.init('scheduler_here',new Date().toJSON().slice(0,10),"week"); //TODO: impossible de changer de jour avec les fleches
+scheduler.init('scheduler_here',new Date('2015,0,10'),"week"); //TODO: impossible de changer de jour avec les fleches
 scheduler.templates.event_text=function(start,end,event){
     return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classroom+"</b><br>"+"infos: <b>"+event.notice+"</b></br>";
 

@@ -13,28 +13,6 @@ Tableau de bord
 {% block titre %}Tableau de bord{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Tableau de bord
-            </h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="alert alert-warning">
-                <h2>Aucun planning disponible, veuillez en créer un.</h2>
-            </div>
-            {% for calendar in calendars %}
-            <a href="{{path('admin_calendar_show', {'id' : calendar.id })}}">{{calendar.id}}</a> <br>
-            {% endfor %}
-        </div>
-
-    </div>
-</div>
 
 <!-- jQuery -->
 {% block javascripts %}
