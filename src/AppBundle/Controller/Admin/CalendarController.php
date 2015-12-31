@@ -55,12 +55,14 @@ class CalendarController extends Controller
 
     }
 
-    public function showAction(Request $request, $id)
+    public function showAction(Request $request, $slug)
     {
         $event = new Event();
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Calendar')->find($id);
+        $entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
+            'slug' => $slug
+        ));
 
         $form = $this->createForm(new EventType(), $event);
 
@@ -128,7 +130,7 @@ class CalendarController extends Controller
 
         $eventList = $eventRepository->findAll();
 
-        $path = $this->get('kernel')->getRootDir() . '/../web/data/'.$entity->getTitle().'.xml';
+        $path = $this->get('kernel')->getRootDir() . '/../web/data/'.$entity->getSlug().'.xml';
 
         file_put_contents($path,$rootNode->asXML());
 

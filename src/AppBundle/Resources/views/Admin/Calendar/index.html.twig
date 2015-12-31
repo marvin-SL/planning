@@ -28,7 +28,7 @@ Liste des agendas
             {% if calendars is defined %}
                 {% for calendar in calendars %}
                     <div class="info-icons">
-                        <i class="fa fa-calendar fa-5x"></i><a href="{{path('admin_calendar_show', {'id' : calendar.id })}}">{{calendar.title}} - {{calendar.id}}</a>
+                        <i class="fa fa-calendar fa-5x"></i><a href="{{path('admin_calendar_show', {'slug' : calendar.slug })}}">{{calendar.title}} - {{calendar.id}}</a>
                     </div>
                 {% endfor %}
             {% else %}

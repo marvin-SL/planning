@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Calendar
@@ -32,6 +33,12 @@ class Calendar
     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="calendar")
     */
     private $events;
+
+    /**
+     * @Gedmo\Slug(fields={"title"}, updatable=false)
+     * @ORM\Column(length=255, unique=true)
+     */
+    protected $slug;
 
     /**
      * Get id
@@ -67,7 +74,7 @@ class Calendar
     {
         return $this->title;
     }
-    
+
     /**
      * Constructor
      */
@@ -110,5 +117,29 @@ class Calendar
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Calendar
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

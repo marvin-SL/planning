@@ -9,5 +9,5 @@ admin_calendar_new:
      defaults:  {_controller: AppBundle:Admin/Calendar:new}
 
 admin_calendar_show:
-  path:        /{id}/show
+  path:        /{slug}/show
   defaults:  {_controller: AppBundle:Admin/Calendar:show}
