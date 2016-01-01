@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Oh\ColorPickerTypeBundle\Validator\Constraints as OhAssertColor;
 
 /**
  * Subject
@@ -37,6 +39,12 @@ class Subject
     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="subject", cascade={"persist"})
     */
     private $events;
+
+    /**
+      * @ORM\Column(type="string", length=7, nullable=false)
+      * @Assert\NotBlank()
+      */
+     public $color;
 
 
     /**
@@ -149,5 +157,29 @@ class Subject
     public function removeTeacher(\AppBundle\Entity\Teacher $teacher)
     {
         $this->teachers->removeElement($teacher);
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     *
+     * @return Subject
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
 }

@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Oh\ColorPickerTypeBundle\Form\Type\ColorPickerType;
 
 class SubjectType extends AbstractType
 {
@@ -18,6 +19,7 @@ class SubjectType extends AbstractType
               'multiple'    => true,
               'label' => 'Enseignant(e)s / Intervenant(e)s'
             ))
+        ->add('color', 'text', array('label' => 'Couleur'))
         ->add('save', 'submit', array('label' => 'Créer'))
         ;
     }

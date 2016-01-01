@@ -39,7 +39,7 @@ class EventController extends Controller
 
          $entity = $em->getRepository('AppBundle:Event')->find($id);
 
-         $path = $this->get('kernel')->getRootDir() . '/../web/data/test.xml';
+         $path = $this->get('kernel')->getRootDir() . '/../web/data/debug.xml';
 
          $startDate = $request->request->get('start_date');
          $endDate = $request->request->get('end_date');
@@ -48,9 +48,7 @@ class EventController extends Controller
 
          $serializer  = $this->get('app.serializer');
 
-         $calendar = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
-             'id' => $id
-         ));
+         $calendar = $entity->getCalendar();
 
           $slug = $calendar->getSlug();
 
@@ -66,7 +64,6 @@ class EventController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $serializer->serializeToXmlAction($calendar);
-
             }
 
             else
