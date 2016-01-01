@@ -6,10 +6,21 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Event;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
-class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
+class LoadEventData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
+    /**
+    * @var ContainerInterface
+    */
+   private $container;
+
+   public function setContainer(ContainerInterface $container = null)
+   {
+       $this->container = $container;
+   }
     /**
     * {@inheritDoc}
     */
@@ -19,6 +30,8 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
         $event2 = new Event();
         $event3 = new Event();
         $event4 = new Event();
+
+        $serializer  = $this->container->get('app.serializer');
 
         $event1->setStartDate(new \DateTime("now"));
         $event1->setEndDate(new \DateTime("+3 hours"));
@@ -54,6 +67,10 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($event4);
         $manager->flush();
 
+        $serializer->serializeToXmlAction($event1->getCalendar());
+        $serializer->serializeToXmlAction($event2->getCalendar());
+        $serializer->serializeToXmlAction($event3->getCalendar());
+        $serializer->serializeToXmlAction($event4->getCalendar());
     }
 
     /**
