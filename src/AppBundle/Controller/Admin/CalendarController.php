@@ -137,4 +137,29 @@ class CalendarController extends Controller
         return array();
     }
 
+    public function editAction(Request $request, $slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
+            'slug' => $slug,
+        ));
+
+        $editForm = $this->createForm(new CalendarType(), $entity);
+        $editForm->handleRequest($request);
+
+        if($editForm->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_calendar_index'));
+        }
+
+        return $this->render('AppBundle:Admin/Calendar:edit.html.twig', array(
+           'edit_form'   => $editForm->createView(),
+           'entity' => $entity,
+        ));
+    }
+
 }

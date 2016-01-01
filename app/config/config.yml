@@ -43,6 +43,22 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
+# Twig extensions
+services:
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+    twig.extension.date:
+        class: Twig_Extensions_Extension_Date
+        arguments: [@translator]
+        tags:
+            - { name: twig.extension }
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
@@ -92,3 +108,4 @@ stof_doctrine_extensions:
     orm:
         default:
             sluggable:   true
+            timestampable: true
