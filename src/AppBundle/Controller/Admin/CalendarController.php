@@ -148,6 +148,8 @@ class CalendarController extends Controller
         $editForm = $this->createForm(new CalendarType(), $entity);
         $editForm->handleRequest($request);
 
+        $events = $em->getRepository('AppBundle:Event')->findCalendarEvents($entity);
+
         if($editForm->isValid()){
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -159,6 +161,7 @@ class CalendarController extends Controller
         return $this->render('AppBundle:Admin/Calendar:edit.html.twig', array(
            'edit_form'   => $editForm->createView(),
            'entity' => $entity,
+           'events' => $events,
         ));
     }
 

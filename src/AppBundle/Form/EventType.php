@@ -43,7 +43,7 @@ class EventType extends AbstractType
           'label' => 'Info :',
           'required' => false,
         ))
-        ->add('save','submit', array('label' =>'Enregistrer'))
+        ->add('save','submit', array('label' =>'Créer'))
         ;
     }
 
