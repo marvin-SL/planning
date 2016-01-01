@@ -4,10 +4,10 @@
 Liste des agendas
 {{ parent() }}
 {% endblock %}
-
-{% block activeMenu1 %}
-    {% set tab = "class=active" %}
-    {{tab}}
+{% block stylesheets %}
+{% stylesheets '@AppBundle/Resources/public/dataTable/datatables.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
 {% endblock %}
 
 {% block titre %}Liste des agendas{% endblock %}
@@ -27,14 +27,14 @@ Liste des agendas
         <div class="col-lg-12">
             {% if calendars is defined %}
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
+                        <table id="calendarTable" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>Libellé</th>
                                     <th>Slug</th>
                                     <th>Date création</th>
                                     <th>Date modification</th>
-                                    <th>Actions</th>
+                                    <th class="nosort">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,6 +66,20 @@ Liste des agendas
 
 <!-- jQuery -->
 {% block javascripts %}
+{% javascripts '@AppBundle/Resources/public/dataTable/datatables.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %} <!--block js-->
 
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#calendarTable').DataTable({
+        "aoColumnDefs": [
+         { 'bSortable': false, 'aTargets': [ 4 ] }
+      ]
+    });
+
+});
+</script>
 {% endblock %}
