@@ -42,11 +42,16 @@ class EventController extends Controller
 
          $entity = $em->getRepository('AppBundle:Event')->find($id);
 
+         $startDateEntity = $entity->getStartDate();
+         $stringStartDate = $startDateEntity->format('d/m/Y H:i');
+
+         $endDateEntity = $entity->getEndDate();
+         $stringEndDate = $endDateEntity->format('d/m/Y H:i');
+
+
          $path = $this->get('kernel')->getRootDir() . '/../web/data/debug.xml';
 
-         $startDate = $request->request->get('start_date');
-         $endDate = $request->request->get('end_date');
-
+         $deleteForm = $this->createDeleteForm($id);
          $editForm = $this->createForm(new EventType(), $entity);
 
          $serializer  = $this->get('app.serializer');
@@ -61,6 +66,10 @@ class EventController extends Controller
 
             if($request->isXmlHttpRequest())
             {
+
+                $startDate = $request->request->get('start_date');
+                $endDate = $request->request->get('end_date');
+
                 $entity->setStartDate(new \DateTime($startDate));
                 $entity->setEndDate(new \DateTime($endDate));
                 $em = $this->getDoctrine()->getManager();
@@ -91,7 +100,55 @@ class EventController extends Controller
         return $this->render('AppBundle:Admin/Event:edit.html.twig', array(
            'edit_form'   => $editForm->createView(),
            'entity' => $entity,
+           'stringStartDate' => $stringStartDate,
+           'stringEndDate' => $stringEndDate,
         ));
     }
+
+
+        /**
+         * Deletes a Event entity.
+         *
+         * @param Request $request
+         * @param integer $id
+         *
+         * @return Symfony\Component\HttpFoundation\Response
+         */
+        public function deleteAction(Request $request, $id)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $form = $this->createDeleteForm($id);
+
+            if ($form->handleRequest($request)->isValid()) {
+
+                if (!$entity = $em->getRepository('AppBundle:Event')->find($id)) {
+                    throw $this->createNotFoundException('Unable to find Event entity.');
+                }
+
+                $em->remove($entity);
+                $em->flush();
+
+                $message = $this->get('translator')->trans('event.delete_success', array(), 'flashes');
+                $this->get('session')->getFlashBag()->add('success', $message);
+            }
+
+            return $this->redirect($this->generateUrl('admin_event_index'));
+        }
+
+        /**
+         * Creates a form to delete a Event entity by id.
+         *
+         * @param mixed $id The entity id
+         *
+         * @return \Symfony\Component\Form\Form The form
+         */
+        private function createDeleteForm($id)
+        {
+            return $this->createFormBuilder()
+                ->setAction($this->generateUrl('admin_event_delete', array('id' => $id)))
+                ->setMethod('DELETE')
+                ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
+                ->getForm();
+        }
 
 }

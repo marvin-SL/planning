@@ -11,8 +11,6 @@ class EventType extends AbstractType
     {
         $builder
         ->add('startDate','datetime', array(
-                'input'  => 'datetime',
-                'widget' => 'choice',
                 'years'=> array('2015', '2016'),
                 'label' => 'Début',
               ))

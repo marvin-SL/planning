@@ -11,3 +11,7 @@ admin_event_edit:
     defaults:  {_controller: AppBundle:Admin/Event:edit}
     options:
         expose: true
+
+admin_event_delete:
+ path:        /{id}/delete
+ defaults:  {_controller: AppBundle:Admin/Event:delete}

@@ -6,12 +6,177 @@ Edition
 {% endblock %}
 
 {% block stylesheets %}
+{% stylesheets '@AppBundle/Resources/public/css/bootstrap-datetimepicker.min.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
+
+{% stylesheets '@AppBundle/Resources/public/css/bootstrap-datetimepicker.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
 {% endblock %}
 
 {% block titre %}Edition {% endblock %}
 
 {% block body %}
-{{ form_start(edit_form) }}
-{{ form_widget(edit_form) }}
-{{ form_end(edit_form) }}
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Edition d'une salle
+            </h1>
+            <!-- <div class="alert alert-info">
+            <h3>Saisissez le nom des salles qui seront utilisées tout au long de l'année scolaire.</h3><br>
+            <h4>La liste des salles sera proposée lors de la création d'un évenement</h4>
+        </div> -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+            <div>
+            {{ form_start(edit_form) }}
+            {{ form_errors(edit_form) }}
+            <div class="form-group">
+                <label for="start">
+                    {{ form_label(edit_form.startDate) }}
+                </label>
+                {{ form_errors(edit_form.startDate) }}
+                {{ form_widget(edit_form.startDate, { 'id': 'start',  'attr': { 'class' : 'form-control' } } ) }}
+
+            </div>
+            <div class="form-group">
+                <label for="end">
+                    {{ form_label(edit_form.endDate) }}
+                </label>
+                {{ form_errors(edit_form.endDate) }}
+                {{ form_widget(edit_form.endDate, { 'id': 'end',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+            <div class="form-group">
+                <label for="calendar">
+                    {{ form_label(edit_form.calendar) }}
+                </label>
+                {{ form_errors(edit_form.calendar) }}
+                {{ form_widget(edit_form.calendar, { 'id': 'calendar',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+            <div class="form-group">
+                <label for="subject">
+                    {{ form_label(edit_form.subject) }}
+                </label>
+                {{ form_errors(edit_form.subject) }}
+                {{ form_widget(edit_form.subject, { 'id': 'subject',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+            <div class="form-group">
+                <label for="classroom">
+                    {{ form_label(edit_form.classroom) }}
+                </label>
+                {{ form_errors(edit_form.classroom) }}
+                {{ form_widget(edit_form.classroom, { 'id': 'classroom',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+            <div class="form-group">
+                <label for="notice">
+                    {{ form_label(edit_form.notice) }}
+                </label>
+                {{ form_errors(edit_form.notice) }}
+                {{ form_widget(edit_form.notice, { 'id': 'notice',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(edit_form.save, {'label': 'Mettre à jour', 'attr': { 'class' : 'btn btn-success' } } ) }}
+                {{ form_end(edit_form) }}
+                <p>&nbsp;</p>
+                    <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>
+        {#}    {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %}#}
+            </div>
+            </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+
+    <div class="container">
+    <div class='col-md-5'>
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker6'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-5'>
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker7'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+<!-- <div class="row margin-top-20">
+    <div class="col-lg-12">
+        <h3 class="page-header">
+            Listes des salles
+        </h3>
+</div>
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Intitulé</th>
+                    <th>Editer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#}{% for classroom in classrooms %}
+                <tr>
+                    <td>{{classroom.name}}</td>
+                    <td><a href="{{path('admin_classroom_edit', {'id' : classroom.id })}}">Editer</a></td>
+                </tr>
+                {% endfor %}#}
+            </tbody>
+        </table>
+    </div>
+</div> -->
+
+{% block javascripts %}
+{% javascripts '@AppBundle/Resources/public/js/bootstrap-datetimepicker.min.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/bootstrap-datetimepicker.fr.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+
+<script>
+// $('#datetimepicker').data("DateTimePicker").FUNCTION()
+// $('.datepicker').datepicker()
+
+$(function () {
+     $('#datetimepicker6').datetimepicker({
+        useCurrent: false, //Important! See issue #1075
+        language: 'fr'
+    });
+     $('#datetimepicker7').datetimepicker({
+         useCurrent: false, //Important! See issue #1075
+         language: 'fr'
+     });
+     $("#datetimepicker6").on("dp.change", function (e) {
+         $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+     });
+     $("#datetimepicker7").on("dp.change", function (e) {
+         $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+     });
+ });
+</script>
+{% endblock %}
 {% endblock %}
