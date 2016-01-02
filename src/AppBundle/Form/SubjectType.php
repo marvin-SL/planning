@@ -20,7 +20,7 @@ class SubjectType extends AbstractType
               'label' => 'Enseignant(e)s / Intervenant(e)s'
             ))
         ->add('color', 'text', array('label' => 'Couleur'))
-        ->add('save', 'submit', array('label' => 'Créer'))
+        ->add('save','submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
         ;
     }
 

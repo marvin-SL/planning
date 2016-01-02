@@ -12,7 +12,7 @@ class TeacherType extends AbstractType
         $builder
         ->add('firstname', 'text', array('label' => 'Prénom'))
         ->add('lastname', 'text', array('label' => 'Nom'))
-        ->add('save','submit', array('label' =>'Créer'))
+        ->add('save','submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
         ;
     }
 

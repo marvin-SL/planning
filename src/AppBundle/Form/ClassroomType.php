@@ -11,7 +11,7 @@ class ClassroomType extends AbstractType
     {
         $builder
         ->add('name', 'text', array('label' => 'Salle:'))
-        ->add('save', 'submit', array('label' => 'Créer'))
+        ->add('save','submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
         ;
     }
 
