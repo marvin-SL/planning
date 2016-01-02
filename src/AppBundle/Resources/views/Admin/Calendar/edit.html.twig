@@ -12,7 +12,7 @@ Edition
 
 {% block body %}
 
-<div class="container-fluid">
+
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
@@ -41,6 +41,9 @@ Edition
             <div class="form-group">
                 {{ form_row(edit_form.save, {'label': 'Mettre à jour', 'attr': { 'class' : 'btn btn-success' } } ) }}
                 {{ form_end(edit_form) }}
+                <p>&nbsp;</p>
+                    <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>
+            {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %}
             </div>
             </div>
     </div>
@@ -87,5 +90,5 @@ Edition
     <div class="col-md-2">
     </div>
 </div>
-</div>
+
 {% endblock %}

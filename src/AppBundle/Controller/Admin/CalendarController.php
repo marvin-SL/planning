@@ -146,6 +146,7 @@ class CalendarController extends Controller
             'slug' => $slug,
         ));
 
+        $deleteForm = $this->createDeleteForm($slug);
         $editForm = $this->createForm(new CalendarType(), $entity);
         $editForm->handleRequest($request);
 
@@ -161,9 +162,57 @@ class CalendarController extends Controller
 
         return $this->render('AppBundle:Admin/Calendar:edit.html.twig', array(
            'edit_form'   => $editForm->createView(),
+           'delete_form' => $deleteForm->createView(),
            'entity' => $entity,
            'events' => $events,
         ));
+    }
+
+    /**
+     * Deletes a Calendar entity.
+     *
+     * @param Request $request
+     * @param integer $id
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction(Request $request, $slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createDeleteForm($slug);
+
+        if ($form->handleRequest($request)->isValid()) {
+
+            if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
+                'slug'=>$slug
+            ))) {
+                throw $this->createNotFoundException('Unable to find Image entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+
+            $message = $this->get('translator')->trans('image.delete_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
+        }
+
+        return $this->redirect($this->generateUrl('admin_calendar_index'));
+    }
+
+    /**
+     * Creates a form to delete a Calendar entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm($slug)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin_calendar_delete', array('slug' => $slug)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
+            ->getForm();
     }
 
 }

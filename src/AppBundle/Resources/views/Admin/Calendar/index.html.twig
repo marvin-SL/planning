@@ -13,7 +13,7 @@ Liste des agendas
 {% block titre %}Liste des agendas{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
+
 
     <!-- Page Heading -->
     <div class="row">
@@ -45,7 +45,7 @@ Liste des agendas
                                     <td>{{calendar.createdAt| localizeddate('long', 'short') }}</td>
                                     <td>{{calendar.updatedAt| localizeddate('long', 'short') }}</td>
                                     <td>
-                                        <a href="{{path('admin_calendar_show', {'slug' : calendar.slug })}}">Voir</a> | 
+                                        <a href="{{path('admin_calendar_show', {'slug' : calendar.slug })}}">Voir</a> |
                                         <a href="{{path('admin_calendar_edit', {'slug' : calendar.slug })}}">Editer</a>
                                     </td>
                                 </tr>
@@ -62,7 +62,7 @@ Liste des agendas
         </div>
 
     </div>
-</div>
+
 
 <!-- jQuery -->
 {% block javascripts %}

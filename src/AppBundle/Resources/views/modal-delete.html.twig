@@ -1,0 +1,24 @@
+<!-- Modal -->
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modalDelete">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="modalDelete">Suppression</h4>
+      </div>
+      <div class="modal-body modal-danger">
+            <h4>{{ 'text.message_alert_before_delete'|trans({}, 'messages') }}</h4>
+            <p>{{ 'text.question_confirm_delete'|trans({}, 'messages') }}</p>
+      </div>
+      <div class="modal-footer">
+          {{ form_start(form, {'attr' : { 'class' : 'form-inline' }}) }}
+          <div class="btn-group">
+               {{ form_widget(form.submit, { 'attr': { 'class': 'btn btn-danger'}}) }}
+              <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+              {{ form_widget(form.submit) }}
+          </div>
+          {{ form_end(form) }}
+      </div>
+    </div>
+  </div>
+</div>

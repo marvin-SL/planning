@@ -143,10 +143,13 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             {{knp_menu_render('main', {'template': 'AppBundle:Menu:knp_menu.html.twig', 'currentClass': 'active'})}}
             <!-- /.navbar-collapse -->
-        </nav>    
+        </nav>
         <div id="page-wrapper">
-            {% block body %}
-            {% endblock %}
+            <div class="container-fluid">
+                {% include 'AppBundle:Default:flashes.html.twig' %}
+                {% block body %}
+                {% endblock %}
+            </div>
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->

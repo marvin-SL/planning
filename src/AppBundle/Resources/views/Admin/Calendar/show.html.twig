@@ -29,7 +29,7 @@ html, body{ height:100%; padding:0px; margin:0px; }
 {% endblock %}
 
 {% block body %}
-<div class="container-fluid">
+
 
     <form id="xml_form" action="{{ path('admin_event_xmlWriter')}}" method="post" target="hidden_frame" >
         <input type="hidden" name="data" value="" id="data">
@@ -88,7 +88,7 @@ html, body{ height:100%; padding:0px; margin:0px; }
         </div>
 
     </div>
-</div>
+
 
 {% endblock %}
 {% block javascripts %}

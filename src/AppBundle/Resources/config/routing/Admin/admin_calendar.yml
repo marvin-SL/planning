@@ -15,3 +15,7 @@ admin_calendar_show:
 admin_calendar_edit:
    path:        /{slug}/edit
    defaults:  {_controller: AppBundle:Admin/Calendar:edit}
+
+admin_calendar_delete:
+   path:        /{slug}/delete
+   defaults:  {_controller: AppBundle:Admin/Calendar:delete}
