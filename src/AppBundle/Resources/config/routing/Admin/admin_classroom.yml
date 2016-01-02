@@ -5,3 +5,11 @@ admin_classroom_index:
 admin_classroom_new:
       path:    /new
       defaults:    {_controller: AppBundle:Admin/Classroom:new}
+
+admin_classroom_edit:
+ path:        /{id}/edit
+ defaults:  {_controller: AppBundle:Admin/Classroom:edit}
+
+admin_classroom_delete:
+ path:        /{id}/delete
+ defaults:  {_controller: AppBundle:Admin/Classroom:delete}

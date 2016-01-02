@@ -32,14 +32,14 @@ Gestion des salles
                 <thead>
                     <tr>
                         <th>Intitulé</th>
-                        <th>Editer</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for classroom in classrooms %}
                     <tr>
                         <td>{{classroom.name}}</td>
-                        <td>lien</td>
+                        <td><a href="{{path('admin_classroom_edit', {'id' : classroom.id })}}">Editer</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
