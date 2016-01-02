@@ -42,13 +42,6 @@ class EventController extends Controller
 
          $entity = $em->getRepository('AppBundle:Event')->find($id);
 
-         $startDateEntity = $entity->getStartDate();
-         $stringStartDate = $startDateEntity->format('d/m/Y H:i');
-
-         $endDateEntity = $entity->getEndDate();
-         $stringEndDate = $endDateEntity->format('d/m/Y H:i');
-
-
          $path = $this->get('kernel')->getRootDir() . '/../web/data/debug.xml';
 
          $deleteForm = $this->createDeleteForm($id);
@@ -99,9 +92,8 @@ class EventController extends Controller
 
         return $this->render('AppBundle:Admin/Event:edit.html.twig', array(
            'edit_form'   => $editForm->createView(),
+           'delete_form' => $deleteForm->createView(),
            'entity' => $entity,
-           'stringStartDate' => $stringStartDate,
-           'stringEndDate' => $stringEndDate,
         ));
     }
 
@@ -119,6 +111,7 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $form = $this->createDeleteForm($id);
 
+
             if ($form->handleRequest($request)->isValid()) {
 
                 if (!$entity = $em->getRepository('AppBundle:Event')->find($id)) {
@@ -127,12 +120,13 @@ class EventController extends Controller
 
                 $em->remove($entity);
                 $em->flush();
+                $calendar = $entity->getCalendar();
 
                 $message = $this->get('translator')->trans('event.delete_success', array(), 'flashes');
                 $this->get('session')->getFlashBag()->add('success', $message);
             }
 
-            return $this->redirect($this->generateUrl('admin_event_index'));
+            return $this->redirect($this->generateUrl('admin_calendar_edit', array('slug' => $calendar->getSlug())));
         }
 
         /**
