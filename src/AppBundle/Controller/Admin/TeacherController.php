@@ -82,7 +82,7 @@ class TeacherController extends Controller
 
         $entity = $em->getRepository('AppBundle:Teacher')->find($id);
 
-        //$deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new TeacherType(), $entity);
         $editForm->handleRequest($request);
 
@@ -101,7 +101,7 @@ class TeacherController extends Controller
 
         return $this->render('AppBundle:Admin/Teacher:edit.html.twig', array(
            'edit_form'   => $editForm->createView(),
-          // 'delete_form' => $deleteForm->createView(),
+           'delete_form' => $deleteForm->createView(),
            'entity' => $entity,
            'teachers' => $teachers,
         ));

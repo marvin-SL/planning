@@ -50,7 +50,7 @@ Edition
                 {{ form_end(edit_form) }}
                 <p>&nbsp;</p>
                     <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>
-            {#}{% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %}#}
+            {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %}
             </div>
             </div>
     </div>
