@@ -14,12 +14,13 @@ class EventType extends AbstractType
             'label' => 'Début :',
             'pickerOptions' =>
             array('format' => 'dd/mm/yyyy hh:ii',
+            'calendarWeeks' =>true,
                 'weekStart' => 0,
                 'daysOfWeekDisabled' => '0,6', //example
                 'autoclose' => true,
                 'startView' => 'month',
                 'minView' => 'hour',
-                'maxView' => 'decade',
+                'maxView' => 'year',
                 'todayBtn' => true,
                 'todayHighlight' => true,
                 'keyboardNavigation' => true,
@@ -30,18 +31,19 @@ class EventType extends AbstractType
                 'pickerPosition' => 'bottom-right',
                 'viewSelect' => 'hour',
                 'showMeridian' => false,
+                'starDate' => date('m/d/Y'),
                 'initialDate' => date('m/d/Y', 1577836800), //example
                 )))
         ->add('endDate', 'collot_datetime', array(
             'label' => 'Fin :',
             'pickerOptions' =>
-            array('format' => 'dd/mm/yyyy hh:ii',
+                array('format' => 'dd/mm/yyyy hh:ii',
                 'weekStart' => 0,
                 'daysOfWeekDisabled' => '0,6', //example
                 'autoclose' => true,
                 'startView' => 'month',
                 'minView' => 'hour',
-                'maxView' => 'decade',
+                'maxView' => 'year',
                 'todayBtn' => true,
                 'todayHighlight' => true,
                 'keyboardNavigation' => true,

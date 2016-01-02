@@ -118,7 +118,6 @@ Edition
 </div> -->
 
 {% block javascripts %}
-
   {{ form_javascript(edit_form) }}
 <script>
 
@@ -127,7 +126,6 @@ $(function () {
 
     });
      $('#endDate').datetimepicker({
-
      });
      $("#startDate").on("dp.change", function (e) {
          $('#endDate').data("DateTimePicker").minDate(e.date);
