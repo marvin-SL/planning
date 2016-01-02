@@ -2,10 +2,6 @@ admin_event_new:
       path:    /new
       defaults:  {_controller: AppBundle:Admin/Event:new}
 
-admin_event_xmlWriter:
-    path:       /xmlWriter
-    defaults:   {_controller: AppBundle:Admin/Event:xmlWriter }
-
 admin_event_edit:
     path:    /{id}/edit
     defaults:  {_controller: AppBundle:Admin/Event:edit}
