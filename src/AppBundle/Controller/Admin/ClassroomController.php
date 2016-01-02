@@ -81,7 +81,7 @@ class ClassroomController extends Controller
 
         $entity = $em->getRepository('AppBundle:Classroom')->find($id);
 
-        //$deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new ClassroomType(), $entity);
         $editForm->handleRequest($request);
 
@@ -100,7 +100,7 @@ class ClassroomController extends Controller
 
         return $this->render('AppBundle:Admin/Classroom:edit.html.twig', array(
            'edit_form'   => $editForm->createView(),
-           //'delete_form' => $deleteForm->createView(),
+           'delete_form' => $deleteForm->createView(),
            'entity' => $entity,
            'classrooms' => $classrooms,
         ));
@@ -121,33 +121,31 @@ class ClassroomController extends Controller
 
         if ($form->handleRequest($request)->isValid()) {
 
-            if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
-                'slug'=>$slug
-            ))) {
-                throw $this->createNotFoundException('Unable to find Image entity.');
+            if (!$entity = $em->getRepository('AppBundle:Classroom')->find($id)) {
+                throw $this->createNotFoundException('Unable to find Classroom entity.');
             }
 
             $em->remove($entity);
             $em->flush();
 
-            $message = $this->get('translator')->trans('calendar.delete_success', array(), 'flashes');
+            $message = $this->get('translator')->trans('classroom.delete_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);
         }
 
-        return $this->redirect($this->generateUrl('admin_calendar_index'));
+        return $this->redirect($this->generateUrl('admin_classroom_index'));
     }
 
     /**
-     * Creates a form to delete a Calendar entity by id.
+     * Creates a form to delete a Classroom entity by id.
      *
      * @param mixed $id The entity id
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($slug)
+    private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_calendar_delete', array('slug' => $slug)))
+            ->setAction($this->generateUrl('admin_classroom_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
             ->getForm();

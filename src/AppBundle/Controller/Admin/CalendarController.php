@@ -191,7 +191,7 @@ class CalendarController extends Controller
             if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
                 'slug'=>$slug
             ))) {
-                throw $this->createNotFoundException('Unable to find Image entity.');
+                throw $this->createNotFoundException('Unable to find Calendar entity.');
             }
 
             $em->remove($entity);
