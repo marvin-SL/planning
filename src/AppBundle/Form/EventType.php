@@ -10,17 +10,51 @@ class EventType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('startDate','datetime', array(
-                'years'=> array('2015', '2016'),
-                'label' => 'Début',
-              ))
-
-        ->add('endDate', 'datetime', array(
-            'input'  => 'datetime',
-            'widget' => 'choice',
-            'years'=> array('2015', '2016'),
-            'label' => 'Fin',
-        ))
+        ->add('startDate','collot_datetime', array(
+            'label' => 'Début :',
+            'pickerOptions' =>
+            array('format' => 'dd/mm/yyyy hh:ii',
+                'weekStart' => 0,
+                'daysOfWeekDisabled' => '0,6', //example
+                'autoclose' => true,
+                'startView' => 'month',
+                'minView' => 'hour',
+                'maxView' => 'decade',
+                'todayBtn' => true,
+                'todayHighlight' => true,
+                'keyboardNavigation' => true,
+                'language' => 'fr',
+                'forceParse' => true,
+                'minuteStep' => 30,
+                'pickerReferer ' => 'default', //deprecated
+                'pickerPosition' => 'bottom-right',
+                'viewSelect' => 'hour',
+                'showMeridian' => false,
+                'initialDate' => date('m/d/Y', 1577836800), //example
+                )))
+        ->add('endDate', 'collot_datetime', array(
+            'label' => 'Fin :',
+            'pickerOptions' =>
+            array('format' => 'dd/mm/yyyy hh:ii',
+                'weekStart' => 0,
+                'daysOfWeekDisabled' => '0,6', //example
+                'autoclose' => true,
+                'startView' => 'month',
+                'minView' => 'hour',
+                'maxView' => 'decade',
+                'todayBtn' => true,
+                'todayHighlight' => true,
+                'keyboardNavigation' => true,
+                'language' => 'fr',
+                'forceParse' => true,
+                'minuteStep' => 30,
+                'pickerReferer ' => 'default', //deprecated
+                'pickerPosition' => 'bottom-right',
+                'viewSelect' => 'hour',
+                'showMeridian' => false,
+                'initialDate' => date('m/d/Y', 1577836800), //example
+            )
+            ))
 
         ->add('calendar', 'entity', array(
               'class' => 'AppBundle:Calendar',
@@ -38,7 +72,7 @@ class EventType extends AbstractType
             'label' => 'Salle/Bâtiment :'
         ))
         ->add('notice', 'text', array(
-          'label' => 'Info :',
+          'label' => 'Information complémentaire :',
           'required' => false,
         ))
         ->add('save','submit', array('label' => 'button.create', 'translation_domain' => 'forms'))

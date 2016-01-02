@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "02060ebbbc3fbcaf1b6ad9077cc6ac6c",
-    "content-hash": "33bf9f7cdf72b05fac342b1b8359cce2",
+    "hash": "e6e809085f8f08d8f822b1b1d85cd6a2",
+    "content-hash": "c86e316caaaa4100bd9ad61d7bcb6d70",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2035,6 +2035,52 @@
             "time": "2015-11-07 08:07:40"
         },
         {
+            "name": "stephanecollot/datetimepicker-bundle",
+            "version": "dev-master",
+            "target-dir": "SC/DatetimepickerBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stephanecollot/DatetimepickerBundle.git",
+                "reference": "733e4d1896aba5ee7c0b924d0ce25bca179b47ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stephanecollot/DatetimepickerBundle/zipball/733e4d1896aba5ee7c0b924d0ce25bca179b47ef",
+                "reference": "733e4d1896aba5ee7c0b924d0ce25bca179b47ef",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "symfony/framework-bundle": "2.*",
+                "symfony/symfony": "2.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "SC\\DatetimepickerBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephane Collot"
+                }
+            ],
+            "description": "Symfony bundle for Bootstrap DateTime picker",
+            "keywords": [
+                "bootstrap",
+                "bundle",
+                "datepicker",
+                "picker",
+                "symfony",
+                "timepicker"
+            ],
+            "time": "2015-05-11 20:47:22"
+        },
+        {
             "name": "stof/doctrine-extensions-bundle",
             "version": "dev-master",
             "source": {
@@ -2666,7 +2712,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "friendsofsymfony/user-bundle": 20,
-        "stof/doctrine-extensions-bundle": 20
+        "stof/doctrine-extensions-bundle": 20,
+        "stephanecollot/datetimepicker-bundle": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

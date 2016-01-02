@@ -6,13 +6,7 @@ Edition
 {% endblock %}
 
 {% block stylesheets %}
-{% stylesheets '@AppBundle/Resources/public/css/bootstrap-datetimepicker.min.css' %}
-<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
-{% endstylesheets %}
-
-{% stylesheets '@AppBundle/Resources/public/css/bootstrap-datetimepicker.css' %}
-<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
-{% endstylesheets %}
+{{ form_stylesheet(edit_form) }}
 {% endblock %}
 
 {% block titre %}Edition {% endblock %}
@@ -43,15 +37,14 @@ Edition
                     {{ form_label(edit_form.startDate) }}
                 </label>
                 {{ form_errors(edit_form.startDate) }}
-                {{ form_widget(edit_form.startDate, { 'id': 'start',  'attr': { 'class' : 'form-control' } } ) }}
-
+                {{ form_widget(edit_form.startDate, { 'id': 'startDate',  'attr': { 'class' : 'form-control' } } ) }}
             </div>
             <div class="form-group">
                 <label for="end">
                     {{ form_label(edit_form.endDate) }}
                 </label>
                 {{ form_errors(edit_form.endDate) }}
-                {{ form_widget(edit_form.endDate, { 'id': 'end',  'attr': { 'class' : 'form-control' } } ) }}
+                {{ form_widget(edit_form.endDate, { 'id': 'endDate',  'attr': { 'class' : 'form-control' } } ) }}
             </div>
             <div class="form-group">
                 <label for="calendar">
@@ -92,30 +85,6 @@ Edition
     </div>
     <div class="col-md-2">
     </div>
-
-    <div class="container">
-    <div class='col-md-5'>
-        <div class="form-group">
-            <div class='input-group date' id='datetimepicker6'>
-                <input type='text' class="form-control" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-5'>
-        <div class="form-group">
-            <div class='input-group date' id='datetimepicker7'>
-                <input type='text' class="form-control" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
 </div>
 
 
@@ -149,32 +118,22 @@ Edition
 </div> -->
 
 {% block javascripts %}
-{% javascripts '@AppBundle/Resources/public/js/bootstrap-datetimepicker.min.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% javascripts '@AppBundle/Resources/public/js/bootstrap-datetimepicker.fr.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
 
-
+  {{ form_javascript(edit_form) }}
 <script>
-// $('#datetimepicker').data("DateTimePicker").FUNCTION()
-// $('.datepicker').datepicker()
 
 $(function () {
-     $('#datetimepicker6').datetimepicker({
-        useCurrent: false, //Important! See issue #1075
-        language: 'fr'
+     $('#startDate').datetimepicker({
+
     });
-     $('#datetimepicker7').datetimepicker({
-         useCurrent: false, //Important! See issue #1075
-         language: 'fr'
+     $('#endDate').datetimepicker({
+
      });
-     $("#datetimepicker6").on("dp.change", function (e) {
-         $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+     $("#startDate").on("dp.change", function (e) {
+         $('#endDate').data("DateTimePicker").minDate(e.date);
      });
-     $("#datetimepicker7").on("dp.change", function (e) {
-         $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+     $("#endDate").on("dp.change", function (e) {
+         $('#startDate').data("DateTimePicker").maxDate(e.date);
      });
  });
 </script>

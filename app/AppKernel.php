@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
