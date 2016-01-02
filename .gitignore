@@ -11,3 +11,4 @@
 /web/bundles/
 *~
 events.xml
+/web/data/*.xml

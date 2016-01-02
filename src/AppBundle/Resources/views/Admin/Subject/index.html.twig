@@ -1,18 +1,33 @@
 {% extends 'base.html.twig' %}
 {% block title %}
+Gestion des matières
+{{ parent() }}
 {% endblock %}
-
+{% block titre %}Gestion des matières{% endblock %}
 {% block body %}
 
+{% for flash_message in app.session.flashbag.get('notice') %}
+<div class="flash-notice">
+    <div class="alert alert-info">
+        <h3>3) a) Nous voici devant l'affichage des matières</h3><br>
+        <h4>Pour créer une nouvelle entrée, cliquez sur le bouton <em>Ajouter</em></h4><br>
+    </div>
+</div>
 
-{% for teacher in subjects %}
 {% endfor %}
-<h1 class="page-header">
-    Matières
-</h1>
-<div class="row">
-    <div class="col-lg-12">
-        <h2>Bordered Table</h2>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Gestion des matières
+            </h1>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
@@ -29,14 +44,17 @@
                         <td>{{subject.name}}</td>
                         <td>
                         {% for teacher in subject.teachers %}
-                            {{ teacher.firstName }}, {{ teacher.lastName }}</br>
+                            {{ teacher.firstname }}, {{ teacher.lastname }}</br>
                         {% endfor %}
                         </td>
+                            <!-- <td><a href="{{path('admin_subject_edit', {'id' : subject.id })}}">Editer</a></td> -->
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-</div>
+    <div class="col-md-4">
+            <a class="btn btn-success" href="{{path('admin_subject_new')}}">Ajouter</a>
+    </div>
 {% endblock %}

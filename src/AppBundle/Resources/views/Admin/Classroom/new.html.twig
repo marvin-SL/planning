@@ -1,10 +1,48 @@
 {% extends 'base.html.twig' %}
 {% block title %}
+Gestion des salles
+{{ parent() }}
 {% endblock %}
-
+{% block titre %}Gestion des salles{% endblock %}
 {% block body %}
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+
+{% for flash_message in app.session.flashbag.get('notice') %}
+<div class="flash-notice">
+
+</div>
+
+{% endfor %}
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Ajout d'une salle
+            </h1>
+            <div class="alert alert-info">
+                <h3>Saisissez le nom des salles qui seront utilisées tout au long de l'année scolaire.</h3><br>
+                <h4>La liste des salles sera proposée lors de la création d'un évenement</h4>
+            </div>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-5">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+				<div class="form-group">
+					<label for="name">
+						Nom :
+					</label>
+                     {{ form_errors(form.name) }}
+                     {{ form_widget(form.name, { 'id': 'name',  'attr': { 'class' : 'form-control' } } ) }}
+				</div>
+                    {{ form_widget(form.save, { 'attr': { 'class' : 'btn btn-success' } } ) }}
+                    {{ form_end(form) }}
+		</div>
+		<div class="col-md-5">
+		</div>
+	</div>
 
 {% endblock %}

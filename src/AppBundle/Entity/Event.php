@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Event
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\EventRepository")
  */
 class Event
 {
@@ -24,7 +24,7 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="notice", type="string", length=255)
+     * @ORM\Column(name="notice", type="string", length=255, nullable=true)
      */
     private $notice;
 
@@ -44,7 +44,7 @@ class Event
 
     /**
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events")
-   * @ORM\JoinColumn(nullable=false)
+   * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
    */
     private $calendar;
 
@@ -55,10 +55,10 @@ class Event
     private $subject;
 
     /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ClassRoom", cascade={"persist"}, inversedBy="events")
-   * @ORM\JoinColumn(nullable=false)
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Classroom", cascade={"persist"}, inversedBy="events")
+   * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
    */
-    private $classRoom;
+    private $classroom;
 
     /**
      * Get id
@@ -143,27 +143,27 @@ class Event
     }
 
     /**
-     * Set classRoom
+     * Set classroom
      *
-     * @param \AppBundle\Entity\ClassRoom $classRoom
+     * @param \AppBundle\Entity\Classroom $classroom
      *
      * @return Event
      */
-    public function setClassRoom(\AppBundle\Entity\ClassRoom $classRoom)
+    public function setClassroom(\AppBundle\Entity\Classroom $classroom)
     {
-        $this->classRoom = $classRoom;
+        $this->classroom = $classroom;
 
         return $this;
     }
 
     /**
-     * Get classRoom
+     * Get classroom
      *
-     * @return \AppBundle\Entity\ClassRoom
+     * @return \AppBundle\Entity\Classroom
      */
-    public function getClassRoom()
+    public function getClassroom()
     {
-        return $this->classRoom;
+        return $this->classroom;
     }
 
     /**

@@ -10,19 +10,53 @@ class EventType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('startDate','datetime', array(
-                'input'  => 'datetime',
-                'widget' => 'choice',
-                'years'=> array('2015', '2016'),
-                'label' => 'Début',
-              ))
-
-        ->add('endDate', 'datetime', array(
-            'input'  => 'datetime',
-            'widget' => 'choice',
-            'years'=> array('2015', '2016'),
-            'label' => 'Fin',
-        ))
+        ->add('startDate','collot_datetime', array(
+            'label' => 'Début :',
+            'pickerOptions' =>
+            array('format' => 'dd/mm/yyyy hh:ii',
+            'calendarWeeks' =>true,
+                'weekStart' => 0,
+                'daysOfWeekDisabled' => '0,6', //example
+                'autoclose' => true,
+                'startView' => 'month',
+                'minView' => 'hour',
+                'maxView' => 'year',
+                'todayBtn' => true,
+                'todayHighlight' => true,
+                'keyboardNavigation' => true,
+                'language' => 'fr',
+                'forceParse' => true,
+                'minuteStep' => 30,
+                'pickerReferer ' => 'default', //deprecated
+                'pickerPosition' => 'bottom-right',
+                'viewSelect' => 'hour',
+                'showMeridian' => false,
+                'starDate' => date('m/d/Y'),
+                'initialDate' => date('m/d/Y', 1577836800), //example
+                )))
+        ->add('endDate', 'collot_datetime', array(
+            'label' => 'Fin :',
+            'pickerOptions' =>
+                array('format' => 'dd/mm/yyyy hh:ii',
+                'weekStart' => 0,
+                'daysOfWeekDisabled' => '0,6', //example
+                'autoclose' => true,
+                'startView' => 'month',
+                'minView' => 'hour',
+                'maxView' => 'year',
+                'todayBtn' => true,
+                'todayHighlight' => true,
+                'keyboardNavigation' => true,
+                'language' => 'fr',
+                'forceParse' => true,
+                'minuteStep' => 30,
+                'pickerReferer ' => 'default', //deprecated
+                'pickerPosition' => 'bottom-right',
+                'viewSelect' => 'hour',
+                'showMeridian' => false,
+                'initialDate' => date('m/d/Y', 1577836800), //example
+            )
+            ))
 
         ->add('calendar', 'entity', array(
               'class' => 'AppBundle:Calendar',
@@ -34,24 +68,24 @@ class EventType extends AbstractType
             'choice_label' => 'name',
             'label' => 'Matière :'
         ))
-        ->add('classRoom', 'entity', array(
-            'class' => 'AppBundle:ClassRoom',
+        ->add('classroom', 'entity', array(
+            'class' => 'AppBundle:Classroom',
             'choice_label' => 'name',
             'label' => 'Salle/Bâtiment :'
         ))
         ->add('notice', 'text', array(
-          'label' => 'Info :',
-          'required' => 'false',
+          'label' => 'Information complémentaire :',
+          'required' => false,
         ))
-        ->add('save','submit', array('label' =>'Créer'))
+        ->add('save','submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Event',
-        ));
+        // $resolver->setDefaults(array(
+        //     'data_class' => 'AppBundle\Entity\Event',
+        // ));
     }
 
     public function getName()

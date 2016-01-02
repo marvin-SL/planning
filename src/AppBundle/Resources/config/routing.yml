@@ -5,5 +5,5 @@ index:
           expose: true
 
 admin:
-    resource: "@AppBundle/Resources/config/routing/Admin/routing.yml"
+    resource: "@AppBundle/Resources/config/routing/Admin/admin.yml"
     prefix:   /

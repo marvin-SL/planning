@@ -5,3 +5,11 @@ admin_teacher_index:
 admin_teacher_new:
       path:    /new
       defaults:   {_controller: AppBundle:Admin/Teacher:new}
+
+admin_teacher_edit:
+ path:        /{id}/edit
+ defaults:  {_controller: AppBundle:Admin/Teacher:edit}
+
+admin_teacher_delete:
+ path:        /{id}/delete
+ defaults:  {_controller: AppBundle:Admin/Teacher:delete}

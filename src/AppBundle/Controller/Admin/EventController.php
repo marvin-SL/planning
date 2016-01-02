@@ -25,6 +25,9 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
+
+            $message = $this->get('translator')->trans('event.create_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
         }
 
         return $this->render('AppBundle:Admin/Event:new.html.twig', array(
@@ -33,11 +36,113 @@ class EventController extends Controller
 
     }
 
-    public function xmlWriterAction(Request $request)
+    public function editAction(Request $request, $id)
     {
-        $serializer = $this->get('app.serializer');
-        $serializer->serializeToXmlAction();
+         $em = $this->getDoctrine()->getManager();
 
-        return $this->redirect($this->generateUrl('admin_calendar_show'));
+         $entity = $em->getRepository('AppBundle:Event')->find($id);
+
+         $path = $this->get('kernel')->getRootDir() . '/../web/data/debug.xml';
+
+         $deleteForm = $this->createDeleteForm($id);
+         $editForm = $this->createForm(new EventType(), $entity);
+
+         $serializer  = $this->get('app.serializer');
+
+         $calendar = $entity->getCalendar();
+
+          $slug = $calendar->getSlug();
+
+        if ($request->isMethod('POST'))
+         {
+            $editForm->handleRequest($request);
+
+            if($request->isXmlHttpRequest())
+            {
+
+                $startDate = $request->request->get('start_date');
+                $endDate = $request->request->get('end_date');
+
+                $entity->setStartDate(new \DateTime($startDate));
+                $entity->setEndDate(new \DateTime($endDate));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+                $serializer->serializeToXmlAction($calendar);
+            }
+
+            else
+            {
+                if($editForm->isValid()){
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($entity);
+                    $em->flush();
+                    $serializer->serializeToXmlAction($calendar);
+
+                    $message = $this->get('translator')->trans('event.create_success', array(), 'flashes');
+                    $this->get('session')->getFlashBag()->add('success', $message);
+
+                    return $this->redirect($this->generateUrl('admin_calendar_show', array('slug' => $slug)));
+                }
+                 return $this->redirect($this->generateUrl('admin_calendar_index'));
+
+            }
+
+        }
+
+        return $this->render('AppBundle:Admin/Event:edit.html.twig', array(
+           'edit_form'   => $editForm->createView(),
+           'delete_form' => $deleteForm->createView(),
+           'entity' => $entity,
+        ));
     }
+
+
+        /**
+         * Deletes a Event entity.
+         *
+         * @param Request $request
+         * @param integer $id
+         *
+         * @return Symfony\Component\HttpFoundation\Response
+         */
+        public function deleteAction(Request $request, $id)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $form = $this->createDeleteForm($id);
+
+
+            if ($form->handleRequest($request)->isValid()) {
+
+                if (!$entity = $em->getRepository('AppBundle:Event')->find($id)) {
+                    throw $this->createNotFoundException('Unable to find Event entity.');
+                }
+
+                $em->remove($entity);
+                $em->flush();
+                $calendar = $entity->getCalendar();
+
+                $message = $this->get('translator')->trans('event.delete_success', array(), 'flashes');
+                $this->get('session')->getFlashBag()->add('success', $message);
+            }
+
+            return $this->redirect($this->generateUrl('admin_calendar_edit', array('slug' => $calendar->getSlug())));
+        }
+
+        /**
+         * Creates a form to delete a Event entity by id.
+         *
+         * @param mixed $id The entity id
+         *
+         * @return \Symfony\Component\Form\Form The form
+         */
+        private function createDeleteForm($id)
+        {
+            return $this->createFormBuilder()
+                ->setAction($this->generateUrl('admin_event_delete', array('id' => $id)))
+                ->setMethod('DELETE')
+                ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
+                ->getForm();
+        }
+
 }

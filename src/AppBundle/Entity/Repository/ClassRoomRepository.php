@@ -2,16 +2,16 @@
 
 namespace AppBundle\Entity\Repository;
 
-use AppBundle\Entity\ClassRoom;
+use AppBundle\Entity\Classroom;
 use Doctrine\ORM\EntityRepository;
 
 
 
 /**
- * ClassRoomRepository
+ * ClassroomRepository
  *
  */
-class ClassRoomRepository extends EntityRepository
+class ClassroomRepository extends EntityRepository
 {
 
 }
