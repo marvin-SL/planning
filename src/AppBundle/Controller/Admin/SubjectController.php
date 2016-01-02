@@ -67,6 +67,9 @@ if($session->get('introduction') == 'true')
             $em->persist($subject);
             $em->flush();
 
+            $message = $this->get('translator')->trans('subject.create_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
+
             return $this->redirect($this->generateUrl('admin_subject_index'));
         }
 

@@ -45,6 +45,9 @@ class CalendarController extends Controller
             $em->persist($calendar);
             $em->flush();
 
+            $message = $this->get('translator')->trans('calendar.create_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
+
             return $this->redirect($this->generateUrl('admin_teacher_index'));
         }
 
@@ -157,6 +160,8 @@ class CalendarController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $message = $this->get('translator')->trans('calendar.update_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
             return $this->redirect($this->generateUrl('admin_calendar_index'));
         }
 
@@ -192,7 +197,7 @@ class CalendarController extends Controller
             $em->remove($entity);
             $em->flush();
 
-            $message = $this->get('translator')->trans('image.delete_success', array(), 'flashes');
+            $message = $this->get('translator')->trans('calendar.delete_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);
         }
 

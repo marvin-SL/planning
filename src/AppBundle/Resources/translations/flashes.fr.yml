@@ -1,0 +1,42 @@
+calendar:
+    create_success: Le planning a bien été créé
+    update_success: Le planning a bien été mis à jour
+    delete_success: Le planning a bien été supprimé
+    create_error: Une erreur s'est produite. Le planning existe peut être déjà.
+
+classroom:
+    create_success: La salle a bien été créée
+    update_success: La salle a bien été mise à jour
+    delete_success: La salle a bien été supprimée
+    create_error: Une erreur s'est produite. La salle existe peut être déjà.
+
+event:
+    create_success: l'événement a bien été créé
+    update_success: l'événement a bien été mis à jour
+    delete_success: l'événement a bien été supprimé
+    create_error: Une erreur s'est produite. L'évenement existe peut être déjà.
+
+subject:
+    create_success: La matière a bien été créée
+    update_success: La matière a bien été mise à jour
+    delete_success: La matière a bien été supprimée
+    create_error: Une erreur s'est produite. La matière existe peut être déjà.
+
+teacher:
+    create_success: L'enseignant(e) / intervenant(e) a bien été créé(e)
+    update_success: L'enseignant(e) / intervenant(e) a bien été mis(e) à jour
+    delete_success: L'enseignant(e) / intervenant(e) a bien été supprimé(e)
+    create_error: Une erreur s'est produite. L'enseignant(e) / intervenant(e) existe peut être déjà.
+
+user:
+    create_success: L'utilisateur a bien été créé
+    update_success: L'utilisateur a bien été mis à jour
+    delete_success: L'utilisateur a bien été supprimé
+    create_error: Une erreur s'est produite. L'utilisateur existe peut être déjà.
+    disable_success: L'utilisateur <em>%username%</em> a bien été désactivé
+    enable_success: L'utilisateur <em>%username%</em> a bien été activé
+
+notification:
+    envoi_success: L'envoi a été réalisé avec succès
+    envoi_error: Une erreur s'est produite, veuillez réessayer
+    contact_success: Votre message a bien été envoyé

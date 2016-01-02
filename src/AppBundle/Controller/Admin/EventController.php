@@ -25,6 +25,9 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
+
+            $message = $this->get('translator')->trans('event.create_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
         }
 
         return $this->render('AppBundle:Admin/Event:new.html.twig', array(
@@ -73,6 +76,9 @@ class EventController extends Controller
                     $em->persist($entity);
                     $em->flush();
                     $serializer->serializeToXmlAction($calendar);
+
+                    $message = $this->get('translator')->trans('event.create_success', array(), 'flashes');
+                    $this->get('session')->getFlashBag()->add('success', $message);
 
                     return $this->redirect($this->generateUrl('admin_calendar_show', array('slug' => $slug)));
                 }

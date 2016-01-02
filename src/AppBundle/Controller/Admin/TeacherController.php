@@ -51,6 +51,9 @@ class TeacherController extends Controller
             $em->persist($teacher);
             $em->flush();
 
+            $message = $this->get('translator')->trans('teacher.create_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
+
             return $this->redirect($this->generateUrl('admin_teacher_index'));
         }
 

@@ -49,6 +49,9 @@ class ClassroomController extends Controller
             $em->persist($classroom);
             $em->flush();
 
+            $message = $this->get('translator')->trans('subject.create_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
+
             return $this->redirect($this->generateUrl('admin_classroom_index'));
         }
 
