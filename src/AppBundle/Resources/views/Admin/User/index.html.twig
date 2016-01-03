@@ -34,9 +34,7 @@ Gestion des utilisateurs
                         <td>{{user.username}}</td>
                         <td>{{user.lastname}}</td>
                         <td>{{user.firstname}}</td>
-                        {% for role in user.roles %}
-                            <td>{{role}}</td>
-                        {% endfor %}
+                        <td>{{user.highestRole}}</td>
                     <td><a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a></td>
                     </tr>
                     {% endfor %}

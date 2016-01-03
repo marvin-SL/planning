@@ -46,8 +46,9 @@ class LoadUserData extends AbstractFixture implements ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
 
-        $this->saveUser($manager, 'marvin.sainteluce','marvin','sainte-luce', 'saytaine@gmail.com', 'ROLE_ADMIN');
+        $this->saveUser($manager, 'marvin.sainteluce','marvin','sainte-luce', 'saytaine@gmail.com', 'ROLE_SUPER_ADMIN');
         $this->saveUser($manager, 'laure.robillard', 'laure','robillard', 'saytaine@gmail.com', 'ROLE_ADMIN');
+        $this->saveUser($manager, 'dean.winchester', 'dean','winchester', 'saytaine@gmail.com', 'ROLE_USER');
 
         $manager->flush();
     }

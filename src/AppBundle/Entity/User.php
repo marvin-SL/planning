@@ -40,12 +40,6 @@ class User extends BaseUser
     // your own logic
   }
 
-  public function getRoles()
-  {
-    return array('ROLE_ADMIN');
-  }
-
-
     /**
      * Set firstname
      *
@@ -92,5 +86,22 @@ class User extends BaseUser
     public function getLastname()
     {
         return $this->lastname;
+    }
+
+    /**
+    * Get highest role of the user
+    *
+    * @return ArrayCollection
+    */
+    public function getHighestRole()
+    {
+        $highestRole = "Utilisateur";
+        if ($this->hasRole('ROLE_SUPER_ADMIN')) {
+            $highestRole = "Webmaster";
+        } elseif ($this->hasRole('ROLE_ADMIN')) {
+            $highestRole = "Administrateur";
+        }
+
+        return $highestRole;
     }
 }
