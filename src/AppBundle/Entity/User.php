@@ -114,7 +114,7 @@ class User extends BaseUser
     {
         $highestRole = "Utilisateur";
         if ($this->hasRole('ROLE_SUPER_ADMIN')) {
-            $highestRole = "Webmaster";
+            $highestRole = "Super administrateur";
         } elseif ($this->hasRole('ROLE_ADMIN')) {
             $highestRole = "Administrateur";
         }
