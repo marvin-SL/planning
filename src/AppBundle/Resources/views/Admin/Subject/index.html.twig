@@ -34,6 +34,7 @@ Gestion des matières
                     <tr>
                         <th>Libellé</th>
                         <th>Enseignant(s)</th>
+                        <th>Couleur</th>
                         <th>Editer</th>
                     </tr>
                 </thead>
@@ -47,7 +48,8 @@ Gestion des matières
                             {{ teacher.firstname }}, {{ teacher.lastname }}</br>
                         {% endfor %}
                         </td>
-                            <!-- <td><a href="{{path('admin_subject_edit', {'id' : subject.id })}}">Editer</a></td> -->
+                        <td style="background-color:{{subject.color}}"></td>
+                        <td><a href="{{path('admin_subject_edit', {'id' : subject.id })}}">Editer</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

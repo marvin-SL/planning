@@ -5,3 +5,13 @@ admin_subject_index:
 admin_subject_new:
       path:    /new
       defaults:  {_controller: AppBundle:Admin/Subject:new}
+
+admin_subject_edit:
+    path:    /{id}/edit
+    defaults:  {_controller: AppBundle:Admin/Subject:edit}
+    options:
+        expose: true
+
+admin_subject_delete:
+ path:        /{id}/delete
+ defaults:  {_controller: AppBundle:Admin/Subject:delete}
