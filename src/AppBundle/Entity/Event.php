@@ -50,7 +50,7 @@ class Event
 
     /**
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject", cascade={"persist"}, inversedBy="events")
-   * @ORM\JoinColumn(nullable=false)
+   * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
    */
     private $subject;
 

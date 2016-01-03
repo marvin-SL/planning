@@ -57,8 +57,8 @@ Edition
                 {{ form_row(edit_form.save, {'label': 'button.update', 'attr': { 'class' : 'btn btn-success' } } ) }}
                 {{ form_end(edit_form) }}
                 <p>&nbsp;</p>
-                    <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>
-            <!-- {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %} -->
+                    <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>(Supprime également les évènements en rapport avec cette matière)
+                    {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %}
             </div>
             </div>
     </div>

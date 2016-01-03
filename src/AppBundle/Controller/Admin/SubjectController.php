@@ -181,13 +181,12 @@ if($session->get('introduction') == 'true')
 
                 $em->remove($entity);
                 $em->flush();
-                $calendar = $entity->getCalendar();
 
                 $message = $this->get('translator')->trans('subject.delete_success', array(), 'flashes');
                 $this->get('session')->getFlashBag()->add('success', $message);
             }
 
-            return $this->redirect($this->generateUrl('admin_calendar_edit', array('id' => $calendar->getSlug())));
+            return $this->redirect($this->generateUrl('admin_subject_index'));
         }
 
         /**
