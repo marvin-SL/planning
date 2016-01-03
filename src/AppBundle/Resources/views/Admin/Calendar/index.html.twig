@@ -43,7 +43,7 @@ Liste des agendas
                                     <td>{{calendar.title}}</td>
                                     <td>{{calendar.slug}}</td>
                                     <td>{{calendar.createdAt| localizeddate('long', 'short') }}</td>
-                                    <td>{{calendar.updatedAt| localizeddate('long', 'short') }}</td>
+                                    <td>{{calendar.updatedAt|time_diff }}</td>
                                     <td>
                                         <a href="{{path('admin_calendar_show', {'slug' : calendar.slug })}}">Voir</a> |
                                         <a href="{{path('admin_calendar_edit', {'slug' : calendar.slug })}}">Editer</a>
