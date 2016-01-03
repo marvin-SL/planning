@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Gestion des utilisateurs
+{{ parent() }}
+{% endblock %}
+{% block titre %}Gestion des utilisateurs{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Gestion des Utilisateurs
+            </h1>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Nom d'utilisateur</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Rôle</th>
+                        <th>Editer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{user.username}}</td>
+                        <td>{{user.lastname}}</td>
+                        <td>{{user.firstname}}</td>
+                        {% for role in user.roles %}
+                            <td>{{role}}</td>
+                        {% endfor %}
+                    <td><a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-4">
+            <a class="btn btn-success" href="{{path('admin_user_new')}}">Ajouter</a>
+    </div>
+
+
+{% endblock %}
