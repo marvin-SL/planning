@@ -14,9 +14,9 @@ Gestion des utilisateurs
         </div>
 
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
@@ -25,7 +25,9 @@ Gestion des utilisateurs
                         <th>Nom</th>
                         <th>Prenom</th>
                         <th>Rôle</th>
-                        <th>Editer</th>
+                        <th>Création</th>
+                        <th>Connexion</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,6 +37,8 @@ Gestion des utilisateurs
                         <td>{{user.lastname}}</td>
                         <td>{{user.firstname}}</td>
                         <td>{{user.highestRole}}</td>
+                    <td>{{user.createdAt|localizeddate('medium', 'short') }}</td>
+                    <td><small>{#}{% if user.updatedBy is empty %}{{ user.updatedAt|time_diff }}{% else %}-{% endif %}#}</small></td> 
                     <td><a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a></td>
                     </tr>
                     {% endfor %}
@@ -42,7 +46,7 @@ Gestion des utilisateurs
             </table>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
             <a class="btn btn-success" href="{{path('admin_user_new')}}">Ajouter</a>
     </div>
 
