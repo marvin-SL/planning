@@ -29,13 +29,6 @@ html, body{ height:100%; padding:0px; margin:0px; }
 {% endblock %}
 
 {% block body %}
-
-
-    <form id="xml_form" action="{{ path('admin_event_xmlWriter')}}" method="post" target="hidden_frame" >
-        <input type="hidden" name="data" value="" id="data">
-    </form>
-
-
     <div class="dhx_cal_container panel" id="scheduler_here">
 
         <div class="dhx_cal_navline">
