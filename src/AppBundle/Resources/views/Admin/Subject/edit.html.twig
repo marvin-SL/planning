@@ -1,0 +1,149 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+Edition
+{{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+{% stylesheets '@AppBundle/Resources/public/colorPicker/spectrum.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
+{% endblock %}
+
+{% block titre %}Edition {% endblock %}
+
+{% block body %}
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Edition de la matière <strong>{{entity.name}}</strong>
+            </h1>
+            <!-- <div class="alert alert-info">
+            <h3>Saisissez le nom des salles qui seront utilisées tout au long de l'année scolaire.</h3><br>
+            <h4>La liste des salles sera proposée lors de la création d'un évenement</h4>
+        </div> -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+            <div>
+            {{ form_start(edit_form) }}
+            {{ form_errors(edit_form) }}
+            <div class="form-group">
+                <label for="name">
+                    {{form_label(edit_form.name)}}
+                </label>
+                {{ form_errors(edit_form.name) }}
+                {{ form_widget(edit_form.name, { 'id': 'name',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+            <div class="form-group">
+                <label for="teachers">
+                    {{ form_label(edit_form.teachers) }}
+                </label>
+                 {{ form_errors(edit_form.teachers) }}
+                 {{ form_widget(edit_form.teachers, { 'id': 'teachers',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+            <div class="form-group">
+                {{form_label(edit_form.color)}}
+                {{ form_errors(edit_form.color) }}
+                {{ form_widget(edit_form.color, { 'id': 'colorPicker',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(edit_form.save, {'label': 'button.update', 'attr': { 'class' : 'btn btn-success' } } ) }}
+                {{ form_end(edit_form) }}
+                <p>&nbsp;</p>
+                    <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>
+            <!-- {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %} -->
+            </div>
+            </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
+
+<div class="row margin-top-20">
+    <div class="col-lg-12">
+        <h3 class="page-header">
+            Listes des matières
+        </h3>
+</div>
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Intitulé</th>
+                    <th>Editer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                <tr>
+                    <td>{{subject.name}}</td>
+                    <td><a href="{{path('admin_subject_edit', {'id' : subject.id })}}">Editer</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+{% javascripts '@AppBundle/Resources/public/colorPicker/spectrum.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script>
+$("#colorPicker").spectrum({
+    showInput: true,
+    className: "full-spectrum",
+    showInitial: true,
+    showPalette: true,
+    showSelectionPalette: true,
+    maxSelectionSize: 10,
+    preferredFormat: "hex",
+    localStorageKey: "spectrum.demo",
+    move: function (color) {
+
+    },
+    show: function () {
+
+    },
+    beforeShow: function () {
+
+    },
+    hide: function () {
+
+    },
+    change: function() {
+
+    },
+    palette: [
+        ["rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)",
+        "rgb(204, 204, 204)", "rgb(217, 217, 217)","rgb(255, 255, 255)"],
+        ["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)",
+        "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"],
+        ["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)",
+        "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)",
+        "rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)",
+        "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)",
+        "rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)",
+        "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)",
+        "rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)",
+        "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)",
+        "rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)",
+        "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"]
+    ]
+});
+
+
+</script>
+{% endblock %}
