@@ -106,7 +106,7 @@ class CalendarController extends Controller
                 for($y = 0; $y < sizeof($subjects[$i]); $y++)
                 {
 
-                    $tabTeachers[$subjects[$i]->getName()][] = $teacher->getFirstname();
+                    $tabTeachers[$subjects[$i]->getName()][] = $teacher->getLastname();
 
                 }
             }

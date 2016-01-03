@@ -18,8 +18,8 @@ class LoadTeacherData extends AbstractFixture implements OrderedFixtureInterface
     $teacher2 =  new Teacher();
     $teacher3 =  new Teacher();
 
-    $teacher1->setFirstname('Trudy');
-    $teacher1->setLastname('Julian');
+    $teacher1->setFirstname('Julian');
+    $teacher1->setLastname('Trudy');
 
     $teacher2->setFirstname('Dominique');
     $teacher2->setLastname('Cardon');
