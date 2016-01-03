@@ -38,7 +38,7 @@ Gestion des utilisateurs
                         <td>{{user.firstname}}</td>
                         <td>{{user.highestRole}}</td>
                     <td>{{user.createdAt|localizeddate('medium', 'short') }}</td>
-                    <td><small>{#}{% if user.updatedBy is empty %}{{ user.updatedAt|time_diff }}{% else %}-{% endif %}#}</small></td> 
+                    <td><small>{% if user.lastLogin is empty %}-{% else %}{{ user.lastLogin|time_diff }}{% endif %}</small></td> 
                     <td><a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a></td>
                     </tr>
                     {% endfor %}

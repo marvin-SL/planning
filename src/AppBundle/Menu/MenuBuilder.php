@@ -43,19 +43,23 @@ class MenuBuilder
 
         $menu->addChild('Subject', array('route' => 'admin_subject_index',
         'label' => 'Matières',
-        'extras'    => array('icon'  => 'fa fa-fw fa-language ')
+        'extras'    => array('icon'  => 'fa fa-fw fa-language')
         ));
 
         $menu->addChild('Teacher', array('route' => 'admin_teacher_index',
         'label' => 'Enseignants',
-        'extras'    => array('icon'  => 'fa fa-fw fa-users')
+        'extras'    => array('icon'  => 'fa fa-graduation-cap')
         ));
 
         $menu->addChild('Classroom', array('route' => 'admin_classroom_index',
         'label' => 'Salles',
-        'extras'    => array('icon'  => 'fa fa-fw fa-map-marker ')
+        'extras'    => array('icon'  => 'fa fa-fw fa-map-marker')
         ));
-    // ... ajoutez ici les autres liens de base
+
+        $menu->addChild('Users', array('route' => 'admin_user_index',
+        'label' => 'Utilisateurs',
+        'extras'    => array('icon'  => 'fa fa-users')
+        ));
 
     return $menu;
     }
