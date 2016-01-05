@@ -1,0 +1,64 @@
+{% extends '::base.html.twig' %}
+
+
+{% block body -%}
+<div class="row">
+    <div class="col-md-6">
+        <h1>
+            {{ entity.firstname ~ ' ' ~ entity.lastname }} <small><sapn class="label label-default">{{ entity.highestRole }}</span></small><br>
+            {% if entity.updatedBy is empty %}
+                <small>Dernière connexion {{ entity.updatedAt|time_diff }}</strong></small>
+            {% else %}
+                <small>Modification {{ entity.updatedAt|time_diff }} par <strong>{{ entity.updatedBy }}</strong></small>
+            {% endif %}
+        </h1>
+    </div>
+    <div class="col-md-6 text-right">
+        <p>&nbsp;</p>
+        <div class="btn-group">
+            <a class="btn btn-warning" href="{{ path('admin_user_edit', { 'username': entity.username }) }}">Modifier</a>
+            <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>
+        </div>
+    </div>
+    {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %}
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#infos" aria-controls="infos" role="tab" data-toggle="tab">Informations générales</a></li>
+            <li role="presentation"><a href="#rapports" aria-controls="methodo" role="tab" data-toggle="tab">Rapports liés</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="infos" role="tabpanel" class="tab-pane fade in active">
+                <blockquote>
+                    <h6 class="text-muted">Nom utilisateur</h6>
+                    {{ entity.username }} <small class="text-muted">ID#{{ entity.id }}</small>
+                    <h6 class="text-muted">Fonction</h6>
+                    {{ entity.jobTitle|default('N/D') }}
+                    <h6 class="text-muted">Département</h6>
+                    {{ entity.department|default('N/D') }}
+                    <h6 class="text-muted">Création</h6>
+                    {{ entity.createdAt|localizeddate('full') }} par <strong>{{ entity.createdBy }}</strong>
+                </blockquote>
+
+            </div>
+            <div id="rapports" role="tabpanel" class="tab-pane fade in">
+                <ul class="list-group col-lg-4 col-md-6 col-sm-8 col-xs-12">
+                {% for node in entity.nodes if node.type == "Rapport" %}
+                    <li class="list-group-item">
+                        <span class="label label-default">{{ node.users|length }} <i class="fa fa-user"></i></span>
+                        <span class="label label-info">{{ node.children|length }} <i class="fa fa-bar-chart"></i></span>
+                        {{ node.title }}
+                    </li>
+                {% else %}
+                    <li class="list-group-item">
+                        <em>Aucun rapport lié à cet utilisateur.</em>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

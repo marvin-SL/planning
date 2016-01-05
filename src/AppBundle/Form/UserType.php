@@ -38,19 +38,8 @@ class UserType extends AbstractType
             ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('firstname', 'text', array('label' => 'Prénom'))
             ->add('lastname', 'text', array('label' => 'Nom'))
-            ->add('jobTitle', 'text', array(
-                'label' => 'Fonction',
-                'required' => false
-            ))
-            ->add('department', 'text', array(
-                'label' => 'Département',
-                'required' => false
-            ))
-            ->add('customer', 'entity', array(
-                'class' => 'AppBundle:Customer',
-                'property' => 'name',
-                'label'=> 'Choix du client'
-            ));
+            ;
+
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
             if ($this->securityContext->isGranted('ROLE_SUPER_ADMIN')) {
                 $form = $event->getForm();
@@ -75,7 +64,6 @@ class UserType extends AbstractType
             'label' => 'Rôles',
             'choices' => array(
                 'ROLE_USER' => 'Utilisateur',
-                'ROLE_MANAGER' => 'Manager',
                 'ROLE_ADMIN' => 'Administrateur',
                 'ROLE_SUPER_ADMIN' => 'Super administrateur'
             ),
@@ -96,7 +84,7 @@ class UserType extends AbstractType
         $form->add('roles', 'choice', array(
             'choices' => array(
                 'ROLE_USER' => 'Utilisateur',
-                'ROLE_MANAGER' => 'Manager'
+                'ROLE_ADMIN' => 'Administrateur',
             ),
             'multiple' => true
         ));
