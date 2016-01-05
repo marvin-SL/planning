@@ -7,15 +7,16 @@ Gestion des salles
 {% block body %}
 
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Gestion des salles
-            </h1>
-            <!-- <div class="alert alert-info">
-                <h3>Ici se trouve la liste des salles.</h3><br>
-                <h4>Pour créer une nouvelle entrée, cliquez sur le bouton <em>Ajouter</em></h4><br>
-            </div> -->
-        </div>
+            <div class="col-md-12 page-header">
+                <div class="col-md-10">
+                    <h1 class="text-left">
+                        Gestion des salles
+                    </h1>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-lg btn-success margin-top-20" href="{{path('admin_classroom_new')}}">{{ 'text.add_entity'|trans({}, 'messages') }}</a>
+                </div>
+            </div>
     </div>
     <div class="col-md-4">
     </div>
@@ -40,7 +41,6 @@ Gestion des salles
         </div>
     </div>
     <div class="col-md-4">
-            <a class="btn btn-success" href="{{path('admin_classroom_new')}}">Ajouter</a>
     </div>
 
 

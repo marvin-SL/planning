@@ -1,3 +1,4 @@
 text:
     message_alert_before_delete: Attention, la suppression est irréversible !
     question_confirm_delete: Confirmez-vous la suppression ?
+    add_entity: "Ajouter"
