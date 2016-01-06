@@ -9,16 +9,6 @@ Ajout d'un(e) enseignant(e)/intervenant
 {% block titre %} Ajout d'un(e) enseignant(e)/intervenant(e) {% endblock %}
 {% block body %}
 
-{% for flash_message in app.session.flashbag.get('notice') %}
-<div class="flash-notice">
-    <div class="alert alert-info">
-        <h3>2) b) Ce formulaire permet de saisir le informations concernants les enseignant(e)s et intevernant(e)s.<br>
-        <h4>La saisie des matières se fait à l'étape suivante</h4>
-    </div>
-</div>
-
-{% endfor %}
-
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">

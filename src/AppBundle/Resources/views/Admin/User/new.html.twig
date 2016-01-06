@@ -1,6 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
+{% block titre %} Ajout d'un utilisateur {% endblock %}
 <div class="row">
     <div class="col-md-6">
         <h1>
@@ -10,19 +11,37 @@
     </div>
 </div>
 
-{{ form(form) }}
-
-{% endblock %}
-{% block stylesheets %}
-{{ parent() }}
-<link href="{{ asset('bundles/app/css/select2.css') }}" rel="stylesheet">
-<link href="{{ asset('bundles/app/css/select2-bootstrap.css') }}" rel="stylesheet">
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="{{ asset('bundles/app/js/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/app/js/select2.fr.js') }}"></script>
-    <script type="text/javascript">
-        $('#appbundle_user_roles').select2();
-    </script>
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-5">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+				<div class="form-group">
+					<label for="mail">
+					{{form_label(form.email)}}
+					</label>
+                     {{ form_errors(form.email) }}
+                     {{ form_widget(form.email, { 'id': 'mail',  'attr': { 'class' : 'form-control' } } ) }}
+				</div>
+                <div class="form-group">
+					<label for="lastname">
+						{{form_label(form.lastname)}}
+					</label>
+                     {{ form_errors(form.lastname) }}
+                     {{ form_widget(form.lastname, { 'id': 'lastname',  'attr': { 'class' : 'form-control' } } ) }}
+				</div>
+                <div class="form-group">
+					<label for="firstname">
+						{{form_label(form.firstname)}}
+					</label>
+                     {{ form_errors(form.firstname) }}
+                     {{ form_widget(form.firstname, { 'id': 'firstname',  'attr': { 'class' : 'form-control' } } ) }}
+				</div>
+                    {{ form_widget(form.save, { 'attr': { 'class' : 'btn btn-success' } } ) }}
+                    {{ form_end(form) }}
+		</div>
+		<div class="col-md-5">
+		</div>
+	</div>
 {% endblock %}

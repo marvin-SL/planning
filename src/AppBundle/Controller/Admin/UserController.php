@@ -73,7 +73,7 @@ class UserController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn-success')));
+        $form->add('save', 'submit', array('label' => 'button.create', 'translation_domain' => 'forms'));
 
         return $form;
     }
