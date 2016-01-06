@@ -22,66 +22,33 @@ class UserController extends Controller
         ));
     }
 
-    public function createAction(Request $request)
+    public function newAction(Request $request)
     {
         $entity = new User();
-        $form = $this->createCreateForm($entity);
+
+        $securityContext = $this->container->get('security.context');
+
+        $form = $this->createForm(new UserType($securityContext), $entity);
+
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+       if ($form->isSubmitted() && $form->isValid()) {
+           // 3) Encode the password (you could also do this via Doctrine listener)
+           $password = $this->get('security.password_encoder')
+               ->encodePassword($entity, $entity->getPassword());
+           $entity->setPassword($password);
+          $entity->setUsername($entity->getFirstName().".".$entity->getLastName());
 
-            $em = $this->getDoctrine()->getManager();
-            $entity->setUsername(stristr($entity->getEmail(), '@', true));
+           // 4) save the User!
+           $em = $this->getDoctrine()->getManager();
+           $em->persist($entity);
+           $em->flush();
 
-            $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity);
-            $tokenGenerator = $this->get('fos_user.util.token_generator');
-            //$password = substr($tokenGenerator->generateToken(), 0, 16);
-            $password = 'cmw';
+           $message = $this->get('translator')->trans('user.create_success', array('%name%' => $entity->getUsername()), 'flashes');
+           $this->get('session')->getFlashBag()->add('success', $message);
 
-            $entity->setPassword($encoder->encodePassword($password, $entity->getSalt()));
-            if (null === $entity->getConfirmationToken()) {
-                /** @var $tokenGenerator \FOS\UserBundle\Util\TokenGeneratorInterface */
-                $tokenGenerator = $this->get('fos_user.util.token_generator');
-                $entity->setConfirmationToken($tokenGenerator->generateToken());
-            }
-
-            $this->get('fos_user.mailer')->sendResettingEmailMessage($entity);
-            $entity->setPasswordRequestedAt(new \DateTime());
-
-            $this->get('fos_user.user_manager')->updateUser($entity);
-
-            $em->persist($entity);
-            $em->flush();
-
-            $message = $this->get('translator')->trans('user.create_success', array('%name%' => $entity->getUsername()), 'flashes');
-            $this->get('session')->getFlashBag()->add('success', $message);
-
-            return $this->redirect($this->generateUrl('admin_user_show', array('username' => $entity->getUsername())));
-        }
-
-        return $this->render('AppBundle:Admin/User:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-
-    private function createCreateForm(User $entity)
-    {
-        $securityContext = $this->container->get('security.context');
-        $form = $this->createForm(new UserType($securityContext), $entity, array(
-            'action' => $this->generateUrl('admin_user_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('save', 'submit', array('label' => 'button.create', 'translation_domain' => 'forms'));
-
-        return $form;
-    }
-
-    public function newAction()
-    {
-        $entity = new User();
-        $form   = $this->createCreateForm($entity);
+           return $this->redirect($this->generateUrl('admin_user_index'));
+       }
 
         return $this->render('AppBundle:Admin/User:new.html.twig', array(
             'entity' => $entity,

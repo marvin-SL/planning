@@ -38,6 +38,7 @@ class UserType extends AbstractType
             ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('firstname', 'text', array('label' => 'Prénom'))
             ->add('lastname', 'text', array('label' => 'Nom'))
+            ->add('save', 'submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
             ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
@@ -57,9 +58,9 @@ class UserType extends AbstractType
      */
     private function addFieldsForSuperadmin(Form $form)
     {
-        $form->add('username', 'text', array(
-            'required' => false
-        ));
+        // $form->add('username', 'text', array(
+        //     'required' => false
+        // ));
         $form->add('roles', 'choice', array(
             'label' => 'Rôles',
             'choices' => array(
