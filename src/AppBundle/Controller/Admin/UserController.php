@@ -34,9 +34,9 @@ class UserController extends Controller
 
        if ($form->isSubmitted() && $form->isValid()) {
            // 3) Encode the password (you could also do this via Doctrine listener)
-           $password = $this->get('security.password_encoder')
-               ->encodePassword($entity, $entity->getPassword());
-           $entity->setPassword($password);
+          $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity);
+          $password = 'cmw';
+          $entity->setPassword($encoder->encodePassword($password, $entity->getSalt()));
           $entity->setUsername($entity->getFirstName().".".$entity->getLastName());
 
            // 4) save the User!
