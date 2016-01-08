@@ -37,7 +37,7 @@ class LoginListener
 		if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $event->getAuthenticationToken ()->getUser ();
 
-           if ($user->getPasswordChanged () === null) {
+           if ($user->getPasswordChangedAt () === null) {
 
                $this->dispatcher->addListener ( KernelEvents::RESPONSE, array (
                        $this,
