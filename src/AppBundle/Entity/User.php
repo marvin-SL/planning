@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
 * @ORM\Entity
-* @ORM\Table(name="fos_user")
+* @ORM\Table(name="user")
 */
 class User extends BaseUser
 {
@@ -48,13 +48,19 @@ class User extends BaseUser
    * @Gedmo\Timestampable(on="update")
    * @ORM\Column(type="datetime")
    */
-  private $updatedAt;
+
+   /**
+    * @var boolean
+    *
+    * @ORM\Column(type="boolean")
+    */
+    private $defaultPasswordChanged = false;
 
 
   public function __construct()
   {
     parent::__construct();
-    // your own logic
+
   }
 
     /**
@@ -168,5 +174,30 @@ class User extends BaseUser
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+
+    /**
+     * Set defaultPasswordChanged
+     *
+     * @param boolean $defaultPasswordChanged
+     *
+     * @return User
+     */
+    public function setDefaultPasswordChanged($defaultPasswordChanged)
+    {
+        $this->defaultPasswordChanged = $defaultPasswordChanged;
+
+        return $this;
+    }
+
+    /**
+     * Get defaultPasswordChanged
+     *
+     * @return boolean
+     */
+    public function getDefaultPasswordChanged()
+    {
+        return $this->defaultPasswordChanged;
     }
 }
