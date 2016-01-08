@@ -12,6 +12,10 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\User
+    change_password:
+        form:
+            type: app_change_password
+            name: app_change_password
 
 framework:
     #esi:             ~
@@ -111,4 +115,4 @@ stof_doctrine_extensions:
             timestampable: true
 
 sc_datetimepicker:
-    picker: ~            
+    picker: ~

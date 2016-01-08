@@ -54,7 +54,7 @@ class LoginListener
 	}
 
     public function onKernelResponse(FilterResponseEvent $event) {
-        $response = new RedirectResponse ( $this->router->generate ( 'fos_user_change_password' ) );
+        $response = new RedirectResponse ( $this->router->generate ( 'admin_user_change_password' ) );
         $event->setResponse ( $response );
     }
 }
