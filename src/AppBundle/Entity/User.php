@@ -43,18 +43,12 @@ class User extends BaseUser
   private $createdAt;
 
   /**
-   * @var \DateTime $updatedAt
+   * @var \DateTime $passwordChanged
    *
-   * @Gedmo\Timestampable(on="update")
-   * @ORM\Column(type="datetime")
+   * @Gedmo\Timestampable(on="change", field={"password"})
+   * @ORM\Column(type="datetime", nullable=true)
    */
-
-   /**
-    * @var boolean
-    *
-    * @ORM\Column(type="boolean")
-    */
-    private $defaultPasswordChanged = false;
+  private $passwordChanged;
 
 
   public function __construct()
@@ -176,28 +170,27 @@ class User extends BaseUser
         return $this->updatedAt;
     }
 
-
     /**
-     * Set defaultPasswordChanged
+     * Set passwordChanged
      *
-     * @param boolean $defaultPasswordChanged
+     * @param \DateTime $passwordChanged
      *
      * @return User
      */
-    public function setDefaultPasswordChanged($defaultPasswordChanged)
+    public function setPasswordChanged($passwordChanged)
     {
-        $this->defaultPasswordChanged = $defaultPasswordChanged;
+        $this->passwordChanged = $passwordChanged;
 
         return $this;
     }
 
     /**
-     * Get defaultPasswordChanged
+     * Get passwordChanged
      *
-     * @return boolean
+     * @return \DateTime
      */
-    public function getDefaultPasswordChanged()
+    public function getPasswordChanged()
     {
-        return $this->defaultPasswordChanged;
+        return $this->passwordChanged;
     }
 }
