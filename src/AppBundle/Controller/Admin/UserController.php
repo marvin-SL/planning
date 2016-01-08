@@ -101,7 +101,7 @@ class UserController extends Controller
         }
 
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->get('app.change_password');
+        $formFactory = $this->get('fos_user.change_password.form.factory');
 
         $form = $formFactory->createForm();
         $form->setData($user);
