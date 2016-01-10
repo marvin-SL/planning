@@ -1,0 +1,3 @@
+admin_account_change_password:
+    path:        /change-password
+    defaults:  {_controller: AppBundle:Admin/User:changePassword}

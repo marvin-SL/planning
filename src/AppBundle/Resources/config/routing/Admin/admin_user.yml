@@ -17,7 +17,3 @@ admin_user_edit:
 admin_user_delete:
     path:        /{id}/delete
     defaults:  {_controller: AppBundle:Admin/User:delete}
-
-admin_user_change_password:
-    path:        /change-password
-    defaults:  {_controller: AppBundle:Admin/User:changePassword}
