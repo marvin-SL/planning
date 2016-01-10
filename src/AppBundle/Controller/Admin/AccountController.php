@@ -19,7 +19,22 @@ use AppBundle\Entity\User;
 class AccountController extends Controller
 {
 
-    public function ChangePasswordAction(Request $request)
+    public function indexAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $connectedUser = $this->getUser();
+
+        $user = $em->getRepository('AppBundle:User')->findOneBy(array(
+            "id"=>$connectedUser->getId()
+        ));
+
+        return $this->render('AppBundle:Admin/Account:index.html.twig', array(
+            'user'=>$user
+        ));
+    }
+
+    public function changePasswordAction(Request $request)
     {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
