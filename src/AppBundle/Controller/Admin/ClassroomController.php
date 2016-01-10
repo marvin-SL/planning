@@ -12,23 +12,10 @@ class ClassroomController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $session = $request->getSession();
 
         $em = $this->getDoctrine()->getManager();
 
         $classrooms = $em->getRepository('AppBundle:Classroom')->findAll();
-
-        if($session->get('introduction') == 'true')
-        {
-
-            $session->getFlashBag()->add(
-                    'notice',
-                    ''
-                );
-
-            return $this->render('AppBundle:Admin/Classroom:index.html.twig', array('classrooms'=>$classrooms));
-
-        }
 
         return $this->render('AppBundle:Admin/Classroom:index.html.twig', array('classrooms'=>$classrooms));
     }
