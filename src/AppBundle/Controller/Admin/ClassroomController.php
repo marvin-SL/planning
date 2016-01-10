@@ -17,7 +17,9 @@ class ClassroomController extends Controller
 
         $classrooms = $em->getRepository('AppBundle:Classroom')->findAll();
 
-        return $this->render('AppBundle:Admin/Classroom:index.html.twig', array('classrooms'=>$classrooms));
+        return $this->render('AppBundle:Admin/Classroom:index.html.twig', array(
+            'classrooms'=>$classrooms
+        ));
     }
 
     public function newAction(Request $request)
