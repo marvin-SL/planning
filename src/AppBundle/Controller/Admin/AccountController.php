@@ -19,7 +19,7 @@ use AppBundle\Entity\User;
 class AccountController extends Controller
 {
 
-    public function changePasswordAction(Request $request)
+    public function ChangePasswordAction(Request $request)
     {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
