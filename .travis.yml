@@ -1,33 +1,32 @@
+# see http://about.travis-ci.org/docs/user/languages/php/ for more hints
 language: php
 
-sudo: false
+# list any PHP version you want to test against
+php:
+  # using major version aliases
 
-addons:
-    apt_packages:
-        - parallel
-        - language-pack-fr-base
+  - 5.4
+  # aliased to a recent 5.5.x version
+  - 5.5
+  # aliased to a recent 5.6.x version
+  - 5.6
+  # aliased to a recent 7.x version
+  - 7.0
+  # aliased to a recent hhvm version
+  - hhvm
 
-env:
-    global:
-        - MIN_PHP=5.5.9
-
+# optionally set up exclutions and allowed failures in the matrix
 matrix:
-    include:
-        - php: hhvm
-        - php: 5.5
-        - php: 5.6
-        - php: 7.0
-    fast_finish: true
+  exclude:
+    - php: hhvm
+      env: DB=pgsql  # PDO driver for pgsql is unsupported by HHVM (3rd party install for support)
+  allow_failures:
+    - php: 7.0
+    - php: hhvm
 
-cache:
-    directories:
-        - .phpunit
-        - php-$MIN_PHP
-
-before_install:
-    - if [[ $deps != skip ]]; then composer self-update; fi;
-    - if [[ $deps != skip ]]; then ./phpunit install; fi;
-    - export PHPUNIT=$(readlink -f ./phpunit)
+# execute any number of scripts before the test run, custom env's are available as variables
+before_script:
+  - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
