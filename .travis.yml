@@ -31,7 +31,7 @@ services:
 before_script:
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
   - composer install
-  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'create database IF NOT EXISTS cmwplanning_test;create database IF NOT EXISTS cmwplanning_test;'; fi"
+  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'create database IF NOT EXISTS symfony;create database IF NOT EXISTS symfony;'; fi"
 
 
 # omitting "script:" will default to phpunit
