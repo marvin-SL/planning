@@ -13,6 +13,9 @@ php:
   # aliased to a recent hhvm version
   - hhvm
 
+env:
+  - DB=mysql
+
 # optionally set up exclutions and allowed failures in the matrix
 matrix:
   exclude:
@@ -26,6 +29,7 @@ matrix:
 before_script:
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
   - composer install
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS cmwplanning;" -uroot; fi
 
 
 # omitting "script:" will default to phpunit
