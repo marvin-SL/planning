@@ -20,7 +20,6 @@ env:
 matrix:
   exclude:
     - php: hhvm
-      env: DB=pgsql  # PDO driver for pgsql is unsupported by HHVM (3rd party install for support)
   allow_failures:
     - php: 7.0
     - php: hhvm
@@ -29,7 +28,7 @@ matrix:
 before_script:
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
   - composer install
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS cmwplanning;" -uroot; fi
+  - mysql -e "create database IF NOT EXISTS cmwplanning;" -uroot; fi
 
 
 # omitting "script:" will default to phpunit
