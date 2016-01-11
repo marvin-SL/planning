@@ -24,6 +24,9 @@ matrix:
     - php: 7.0
     - php: hhvm
 
+services:
+- mysql
+
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
