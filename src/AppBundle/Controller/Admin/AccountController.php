@@ -25,13 +25,16 @@ class AccountController extends Controller
 
         $connectedUser = $this->getUser();
 
-        $user = $em->getRepository('AppBundle:User')->findOneBy(array(
+        $user = $em->getRepository('AppBundle:User')->findOneBy(
+            array(
             "id"=>$connectedUser->getId()
-        ));
+            )
+        );
 
-        return $this->render('AppBundle:Admin/Account:index.html.twig', array(
-            'user'=>$user
-        ));
+        return $this->render(
+            'AppBundle:Admin/Account:index.html.twig', array('user'=>$user
+            )
+        );
     }
 
     public function changePasswordAction(Request $request)
