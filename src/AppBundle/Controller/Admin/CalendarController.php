@@ -98,6 +98,10 @@ class CalendarController extends Controller
 
         $tabTeachers = [];
 
+        if (!file_exists($this->get('kernel')->getRootDir() . '/../web/data/')) {
+            mkdir($this->get('kernel')->getRootDir() . '/../web/data/', 0777, true);
+        }
+
         for($i = 0; $i < sizeof($subjects); $i++){
             $tabTeachers[]=$subjects[$i]->getName();
             foreach ($subjects[$i]->getTeachers() as $teacher)
