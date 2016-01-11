@@ -30,8 +30,11 @@ services:
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
+  - cp app/config/parameters.yml.travis app/config/parameters.yml
   - composer install
-  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'create database IF NOT EXISTS symfony;create database IF NOT EXISTS symfony;'; fi"
+  - php app/console doctrine:database:create --env=test
+  - php app/console doctrine:schema:create --env=test
+  - php app/console doctrine:fixtures:load -n --env=test
 
 
 # omitting "script:" will default to phpunit
