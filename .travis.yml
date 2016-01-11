@@ -27,7 +27,7 @@ matrix:
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
-  - cd planning
+  - cd
   - php vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
 
 
