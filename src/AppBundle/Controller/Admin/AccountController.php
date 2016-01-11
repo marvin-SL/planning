@@ -1,5 +1,13 @@
 <?php
-
+/**
+* AccountController Doc Comment
+*
+* PHP version 5.5.9
+*
+* @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
+* @link   https://github.com/marvin-SL/planning
+*
+*/
 namespace AppBundle\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -15,10 +23,19 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use AppBundle\Form\ChangePasswordFormType;
 use AppBundle\Entity\User;
 
-
+/**
+* AccountController
+*
+*/
 class AccountController extends Controller
 {
 
+    /**
+    * List user datas
+    *
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -37,6 +54,12 @@ class AccountController extends Controller
         );
     }
 
+    /**
+    * Changes user password
+    *
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function changePasswordAction(Request $request)
     {
         $user = $this->getUser();
@@ -44,7 +67,6 @@ class AccountController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
         $event = new GetResponseUserEvent($user, $request);
@@ -54,7 +76,6 @@ class AccountController extends Controller
             return $event->getResponse();
         }
 
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.change_password.form.factory');
 
         $form = $formFactory->createForm();
@@ -63,7 +84,6 @@ class AccountController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
             $userManager = $this->get('fos_user.user_manager');
 
             $event = new FormEvent($form, $request);
@@ -82,8 +102,9 @@ class AccountController extends Controller
         }
 
         return $this->render('AppBundle:ChangePassword:changePassword.html.twig', array(
-            'form' => $form->createView()
-        ));
+                'form' => $form->createView()
+            )
+        );
     }
 
 }
