@@ -65,8 +65,12 @@ class CustomSerializerManager extends BaseManager
 
         $eventList = $eventRepository->findAll();
 
-        $path = $this->container->get('kernel')->getRootDir() . '/../web/data/'.$calendar->getSlug().'.xml';
+        if (!file_exists($this->container->get('kernel')->getRootDir() . '/../web/data/')) {
 
-        file_put_contents($path,$rootNode->asXML());
+            mkdir($this->container->get('kernel')->getRootDir() . '/../web/data/', 0777, true);
+            $path = $this->container->get('kernel')->getRootDir() . '/../web/data/'.$calendar->getSlug().'.xml';
+            file_put_contents($path,$rootNode->asXML());
+        }
+
     }
 }
