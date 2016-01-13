@@ -4,9 +4,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!-- <parameters>
-
-    </parameters> -->
+    <parameters>
+        <parameter key="app.manager.customSerializer.class">AppBundle\Manager\CustomSerializerManager</parameter>
+    </parameters>
 
     <!-- <services>
         <service id="app.menu_builder" class="AppBundle\Menu\MenuBuilder">
@@ -21,10 +21,10 @@
     </services> -->
 
     <services>
-        <service id="app.serializer" class="AppBundle\Controller\Admin\CalendarController">
-            <call method="setContainer">
+        <service id="app.manager.customSerializer" class="%app.manager.customSerializer.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
               <argument type="service" id="service_container" />
-          </call>
+
         </service>
     </services>
 
