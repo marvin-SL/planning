@@ -47,7 +47,7 @@ class EventController extends Controller
          $deleteForm = $this->createDeleteForm($id);
          $editForm = $this->createForm(new EventType(), $entity);
 
-         $serializer  = $this->get('app.serializer');
+        $serializer = $this->get('app.manager.customSerializer');
 
          $calendar = $entity->getCalendar();
 
@@ -68,7 +68,7 @@ class EventController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
-                $serializer->serializeToXmlAction($calendar);
+                $serializer->serialize($calendar);
             }
 
             else
@@ -77,7 +77,7 @@ class EventController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($entity);
                     $em->flush();
-                    $serializer->serializeToXmlAction($calendar);
+                    $serializer->serialize($calendar);
 
                     $message = $this->get('translator')->trans('event.create_success', array(), 'flashes');
                     $this->get('session')->getFlashBag()->add('success', $message);
