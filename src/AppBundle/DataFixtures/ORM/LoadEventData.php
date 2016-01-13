@@ -31,7 +31,7 @@ class LoadEventData extends AbstractFixture implements OrderedFixtureInterface, 
         $event3 = new Event();
         $event4 = new Event();
 
-        $serializer = $this->get('app.manager.customSerializer');
+        $serializer = $this->container->get('app.manager.customSerializer');
 
         $event1->setStartDate(new \DateTime("now"));
         $event1->setEndDate(new \DateTime("+3 hours"));
