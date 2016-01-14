@@ -1,24 +1,25 @@
 <?php
 /**
-* ClassroomControllerTest Doc Comment
+* ClassroomControllerTest Doc Comment.
 *
 * PHP version 5.5.9
 *
 * @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
-* @link   https://github.com/marvin-SL/planning
 *
+* @link   https://github.com/marvin-SL/planning
 */
 namespace AppBundle\Tests\Controller;
 
 use AppBundle\Tests\WebTestCase;
 
 /**
- *  test on Classroom
+ *  test on Classroom.
  */
 class ClassroomControllerTest extends WebTestCase
 {
     /**
-     * test on index
+     * test on index.
+     *
      * @return [type] [description]
      */
     public function testIndex()
@@ -29,13 +30,14 @@ class ClassroomControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin/classrooms/');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/classrooms");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/classrooms');
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("C343, Copernic")')->count(), 'Missing element html:contains("C343, Copernic")');
     }
 
     /**
-     * test on createClassroom
+     * test on createClassroom.
+     *
      * @return [type] [description]
      */
     public function testNewClassroom()
@@ -46,12 +48,12 @@ class ClassroomControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin/classrooms/');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/classrooms");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/classrooms');
 
         $crawler = $client->click($crawler->selectLink('Ajouter')->link());
 
         $form = $crawler->selectButton('Créer')->form(array(
-            'name'  => 'Foo'
+            'name' => 'Foo',
         ));
 
         $client->submit($form);
@@ -62,7 +64,8 @@ class ClassroomControllerTest extends WebTestCase
     }
 
     /**
-     * test on edit Classroom
+     * test on edit Classroom.
+     *
      * @return [type] [description]
      */
     public function testEditClassroom()
@@ -73,7 +76,7 @@ class ClassroomControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin/classrooms/');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/classrooms");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/classrooms');
 
         $link = $crawler
         ->filter('a:contains("Editer")')
@@ -84,7 +87,7 @@ class ClassroomControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Ajouter')->link());
 
         $form = $crawler->selectButton('Créer')->form(array(
-            'name'  => 'FooBar'
+            'name' => 'FooBar',
         ));
 
         $client->submit($form);
