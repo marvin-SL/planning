@@ -2,17 +2,12 @@
 
 namespace AppBundle\Controller\Admin;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Calendar;
-use AppBundle\Entity\Classroom;
-use AppBundle\Entity\Teacher;
-use AppBundle\Entity\Subject;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
 use AppBundle\Form\CalendarType;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class CalendarController extends Controller
@@ -23,7 +18,7 @@ class CalendarController extends Controller
         ->getRepository('AppBundle:Calendar')->findAll();
 
         return $this->render('AppBundle:Admin/Calendar:index.html.twig', array(
-            "calendars" => $calendars,
+            'calendars' => $calendars,
         ));
     }
 
@@ -39,8 +34,7 @@ class CalendarController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid())
-        {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($calendar);
             $em->flush();
@@ -51,11 +45,9 @@ class CalendarController extends Controller
             return $this->redirect($this->generateUrl('admin_teacher_index'));
         }
 
-
         return $this->render('AppBundle:Admin/Calendar:new.html.twig', array(
             'form' => $form->createView(),
         ));
-
     }
 
     public function showAction(Request $request, $slug)
@@ -64,15 +56,14 @@ class CalendarController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
-            'slug' => $slug
+            'slug' => $slug,
         ));
 
         $form = $this->createForm(new EventType(), $event);
 
         $form->handleRequest($request);
 
-        if ($form->isValid())
-        {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -83,13 +74,12 @@ class CalendarController extends Controller
             'entity' => $entity,
             'form' => $form->createView(),
         ));
-
     }
 
     public function serializeToXmlAction(Calendar $entity)
     {
-        if(!$serializer = $this->get('app.manager.customSerializer')->serialize($entity)){
-            throw new Exception("CustomSerializer error", 1);
+        if (!$serializer = $this->get('app.manager.customSerializer')->serialize($entity)) {
+            throw new Exception('CustomSerializer error', 1);
         }
 
         return array();
@@ -109,18 +99,19 @@ class CalendarController extends Controller
 
         $events = $em->getRepository('AppBundle:Event')->findCalendarEvents($entity);
 
-        if($editForm->isValid()){
+        if ($editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
             $message = $this->get('translator')->trans('calendar.update_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);
+
             return $this->redirect($this->generateUrl('admin_calendar_index'));
         }
 
         return $this->render('AppBundle:Admin/Calendar:edit.html.twig', array(
-           'edit_form'   => $editForm->createView(),
+           'edit_form' => $editForm->createView(),
            'delete_form' => $deleteForm->createView(),
            'entity' => $entity,
            'events' => $events,
@@ -131,7 +122,7 @@ class CalendarController extends Controller
      * Deletes a Calendar entity.
      *
      * @param Request $request
-     * @param integer $id
+     * @param int     $id
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
@@ -141,9 +132,8 @@ class CalendarController extends Controller
         $form = $this->createDeleteForm($slug);
 
         if ($form->handleRequest($request)->isValid()) {
-
             if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
-                'slug'=>$slug
+                'slug' => $slug,
             ))) {
                 throw $this->createNotFoundException('Unable to find Calendar entity.');
             }
@@ -173,5 +163,4 @@ class CalendarController extends Controller
             ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
             ->getForm();
     }
-
 }
