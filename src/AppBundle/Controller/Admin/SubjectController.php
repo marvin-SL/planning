@@ -104,7 +104,7 @@ if($session->get('introduction') == 'true')
          $deleteForm = $this->createDeleteForm($id);
          $editForm = $this->createForm(new SubjectType(), $entity);
 
-         $serializer  = $this->get('app.serializer');
+         $serializer  = $this->get('app.manager.customSerializer');
 
          $calendars = $em->getRepository('AppBundle:Calendar')->findAll();
 
@@ -125,7 +125,7 @@ if($session->get('introduction') == 'true')
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
-                $serializer->serializeToXmlAction($calendars);
+                $serializer->serialize($calendars);
             }
 
             else
