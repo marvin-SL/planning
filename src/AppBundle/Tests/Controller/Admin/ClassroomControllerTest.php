@@ -86,30 +86,30 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
      *
      * @return [type] [description]
      */
-    public function testEditClassroom()
-    {
-        //$client = static::createClient();
-
-        $this->login();
-
-        //$crawler = $client->request('GET', 'admin/classrooms/1/edit');
-        $this->url('http://localhost/planning/admin/classrooms/1/edit');
-
-        // $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET admin/classrooms/1/edit');
-
-        $this->clickOnElement('deleteButton');
-        $this->timeouts()->implicitWait(50000);
-        $this->clickOnElement('form_submit');
-        $message = $this->byXpath('//*[@id="flashes"]');
-        $this->assertRegExp('/bien été/i', $message->text());
-        // $form = $crawler->selectButton('Mettre à jour')->form(array(
-        //     'name' => 'Test', ));
-
-        // $client->submit($form);
-        // $crawler = $client->followRedirect();
-
-        // $this->assertGreaterThan(0, $crawler->filter('html:contains("Foo")')->count(), 'Missing element html:contains("Foo")');
-    }
+    // public function testEditClassroom()
+    // {
+    //     //$client = static::createClient();
+    //
+    //     $this->login();
+    //
+    //     //$crawler = $client->request('GET', 'admin/classrooms/1/edit');
+    //     $this->url('http://localhost/planning/admin/classrooms/1/edit');
+    //
+    //     // $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET admin/classrooms/1/edit');
+    //
+    //     // $this->clickOnElement('deleteButton');
+    //     // $this->timeouts()->implicitWait(50000);
+    //     // $this->clickOnElement('form_submit');
+    //     // $message = $this->byXpath('//*[@id="flashes"]');
+    //     // $this->assertRegExp('/bien été/i', $message->text());
+    //     // $form = $crawler->selectButton('Mettre à jour')->form(array(
+    //     //     'name' => 'Test', ));
+    //
+    //     // $client->submit($form);
+    //     // $crawler = $client->followRedirect();
+    //
+    //     // $this->assertGreaterThan(0, $crawler->filter('html:contains("Foo")')->count(), 'Missing element html:contains("Foo")');
+    // }
 
     public function testDeleteClassroom()
     {
