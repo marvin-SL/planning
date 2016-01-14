@@ -11,7 +11,6 @@
 namespace AppBundle\Tests\Controller;
 
 use PHPUnit_Extensions_Selenium2TestCase;
-use AppBundle\Tests\WebTestCase;
 
 /**
  *  test on Classroom.
@@ -34,7 +33,6 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->byName('_username')->value('marvin.sainteluce');
         $this->byName('_password')->value('cmw');
         $form->submit();
-
     }
 
     // /**
@@ -103,7 +101,7 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->timeouts()->implicitWait(50000);
         $this->clickOnElement('form_submit');
         $message = $this->byXpath('//*[@id="flashes"]');
-        $this->assertRegExp("/bien été/i", $message->text());
+        $this->assertRegExp('/bien été/i', $message->text());
         // $form = $crawler->selectButton('Mettre à jour')->form(array(
         //     'name' => 'Test', ));
 
@@ -120,6 +118,6 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->clickOnElement('deleteButton');
         $this->clickOnElement('form_submit');
         $message = $this->byXpath('//*[@id="flashes"]');
-        $this->assertRegExp("/bien été/i", $message->text());
+        $this->assertRegExp('/bien été/i', $message->text());
     }
 }
