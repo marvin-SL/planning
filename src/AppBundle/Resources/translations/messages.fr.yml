@@ -1,5 +1,6 @@
 text:
     message_alert_before_delete: Attention, la suppression est irréversible !
+    message_alert_before_delete_classroom: Attention, la suppression d'une salle entraîne également la suppression des évenements dépendant de cette salle !
     question_confirm_delete: Confirmez-vous la suppression ?
     add_entity: "Ajouter"
 
