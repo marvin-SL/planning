@@ -16,6 +16,13 @@ php:
 env:
   - DB=mysql
 
+notifications:
+email:
+recipients:
+  - saytaine@gmail.com
+on_success: [always|never|change] # default: change
+on_failure: [always|never|change] # default: always
+
 # optionally set up exclutions and allowed failures in the matrix
 matrix:
   exclude:
