@@ -57,12 +57,11 @@ Edition
                 {{ form_label(edit_form.save) }}
                 {{ form_widget(edit_form.save, {'label': 'button.update', 'attr': { 'class' : 'btn btn-success' } } ) }}
                 {{ form_end(edit_form) }}
-                <p>&nbsp;</p>
-                    <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>
-                    {% set trans = 'text.message_alert_before_delete_subject' %}
-                    {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %}
             </div>
             </div>
+                <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>
+                {% set trans = 'text.message_alert_before_delete_subject' %}
+                {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %}
     </div>
     <div class="col-md-2">
     </div>

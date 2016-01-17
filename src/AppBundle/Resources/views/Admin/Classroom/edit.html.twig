@@ -36,17 +36,16 @@ Edition
                     {{ form_label(edit_form.name) }}
                 </label>
                 {{ form_errors(edit_form.name) }}
-                {{ form_widget(edit_form.name, { 'attr': { 'class' : 'form-control' } } ) }}
+                {{ form_widget(edit_form.name, { 'attr': { 'class' : 'form-control', 'novalidate': 'novalidate'}  } ) }}
             </div>
             <div class="form-group">
                 {{ form_widget(edit_form.save, {'label': 'button.update'|trans({}, 'messages') , 'attr': { 'class' : 'btn btn-success' } } ) }}
                 {{ form_end(edit_form) }}
-                <p>&nbsp;</p>
-                    <a class="btn btn-danger" data-toggle="modal" id="deleteButton" data-target="#modal-delete">Supprimer</a>
-                    {% set trans = 'text.message_alert_before_delete_classroom' %}
-            {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form, 'message' : trans } %}
             </div>
             </div>
+            <a class="btn btn-danger" data-toggle="modal" id="deleteButton" data-target="#modal-delete">Supprimer</a>
+            {% set trans = 'text.message_alert_before_delete_classroom' %}
+    {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form, 'message' : trans } %}
     </div>
     <div class="col-md-2">
     </div>
