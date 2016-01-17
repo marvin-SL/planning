@@ -12,12 +12,14 @@ namespace AppBundle\Tests\Controller;
 
 use PHPUnit_Extensions_Selenium2TestCase;
 
-
 /**
  *  test on Classroom.
  */
 class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
 {
+    /**
+     * setup
+     */
     protected function setUp()
     {
         $this->setBrowser('firefox');
@@ -26,6 +28,9 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->setBrowserUrl('http://localhost/planning/');
     }
 
+    /**
+     * login action
+     */
     protected function login()
     {
         $this->url('http://localhost/planning/login');
@@ -39,32 +44,24 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     /**
      * test on index.
      *
-     * @return [type] [description]
      */
     public function testIndex()
     {
         $this->login();
         $this->url('http://localhost/planning/admin/classrooms/');
-        $message = $this->byXpath('/html/body/div[1]/div/div/div[4]/div/table/tbody/tr[1]/td[1]');
+        $message = $this->byXpath('/html/body/div[1]/div/div/div[3]/div/table/tbody/tr[1]');
         $this->assertRegExp('/C343, Copernic/i', $message->text());
-
-        $crawler = $client->request('GET', '/admin/classrooms/');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/classrooms');
-
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("C343, Copernic")')->count(), 'Missing element html:contains("C343, Copernic")');
     }
 
     /**
      * test on createClassroom.
      *
-     * @return [type] [description]
      */
     public function testNewClassroom()
     {
         $this->login();
         $this->url('http://localhost/planning/admin/classrooms/');
-        $this->clickOnElement('Ajouter');
+        $this->clickOnElement('addButton');
 
         $form = $this->byCssSelector('form');
         $action = $form->attribute('action');
@@ -72,13 +69,11 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
         $form->submit();
         $message = $this->byXpath('//*[@id="flashes"]');
         $this->assertRegExp('/bien été créée/i', $message->text());
-
     }
 
     /**
      * test on edit Classroom.
      *
-     * @return [type] [description]
      */
     public function testEditClassroom()
     {
@@ -92,29 +87,20 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
         $form->submit();
         $message = $this->byXpath('//*[@id="flashes"]');
         $this->assertRegExp('/bien été mise à jour/i', $message->text());
-
     }
 
+    /**
+     * test on delete Classroom
+     *
+     */
     public function testDeleteClassroom()
     {
         $this->login();
         $this->url('http://localhost/planning/admin/classrooms/1/edit');
         $this->clickOnElement('deleteButton');
+        $this->timeouts()->implicitWait(50000);
         $this->clickOnElement('form_submit');
         $message = $this->byXpath('//*[@id="flashes"]');
         $this->assertRegExp('/bien été/i', $message->text());
-    }
-
-    protected function loginCustom(Client $client, $username, $password)
-    {
-        $crawler = $client->request('GET', '/login');
-
-        $this->assertTrue($client->getResponse()->isSuccessful(), 'The login page is successful');
-
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("Connexion")')->count());
-
-        $form = $crawler->selectButton('Connexion')->form();
-
-        $crawler = $client->submit($form, array('_username' => $username, '_password' => $password));
     }
 }
