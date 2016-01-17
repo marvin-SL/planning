@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -7,11 +8,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClassroomType extends AbstractType
 {
-  public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('name', 'text', array('label' => 'Salle:'))
-        ->add('save','submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
+        ->add('name', 'text', array('label' => 'Nom de la salle :'))
+        ->add('save', 'submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
         ;
     }
 
@@ -23,7 +24,6 @@ class ClassroomType extends AbstractType
     }
 
     public function getName()
-   {
-
-   }
+    {
+    }
 }
