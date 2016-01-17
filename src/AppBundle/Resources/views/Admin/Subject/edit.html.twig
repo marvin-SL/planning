@@ -54,7 +54,8 @@ Edition
                 {{ form_widget(edit_form.color, { 'id': 'colorPicker',  'attr': { 'class' : 'form-control' } } ) }}
             </div>
             <div class="form-group">
-                {{ form_row(edit_form.save, {'label': 'button.update', 'attr': { 'class' : 'btn btn-success' } } ) }}
+                {{ form_label(edit_form.save) }}
+                {{ form_widget(edit_form.save, {'label': 'button.update', 'attr': { 'class' : 'btn btn-success' } } ) }}
                 {{ form_end(edit_form) }}
                 <p>&nbsp;</p>
                     <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>
