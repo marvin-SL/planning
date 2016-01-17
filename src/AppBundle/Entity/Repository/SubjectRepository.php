@@ -18,7 +18,6 @@ class SubjectRepository  extends EntityRepository
     {
         $qb = $this->createQueryBuilder('s');
         $qb->leftJoin('s.teachers', 't');
-            // var_dump($qb->getQuery()->getSQL());die;
         $qb->where('t = :teachers');
         $qb->setParameter('teachers', $teacher);
 
