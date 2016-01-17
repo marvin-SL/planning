@@ -63,7 +63,13 @@ class UserControllerTest extends WebTestCase
 
         $client->submit($form);
 
-        $crawler = $client->followRedirect();
+        $client->followRedirects();
+
+        $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/users/');
+
+        $crawler = $client->request('GET', '/admin/users/');
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("bar.foo")')->count(), 'Missing element html:contains("bar.foo")');
 
     }
 
