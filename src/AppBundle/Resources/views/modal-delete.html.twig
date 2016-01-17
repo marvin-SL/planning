@@ -1,4 +1,6 @@
-<!-- Modal -->
+{% if trans is not defined %}
+{% set trans = "text.message_alert_before_delete" %}
+{% endif %}
 <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modalDelete">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
