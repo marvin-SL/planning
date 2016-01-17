@@ -41,6 +41,11 @@ class CustomSerializerManager extends BaseManager
         $query = $this->em->getRepository('AppBundle:Event')->findCalendarEvents($calendar);
         $rootNode = new \SimpleXMLElement('<data></data>');
 
+        if (!file_exists($this->container->get('kernel')->getRootDir().'/../web/data/')) {
+            mkdir($this->container->get('kernel')->getRootDir().'/../web/data/', 0777, true);
+
+        }
+
         foreach ($query as $eventList) {
             $eventNode = $rootNode->addChild('event');
             $eventNode->addChild('id', $eventList->getId());
@@ -51,16 +56,15 @@ class CustomSerializerManager extends BaseManager
             $eventNode->addChild('notice', $eventList->getNotice());
             $eventNode->addChild('subject', $eventList->getSubject()->getName().' / '.implode(',', $tabTeachers[$eventList->getSubject()->getName()]));
             $eventNode->addChild('color', $eventList->getSubject()->getColor());
+
+            $path = $this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml';
+            file_put_contents($path, $rootNode->asXML());
         }
 
         $eventRepository = $this->em->getRepository('AppBundle:Event');
 
         $eventList = $eventRepository->findAll();
 
-        if (!file_exists($this->container->get('kernel')->getRootDir().'/../web/data/')) {
-            mkdir($this->container->get('kernel')->getRootDir().'/../web/data/', 0777, true);
-            $path = $this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml';
-            file_put_contents($path, $rootNode->asXML());
-        }
+
     }
 }
