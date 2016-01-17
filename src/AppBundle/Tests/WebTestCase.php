@@ -24,7 +24,7 @@ class WebTestCase extends BaseWebTestCase
         $crawler = $client->request('GET', '/login');
 
         $this->assertTrue($client->getResponse()->isSuccessful(), 'The login page is successful');
-        
+
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Connexion")')->count());
 
         $form = $crawler->selectButton('Connexion')->form();
