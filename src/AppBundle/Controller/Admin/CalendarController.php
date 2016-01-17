@@ -42,7 +42,7 @@ class CalendarController extends Controller
             $message = $this->get('translator')->trans('calendar.create_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);
 
-            return $this->redirect($this->generateUrl('admin_teacher_index'));
+            return $this->redirect($this->generateUrl('admin_calendar_index'));
         }
 
         return $this->render('AppBundle:Admin/Calendar:new.html.twig', array(
