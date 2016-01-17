@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller\Admin;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Teacher;
@@ -11,7 +10,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class TeacherController extends Controller
 {
-
     public function indexAction(Request $request)
     {
         $session = $request->getSession();
@@ -20,19 +18,16 @@ class TeacherController extends Controller
 
         $teachers = $em->getRepository('AppBundle:Teacher')->findAll();
 
-        if($session->get('introduction') == 'true')
-        {
-
+        if ($session->get('introduction') == 'true') {
             $session->getFlashBag()->add(
-                    'notice',
-                    ''
-                );
+                'notice',
+                ''
+            );
 
-            return $this->render('AppBundle:Admin/Teacher:index.html.twig', array('teachers'=>$teachers));
-
+            return $this->render('AppBundle:Admin/Teacher:index.html.twig', array('teachers' => $teachers));
         }
 
-        return $this->render('AppBundle:Admin/Teacher:index.html.twig', array('teachers'=>$teachers));
+        return $this->render('AppBundle:Admin/Teacher:index.html.twig', array('teachers' => $teachers));
     }
 
     public function newAction(Request $request)
@@ -45,8 +40,7 @@ class TeacherController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid())
-        {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($teacher);
             $em->flush();
@@ -57,15 +51,13 @@ class TeacherController extends Controller
             return $this->redirect($this->generateUrl('admin_teacher_index'));
         }
 
-        if($session->get('introduction') == 'true')
-        {
-
+        if ($session->get('introduction') == 'true') {
             $session->getFlashBag()->add(
-                    'notice',
-                    ''
-                );
+                'notice',
+                ''
+            );
 
-                return $this->render('AppBundle:Admin/Teacher:new.html.twig', array(
+            return $this->render('AppBundle:Admin/Teacher:new.html.twig', array(
                     'form' => $form->createView(),
                 ));
         }
@@ -73,7 +65,6 @@ class TeacherController extends Controller
         return $this->render('AppBundle:Admin/Teacher:new.html.twig', array(
             'form' => $form->createView(),
         ));
-
     }
 
     public function editAction(Request $request, $id)
@@ -90,7 +81,7 @@ class TeacherController extends Controller
 
         $teachers = $em->getRepository('AppBundle:Teacher')->findAll();
 
-        if($editForm->isValid()){
+        if ($editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -102,7 +93,7 @@ class TeacherController extends Controller
         }
 
         return $this->render('AppBundle:Admin/Teacher:edit.html.twig', array(
-           'edit_form'   => $editForm->createView(),
+           'edit_form' => $editForm->createView(),
            'delete_form' => $deleteForm->createView(),
            'entity' => $entity,
            'teachers' => $teachers,
@@ -113,7 +104,7 @@ class TeacherController extends Controller
      * Deletes a Teacher entity.
      *
      * @param Request $request
-     * @param integer $id
+     * @param int     $id
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
@@ -123,7 +114,6 @@ class TeacherController extends Controller
         $form = $this->createDeleteForm($id);
 
         if ($form->handleRequest($request)->isValid()) {
-
             if (!$entity = $em->getRepository('AppBundle:Teacher')->find($id)) {
                 throw $this->createNotFoundException('Unable to find Teacher entity.');
             }
