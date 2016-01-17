@@ -80,9 +80,14 @@ class TeacherControllerTest extends WebTestCase
 
         $client->submit($form);
 
-        $crawler = $client->followRedirect();
+        $client->followRedirects();
 
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("L\'enseignant(e) / intervenant(e)")')->count(), 'Missing element html:contains("L\'enseignant(e) / intervenant(e) ")');
+        $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/teachers/');
+
+        $crawler = $client->request('GET', '/admin/teachers/');
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Foo-edited")')->count(), 'Found element html:contains("Foo-edited")');
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Bar-edited")')->count(), 'Found element html:contains("Bar-edited")');
     }
 
     /**
@@ -100,6 +105,12 @@ class TeacherControllerTest extends WebTestCase
 
         $client->submit($crawler->selectButton('form_submit')->form());
 
-        $crawler = $client->followRedirect();
+        $client->followRedirects();
+
+        $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/subjects/');
+
+        $this->assertEquals(0, $crawler->filter('html:contains("Julian, Trudy")')->count(), 'Found element html:contains("Julian")');
+
+
     }
 }

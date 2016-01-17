@@ -88,7 +88,14 @@ class SubjectControllerTest extends WebTestCase
 
         $client->submit($form);
 
-        $crawler = $client->followRedirect();
+        $client->followRedirects();
+
+        $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/subjects/');
+
+        $crawler = $client->request('GET', '/admin/subjects/');
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("subject-edited")')->count(), 'Found element html:contains("subject-edited")');
+
     }
 
     /**
@@ -107,7 +114,13 @@ class SubjectControllerTest extends WebTestCase
 
         $client->submit($crawler->selectButton('form_submit')->form());
 
-        $crawler = $client->followRedirect();
+        $client->followRedirects();
+
+        $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/subjects/');
+
+        $this->assertEquals(0, $crawler->filter('html:contains("Anglais")')->count(), 'Found element html:contains("Anglais")');
+        $this->assertEquals(0, $crawler->filter('html:contains("Julian, Trudy")')->count(), 'Found element html:contains("Julian, Trudy")');
+
 
     }
 }
