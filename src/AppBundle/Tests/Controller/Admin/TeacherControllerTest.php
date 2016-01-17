@@ -98,6 +98,8 @@ class TeacherControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/teachers/1/edit');
 
-        $crawler = $client->click($crawler->selectLink('Supprimer')->link());
+        $client->submit($crawler->selectButton('form_submit')->form());
+
+        $crawler = $client->followRedirect();
     }
 }
