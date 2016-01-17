@@ -55,9 +55,9 @@ class CalendarController extends Controller
         $event = new Event();
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
-            'slug' => $slug,
-        ));
+        if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array('slug' => $slug,))) {
+            throw $this->createNotFoundException(sprintf('Unable to find calendar with slug "%s"', $slug));
+        };
 
         $form = $this->createForm(new EventType(), $event);
 
@@ -89,9 +89,9 @@ class CalendarController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
-            'slug' => $slug,
-        ));
+        if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array('slug' => $slug,))) {
+            throw $this->createNotFoundException(sprintf('Unable to find calendar with slug "%s"', $slug));
+        };
 
         $deleteForm = $this->createDeleteForm($slug);
         $editForm = $this->createForm(new CalendarType(), $entity);
@@ -132,9 +132,7 @@ class CalendarController extends Controller
         $form = $this->createDeleteForm($slug);
 
         if ($form->handleRequest($request)->isValid()) {
-            if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array(
-                'slug' => $slug,
-            ))) {
+            if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array('slug' => $slug))) {
                 throw $this->createNotFoundException('Unable to find Calendar entity.');
             }
 

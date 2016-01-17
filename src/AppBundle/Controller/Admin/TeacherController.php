@@ -80,7 +80,9 @@ class TeacherController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Teacher')->find($id);
+        if (!$entity = $em->getRepository('AppBundle:Teacher')->find($id)) {
+            throw $this->createNotFoundException(sprintf('Unable to find teacher with id "%s"', $id));
+        }
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new TeacherType(), $entity);

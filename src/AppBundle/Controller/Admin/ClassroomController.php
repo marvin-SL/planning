@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller\Admin;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Classroom;
@@ -12,13 +11,12 @@ class ClassroomController extends Controller
 {
     public function indexAction(Request $request)
     {
-
         $em = $this->getDoctrine()->getManager();
 
         $classrooms = $em->getRepository('AppBundle:Classroom')->findAll();
 
         return $this->render('AppBundle:Admin/Classroom:index.html.twig', array(
-            'classrooms'=>$classrooms
+            'classrooms' => $classrooms,
         ));
     }
 
@@ -32,8 +30,7 @@ class ClassroomController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid())
-        {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($classroom);
             $em->flush();
@@ -44,31 +41,29 @@ class ClassroomController extends Controller
             return $this->redirect($this->generateUrl('admin_classroom_index'));
         }
 
-        if($session->get('introduction') == 'true')
-        {
-
+        if ($session->get('introduction') == 'true') {
             $session->getFlashBag()->add(
-                    'notice',
-                    ''
-                );
+                'notice',
+                ''
+            );
 
-                return $this->render('AppBundle:Admin/Classroom:new.html.twig', array(
+            return $this->render('AppBundle:Admin/Classroom:new.html.twig', array(
                     'form' => $form->createView(),
                 ));
-
         }
 
         return $this->render('AppBundle:Admin/Classroom:new.html.twig', array(
             'form' => $form->createView(),
         ));
-
     }
 
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Classroom')->find($id);
+        if (!$entity = $em->getRepository('AppBundle:Classroom')->find($id)) {
+            throw $this->createNotFoundException(sprintf('Unable to find classroom with id "%s"', $id));
+        }
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new ClassroomType(), $entity);
@@ -76,7 +71,7 @@ class ClassroomController extends Controller
 
         $classrooms = $em->getRepository('AppBundle:Classroom')->findAll();
 
-        if($editForm->isValid()){
+        if ($editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -88,7 +83,7 @@ class ClassroomController extends Controller
         }
 
         return $this->render('AppBundle:Admin/Classroom:edit.html.twig', array(
-           'edit_form'   => $editForm->createView(),
+           'edit_form' => $editForm->createView(),
            'delete_form' => $deleteForm->createView(),
            'entity' => $entity,
            'classrooms' => $classrooms,
@@ -99,7 +94,7 @@ class ClassroomController extends Controller
      * Deletes a Classroom entity.
      *
      * @param Request $request
-     * @param integer $id
+     * @param int     $id
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
@@ -109,7 +104,6 @@ class ClassroomController extends Controller
         $form = $this->createDeleteForm($id);
 
         if ($form->handleRequest($request)->isValid()) {
-
             if (!$entity = $em->getRepository('AppBundle:Classroom')->find($id)) {
                 throw $this->createNotFoundException('Unable to find Classroom entity.');
             }
@@ -139,5 +133,4 @@ class ClassroomController extends Controller
             ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
             ->getForm();
     }
-
 }

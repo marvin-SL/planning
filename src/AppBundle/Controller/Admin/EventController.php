@@ -36,7 +36,9 @@ class EventController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Event')->find($id);
+        if (!$entity = $em->getRepository('AppBundle:Event')->find($id)) {
+            throw $this->createNotFoundException(sprintf('Unable to find event with id "%s"', $id));
+        }
 
         $path = $this->get('kernel')->getRootDir().'/../web/data/debug.xml';
 
