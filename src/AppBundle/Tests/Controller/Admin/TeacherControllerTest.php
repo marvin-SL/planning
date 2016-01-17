@@ -62,26 +62,44 @@ class TeacherControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('html:contains("L\'enseignant(e)")')->count(), 'Missing element html:contains("L\'enseignant(e) / intervenant(e) a bien été créé(e)")');
     }
 
-    // public function testEditTeacher()
-    // {
-    //     $client = static::createClient();
-    //
-    //     $this->login($client, 'marvin.sainteluce', 'cmw');
-    //
-    //     $crawler = $client->request('GET', '/admin/teachers/1/edit');
-    //
-    //     $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/teachers/1/edit");
-    //
-    //     $form = $crawler->selectButton('Mettre à jour')->form();
-    //     $form['lastname'] = "Foo-edited";
-    //     $form['firstname'] = "Bar-edited";
-    //
-    //     $client->submit($form);
-    //
-    //     $crawler = $client->followRedirect();
-    //
-    //
-    //             $this->assertGreaterThan(0, $crawler->filter('html:contains("L\'enseignant(e) / intervenant(e)")')->count(), 'Missing element html:contains("L\'enseignant(e) / intervenant(e) ")');
-    // }
+    public function testEditTeacher()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/teachers/1/edit');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/teachers/1/edit");
+
+        $form = $crawler->selectButton('Mettre à jour')->form();
+        $form['lastname'] = "Foo-edited";
+        $form['firstname'] = "Bar-edited";
+
+        $client->submit($form);
+
+        $crawler = $client->followRedirect();
+
+
+                $this->assertGreaterThan(0, $crawler->filter('html:contains("L\'enseignant(e) / intervenant(e)")')->count(), 'Missing element html:contains("L\'enseignant(e) / intervenant(e) ")');
+    }
+
+    /**
+     * test on delete Teacher
+     *
+     */
+    public function testDeleteTeacher()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/teachers/1/edit');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/teachers/1/edit");
+
+        $crawler = $client->click($crawler->selectLink('Supprimer')->link());
+
+    }
 
 }

@@ -11,35 +11,13 @@
 namespace AppBundle\Tests\Controller;
 
 use PHPUnit_Extensions_Selenium2TestCase;
+use AppBundle\Tests\WebTestCase;
 
 /**
  *  test on Classroom.
  */
-class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
+class ClassroomControllerTest extends WebTestCase
 {
-    /**
-     * setup
-     */
-    protected function setUp()
-    {
-        $this->setBrowser('firefox');
-        $this->setHost('localhost');
-        $this->setPort(4444);
-        $this->setBrowserUrl('http://localhost/planning/');
-    }
-
-    /**
-     * login action
-     */
-    protected function login()
-    {
-        $this->url('http://localhost/planning/login');
-        $form = $this->byCssSelector('form');
-        $action = $form->attribute('action');
-        $this->byName('_username')->value('marvin.sainteluce');
-        $this->byName('_password')->value('cmw');
-        $form->submit();
-    }
 
     /**
      * test on index.
@@ -47,10 +25,16 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function testIndex()
     {
-        $this->login();
-        $this->url('http://localhost/planning/admin/classrooms/');
-        $message = $this->byXpath('/html/body/div[1]/div/div/div[3]/div/table/tbody/tr[1]');
-        $this->assertRegExp('/C343, Copernic/i', $message->text());
+
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/classrooms/');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/classrooms");
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Copernic")')->count(), 'Missing element html:contains("Copernic")');
     }
 
     /**
@@ -59,16 +43,24 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function testNewClassroom()
     {
-        $this->login();
-        $this->url('http://localhost/planning/admin/classrooms/');
-        $this->clickOnElement('addButton');
+        $client = static::createClient();
 
-        $form = $this->byCssSelector('form');
-        $action = $form->attribute('action');
-        $this->byId('name')->value('foo');
-        $form->submit();
-        $message = $this->byXpath('//*[@id="flashes"]');
-        $this->assertRegExp('/bien été créée/i', $message->text());
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/classrooms/');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/classrooms/");
+
+        $crawler = $client->click($crawler->selectLink('Ajouter')->link());
+
+        $form = $crawler->selectButton('Créer')->form(array(
+            'name' => 'foo'
+        ));
+
+        $client->submit($form);
+
+        $crawler = $client->followRedirect();
+
     }
 
     /**
@@ -77,16 +69,21 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function testEditClassroom()
     {
-        $this->login();
-        $this->url('http://localhost/planning/admin/classrooms/1/edit');
+        $client = static::createClient();
 
-        $form = $this->byCssSelector('form');
-        $action = $form->attribute('action');
-        $this->byId('name')->value('foo-edited');
-        $this->timeouts()->implicitWait(50000);
-        $form->submit();
-        $message = $this->byXpath('//*[@id="flashes"]');
-        $this->assertRegExp('/bien été mise à jour/i', $message->text());
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/classrooms/1/edit');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/classrooms/1/edit");
+
+        $form = $crawler->selectButton('Mettre à jour')->form(array(
+            'name' => 'foo-edited'
+        ));
+
+        $client->submit($form);
+
+        $crawler = $client->followRedirect();
     }
 
     /**
@@ -95,12 +92,15 @@ class ClassroomControllerTest extends PHPUnit_Extensions_Selenium2TestCase
      */
     public function testDeleteClassroom()
     {
-        $this->login();
-        $this->url('http://localhost/planning/admin/classrooms/1/edit');
-        $this->clickOnElement('deleteButton');
-        $this->timeouts()->implicitWait(50000);
-        $this->clickOnElement('form_submit');
-        $message = $this->byXpath('//*[@id="flashes"]');
-        $this->assertRegExp('/bien été/i', $message->text());
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/classrooms/1/edit');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/classrooms/1/edit");
+
+        $crawler = $client->click($crawler->selectLink('Supprimer')->link());
+
     }
 }
