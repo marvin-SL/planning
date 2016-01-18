@@ -32,5 +32,6 @@ class SubjectType extends AbstractType
 
     public function getName()
     {
+        return 'app_subject';
     }
 }

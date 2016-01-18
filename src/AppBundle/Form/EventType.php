@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -7,14 +8,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EventType extends AbstractType
 {
-  public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('startDate','collot_datetime', array(
+        ->add('startDate', 'collot_datetime', array(
             'label' => 'Début :',
-            'pickerOptions' =>
-            array('format' => 'dd/mm/yyyy hh:ii',
-            'calendarWeeks' =>true,
+            'pickerOptions' => array('format' => 'dd/mm/yyyy hh:ii',
+            'calendarWeeks' => true,
                 'weekStart' => 0,
                 'daysOfWeekDisabled' => '0,6', //example
                 'autoclose' => true,
@@ -33,11 +33,10 @@ class EventType extends AbstractType
                 'showMeridian' => false,
                 'starDate' => date('m/d/Y'),
                 'initialDate' => date('m/d/Y', 1577836800), //example
-                )))
+                ), ))
         ->add('endDate', 'collot_datetime', array(
             'label' => 'Fin :',
-            'pickerOptions' =>
-                array('format' => 'dd/mm/yyyy hh:ii',
+            'pickerOptions' => array('format' => 'dd/mm/yyyy hh:ii',
                 'weekStart' => 0,
                 'daysOfWeekDisabled' => '0,6', //example
                 'autoclose' => true,
@@ -55,29 +54,29 @@ class EventType extends AbstractType
                 'viewSelect' => 'hour',
                 'showMeridian' => false,
                 'initialDate' => date('m/d/Y', 1577836800), //example
-            )
+            ),
             ))
 
         ->add('calendar', 'entity', array(
               'class' => 'AppBundle:Calendar',
               'choice_label' => 'title',
-              'label' => 'Calendrier :'
+              'label' => 'Calendrier :',
             ))
         ->add('subject', 'entity', array(
             'class' => 'AppBundle:Subject',
             'choice_label' => 'name',
-            'label' => 'Matière :'
+            'label' => 'Matière :',
         ))
         ->add('classroom', 'entity', array(
             'class' => 'AppBundle:Classroom',
             'choice_label' => 'name',
-            'label' => 'Salle/Bâtiment :'
+            'label' => 'Salle/Bâtiment :',
         ))
         ->add('notice', 'text', array(
           'label' => 'Information complémentaire :',
           'required' => false,
         ))
-        ->add('save','submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
+        ->add('save', 'submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
         ;
     }
 
@@ -89,7 +88,7 @@ class EventType extends AbstractType
     }
 
     public function getName()
-   {
-
-   }
+    {
+        return 'app_event';
+    }
 }

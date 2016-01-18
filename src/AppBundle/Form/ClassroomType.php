@@ -25,5 +25,6 @@ class ClassroomType extends AbstractType
 
     public function getName()
     {
+        return 'app_classroom';
     }
 }

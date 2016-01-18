@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Security\Core\SecurityContext;
 
 /**
- * UserType
+ * UserType.
  */
 class UserType extends AbstractType
 {
@@ -29,8 +29,8 @@ class UserType extends AbstractType
     }
 
     /**
-     * @param FormBuilderInterface  $builder
-     * @param array                 $options
+     * @param FormBuilderInterface $builder
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -41,12 +41,11 @@ class UserType extends AbstractType
             ->add('save', 'submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
             ;
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             if ($this->securityContext->isGranted('ROLE_SUPER_ADMIN')) {
                 $form = $event->getForm();
                 $this->addFieldsForSuperadmin($form);
-
-            } else if ($this->securityContext->isGranted('ROLE_ADMIN')) {
+            } elseif ($this->securityContext->isGranted('ROLE_ADMIN')) {
                 $form = $event->getForm();
                 $this->addFieldsForAdmin($form);
             }
@@ -66,13 +65,13 @@ class UserType extends AbstractType
             'choices' => array(
                 'ROLE_USER' => 'Utilisateur',
                 'ROLE_ADMIN' => 'Administrateur',
-                'ROLE_SUPER_ADMIN' => 'Super administrateur'
+                'ROLE_SUPER_ADMIN' => 'Super administrateur',
             ),
-            'multiple' => true
+            'multiple' => true,
         ));
         $form->add('enabled', 'checkbox', array(
             'label' => 'Actif',
-            'attr'     => array('checked'   => 'checked'),
+            'attr' => array('checked' => 'checked'),
             'required' => false,
         ));
     }
@@ -87,7 +86,7 @@ class UserType extends AbstractType
                 'ROLE_USER' => 'Utilisateur',
                 'ROLE_ADMIN' => 'Administrateur',
             ),
-            'multiple' => true
+            'multiple' => true,
         ));
     }
 
@@ -97,7 +96,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User'
+            'data_class' => 'AppBundle\Entity\User',
         ));
     }
 
