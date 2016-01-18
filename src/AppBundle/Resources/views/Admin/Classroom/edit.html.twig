@@ -36,7 +36,7 @@ Edition
                     {{ form_label(edit_form.name) }}
                 </label>
                 {{ form_errors(edit_form.name) }}
-                {{ form_widget(edit_form.name, { 'attr': { 'class' : 'form-control', 'novalidate': 'novalidate'}  } ) }}
+                {{ form_widget(edit_form.name, { 'attr': { 'class' : 'form-control'}  } ) }}
             </div>
             <div class="form-group">
                 {{ form_widget(edit_form.save, {'label': 'button.update'|trans({}, 'messages') , 'attr': { 'class' : 'btn btn-success' } } ) }}
