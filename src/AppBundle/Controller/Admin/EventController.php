@@ -77,10 +77,10 @@ class EventController extends Controller
                     $em->flush();
                     $serializer->serialize($calendar);
 
-                    $message = $this->get('translator')->trans('event.create_success', array(), 'flashes');
+                    $message = $this->get('translator')->trans('event.update_success', array(), 'flashes');
                     $this->get('session')->getFlashBag()->add('success', $message);
 
-                    return $this->redirect($this->generateUrl('admin_calendar_show', array('slug' => $slug)));
+                    return $this->redirect($this->generateUrl('admin_calendar_edit', array('slug' => $entity->getCalendar()->getSlug())));
                 }
 
                 return $this->redirect($this->generateUrl('admin_calendar_index'));
