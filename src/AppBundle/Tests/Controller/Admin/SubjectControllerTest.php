@@ -75,7 +75,11 @@ class SubjectControllerTest extends WebTestCase
 
         $this->login($client, 'marvin.sainteluce', 'cmw');
 
-        $crawler = $client->request('GET', '/admin/subjects/1/edit');
+        $crawler = $client->request('GET', '/admin/subjects/');
+
+        $link = $crawler->filter('a:contains("Editer")')->eq(0)->link();
+
+        $crawler = $client->click($link);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/subjects/1/edit");
 
@@ -107,11 +111,15 @@ class SubjectControllerTest extends WebTestCase
 
         $this->login($client, 'marvin.sainteluce', 'cmw');
 
-        $crawler = $client->request('GET', '/admin/subjects/1/edit');
+        $crawler = $client->request('GET', '/admin/subjects/');
+
+        $link = $crawler->filter('a:contains("Editer")')->eq(0)->link();
+
+        $crawler = $client->click($link);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/subjects/1/edit");
 
-        $client->submit($crawler->selectButton('form_submit')->form());
+        $client->submit($crawler->selectButton('form[submit]')->form());
 
         $client->followRedirects();
 
