@@ -18,6 +18,8 @@ class EventController extends Controller
 
         $form->handleRequest($request);
 
+        $serializer = $this->get('app.manager.customSerializer');
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
@@ -25,6 +27,8 @@ class EventController extends Controller
 
             $message = $this->get('translator')->trans('event.create_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);
+
+            $serializer->serialize($event->getCalendar());
         }
 
         return $this->render('AppBundle:Admin/Event:new.html.twig', array(
