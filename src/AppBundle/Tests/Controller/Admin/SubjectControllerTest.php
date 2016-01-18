@@ -54,9 +54,9 @@ class SubjectControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Ajouter')->link());
 
         $form = $crawler->selectButton('Créer')->form(array(
-            'name' => 'subject',
-            'teachers' => '3',
-            'color' => '#e69138'
+            'app_subject[name]' => 'subject',
+            'app_subject[teachers]' => '3',
+            'app_subject[color]' => '#e69138'
         ));
 
         $client->submit($form);
@@ -79,10 +79,10 @@ class SubjectControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/subjects/1/edit");
 
-        $form = $crawler->selectButton('save')->form(array(
-            'name' => 'subject-edited',
-            'teachers' => '1',
-            'color' => '#00ffff'
+        $form = $crawler->selectButton('app_subject[save]')->form(array(
+            'app_subject[name]' => 'subject-edited',
+            'app_subject[teachers]' => '1',
+            'app_subject[color]' => '#00ffff'
         ));
 
         $client->submit($form);

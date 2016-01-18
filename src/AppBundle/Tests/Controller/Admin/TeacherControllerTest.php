@@ -53,8 +53,8 @@ class TeacherControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Ajouter')->link());
 
         $form = $crawler->selectButton('Créer')->form(array(
-            'lastname' => 'Foo',
-            'firstname' => 'Bar',
+            'app_teacher[lastname]' => 'Foo',
+            'app_teacher[firstname]' => 'Bar',
         ));
 
         $client->submit($form);
@@ -75,8 +75,8 @@ class TeacherControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/teachers/1/edit');
 
         $form = $crawler->selectButton('Mettre à jour')->form();
-        $form['lastname'] = 'Foo-edited';
-        $form['firstname'] = 'Bar-edited';
+        $form['app_teacher[lastname]'] = 'Foo-edited';
+        $form['app_teacher[firstname]'] = 'Bar-edited';
 
         $client->submit($form);
 

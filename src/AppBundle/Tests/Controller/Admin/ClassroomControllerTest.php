@@ -53,7 +53,7 @@ class ClassroomControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Ajouter')->link());
 
         $form = $crawler->selectButton('Créer')->form(array(
-            'name' => 'foo'
+            'app_classroom[name]' => 'foo'
         ));
 
         $client->submit($form);
@@ -77,9 +77,9 @@ class ClassroomControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/classrooms/1/edit");
 
-        $form = $crawler->selectButton('save')->form();
+        $form = $crawler->selectButton('app_classroom[save]')->form();
 
-        $form['name'] = 'test-edit';
+        $form['app_classroom[name]'] = 'test-edit';
 
         $this->assertTrue($client->getResponse()->isSuccessful(), 'name edited');
 
