@@ -11,9 +11,9 @@ classroom:
     create_error: Une erreur s'est produite. La salle existe peut être déjà.
 
 event:
-    create_success: l'événement a bien été créé
-    update_success: l'événement a bien été mis à jour
-    delete_success: l'événement a bien été supprimé
+    create_success: L'événement a bien été créé
+    update_success: L'événement a bien été mis à jour
+    delete_success: L'événement a bien été supprimé
     create_error: Une erreur s'est produite. L'évenement existe peut être déjà.
 
 subject:
