@@ -32,10 +32,10 @@ Création d'un nouveau calendrier
                 {{ form_errors(form) }}
 				<div class="form-group">
 					<label for="name">
-						Intitulé :
+					 {{ form_label(form.title) }}
 					</label>
                      {{ form_errors(form.title) }}
-                     {{ form_widget(form.title, { 'id': 'name',  'attr': { 'class' : 'form-control' } } ) }}
+                     {{ form_widget(form.title, {'attr': { 'class' : 'form-control' } } ) }}
 				</div>
                     {{ form_widget(form.save, { 'attr': { 'class' : 'btn btn-success' } } ) }}
                     {{ form_end(form) }}
