@@ -10,7 +10,6 @@
 */
 namespace AppBundle\Tests\Controller;
 
-use PHPUnit_Extensions_Selenium2TestCase;
 use AppBundle\Tests\WebTestCase;
 
 /**
