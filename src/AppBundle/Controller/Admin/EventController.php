@@ -29,6 +29,8 @@ class EventController extends Controller
             $this->get('session')->getFlashBag()->add('success', $message);
 
             $serializer->serialize($event->getCalendar());
+
+            return $this->redirect($this->generateUrl('admin_calendar_edit', array('slug' => $event->getCalendar()->getSlug())));
         }
 
         return $this->render('AppBundle:Admin/Event:new.html.twig', array(
