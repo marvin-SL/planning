@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block title %}
-Edition
+Création
 {{ parent() }}
 {% endblock %}
 
@@ -33,45 +33,45 @@ Edition
                     {{ form_label(form.startDate) }}
                 </label>
                 {{ form_errors(form.startDate) }}
-                {{ form_widget(form.startDate, { 'id': 'startDate',  'attr': { 'class' : 'form-control' } } ) }}
+                {{ form_widget(form.startDate, {'attr': { 'class' : 'form-control' } } ) }}
             </div>
             <div class="form-group">
                 <label for="end">
                     {{ form_label(form.endDate) }}
                 </label>
                 {{ form_errors(form.endDate) }}
-                {{ form_widget(form.endDate, { 'id': 'endDate',  'attr': { 'class' : 'form-control' } } ) }}
+                {{ form_widget(form.endDate, { 'attr': { 'class' : 'form-control' } } ) }}
             </div>
             <div class="form-group">
                 <label for="calendar">
                     {{ form_label(form.calendar) }}
                 </label>
                 {{ form_errors(form.calendar) }}
-                {{ form_widget(form.calendar, { 'id': 'calendar',  'attr': { 'class' : 'form-control' } } ) }}
+                {{ form_widget(form.calendar, { 'attr': { 'class' : 'form-control' } } ) }}
             </div>
             <div class="form-group">
                 <label for="subject">
                     {{ form_label(form.subject) }}
                 </label>
                 {{ form_errors(form.subject) }}
-                {{ form_widget(form.subject, { 'id': 'subject',  'attr': { 'class' : 'form-control' } } ) }}
+                {{ form_widget(form.subject, {'attr': { 'class' : 'form-control' } } ) }}
             </div>
             <div class="form-group">
                 <label for="classroom">
                     {{ form_label(form.classroom) }}
                 </label>
                 {{ form_errors(form.classroom) }}
-                {{ form_widget(form.classroom, { 'id': 'classroom',  'attr': { 'class' : 'form-control' } } ) }}
+                {{ form_widget(form.classroom, {'attr': { 'class' : 'form-control' } } ) }}
             </div>
             <div class="form-group">
                 <label for="notice">
                     {{ form_label(form.notice) }}
                 </label>
                 {{ form_errors(form.notice) }}
-                {{ form_widget(form.notice, { 'id': 'notice',  'attr': { 'class' : 'form-control' } } ) }}
+                {{ form_widget(form.notice, { 'attr': { 'class' : 'form-control' } } ) }}
             </div>
             <div class="form-group">
-                {{ form_row(form.save, {'label': 'Mettre à jour', 'attr': { 'class' : 'btn btn-success' } } ) }}
+                {{ form_row(form.save, {'label': 'button.create', 'attr': { 'class' : 'btn btn-success' } } ) }}
                 {{ form_end(form) }}
             </div>
             </div>
@@ -85,16 +85,16 @@ Edition
 <script>
 
 $(function () {
-     $('#startDate').datetimepicker({
+     $('#app_subject_startDate').datetimepicker({
 
     });
-     $('#endDate').datetimepicker({
+     $('#app_subject_endDate').datetimepicker({
      });
-     $("#startDate").on("dp.change", function (e) {
-         $('#endDate').data("DateTimePicker").minDate(e.date);
+     $("#app_subject_startDate").on("dp.change", function (e) {
+         $('#app_subject_endDate').data("DateTimePicker").minDate(e.date);
      });
-     $("#endDate").on("dp.change", function (e) {
-         $('#startDate').data("DateTimePicker").maxDate(e.date);
+     $("#app_subject_endDate").on("dp.change", function (e) {
+         $('#app_subject_startDate').data("DateTimePicker").maxDate(e.date);
      });
  });
 </script>
