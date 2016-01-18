@@ -88,5 +88,6 @@ class EventType extends AbstractType
 
     public function getName()
     {
+        return 'app_subject';
     }
 }
