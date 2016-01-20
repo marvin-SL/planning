@@ -36,22 +36,26 @@ services:
 
 sudo: required
 
-before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar"
-  - "java -jar selenium-server-standalone-2.31.0.jar &"
-  - "export GOCEPT_SELENIUM_BROWSER='*firefox'"
 
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
+  - sudo apt-get update > /dev/null
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
+  - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
+  - sudo /etc/init.d/apache2 restart
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - composer install
   - php app/console doctrine:database:create --env=test
   - php app/console doctrine:schema:create --env=test
-  - php app/console doctrine:fixtures:load -n --env=test
-  
+  - "sh -e /etc/init.d/xvfb start"
+  - "export DISPLAY=:99.0"
+  - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar"
+  - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
+  - sleep 5
+
+
+
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script: phpunit -c app/ src/
