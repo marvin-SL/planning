@@ -17,9 +17,9 @@ env:
   - DB=mysql
 
 notifications:
-email:
-recipients:
-  - saytaine@gmail.com
+  email:
+    - saytaine@gmail.com
+    
 on_success: [always|never|change] # default: change
 on_failure: [always|never|change] # default: always
 
