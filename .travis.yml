@@ -51,11 +51,7 @@ before_script:
   - php app/console doctrine:database:create --env=test
   - php app/console doctrine:schema:create --env=test
   - php app/console doctrine:fixtures:load -n --env=test
-  - ./tests/setup/before_script.sh
-  - ./tests/setup/apache.sh
-  - ./tests/setup/selenium.sh
-
-
+  
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script: phpunit -c app/ src/
