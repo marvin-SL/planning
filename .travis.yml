@@ -34,6 +34,8 @@ matrix:
 services:
 - mysql
 
+sudo: required
+
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
@@ -42,6 +44,8 @@ before_script:
   - php app/console doctrine:database:create --env=test
   - php app/console doctrine:schema:create --env=test
   - php app/console doctrine:fixtures:load -n --env=test
+  - ./tests/setup/before_script.sh
+  - ./tests/setup/apache.sh
   - ./tests/setup/selenium.sh
 
 
