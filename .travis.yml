@@ -16,12 +16,6 @@ php:
 env:
   - DB=mysql
 
-before_install:
-    - export DISPLAY=:99.0
-    - sh -e /etc/init.d/xvfb start
-    - wget http://selenium-release.storage.googleapis.com/2.46/selenium-server-standalone-2.46.0.jar
-    - java -jar selenium-server-standalone-2.46.0.jar > /tmp/selenium.log 2> /tmp/selenium.error
-
 notifications:
   email:
     - saytaine@gmail.com
@@ -50,6 +44,11 @@ before_script:
   - composer install
   - php app/console doctrine:database:create --env=test
   - php app/console doctrine:schema:create --env=test
+  - "sh -e /etc/init.d/xvfb start"
+  - "export DISPLAY=:99.0"
+  - wget http://selenium-release.storage.googleapis.com/2.46/selenium-server-standalone-2.46.0.jar
+  - java -jar selenium-server-standalone-2.46.0.jar > /tmp/selenium.log 2> /tmp/selenium.error
+  - sleep 5
 
 
 
