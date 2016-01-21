@@ -49,12 +49,11 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.0.jar
   - php -S localhost:8000 -t public/ &
-  - java -jar selenium-server-standalone-2.49.0.jar > /dev/null 2>&1 &
   - sleep 30
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script:
-  - "java -jar selenium-server-standalone-2.49.0.jar  -htmlSuite *firefox http://localhost:8000/ /home/travis/build/marvin-SL/planning/src/AppBundle/Tests/ ./result"
+  - "java -jar selenium-server-standalone-2.49.0.jar -port 55555 -htmlSuite *firefox http://localhost:8000/ /home/travis/build/marvin-SL/planning/src/AppBundle/Tests/ ./result"
   - "php -r 'echo strip_tags(file_get_contents(\"result\"));'"
   - phpunit -c app/ src/
