@@ -48,7 +48,7 @@ before_script:
   - "export DISPLAY=:99.0"
   - wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.0.jar
   - java -jar selenium-server-standalone-2.49.0.jar > /dev/null 2>&1 &
-  - sleep 30  # to wait for Selenium to be up and running
+  - sleep 5
 
 
 # omitting "script:" will default to phpunit
