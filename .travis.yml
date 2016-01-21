@@ -55,9 +55,8 @@ before_script:
   # Update composer
   - composer self-update
   - composer install --dev --prefer-dist
-
   - chmod -R 777 app/cache app/logs
-  - app/console assetic:dump
+
 
 # Setup selenium
   - "sh -e /etc/init.d/xvfb start"
