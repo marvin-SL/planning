@@ -117,8 +117,8 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     public function testEditEvent()
     {
         $this->login();
-        $this->url('http://localhost/planning/admin/calendars/groupe-1/edit');
-        $this->byCssSelector("html body div#wrapper div#page-wrapper div.container-fluid div.row div.col-md-8 div.table-responsive table.table.table-bordered.table-hover tbody tr td a")->click();
+        $this->url('http://127.0.0.1/planning/admin/calendars/groupe-1/edit');
+        $this->byXPath("/html/body/div[1]/div/div/div[4]/div[2]/div/table/tbody/tr[1]/td[5]/a")->click();
 
         $this->moveto(array(
             'element' => $this->byId('app_subject_startDate'),
