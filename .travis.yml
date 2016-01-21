@@ -45,6 +45,7 @@ before_script:
   - php app/console doctrine:database:create --env=test
   - php app/console doctrine:schema:create --env=test
   - "sh -e /etc/init.d/xvfb start"
+  - sleep 5
   - rackup
   - sleep 5
   - "export DISPLAY=:99.0"
