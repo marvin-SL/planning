@@ -48,6 +48,7 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - php -S localhost:8000 -t public/ &
   - wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.0.jar
+  - apache.sh
 
 
 
