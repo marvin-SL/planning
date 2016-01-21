@@ -31,8 +31,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     */
     protected function login()
     {
-        $this->url('http://localhost/planning/login');
-        sleep(30);
+        $this->url('http://localhost/planning/logqsddsin');
         $form = $this->byCssSelector('form');
         $action = $form->attribute('action');
         $this->byName('_username')->value('marvin.sainteluce');
