@@ -39,7 +39,6 @@ sudo: required
 
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
-
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - composer install
@@ -48,7 +47,7 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
-  - php -S localhost:8000 -t public/ &
+  - php -S localhost:4444 -t public/ &
   - sleep 3
   - wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.0.jar
 
