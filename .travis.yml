@@ -50,6 +50,7 @@ before_script:
   - wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.0.jar
   - php -S localhost:4444 -t public/ &
   - java -jar selenium-server-standalone-2.49.0.jar > /dev/null 2>&1 &
+  - sleep 30
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
