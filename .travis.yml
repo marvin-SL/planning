@@ -57,8 +57,6 @@ before_script:
   - composer install --dev --prefer-dist
 
   - chmod -R 777 app/cache app/logs
-  - app/console --env=test cache:warmup
-  - chmod -R 777 app/cache app/logs
   - app/console assetic:dump
 
 # Setup selenium
