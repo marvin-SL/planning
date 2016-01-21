@@ -39,16 +39,14 @@ sudo: required
 
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
-  - sudo apt-get update > /dev/null
-  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
-  - sudo sed -i -e "/DocumentRoot/i\ServerName knpu_qa.l" /etc/apache2/sites-available/default
-  - sudo /etc/init.d/apache2 restart
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - composer install
   - php app/console doctrine:database:create --env=test
   - php app/console doctrine:schema:create --env=test
   - "sh -e /etc/init.d/xvfb start"
+  - rackup
+  - sleep 5
   - "export DISPLAY=:99.0"
   - wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.0.jar
   - java -jar selenium-server-standalone-2.49.0.jar > /dev/null 2>&1 &
