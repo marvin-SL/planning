@@ -23,7 +23,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     protected function setUp()
     {
         $this->setBrowser('firefox');
-        $this->setBrowserUrl('http://127.0.0.1/');
+        $this->setBrowserUrl('http://localhost/planning/');
     }
 
     /**
@@ -31,7 +31,8 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     */
     protected function login()
     {
-        $this->setBrowserUrl(getenv('http://127.0.0.1/login'));
+        $this->url('http://localhost/planning/login');
+        $this->waitForPageToLoad("30000");
         $form = $this->byCssSelector('form');
         $action = $form->attribute('action');
         $this->byName('_username')->value('marvin.sainteluce');
