@@ -22,8 +22,9 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     */
     protected function setUp()
     {
+        $this->setHost('127.0.0.1');
         $this->setBrowser('firefox');
-        $this->setBrowserUrl('http://localhost/planning/');
+        $this->setBrowserUrl('http://127.0.0.1/');
     }
 
     /**
@@ -31,7 +32,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     */
     protected function login()
     {
-        $this->url('http://localhost/planning/login');
+        $this->url('http://127.0.0.1/login');
         $this->waitUntil(function () {
             if ($this->byCssSelector('form')) {
                 return true;
