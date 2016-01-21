@@ -24,7 +24,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     {
         $this->setHost('127.0.0.1');
         $this->setBrowser('firefox');
-        $this->setBrowserUrl('http://127.0.0.1/');
+        $this->setBrowserUrl('http://127.0.0.1/planning');
     }
 
     /**
@@ -32,13 +32,8 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     */
     protected function login()
     {
-        $this->url('http://127.0.0.1/login');
-        $this->waitUntil(function () {
-            if ($this->byCssSelector('form')) {
-                return true;
-            }
-            return null;
-        }, 15000);
+        $this->url('http://127.0.0.1/planning/login');
+        $form = $this->byCssSelector('form');
         $action = $form->attribute('action');
         $this->byName('_username')->value('marvin.sainteluce');
         $this->byName('_password')->value('cmw');
@@ -52,9 +47,8 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     public function testNewEvent()
     {
         $this->login();
-        $this->url('http://localhost/planning/admin/calendars/groupe-1/edit');
+        $this->url('http://127.0.0.1/planning/admin/calendars/groupe-1/edit');
         $this->clickOnElement('addButton');
-
         $this->moveto(array(
             'element' => $this->byId('app_subject_startDate'),
         ));
@@ -124,7 +118,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     {
         $this->login();
         $this->url('http://localhost/planning/admin/calendars/groupe-1/edit');
-        $this->byXPath("/html/body/div[1]/div/div/div[4]/div[2]/div/table/tbody/tr[1]/td[5]/a")->click();
+        $this->byCssSelector("html body div#wrapper div#page-wrapper div.container-fluid div.row div.col-md-8 div.table-responsive table.table.table-bordered.table-hover tbody tr td a")->click();
 
         $this->moveto(array(
             'element' => $this->byId('app_subject_startDate'),
