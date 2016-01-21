@@ -32,12 +32,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     protected function login()
     {
         $this->url('http://localhost/planning/login');
-        $this->waitUntil(function () {
-            if ($this->byCssSelector('form')) {
-                return true;
-            }
-            return null;
-        }, 30000);
+        sleep(30);
         $form = $this->byCssSelector('form');
         $action = $form->attribute('action');
         $this->byName('_username')->value('marvin.sainteluce');
@@ -53,12 +48,6 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     {
         $this->login();
         $this->url('http://localhost/planning/admin/calendars/groupe-1/edit');
-        $this->waitUntil(function () {
-            if ($this->byCssSelector('form')) {
-                return true;
-            }
-            return null;
-        }, 30000);
         $this->clickOnElement('addButton');
 
         $this->moveto(array(
