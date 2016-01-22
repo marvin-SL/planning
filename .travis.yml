@@ -54,4 +54,5 @@ before_script:
 # use the $DB env variable to determine the phpunit.xml to use
 script:
   - "java -jar selenium-server-standalone-2.49.0.jar"
+  - sleep 10
   - phpunit -c app/ src/
