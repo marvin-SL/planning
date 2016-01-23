@@ -31,7 +31,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     */
     protected function login()
     {
-        $this->url('http://localhost/planning/login');
+        //$this->url('http://localhost/planning/login');
         $currentURL = $this->url();
         print_r($currentURL);
         sleep(10);
