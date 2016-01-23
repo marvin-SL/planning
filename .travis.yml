@@ -39,35 +39,27 @@ sudo: required
 
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
-   # Install php packages
-    - sudo apt-get update > /dev/null
-    - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
+  - sudo apt-get update > /dev/null
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
+  - sudo a2enmod rewrite
+  - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
+  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+  - sudo service apache2 restart
 
-    # Create VirtualHost
-    - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
-    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
-    - echo "127.0.0.1 kimweighttracker.dev" | sudo tee -a /etc/hosts
-    - sudo service apache2 restart
+  - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
+  - cp app/config/parameters.yml.travis app/config/parameters.yml
+  - composer install
+  - php app/console doctrine:database:create --env=test
+  - php app/console doctrine:schema:create --env=test
+  - php app/console assetic:dump
 
-    # Copy skeleton parameters file
-    - cp app/config/parameters.yml.dist app/config/parameters.yml
-
-    # Update composer
-    - composer self-update
-    - composer install --dev --prefer-dist
-
-    - app/console -n doctrine:database:create -e=test > /dev/null
-    - app/console -n doctrine:migrations:migrate -e=test > /dev/null
-    - chmod -R 777 app/cache app/logs
-    - app/console --env=test cache:warmup
-    - chmod -R 777 app/cache app/logs
-
-    # Setup selenium
-    - "sh -e /etc/init.d/xvfb start"
-    - "export DISPLAY=:99.0"
-    - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar"
-    - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
-    - sleep 5
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 5
+  - serverUrl='http://127.0.0.1:4444'
+  - wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.0.jar
+  - "java -jar selenium-server-standalone-2.49.0.jar > /dev/null &"
+  - sleep 5
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
