@@ -36,16 +36,18 @@ services:
 
 sudo: required
 
+
+# execute any number of scripts before the test run, custom env's are available as variables
 before_script:
-    # Install php packages
+   # Install php packages
     - sudo apt-get update > /dev/null
     - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
 
     # Create VirtualHost
-    - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
-    - sudo sed -i -e "/DocumentRoot/i\ServerName kimweighttracker.dev" /etc/apache2/sites-available/default
+    - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
+    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - echo "127.0.0.1 kimweighttracker.dev" | sudo tee -a /etc/hosts
-    - sudo /etc/init.d/apache2 restart
+    - sudo service apache2 restart
 
     # Copy skeleton parameters file
     - cp app/config/parameters.yml.dist app/config/parameters.yml
@@ -66,6 +68,7 @@ before_script:
     - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar"
     - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
     - sleep 5
+
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script:
