@@ -1,3 +1,41 @@
+# see http://about.travis-ci.org/docs/user/languages/php/ for more hints
+language: php
+
+# list any PHP version you want to test against
+php:
+  # using major version aliases
+
+  - 5.5
+  # aliased to a recent 5.6.x version
+  - 5.6
+  # aliased to a recent 7.x version
+  - 7.0
+  # aliased to a recent hhvm version
+  - hhvm
+
+env:
+  - DB=mysql
+
+notifications:
+  email:
+    # - saytaine@gmail.com
+
+on_success: [always|never|change] # default: change
+on_failure: [always|never|change] # default: always
+
+# optionally set up exclutions and allowed failures in the matrix
+matrix:
+  exclude:
+    - php: hhvm
+  allow_failures:
+    - php: 7.0
+    - php: hhvm
+
+services:
+- mysql
+
+sudo: required
+
 language: php
 
 php:
@@ -34,5 +72,7 @@ before_script:
     - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
     - sleep 5
 
+# omitting "script:" will default to phpunit
+# use the $DB env variable to determine the phpunit.xml to use
 script:
   - phpunit -c app/ src/
