@@ -18,7 +18,7 @@ env:
 
 notifications:
   email:
-    # - saytaine@gmail.com
+    - saytaine@gmail.com
 
 on_success: [always|never|change] # default: change
 on_failure: [always|never|change] # default: always
@@ -35,11 +35,6 @@ services:
 - mysql
 
 sudo: required
-
-language: php
-
-php:
-  - 5.4
 
 before_script:
     # Install php packages
@@ -71,7 +66,6 @@ before_script:
     - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar"
     - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
     - sleep 5
-
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script:
