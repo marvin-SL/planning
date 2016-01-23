@@ -23,7 +23,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     protected function setUp()
     {
         $this->setBrowser('firefox');
-        $this->setBrowserUrl('http://127.0.0.1/planning');
+        $this->setBrowserUrl('http://localhost/planning');
     }
 
     /**
@@ -31,7 +31,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     */
     protected function login()
     {
-        $this->url('http://127.0.0.1/planning/login');
+        $this->url('http://localhost/planning/login');
         sleep(3);
         $form = $this->byId('login-form');
         $action = $form->attribute('action');
@@ -47,7 +47,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     public function testNewEvent()
     {
         $this->login();
-        $this->url('http://127.0.0.1/planning/admin/calendars/groupe-1/edit');
+        $this->url('http://localhost/planning/admin/calendars/groupe-1/edit');
         $this->clickOnElement('addButton');
         sleep(3);
         $this->moveto(array(
@@ -118,7 +118,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     public function testEditEvent()
     {
         $this->login();
-        $this->url('http://127.0.0.1/planning/admin/calendars/groupe-1/edit');
+        $this->url('http://localhost/planning/admin/calendars/groupe-1/edit');
         $this->byXPath("/html/body/div[1]/div/div/div[4]/div[2]/div/table/tbody/tr[1]/td[5]/a")->click();
         sleep(3);
 
