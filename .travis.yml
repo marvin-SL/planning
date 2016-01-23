@@ -40,9 +40,10 @@ sudo: required
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
   - sudo apt-get update > /dev/null
-  - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
-  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
-  - sudo service apache2 restart
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
+  - sudo sed -i -e "/DocumentRoot/i\ServerName cmwplanning.dev" /etc/apache2/sites-available/default
+  - echo "127.0.0.1 cmwplanning.dev" | sudo tee -a /etc/hosts
+  - sudo /etc/init.d/apache2 restart
 
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
   - cp app/config/parameters.yml.travis app/config/parameters.yml
