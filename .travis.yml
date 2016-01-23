@@ -62,6 +62,7 @@ before_script:
   - serverUrl='http://localhost:4444'
   - wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.0.jar
   - "java -jar selenium-server-standalone-2.49.0.jar > /dev/null &"
+  - "export GOCEPT_SELENIUM_BROWSER='*firefox'"
   - sleep 5
 
 # omitting "script:" will default to phpunit
