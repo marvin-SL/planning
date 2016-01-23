@@ -1,67 +1,38 @@
-# see http://about.travis-ci.org/docs/user/languages/php/ for more hints
 language: php
 
-# list any PHP version you want to test against
 php:
-  # using major version aliases
+  - 5.4
 
-  - 5.5
-  # aliased to a recent 5.6.x version
-  - 5.6
-  # aliased to a recent 7.x version
-  - 7.0
-  # aliased to a recent hhvm version
-  - hhvm
-
-env:
-  - DB=mysql
-
-notifications:
-  email:
-    - saytaine@gmail.com
-
-on_success: [always|never|change] # default: change
-on_failure: [always|never|change] # default: always
-
-# optionally set up exclutions and allowed failures in the matrix
-matrix:
-  exclude:
-    - php: hhvm
-  allow_failures:
-    - php: 7.0
-    - php: hhvm
-
-services:
-- mysql
-
-sudo: required
-
-
-# execute any number of scripts before the test run, custom env's are available as variables
 before_script:
-  - sudo apt-get update > /dev/null
-  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
-  - sudo a2enmod rewrite
-  - sudo sed -i -e "s,/var/www,/home/travis/build/marvin-SL/planning,g" /etc/apache2/sites-available/default
-  - sudo sed -i -e "s,AllowOverride[ ]None,AllowOverride All,g" /etc/apache2/sites-available/default
-  - sudo /etc/init.d/apache2 restart
+    # Install php packages
+    - sudo apt-get update > /dev/null
+    - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
 
-  - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
-  - cp app/config/parameters.yml.travis app/config/parameters.yml
-  - composer install
-  - php app/console doctrine:database:create --env=test
-  - php app/console doctrine:schema:create --env=test
-  - php app/console assetic:dump
+    # Create VirtualHost
+    - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
+    - sudo sed -i -e "/DocumentRoot/i\ServerName kimweighttracker.dev" /etc/apache2/sites-available/default
+    - echo "127.0.0.1 kimweighttracker.dev" | sudo tee -a /etc/hosts
+    - sudo /etc/init.d/apache2 restart
 
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 5
-  - serverUrl='http://127.0.0.1:4444'
-  - wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.0.jar
-  - "java -jar selenium-server-standalone-2.49.0.jar > /dev/null &"
-  - sleep 5
+    # Copy skeleton parameters file
+    - cp app/config/parameters.yml.dist app/config/parameters.yml
 
-# omitting "script:" will default to phpunit
-# use the $DB env variable to determine the phpunit.xml to use
+    # Update composer
+    - composer self-update
+    - composer install --dev --prefer-dist
+
+    - app/console -n doctrine:database:create -e=test > /dev/null
+    - app/console -n doctrine:migrations:migrate -e=test > /dev/null
+    - chmod -R 777 app/cache app/logs
+    - app/console --env=test cache:warmup
+    - chmod -R 777 app/cache app/logs
+
+    # Setup selenium
+    - "sh -e /etc/init.d/xvfb start"
+    - "export DISPLAY=:99.0"
+    - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar"
+    - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
+    - sleep 5
+
 script:
   - phpunit -c app/ src/
