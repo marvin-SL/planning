@@ -34,7 +34,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     {
         $this->url('http://127.0.0.1/planning/login');
         sleep(10);
-        $form = $this->byCssSelector('form');
+        $form = $this->byId('login-form');
         $action = $form->attribute('action');
         $this->byName('_username')->value('marvin.sainteluce');
         $this->byName('_password')->value('cmw');
@@ -50,7 +50,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->login();
         $this->url('http://127.0.0.1/planning/admin/calendars/groupe-1/edit');
         $this->clickOnElement('addButton');
-        sleep(2);
+        sleep(3);
         $this->moveto(array(
             'element' => $this->byId('app_subject_startDate'),
         ));
@@ -120,8 +120,8 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     {
         $this->login();
         $this->url('http://127.0.0.1/planning/admin/calendars/groupe-1/edit');
-        sleep(2);
         $this->byXPath("/html/body/div[1]/div/div/div[4]/div[2]/div/table/tbody/tr[1]/td[5]/a")->click();
+        sleep(3);
 
         $this->moveto(array(
             'element' => $this->byId('app_subject_startDate'),
