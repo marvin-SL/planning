@@ -36,6 +36,9 @@ services:
 
 sudo: required
 
+addons:
+  firefox: "39.0"
+
 
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
