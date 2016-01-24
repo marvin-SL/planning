@@ -42,14 +42,31 @@ addons:
 
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
+  - sudo apt-get update > /dev/null
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
+  - sudo a2enmod rewrite
+  - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
+  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+  - sudo service apache2 restart
+
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - composer install
   - php app/console doctrine:database:create --env=test
   - php app/console doctrine:schema:create --env=test
   - php app/console doctrine:fixtures:load -n --env=test
+  - php app/console assetic:dump
+  - npm install chromedriver
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 5
+  - serverUrl='http://localhost:4444'
+  - wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.0.jar
+  - "java -jar selenium-server-standalone-2.49.0.jar > /dev/null &"
+  - "export GOCEPT_SELENIUM_BROWSER='*firefox'"
+  - sleep 5
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script:
-  - phpunit -c app/ src/AppBundle/Tests/Controller/Admin/
+  - phpunit -c app/ src/
