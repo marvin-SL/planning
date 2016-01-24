@@ -29,7 +29,8 @@
         "stof/doctrine-extensions-bundle": "dev-master",
         "twig/extensions": "^1.3",
         "stephanecollot/datetimepicker-bundle": "dev-master",
-        "phpunit/phpunit-selenium": ">=1.2"
+        "phpunit/phpunit-selenium": ">=1.2",
+        "satooshi/php-coveralls": "dev-master"
     },
 
 "minimum-stability": "dev",
