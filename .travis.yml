@@ -45,7 +45,9 @@ before_script:
   - php /home/travis/.phpenv/versions/5.4/bin/composer self-update
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - composer install
-
+  - php app/console doctrine:database:create --env=test
+  - php app/console doctrine:schema:create --env=test
+  - php app/console doctrine:fixtures:load -n --env=test
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
