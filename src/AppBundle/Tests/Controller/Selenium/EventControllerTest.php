@@ -31,8 +31,9 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     */
     protected function login()
     {
+        $this->prepareSession()->currentWindow()->maximize();
         $this->url('http://localhost/planning/login');
-        sleep(10);
+        sleep(3);
         $form = $this->byId('login-form');
         $action = $form->attribute('action');
         $this->byName('_username')->value('marvin.sainteluce');
@@ -175,28 +176,25 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     /**
      * test on delete Event.
      */
-    // public function testDeleteEvent()
-    // {
-    //     $client = static::createClient();
-    //
-    //     $this->login($client, 'marvin.sainteluce', 'cmw');
-    //
-    //     $crawler = $client->request('GET', '/admin/events/');
-    //
-    //     $link = $crawler->filter('a:contains("Editer")')->eq(0)->link();
-    //
-    //     $crawler = $client->click($link);
-    //
-    //     $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/events/1/edit');
-    //
-    //     $client->submit($crawler->selectButton('form[submit]')->form());
-    //
-    //     $client->followRedirects();
-    //
-    //     $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/events/');
-    //
-    //     $crawler = $client->request('GET', '/admin/events/');
-    //
-    //     $this->assertEquals(0, $crawler->filter('html:contains("Copernic")')->count(), 'Found element html:contains("Copernic")');
-    // }
+    public function testDeleteEvent()
+    {
+        $this->login();
+        $this->url('http://localhost/planning/admin/calendars/groupe-2/edit');
+        sleep(2);
+        $this->byXPath("/html/body/div[1]/div/div/div[4]/div[2]/div/table/tbody/tr[1]/td[5]/a")->click();
+        sleep(2);
+        $this->clickOnElement('deleteButton');
+        sleep(2);
+
+        $this->moveto(array(
+            'element' => $this->byId('form_submit'),
+        ));
+
+        $this->buttondown();
+        $this->buttonup();
+
+        $message = $this->byXpath('//*[@id="flashes"]');
+
+        $this->assertRegExp('/bien été supprimé/i', $message->text());
+    }
 }
