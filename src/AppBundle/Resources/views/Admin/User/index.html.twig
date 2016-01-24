@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Gestion des utilisateurs
+{{ parent() }}
+{% endblock %}
+{% block titre %}Gestion des utilisateurs{% endblock %}
+{% block body %}
+
+<div class="row">
+        <div class="col-md-12 page-header">
+            <div class="col-md-10">
+                <h1 class="text-left">
+                    Gestion des salles
+                </h1>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-lg btn-success margin-top-20" href="{{path('admin_user_new')}}">{{ 'text.add_entity'|trans({}, 'messages') }}</a>
+            </div>
+        </div>
+</div>
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Nom d'utilisateur</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Rôle</th>
+                        <th>Création</th>
+                        <th>Connexion</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{user.username}}</td>
+                        <td>{{user.lastname}}</td>
+                        <td>{{user.firstname}}</td>
+                        <td>{{user.highestRole}}</td>
+                    <td>{{user.createdAt|localizeddate('medium', 'short') }}</td>
+                    <td><small>{% if user.lastLogin is empty %}-{% else %}{{ user.lastLogin|time_diff }}{% endif %}</small></td>
+                    <td><a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Informations personnelles
+{{ parent() }}
+{% endblock %}
+{% block titre %}Informations personnelles{% endblock %}
+{% block body %}
+
+    <div class="row">
+            <div class="col-md-12 page-header">
+                <div class="col-md-10">
+                    <h1 class="text-left">
+                        Informations personnelles
+                    </h1>
+                </div>
+            </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <div class="table-responsive">
+            Nom : {{user.lastname}}
+            Prenom : {{user.firstname}}
+            Nom d'utilisateur : {{user.username}}
+            e-mail : {{user.email}}
+        </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+
+
+
+{% endblock %}

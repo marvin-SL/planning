@@ -21,3 +21,11 @@ admin_subject:
 admin_teacher:
     resource: "@AppBundle/Resources/config/routing/Admin/admin_teacher.yml"
     prefix:   /admin/teachers
+
+admin_user:
+    resource: "@AppBundle/Resources/config/routing/Admin/admin_user.yml"
+    prefix:   /admin/users
+
+admin_account:
+    resource: "@AppBundle/Resources/config/routing/Admin/admin_account.yml"
+    prefix:   /admin/account

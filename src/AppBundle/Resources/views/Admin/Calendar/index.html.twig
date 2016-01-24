@@ -14,15 +14,18 @@ Liste des agendas
 
 {% block body %}
 
-
-    <!-- Page Heading -->
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Liste des plannings
-            </h1>
-        </div>
-    </div>
+		<div class="col-md-12 page-header">
+            <div class="col-md-10">
+    			<h1 class="text-left">
+    				Liste des plannings
+    			</h1>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-lg btn-success margin-top-20" href="{{path('admin_calendar_new')}}">{{ 'text.add_entity'|trans({}, 'messages') }}</a>
+            </div>
+		</div>
+	</div>
     <div class="row">
         <div class="col-lg-12">
             {% if calendars is defined %}
@@ -43,7 +46,7 @@ Liste des agendas
                                     <td>{{calendar.title}}</td>
                                     <td>{{calendar.slug}}</td>
                                     <td>{{calendar.createdAt| localizeddate('long', 'short') }}</td>
-                                    <td>{{calendar.updatedAt| localizeddate('long', 'short') }}</td>
+                                    <td>{{calendar.updatedAt|time_diff }}</td>
                                     <td>
                                         <a href="{{path('admin_calendar_show', {'slug' : calendar.slug })}}">Voir</a> |
                                         <a href="{{path('admin_calendar_edit', {'slug' : calendar.slug })}}">Editer</a>

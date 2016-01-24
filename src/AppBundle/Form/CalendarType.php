@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -7,11 +8,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CalendarType extends AbstractType
 {
-  public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('title', 'text', array('label' => 'Titre'))
-        ->add('save','submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
+        ->add('title', 'text', array('label' => 'Intitulé :'))
+        ->add('save', 'submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
         ;
     }
 
@@ -23,7 +24,7 @@ class CalendarType extends AbstractType
     }
 
     public function getName()
-   {
-
-   }
+    {
+        return 'app_calendar';
+    }
 }

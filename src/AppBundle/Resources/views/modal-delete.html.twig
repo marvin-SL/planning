@@ -1,4 +1,6 @@
-<!-- Modal -->
+{% if trans is not defined %}
+{% set trans = "text.message_alert_before_delete" %}
+{% endif %}
 <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modalDelete">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -7,7 +9,7 @@
         <h4 class="modal-title" id="modalDelete">Suppression</h4>
       </div>
       <div class="modal-body modal-danger">
-            <h4>{{ 'text.message_alert_before_delete'|trans({}, 'messages') }}</h4>
+            <h4>{{ trans |trans({}, 'messages') }}</h4>
             <p>{{ 'text.question_confirm_delete'|trans({}, 'messages') }}</p>
       </div>
       <div class="modal-footer">

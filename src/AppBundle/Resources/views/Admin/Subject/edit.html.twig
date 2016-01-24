@@ -54,13 +54,14 @@ Edition
                 {{ form_widget(edit_form.color, { 'id': 'colorPicker',  'attr': { 'class' : 'form-control' } } ) }}
             </div>
             <div class="form-group">
-                {{ form_row(edit_form.save, {'label': 'button.update', 'attr': { 'class' : 'btn btn-success' } } ) }}
+                {{ form_label(edit_form.save) }}
+                {{ form_widget(edit_form.save, {'label': 'button.update', 'attr': { 'class' : 'btn btn-success' } } ) }}
                 {{ form_end(edit_form) }}
-                <p>&nbsp;</p>
-                    <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>(Supprime également les évènements en rapport avec cette matière)
-                    {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %}
             </div>
             </div>
+                <a class="btn btn-danger" data-toggle="modal" data-target="#modal-delete">Supprimer</a>
+                {% set trans = 'text.message_alert_before_delete_subject' %}
+                {% include 'AppBundle::modal-delete.html.twig' with { 'form': delete_form } %}
     </div>
     <div class="col-md-2">
     </div>

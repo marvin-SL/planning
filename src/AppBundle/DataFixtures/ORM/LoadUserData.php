@@ -24,13 +24,16 @@ class LoadUserData extends AbstractFixture implements ContainerAwareInterface
         $this->container = $container;
     }
 
-    public function saveUser(ObjectManager $manager, $username,$email, $role ){
+    public function saveUser(ObjectManager $manager,$username, $firstname, $lastname, $email, $role, $date ){
         $user = new User();
 
         $user->setUsername($username);
+        $user->setFirstname($firstname);
+        $user->setLastname($lastname);
         $user->setEmail($username . '@cmw.com');
         $user->addRole($role);
         $user->setEnabled('1');
+        $user->setPasswordChangedAt($date);
 
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
         $user->setPassword($encoder->encodePassword('cmw', $user->getSalt()));
@@ -44,8 +47,9 @@ class LoadUserData extends AbstractFixture implements ContainerAwareInterface
     public function load(ObjectManager $manager)
     {
 
-        $this->saveUser($manager, 'marvin', 'saytaine@gmail.com', 'ROLE_ADMIN');
-        $this->saveUser($manager, 'laure', 'saytaine@gmail.com', 'ROLE_ADMIN');
+        $this->saveUser($manager, 'marvin.sainteluce','marvin','sainte-luce', 'saytaine@gmail.com', 'ROLE_SUPER_ADMIN', $date = new \DateTime());
+        $this->saveUser($manager, 'laure.robillard', 'laure','robillard', 'saytaine@gmail.com', 'ROLE_ADMIN', $date=null);
+        $this->saveUser($manager, 'dean.winchester', 'dean','winchester', 'saytaine@gmail.com', 'ROLE_USER', $date=null);
 
         $manager->flush();
     }
