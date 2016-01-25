@@ -73,7 +73,7 @@ before_script:
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script:
-  - phpunit -c app/ src/AppBundle/Tests/Controller/Admin/ --coverage-clover build/logs/clover.xml
+  - phpunit -c app/ src/AppBundle/Tests/Controller/Admin/ --root_dir src --coverage-clover build/logs/clover.xml
 
 after_success:
 - bin/coveralls -v
