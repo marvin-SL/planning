@@ -76,5 +76,4 @@ script:
   - phpunit -c app/ src/AppBundle/Tests/Controller/Admin/ --coverage-clover build/logs/clover.xml
 
 after_success:
-- export CI_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
-- if  [ $TRAVIS_PHP_VERSION = '5.6' ] && [ $TRAVIS_BRANCH = 'master' ] && [ $TRAVIS_PULL_REQUEST = 'false' ] && [ $NETTE = 'default' ]; then bin/coveralls -v; fi
+- bin/coveralls -v
