@@ -30,7 +30,7 @@
         "twig/extensions": "^1.3",
         "stephanecollot/datetimepicker-bundle": "dev-master",
         "phpunit/phpunit-selenium": ">=1.2",
-        "satooshi/php-coveralls": "dev-master"
+        "satooshi/php-coveralls": "^1.0"
     },
 
 "minimum-stability": "dev",
