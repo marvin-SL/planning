@@ -76,4 +76,4 @@ script:
   - phpunit -c app/ src/AppBundle/Tests/Controller/Admin/ --coverage-clover build/logs/clover.xml
 
 after_success:
-- travis_retry php vendor/bin/coveralls -v .coveralls.yml
+- travis_retry php scripts/coveralls -v --exclude-no-stmt
