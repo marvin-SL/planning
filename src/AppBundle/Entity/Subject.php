@@ -36,10 +36,10 @@ class Subject
     private $teachers;
 
     /**
-      * @ORM\Column(type="string", length=7, nullable=false)
-      * @Assert\NotBlank()
-      */
-     public $color;
+     * @ORM\Column(type="string", length=7, nullable=false)
+     * @Assert\NotBlank()
+     */
+    public $color;
 
 
     /**
