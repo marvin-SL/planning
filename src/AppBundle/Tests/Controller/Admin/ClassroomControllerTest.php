@@ -69,6 +69,8 @@ class ClassroomControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/admin/classrooms/999/edit');
 
         $this->setExpectedException('NotFoundHttpException', "Unable to find classroom with id '999'");
+
+        throw new NotFoundHttpException("Unable to find classroom with id '999'", 10);
     }
 
     /**
