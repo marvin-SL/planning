@@ -36,11 +36,6 @@ class Subject
     private $teachers;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="subject", cascade={"persist"})
-    */
-    private $events;
-
-    /**
       * @ORM\Column(type="string", length=7, nullable=false)
       * @Assert\NotBlank()
       */
@@ -91,39 +86,6 @@ class Subject
         $this->teachers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add event
-     *
-     * @param \AppBundle\Entity\Event $event
-     *
-     * @return Subject
-     */
-    public function addEvent(\AppBundle\Entity\Event $event)
-    {
-        $this->events[] = $event;
-
-        return $this;
-    }
-
-    /**
-     * Remove event
-     *
-     * @param \AppBundle\Entity\Event $event
-     */
-    public function removeEvent(\AppBundle\Entity\Event $event)
-    {
-        $this->events->removeElement($event);
-    }
-
-    /**
-     * Get events
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEvents()
-    {
-        return $this->events;
-    }
 
     /**
      * Get teachers
