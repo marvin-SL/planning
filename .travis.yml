@@ -76,4 +76,4 @@ script:
   - phpunit -c app/ src/AppBundle/Tests/Controller/Admin/ --coverage-clover build/logs/clover.xml
 
 after_success:
-- bin/coveralls -v --root_dir src
+- bin/coveralls -v
