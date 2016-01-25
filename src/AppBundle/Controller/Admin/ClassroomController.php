@@ -41,17 +41,6 @@ class ClassroomController extends Controller
             return $this->redirect($this->generateUrl('admin_classroom_index'));
         }
 
-        if ($session->get('introduction') == 'true') {
-            $session->getFlashBag()->add(
-                'notice',
-                ''
-            );
-
-            return $this->render('AppBundle:Admin/Classroom:new.html.twig', array(
-                    'form' => $form->createView(),
-                ));
-        }
-
         return $this->render('AppBundle:Admin/Classroom:new.html.twig', array(
             'form' => $form->createView(),
         ));
