@@ -75,5 +75,5 @@ before_script:
 script:
   - phpunit -c app/ src/AppBundle/Tests/Controller/Admin/ --coverage-text --coverage-clover build/logs/clover.xml
 
-after_script:
+after_success:
 - php vendor/bin/coveralls -v
