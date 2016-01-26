@@ -77,7 +77,7 @@ class TeacherControllerTest extends WebTestCase
 
         $this->setExpectedException('NotFoundHttpException', "Unable to find teacher with id '999'");
 
-        throw new NotFoundHttpException("Unable to find classroom with id '999'", 10);
+        throw new NotFoundHttpException("Unable to find teacher with id '999'", 10);
     }
 
     public function testEditTeacher()
