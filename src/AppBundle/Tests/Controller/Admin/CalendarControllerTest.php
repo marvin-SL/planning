@@ -37,8 +37,8 @@ class CalendarControllerTest extends WebTestCase
      /**
       * test on failing to show calender.
       */
-     public function failShow()
-     {
+    public function failShow()
+    {
          $client = static::createClient();
 
          $this->login($client, 'marvin.sainteluce', 'cmw');
@@ -48,7 +48,7 @@ class CalendarControllerTest extends WebTestCase
          $this->setExpectedException('NotFoundHttpException', "Unable to find calendar with slug '999'");
 
          throw new NotFoundHttpException("Unable to find calendar with slug '999'", 10);
-     }
+    }
 
     /**
      * test on createCalendar.
