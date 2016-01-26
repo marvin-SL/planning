@@ -84,7 +84,7 @@ class SubjectController extends Controller
             }
 
                 return $this->redirect($this->generateUrl('admin_subject_index'));
-            //}
+
         }
 
         return $this->render('AppBundle:Admin/Subject:edit.html.twig', array(
