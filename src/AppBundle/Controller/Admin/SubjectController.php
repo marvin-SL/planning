@@ -69,33 +69,22 @@ class SubjectController extends Controller
         if ($request->isMethod('POST')) {
             $editForm->handleRequest($request);
 
-            if ($request->isXmlHttpRequest()) {
-                $startDate = $request->request->get('start_date');
-                $endDate = $request->request->get('end_date');
-
-                $entity->setStartDate(new \DateTime($startDate));
-                $entity->setEndDate(new \DateTime($endDate));
+            if ($editForm->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
-                $serializer->serialize($calendars);
-            } else {
-                if ($editForm->isValid()) {
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($entity);
-                    $em->flush();
-                    foreach ($calendars as $calendar) {
-                        $serializer->serialize($calendar);
-                    }
+                foreach ($calendars as $calendar) {
+                    $serializer->serialize($calendar);
+                }
 
                     $message = $this->get('translator')->trans('subject.update_success', array(), 'flashes');
                     $this->get('session')->getFlashBag()->add('success', $message);
 
                     return $this->redirect($this->generateUrl('admin_subject_index'));
-                }
+            }
 
                 return $this->redirect($this->generateUrl('admin_subject_index'));
-            }
+            //}
         }
 
         return $this->render('AppBundle:Admin/Subject:edit.html.twig', array(
