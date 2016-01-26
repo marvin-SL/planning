@@ -22,10 +22,7 @@ class CustomSerializerManager extends BaseManager
 
     public function serialize(Calendar $calendar)
     {
-        $subjectRepository = $this->em->getRepository('AppBundle:Subject');
-        $subjects = $subjectRepository->findAll();
-
-        $eventRepository = $this->em->getRepository('AppBundle:Event');
+        $subjects = $this->em->getRepository('AppBundle:Subject')->findAll();
 
         $tabTeachers = [];
 
@@ -42,11 +39,12 @@ class CustomSerializerManager extends BaseManager
         $rootNode = new \SimpleXMLElement('<data></data>');
 
         if (!file_exists($this->container->get('kernel')->getRootDir().'/../web/data/')) {
-            mkdir($this->container->get('kernel')->getRootDir().'/../web/data/', 0777, true);
+            mkdir($this->container->get('kernel')->getRootDir().'/../web/data/', 0775, true);
 
         }
 
         foreach ($query as $eventList) {
+
             $eventNode = $rootNode->addChild('event');
             $eventNode->addChild('id', $eventList->getId());
             $eventNode->addChild('calendar', $eventList->getCalendar()->getTitle());
@@ -60,11 +58,6 @@ class CustomSerializerManager extends BaseManager
             $path = $this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml';
             file_put_contents($path, $rootNode->asXML());
         }
-
-        $eventRepository = $this->em->getRepository('AppBundle:Event');
-
-        $eventList = $eventRepository->findAll();
-
 
     }
 }
