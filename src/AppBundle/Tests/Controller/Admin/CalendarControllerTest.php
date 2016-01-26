@@ -35,6 +35,22 @@ class CalendarControllerTest extends WebTestCase
     }
 
     /**
+     * test on show calender.
+     */
+    public function testShow()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/calendars/none-existant/show');
+
+        $this->setExpectedException('NotFoundHttpException', "Unable to find calendar with slug 'none-existant'");
+
+        throw new NotFoundHttpException("Unable to find calendar with slug 'none-existant'", 10);
+    }
+
+    /**
      * test on createCalendar.
      */
     public function testNewCalendar()
@@ -56,6 +72,22 @@ class CalendarControllerTest extends WebTestCase
         $client->submit($form);
 
         $crawler = $client->followRedirect();
+    }
+
+    /**
+     * test on fail Calendar edition.
+     */
+    public function failCalendarEdit()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/calendars/none-existant/edit');
+
+        $this->setExpectedException('NotFoundHttpException', "Unable to find calendar with slug 'none-exitant'");
+
+        throw new NotFoundHttpException("Unable to find calendar with slug 'none-exitant'", 10);
     }
 
     /**
