@@ -18,15 +18,6 @@ class TeacherController extends Controller
 
         $teachers = $em->getRepository('AppBundle:Teacher')->findAll();
 
-        if ($session->get('introduction') == 'true') {
-            $session->getFlashBag()->add(
-                'notice',
-                ''
-            );
-
-            return $this->render('AppBundle:Admin/Teacher:index.html.twig', array('teachers' => $teachers));
-        }
-
         return $this->render('AppBundle:Admin/Teacher:index.html.twig', array('teachers' => $teachers));
     }
 
@@ -49,17 +40,6 @@ class TeacherController extends Controller
             $this->get('session')->getFlashBag()->add('success', $message);
 
             return $this->redirect($this->generateUrl('admin_teacher_index'));
-        }
-
-        if ($session->get('introduction') == 'true') {
-            $session->getFlashBag()->add(
-                'notice',
-                ''
-            );
-
-            return $this->render('AppBundle:Admin/Teacher:new.html.twig', array(
-                    'form' => $form->createView(),
-                ));
         }
 
         return $this->render('AppBundle:Admin/Teacher:new.html.twig', array(
