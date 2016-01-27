@@ -72,30 +72,35 @@ class UserControllerTest extends WebTestCase
 
     }
 
-    // /**
-    //  * test on edit User.
-    //  *
-    //  */
-    // public function testEditUser()
-    // {
-    //     $client = static::createClient();
-    //
-    //     $this->login($client, 'marvin.sainteluce', 'cmw');
-    //
-    //     $crawler = $client->request('GET', '/admin/users/1/edit');
-    //
-    //     $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/users/1/edit");
-    //
-    //     $form = $crawler->selectButton('save')->form(array(
-    //         'name' => 'user-edited',
-    //         'teachers' => '1',
-    //         'color' => '#00ffff'
-    //     ));
-    //
-    //     $client->submit($form);
-    //
-    //     $crawler = $client->followRedirect();
-    // }
+    /**
+     * test on edit User.
+     *
+     */
+    public function testEditUser()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/users/3/edit');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/users/3/edit");
+
+        $form = $crawler->selectButton('appbundle_user[save]')->form(array(
+            'appbundle_user[email]' => 'sam.winchester@cmw.com',
+            'appbundle_user[lastname]' => 'winchester',
+            'appbundle_user[firstname]' => 'samuel',
+            'appbundle_user[roles]' => 'ROLE_USER'
+        ));
+
+        $client->submit($form);
+
+        $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/users/');
+
+        $crawler = $client->followRedirect();
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("samuel")')->count(), 'Missing element html:contains("Foo-edited")');
+    }
 
     // /**
     //  * test on delete User
