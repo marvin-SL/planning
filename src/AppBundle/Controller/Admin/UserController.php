@@ -86,6 +86,34 @@ class UserController extends Controller
     }
 
     /**
+     * Deletes a User entity.
+     *
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createDeleteForm($id);
+
+        if ($form->handleRequest($request)->isValid()) {
+            if (!$entity = $em->getRepository('AppBundle:User')->find($id)) {
+                throw $this->createNotFoundException('Unable to find User entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+
+            $message = $this->get('translator')->trans('user.delete_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
+        }
+
+        return $this->redirect($this->generateUrl('admin_user_index'));
+    }
+
+    /**
      * Creates a form to delete a User entity by id.
      *
      * @param mixed $id The entity id
@@ -95,7 +123,7 @@ class UserController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_subject_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('admin_user_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
             ->getForm();
