@@ -1,0 +1,99 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+Edition
+{{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block titre %}Edition {% endblock %}
+
+{% block body %}
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Edition de l'utilisateur {{entity.username}}
+            </h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-5">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="form-group">
+                <label for="mail">
+                {{form_label(form.email)}}
+                </label>
+                 {{ form_errors(form.email) }}
+                 {{ form_widget(form.email, { 'id': 'mail',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+            <div class="form-group">
+                <label for="lastname">
+                    {{form_label(form.lastname)}}
+                </label>
+                 {{ form_errors(form.lastname) }}
+                 {{ form_widget(form.lastname, { 'id': 'lastname',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+            <div class="form-group">
+                <label for="firstname">
+                    {{form_label(form.firstname)}}
+                </label>
+                 {{ form_errors(form.firstname) }}
+                 {{ form_widget(form.firstname, { 'id': 'firstname',  'attr': { 'class' : 'form-control' } } ) }}
+            </div>
+                {{ form_widget(form.save, { 'label': 'button.update', 'attr': { 'class' : 'btn btn-success' } } ) }}
+                {{ form_end(form) }}
+    </div>
+    <div class="col-md-5">
+    </div>
+</div>
+
+<div class="row margin-top-20">
+    <div class="col-lg-12">
+        <h3 class="page-header">
+            Listes des utilisateurs
+        </h3>
+</div>
+<div class="col-md-2">
+</div>
+<div class="col-md-8">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Nom d'utilisateur</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Rôle</th>
+                    <th>Création</th>
+                    <th>Connexion</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{user.username}}</td>
+                    <td>{{user.lastname}}</td>
+                    <td>{{user.firstname}}</td>
+                    <td>{{user.highestRole}}</td>
+                <td>{{user.createdAt|localizeddate('medium', 'short') }}</td>
+                <td><small>{% if user.lastLogin is empty %}-{% else %}{{ user.lastLogin|time_diff }}{% endif %}</small></td>
+                <td>
+                    <a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a>
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-2">
+</div>
+{% endblock %}
