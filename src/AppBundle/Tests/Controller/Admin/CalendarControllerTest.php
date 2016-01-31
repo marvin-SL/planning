@@ -34,6 +34,22 @@ class CalendarControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('html:contains("groupe-1")')->count(), 'Missing element html:contains("groupe-1")');
     }
 
+     /**
+      * test on failing to show calender.
+      */
+    public function failShow()
+    {
+         $client = static::createClient();
+
+         $this->login($client, 'marvin.sainteluce', 'cmw');
+
+         $crawler = $client->request('GET', '/admin/calendars/999/edit');
+
+         $this->setExpectedException('NotFoundHttpException', "Unable to find calendar with slug '999'");
+
+         throw new NotFoundHttpException("Unable to find calendar with slug '999'", 10);
+    }
+
     /**
      * test on createCalendar.
      */
@@ -51,11 +67,27 @@ class CalendarControllerTest extends WebTestCase
 
         $form = $crawler->selectButton('Créer')->form(array(
             'app_calendar[title]' => '##!planning test\'##',
-        ));
+            ));
 
         $client->submit($form);
 
         $crawler = $client->followRedirect();
+    }
+
+    /**
+     * test on fail Calendar edition.
+     */
+    public function failCalendarEdit()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/calendars/none-existant/edit');
+
+        $this->setExpectedException('NotFoundHttpException', "Unable to find calendar with slug 'none-exitant'");
+
+        throw new NotFoundHttpException("Unable to find calendar with slug 'none-exitant'", 10);
     }
 
     /**

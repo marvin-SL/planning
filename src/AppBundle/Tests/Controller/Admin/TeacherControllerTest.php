@@ -64,6 +64,22 @@ class TeacherControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('html:contains("L\'enseignant(e)")')->count(), 'Missing element html:contains("L\'enseignant(e) / intervenant(e) a bien été créé(e)")');
     }
 
+    /**
+     * test on fail Teacher edition.
+     */
+    public function failTeacherEdit()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/teachers/999/edit');
+
+        $this->setExpectedException('NotFoundHttpException', "Unable to find teacher with id '999'");
+
+        throw new NotFoundHttpException("Unable to find teacher with id '999'", 10);
+    }
+
     public function testEditTeacher()
     {
         $client = static::createClient();

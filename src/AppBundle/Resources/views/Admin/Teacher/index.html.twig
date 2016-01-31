@@ -6,16 +6,6 @@ Gestion des enseignants(es)/intervenants(es)
 {% block titre %}Gestion des enseignants(es)/intervenants(es){% endblock %}
 {% block body %}
 
-{% for flash_message in app.session.flashbag.get('notice') %}
-<div class="flash-notice">
-    <div class="alert alert-info">
-        <h3>2) a) Ici se trouve la liste des enseignant(e)s et intervenant(e)s.</h3><br>
-        <h4>Pour créer une nouvelle entrée, cliquez sur le bouton <em>Ajouter</em></h4><br>
-        <h4>Une fois vos entrées créées, rendez-vous dans la rubrique <em>Matières</em> accessible via le menu de gauche</h4>
-    </div>
-</div>
-
-{% endfor %}
 <div class="row">
         <div class="col-md-12 page-header">
             <div class="col-md-10">

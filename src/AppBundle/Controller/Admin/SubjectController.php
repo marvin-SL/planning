@@ -15,30 +15,6 @@ class SubjectController extends Controller
         $subjects = $em->getRepository('AppBundle:Subject')->findAll();
 
         $session = $request->getSession();
-//
-// $results = [];
-//     foreach ($subjects as $subject) {
-//          $results[]['name'] = $subject->getName();
-//
-//         foreach ($subject->getTeachers() as $teacher){
-//
-//              $results[]['teacher_firstname'] = $teacher->getFirstname();
-//              $results[]['teacher_lastname'] = $teacher->getLastname();
-//         }
-//      }
-
-// dump($subjects);die;
-
-        if ($session->get('introduction') == 'true') {
-            $session->getFlashBag()->add(
-                'notice',
-                ''
-            );
-
-            return $this->render('AppBundle:Admin/Subject:index.html.twig', array(
-                    'subjects' => $subjects,
-                ));
-        }
 
         return $this->render('AppBundle:Admin/Subject:index.html.twig', array(
             'subjects' => $subjects,
@@ -67,18 +43,6 @@ class SubjectController extends Controller
             return $this->redirect($this->generateUrl('admin_subject_index'));
         }
 
-        if ($session->get('introduction') == 'true') {
-            $session->getFlashBag()->add(
-                'notice',
-                ''
-            );
-            $session->remove('introduction');
-
-            return $this->render('AppBundle:Admin/Subject:new.html.twig', array(
-                'form' => $form->createView(),
-            ));
-        }
-
         return $this->render('AppBundle:Admin/Subject:new.html.twig', array(
             'form' => $form->createView(),
         ));
@@ -105,33 +69,22 @@ class SubjectController extends Controller
         if ($request->isMethod('POST')) {
             $editForm->handleRequest($request);
 
-            if ($request->isXmlHttpRequest()) {
-                $startDate = $request->request->get('start_date');
-                $endDate = $request->request->get('end_date');
-
-                $entity->setStartDate(new \DateTime($startDate));
-                $entity->setEndDate(new \DateTime($endDate));
+            if ($editForm->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
-                $serializer->serialize($calendars);
-            } else {
-                if ($editForm->isValid()) {
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($entity);
-                    $em->flush();
-                    foreach ($calendars as $calendar) {
-                        $serializer->serialize($calendar);
-                    }
+                foreach ($calendars as $calendar) {
+                    $serializer->serialize($calendar);
+                }
 
                     $message = $this->get('translator')->trans('subject.update_success', array(), 'flashes');
                     $this->get('session')->getFlashBag()->add('success', $message);
 
                     return $this->redirect($this->generateUrl('admin_subject_index'));
-                }
+            }
 
                 return $this->redirect($this->generateUrl('admin_subject_index'));
-            }
+
         }
 
         return $this->render('AppBundle:Admin/Subject:edit.html.twig', array(

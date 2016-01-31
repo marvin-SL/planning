@@ -10,7 +10,7 @@ Gestion des utilisateurs
         <div class="col-md-12 page-header">
             <div class="col-md-10">
                 <h1 class="text-left">
-                    Gestion des salles
+                    Gestion des utilisateurs
                 </h1>
             </div>
             <div class="col-md-2">
@@ -43,7 +43,9 @@ Gestion des utilisateurs
                         <td>{{user.highestRole}}</td>
                     <td>{{user.createdAt|localizeddate('medium', 'short') }}</td>
                     <td><small>{% if user.lastLogin is empty %}-{% else %}{{ user.lastLogin|time_diff }}{% endif %}</small></td>
-                    <td><a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a></td>
+                    <td>
+                        <a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a>
+                    </td>
                     </tr>
                     {% endfor %}
                 </tbody>

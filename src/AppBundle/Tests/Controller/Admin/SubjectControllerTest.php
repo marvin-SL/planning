@@ -55,7 +55,7 @@ class SubjectControllerTest extends WebTestCase
 
         $form = $crawler->selectButton('Créer')->form(array(
             'app_subject[name]' => 'subject',
-            'app_subject[teachers]' => '3',
+            'app_subject[teachers]' => ['3','2'],
             'app_subject[color]' => '#e69138'
         ));
 
@@ -63,6 +63,23 @@ class SubjectControllerTest extends WebTestCase
 
         $crawler = $client->followRedirect();
 
+    }
+
+
+    /**
+     * test on fail Subject edition.
+     */
+    public function failSubjectEdit()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/subjects/999/edit');
+
+        $this->setExpectedException('NotFoundHttpException', "Unable to find subject with id '999'");
+
+        throw new createNotFoundHttpException("Unable to find subject with id '999'", 10);
     }
 
     /**

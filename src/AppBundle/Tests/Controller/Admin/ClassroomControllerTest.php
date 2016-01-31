@@ -58,6 +58,22 @@ class ClassroomControllerTest extends WebTestCase
     }
 
     /**
+     * test on fail Classroom edition.
+     */
+    public function failClassroomEdit()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/classrooms/999/edit');
+
+        $this->setExpectedException('NotFoundHttpException', "Unable to find classroom with id '999'");
+
+        throw new NotFoundHttpException("Unable to find classroom with id '999'", 10);
+    }
+
+    /**
      * test on edit Classroom.
      */
     public function testEditClassroom()

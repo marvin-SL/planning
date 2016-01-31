@@ -72,48 +72,94 @@ class UserControllerTest extends WebTestCase
 
     }
 
-    // /**
-    //  * test on edit User.
-    //  *
-    //  */
-    // public function testEditUser()
-    // {
-    //     $client = static::createClient();
-    //
-    //     $this->login($client, 'marvin.sainteluce', 'cmw');
-    //
-    //     $crawler = $client->request('GET', '/admin/users/1/edit');
-    //
-    //     $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/users/1/edit");
-    //
-    //     $form = $crawler->selectButton('save')->form(array(
-    //         'name' => 'user-edited',
-    //         'teachers' => '1',
-    //         'color' => '#00ffff'
-    //     ));
-    //
-    //     $client->submit($form);
-    //
-    //     $crawler = $client->followRedirect();
-    // }
+    /**
+     * test on createUser logged as Admin role.
+     *
+     */
+    public function testNewUserAsAdmin()
+    {
+        $client = static::createClient();
 
-    // /**
-    //  * test on delete User
-    //  *
-    //  */
-    // public function testDeleteUser()
-    // {
-    //     $client = static::createClient();
-    //
-    //     $this->login($client, 'marvin.sainteluce', 'cmw');
-    //
-    //     $crawler = $client->request('GET', '/admin/users/1/edit');
-    //
-    //     $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/users/1/edit");
-    //
-    //     $client->submit($crawler->selectButton('form_submit')->form());
-    //
-    //     $crawler = $client->followRedirect();
-    //
-    // }
+        $this->login($client, 'laure.robillard', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/users/');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/users/");
+
+        $crawler = $client->click($crawler->selectLink('Ajouter')->link());
+
+        $form = $crawler->selectButton('Créer')->form(array(
+            'appbundle_user[email]' => 'bb@bb.fr',
+            'appbundle_user[lastname]' => 'bar',
+            'appbundle_user[firstname]' => 'foo',
+            'appbundle_user[roles]' => 'ROLE_ADMIN',
+        ));
+
+        $client->submit($form);
+
+        $client->followRedirects();
+
+        $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/users/');
+
+        $crawler = $client->request('GET', '/admin/users/');
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("bar.foo")')->count(), 'Missing element html:contains("bar.foo")');
+
+    }
+
+    /**
+     * test on edit User.
+     *
+     */
+    public function testEditUser()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/users/3/edit');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/users/3/edit");
+
+        $form = $crawler->selectButton('appbundle_user[save]')->form(array(
+            'appbundle_user[email]' => 'sam.winchester@cmw.com',
+            'appbundle_user[lastname]' => 'winchester',
+            'appbundle_user[firstname]' => 'samuel',
+            'appbundle_user[roles]' => 'ROLE_USER'
+        ));
+
+        $client->submit($form);
+
+        $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/users/');
+
+        $crawler = $client->followRedirect();
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("samuel")')->count(), 'Missing element html:contains("Foo-edited")');
+    }
+
+    /**
+     * test on delete User
+     *
+     */
+    public function testDeleteUser()
+    {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/users/3/edit');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/users/3/edit");
+
+        $client->submit($crawler->selectButton('form[submit]')->form());
+
+        $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/user/');
+
+        $client->followRedirects();
+
+        $crawler = $client->request('GET', '/admin/users/');
+
+        $this->assertEquals(0, $crawler->filter('html:contains("dean.winchester")')->count(), 'Found element html:contains("dean.winchester")');
+
+    }
 }
