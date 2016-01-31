@@ -151,6 +151,7 @@ html, body{ height:100%; padding:0px; margin:0px; }
 <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
 <script type="text/javascript">
+scheduler.load("/planning/data/{{entity.slug}}.xml");
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 
 scheduler.data_attributes = function(){
@@ -188,13 +189,12 @@ scheduler.showLightbox = function(id){
     document.getElementById("app_subject_endDate").value = end;
 
 }
-scheduler.load("/planning/data/{{entity.slug}}.xml");
+
 
 scheduler.attachEvent("onDragEnd", function (id){
     var event = scheduler.getEvent(id);
     var start_date = formatFunc(event.start_date);
     var end_date = formatFunc(event.end_date);
-    var token = document.getElementById("_token");
     var id = id;
     var edit = Routing.generate('admin_event_edit', {id : id});
 
