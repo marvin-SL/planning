@@ -3,6 +3,7 @@
 {% block title %}{{entity.title}} {% endblock %}
 
 {% block stylesheets %}
+{{ form_stylesheet(form) }}
 {% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler.css' %}
 <link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
 {% endstylesheets %}
@@ -67,9 +68,60 @@ html, body{ height:100%; padding:0px; margin:0px; }
                 <h4 class="modal-title">Nouvel évenement</h4>
             </div>
             <div class="modal-body">
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                {{ form_end(form) }}
+                <div class="row">
+                    <div class="col-md-12">
+                            <div>
+                            {{ form_start(form) }}
+                            {{ form_errors(form) }}
+                            <div class="form-group">
+                                <label for="start">
+                                    {{ form_label(form.startDate) }}
+                                </label>
+                                {{ form_errors(form.startDate) }}
+                                {{ form_widget(form.startDate, {'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="end">
+                                    {{ form_label(form.endDate) }}
+                                </label>
+                                {{ form_errors(form.endDate) }}
+                                {{ form_widget(form.endDate, { 'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="calendar">
+                                    {{ form_label(form.calendar) }}
+                                </label>
+                                {{ form_errors(form.calendar) }}
+                                {{ form_widget(form.calendar, { 'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">
+                                    {{ form_label(form.subject) }}
+                                </label>
+                                {{ form_errors(form.subject) }}
+                                {{ form_widget(form.subject, {'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="classroom">
+                                    {{ form_label(form.classroom) }}
+                                </label>
+                                {{ form_errors(form.classroom) }}
+                                {{ form_widget(form.classroom, {'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="notice">
+                                    {{ form_label(form.notice) }}
+                                </label>
+                                {{ form_errors(form.notice) }}
+                                {{ form_widget(form.notice, { 'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(form.save, {'label': 'button.create', 'attr': { 'class' : 'btn btn-success' } } ) }}
+                                {{ form_end(form) }}
+                            </div>
+                            </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -82,6 +134,7 @@ html, body{ height:100%; padding:0px; margin:0px; }
 
 {% endblock %}
 {% block javascripts %}
+{{ form_javascript(form) }}
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -188,5 +241,19 @@ function show_minical(){
         });
     }
 }
+
+$(function () {
+   $('#app_subject_startDate').datetimepicker({
+
+  });
+   $('#app_subject_endDate').datetimepicker({
+   });
+   $("#app_subject_startDate").on("dp.change", function (e) {
+       $('#app_subject_endDate').data("DateTimePicker").minDate(e.date);
+   });
+   $("#app_subject_endDate").on("dp.change", function (e) {
+       $('#app_subject_startDate').data("DateTimePicker").maxDate(e.date);
+   });
+});
 </script>
 {% endblock %}
