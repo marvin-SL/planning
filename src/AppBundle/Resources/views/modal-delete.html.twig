@@ -16,7 +16,7 @@
           {{ form_start(form, {'attr' : { 'class' : 'form-inline' }}) }}
           <div class="btn-group">
                {{ form_widget(form.submit, { 'attr': { 'class': 'btn btn-danger'}}) }}
-              <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'button.cancel'|trans({}, 'forms') }}</button>
               {{ form_widget(form.submit) }}
           </div>
           {{ form_end(form) }}

@@ -4,6 +4,7 @@ button:
     update: Mettre à jour
     delete: Supprimer
     close: Fermer
+    cancel: Annuler
 
     validate: Valider
     save: Enregistrer
