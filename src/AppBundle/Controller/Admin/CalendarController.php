@@ -64,6 +64,7 @@ class CalendarController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $event->setCalendar($entity);
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
