@@ -3,6 +3,7 @@ button:
     create: Créer
     update: Mettre à jour
     delete: Supprimer
+    close: Fermer
 
     validate: Valider
     save: Enregistrer
