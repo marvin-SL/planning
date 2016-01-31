@@ -83,7 +83,37 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->buttonup();
 
         $this->moveto(array(
+            'element' => $this->byId('app_subject_calendar'),
+        ));
+
+        $this->buttondown();
+        $this->buttonup();
+
+        $this->moveto(array(
+            'element' => $this->byXPath('/html/body/div[1]/div/div/div[2]/div[2]/div/form/div[3]/select/option[2]'),
+
+        ));
+
+        $this->buttondown();
+        $this->buttonup();
+
+        $this->moveto(array(
             'element' => $this->byId("app_subject_subject"),
+
+        ));
+
+        $this->buttondown();
+        $this->buttonup();
+
+        $this->moveto(array(
+            'element' => $this->byXPath('/html/body/div[1]/div/div/div[2]/div[2]/div/form/div[4]/select/option[2]')
+        ));
+
+        $this->buttondown();
+        $this->buttonup();
+
+        $this->moveto(array(
+            'element' => $this->byId("app_subject_classroom"),
 
         ));
 

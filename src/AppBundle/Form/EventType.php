@@ -60,16 +60,19 @@ class EventType extends AbstractType
               'class' => 'AppBundle:Calendar',
               'choice_label' => 'title',
               'label' => 'Calendrier :',
+              'empty_value' => 'input.calendar', 'translation_domain' => 'forms'
             ))
         ->add('subject', 'entity', array(
             'class' => 'AppBundle:Subject',
             'choice_label' => 'name',
             'label' => 'Matière :',
+            'empty_value' => 'input.subject', 'translation_domain' => 'forms'
         ))
         ->add('classroom', 'entity', array(
             'class' => 'AppBundle:Classroom',
             'choice_label' => 'name',
             'label' => 'Salle/Bâtiment :',
+            'empty_value' => 'input.classroom', 'translation_domain' => 'forms'
         ))
         ->add('notice', 'text', array(
           'label' => 'Information complémentaire :',

@@ -64,10 +64,15 @@ class CalendarController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $event->setCalendar($entity);
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
             $serializer = $this->get('app.manager.customSerializer')->serialize($entity);
+
+            return $this->redirect($this->generateUrl('admin_calendar_show', array(
+                'slug' => $slug
+            )));
         }
 
         return $this->render('AppBundle:Admin/Calendar:show.html.twig', array(

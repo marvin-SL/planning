@@ -3,10 +3,17 @@ button:
     create: Créer
     update: Mettre à jour
     delete: Supprimer
+    close: Fermer
+    cancel: Annuler
 
     validate: Valider
     save: Enregistrer
     submit_to_validation: Soumettre à validation
+
+input:
+    calendar: Choisissez un planning
+    subject: Choisissez une matière
+    classroom: Choisissez une salle
 
 "Bad credentials": "Identifiant ou mot de passe incorrect(s)"
 "User account is disabled.": "Votre compte a été désactivé"

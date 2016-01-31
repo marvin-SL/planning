@@ -3,6 +3,7 @@
 {% block title %}{{entity.title}} {% endblock %}
 
 {% block stylesheets %}
+{{ form_stylesheet(form) }}
 {% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler.css' %}
 <link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
 {% endstylesheets %}
@@ -53,10 +54,6 @@ html, body{ height:100%; padding:0px; margin:0px; }
         </div>
     </div>
 
-</div>
-<input type="button" name="save" value="save" onclick="enregistrer()" >
-
-
 <button style="visibility:hidden" type="button" id="new" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newEvent">Open Modal</button>
 <button style="visibility:hidden" type="button" id="edit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#editEvent">Open Modal</button>
 
@@ -71,20 +68,73 @@ html, body{ height:100%; padding:0px; margin:0px; }
                 <h4 class="modal-title">Nouvel évenement</h4>
             </div>
             <div class="modal-body">
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                {{ form_end(form) }}
+                <div class="row">
+                    <div class="col-md-12">
+                            <div>
+                            {{ form_start(form) }}
+                            {{ form_errors(form) }}
+                            <div class="form-group">
+                                <label for="start">
+                                    {{ form_label(form.startDate) }}
+                                </label>
+                                {{ form_errors(form.startDate)}}
+                                {{ form_widget(form.startDate, {'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="end">
+                                    {{ form_label(form.endDate) }}
+                                </label>
+                                {{ form_errors(form.endDate) }}
+                                {{ form_widget(form.endDate, { 'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group hidden">
+                                <label for="calendar">
+                                    {{ form_label(form.calendar) }}
+                                </label>
+                                {{ form_errors(form.calendar) }}
+                                {{ form_widget(form.calendar, { 'value' : entity , 'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">
+                                    {{ form_label(form.subject) }}
+                                </label>
+                                {{ form_errors(form.subject) }}
+                                {{ form_widget(form.subject, {'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="classroom">
+                                    {{ form_label(form.classroom) }}
+                                </label>
+                                {{ form_errors(form.classroom) }}
+                                {{ form_widget(form.classroom, {'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="notice">
+                                    {{ form_label(form.notice) }}
+                                </label>
+                                {{ form_errors(form.notice) }}
+                                {{ form_widget(form.notice, { 'attr': { 'class' : 'form-control' } } ) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(form.save, {'label': 'button.create', 'attr': { 'class' : 'btn btn-success' } } ) }}
+                                {{ form_end(form) }}
+                            </div>
+                            </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'button.close'|trans({}, 'forms') }}</button>
             </div>
         </div>
 
     </div>
+</div>
 
 
 {% endblock %}
 {% block javascripts %}
+{{ form_javascript(form) }}
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -101,6 +151,7 @@ html, body{ height:100%; padding:0px; margin:0px; }
 <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
 <script type="text/javascript">
+scheduler.load("/planning/data/{{entity.slug}}.xml");
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 
 scheduler.data_attributes = function(){
@@ -121,6 +172,7 @@ scheduler.config.show_quick_info = false;
 scheduler.config.time_step = 30;
 
 var formatFunc = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
+var formatFunc2 = scheduler.date.date_to_str("%d/%m/%Y %H:%i");
 
 scheduler.init('scheduler_here',new Date(),"week"); //TODO: impossible de changer de jour avec les fleches
 scheduler.templates.event_text=function(start,end,event){
@@ -130,29 +182,22 @@ scheduler.templates.event_text=function(start,end,event){
 
 scheduler.showLightbox = function(id){
     var event = scheduler.getEvent(id);
-    document.getElementById("new").click();
-    //window.location.href = 'edit.php?event=' + id;
+    var start = formatFunc2(event.start_date);
+    var end = formatFunc2(event.end_date)
+    document.getElementById("new").click(start, end);
+    document.getElementById("app_subject_startDate").value = start;
+    document.getElementById("app_subject_endDate").value = end;
 
 }
-scheduler.load("/planning/data/{{entity.slug}}.xml");
 
-function enregistrer(){
-    var form = document.getElementById("xml_form");
-    form.elements.data.value = scheduler.toXML();
-    form.submit();
-}
 
 scheduler.attachEvent("onDragEnd", function (id){
     var event = scheduler.getEvent(id);
     var start_date = formatFunc(event.start_date);
     var end_date = formatFunc(event.end_date);
-    var token = document.getElementById("_token");
     var id = id;
     var edit = Routing.generate('admin_event_edit', {id : id});
 
-
-//scheduler.showQuickInfo(id);
-//
     $.ajax({
             url: edit,
             type: "POST",
@@ -163,8 +208,6 @@ scheduler.attachEvent("onDragEnd", function (id){
                 alert('Erreur ajax');
             }
         });
-
-
 });
 
 scheduler.attachEvent("onDblClick", function(id, e){
@@ -191,5 +234,19 @@ function show_minical(){
         });
     }
 }
+
+$(function () {
+   $('#app_subject_startDate').datetimepicker({
+
+  });
+   $('#app_subject_endDate').datetimepicker({
+   });
+   $("#app_subject_startDate").on("dp.change", function (e) {
+       $('#app_subject_endDate').data("DateTimePicker").minDate(e.date);
+   });
+   $("#app_subject_endDate").on("dp.change", function (e) {
+       $('#app_subject_startDate').data("DateTimePicker").maxDate(e.date);
+   });
+});
 </script>
 {% endblock %}
