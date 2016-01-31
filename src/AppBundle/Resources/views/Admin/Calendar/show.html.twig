@@ -77,7 +77,7 @@ html, body{ height:100%; padding:0px; margin:0px; }
                                 <label for="start">
                                     {{ form_label(form.startDate) }}
                                 </label>
-                                {{ form_errors(form.startDate) }}
+                                {{ form_errors(form.startDate)}}
                                 {{ form_widget(form.startDate, {'attr': { 'class' : 'form-control' } } ) }}
                             </div>
                             <div class="form-group">
@@ -171,6 +171,7 @@ scheduler.config.show_quick_info = false;
 scheduler.config.time_step = 30;
 
 var formatFunc = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
+var formatFunc2 = scheduler.date.date_to_str("%d/%m/%Y %H:%i");
 
 scheduler.init('scheduler_here',new Date(),"week"); //TODO: impossible de changer de jour avec les fleches
 scheduler.templates.event_text=function(start,end,event){
@@ -180,17 +181,14 @@ scheduler.templates.event_text=function(start,end,event){
 
 scheduler.showLightbox = function(id){
     var event = scheduler.getEvent(id);
-    document.getElementById("new").click();
-    //window.location.href = 'edit.php?event=' + id;
+    var start = formatFunc2(event.start_date);
+    var end = formatFunc2(event.end_date)
+    document.getElementById("new").click(start, end);
+    document.getElementById("app_subject_startDate").value = start;
+    document.getElementById("app_subject_endDate").value = end;
 
 }
 scheduler.load("/planning/data/{{entity.slug}}.xml");
-
-function enregistrer(){
-    var form = document.getElementById("xml_form");
-    form.elements.data.value = scheduler.toXML();
-    form.submit();
-}
 
 scheduler.attachEvent("onDragEnd", function (id){
     var event = scheduler.getEvent(id);
@@ -200,9 +198,6 @@ scheduler.attachEvent("onDragEnd", function (id){
     var id = id;
     var edit = Routing.generate('admin_event_edit', {id : id});
 
-
-//scheduler.showQuickInfo(id);
-//
     $.ajax({
             url: edit,
             type: "POST",
@@ -213,8 +208,6 @@ scheduler.attachEvent("onDragEnd", function (id){
                 alert('Erreur ajax');
             }
         });
-
-
 });
 
 scheduler.attachEvent("onDblClick", function(id, e){
