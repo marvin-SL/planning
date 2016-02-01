@@ -143,6 +143,7 @@ class CalendarController extends Controller
 
             $em->remove($entity);
             $em->flush();
+            $serializer = $this->get('app.manager.customSerializer')->serialize($entity, true);
 
             $message = $this->get('translator')->trans('calendar.delete_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);
