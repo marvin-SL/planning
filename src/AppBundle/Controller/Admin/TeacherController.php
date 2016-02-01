@@ -60,11 +60,16 @@ class TeacherController extends Controller
         $editForm->handleRequest($request);
 
         $teachers = $em->getRepository('AppBundle:Teacher')->findAll();
+        $calendars = $em->getRepository('AppBundle:Calendar')->findAll();
 
         if ($editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            foreach ($calendars as $calendar) {
+                $serializer = $this->get('app.manager.customSerializer')->serialize($calendar, true);
+                $serializer = $this->get('app.manager.customSerializer')->serialize($calendar);
+            }
 
             $message = $this->get('translator')->trans('teacher.update_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);
@@ -93,6 +98,7 @@ class TeacherController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form = $this->createDeleteForm($id);
 
+
         if ($form->handleRequest($request)->isValid()) {
             if (!$entity = $em->getRepository('AppBundle:Teacher')->find($id)) {
                 throw $this->createNotFoundException('Unable to find Teacher entity.');
@@ -100,6 +106,12 @@ class TeacherController extends Controller
 
             $em->remove($entity);
             $em->flush();
+            $calendars = $em->getRepository('AppBundle:Calendar')->findAll();
+            dump($calendars);die;
+            foreach ($calendars as $calendar) {
+                $serializer = $this->get('app.manager.customSerializer')->serialize($calendar, true);
+                $serializer = $this->get('app.manager.customSerializer')->serialize($calendar);
+            }
 
             $message = $this->get('translator')->trans('teacher.delete_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);
