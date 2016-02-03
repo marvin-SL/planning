@@ -58,13 +58,13 @@ class CalendarController extends Controller
         if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array('slug' => $slug,))) {
             throw $this->createNotFoundException(sprintf('Unable to find calendar with slug "%s"', $slug));
         };
-
+        $event->setCalendar($entity);
         $form = $this->createForm(new EventType(), $event);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $event->setCalendar($entity);
+            //$event->setCalendar($entity);
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
