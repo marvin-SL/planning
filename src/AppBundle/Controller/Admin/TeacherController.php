@@ -107,7 +107,7 @@ class TeacherController extends Controller
             $em->remove($entity);
             $em->flush();
             $calendars = $em->getRepository('AppBundle:Calendar')->findAll();
-            dump($calendars);die;
+
             foreach ($calendars as $calendar) {
                 $serializer = $this->get('app.manager.customSerializer')->serialize($calendar, true);
                 $serializer = $this->get('app.manager.customSerializer')->serialize($calendar);
