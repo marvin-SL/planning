@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="app.manager.customSerializer.class">AppBundle\Manager\CustomSerializerManager</parameter>
+        <parameter key="app.manager.notification.class">AppBundle\Manager\NotificationManager</parameter>
     </parameters>
 
     <!-- <services>
@@ -23,8 +24,13 @@
     <services>
         <service id="app.manager.customSerializer" class="%app.manager.customSerializer.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
-              <argument type="service" id="service_container" />
+            <argument type="service" id="service_container" />
+        </service>
 
+        <service id="app.manager.notification" class="%app.manager.notification.class%">
+            <argument type="service" id="security.context"/>
+            <argument type="service" id="mailer" />
+            <argument type="service" id="templating"/>
         </service>
     </services>
 
