@@ -8,8 +8,121 @@ Tableau de bord
 {% block titre %}Tableau de bord{% endblock %}
 
 {% block body %}
-
-<!-- jQuery -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron">
+            <h1 class="text-nowrap">Bienvenue {{ app.user.firstname }} !</h1>
+            <p>Vous êtes dans l'interface d'administration du planning.</p>
+        </div>
+    </div>
+</div>
+<div class="row blocks">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 block">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Plannings
+                    <span class="pull-right">
+                        <span class="badge">{{ calendars.count}}</span>
+                        <a class="badge" href="{{ path('admin_calendar_index') }}"><i class="fa fa-list"></i></a>
+                    </span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% for calendar in calendars.values %}
+                    <a href="{{path('admin_calendar_show', {'slug' : calendar.slug })}}">{{calendar.title}}</a>
+                    <small class="pull-right">{{ calendar.updatedAt|time_diff}}</small><br>
+                {% else %}
+                    <em>Aucun planning à afficher.</em>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 block">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Matières
+                    <span class="pull-right">
+                        <span class="badge">{{ subjects.count}}</span>
+                        <a class="badge" href="{{ path('admin_subject_index') }}"><i class="fa fa-list"></i></a>
+                    </span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% for subject in subjects.values %}
+                    <a href="{{path('admin_subject_edit', {'id' : subject.id })}}">{{subject.name}}</a>
+                    <small class="pull-right">{{ subject.updatedAt|time_diff}}</small><br>
+                {% else %}
+                    <em>Aucune matière à afficher.</em>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 block">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Enseignant(e)s / intervenant(e)s
+                    <span class="pull-right">
+                        <span class="badge">{{ teachers.count}}</span>
+                        <a class="badge" href="{{ path('admin_teacher_index') }}"><i class="fa fa-list"></i></a>
+                    </span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% for teacher in teachers.values %}
+                    <a href="{{path('admin_subject_edit', {'id' : teacher.id })}}">{{teacher.firstname}} {{teacher.lastname}}</a>
+                    <small class="pull-right">{{ teacher.updatedAt|time_diff}}</small><br>
+                {% else %}
+                    <em>Aucun enseignant(e)s / intervenant(e)s à afficher.</em>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 block">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Salles
+                    <span class="pull-right">
+                        <span class="badge">{{ classrooms.count}}</span>
+                        <a class="badge" href="{{ path('admin_classroom_index') }}"><i class="fa fa-list"></i></a>
+                    </span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% for classroom in classrooms.values %}
+                    <a href="{{path('admin_subject_edit', {'id' : classroom.id })}}">{{classroom.name}}</a>
+                    <small class="pull-right">{{ classroom.updatedAt|time_diff}}</small><br>
+                {% else %}
+                    <em>Aucune salle à afficher.</em>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 block">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Utilisateurs
+                    <span class="pull-right">
+                        <span class="badge">{{ users.count}}</span>
+                        <a class="badge" href="{{ path('admin_user_index') }}"><i class="fa fa-list"></i></a>
+                    </span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% for user in users.values %}
+                    <a href="{{path('admin_subject_edit', {'id' : user.id })}}">{{user.username}}</a>
+                    <small class="pull-right">{{ user.updatedAt|time_diff}}</small><br>
+                {% else %}
+                    <em>Aucun utilisateur à afficher.</em>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 {% block javascripts %}
 {% endblock %} <!--block js-->
 
