@@ -115,6 +115,8 @@ class EventController extends Controller
             $em->remove($entity);
             $em->flush();
             $calendar = $entity->getCalendar();
+            $serializer = $this->get('app.manager.customSerializer')->serialize($calendar, true);
+            $serializer = $this->get('app.manager.customSerializer')->serialize($calendar);
 
             $message = $this->get('translator')->trans('event.delete_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);

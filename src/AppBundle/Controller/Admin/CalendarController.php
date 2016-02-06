@@ -58,13 +58,13 @@ class CalendarController extends Controller
         if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array('slug' => $slug,))) {
             throw $this->createNotFoundException(sprintf('Unable to find calendar with slug "%s"', $slug));
         };
-
+        $event->setCalendar($entity);
         $form = $this->createForm(new EventType(), $event);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $event->setCalendar($entity);
+            //$event->setCalendar($entity);
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -143,6 +143,7 @@ class CalendarController extends Controller
 
             $em->remove($entity);
             $em->flush();
+            $serializer = $this->get('app.manager.customSerializer')->serialize($entity, true);
 
             $message = $this->get('translator')->trans('calendar.delete_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);

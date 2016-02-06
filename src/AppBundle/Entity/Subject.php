@@ -31,7 +31,7 @@ class Subject
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Teacher", cascade={"persist"}))
      */
     private $teachers;
 
@@ -82,7 +82,6 @@ class Subject
      */
     public function __construct()
     {
-        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
         $this->teachers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

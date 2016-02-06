@@ -49,7 +49,7 @@ class Event
     private $calendar;
 
     /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject", cascade={"persist"}, inversedBy="events")
+   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject", cascade={"persist"})
    * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
    */
     private $subject;

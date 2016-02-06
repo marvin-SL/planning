@@ -137,17 +137,9 @@ class CalendarControllerTest extends WebTestCase
 
         $this->login($client, 'marvin.sainteluce', 'cmw');
 
-        $crawler = $client->request('GET', '/admin/calendars/');
+        $crawler = $client->request('GET', '/admin/calendars/groupe-2/edit');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/calendars/1/edit');
-
-        $link = $crawler
-                ->filter('a:contains("Editer")') // find all links with the text "Greet"
-                ->eq(0) // select the second link in the list
-                ->link()
-            ;
-
-        $crawler = $client->click($link);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/calendars/groupe-2/edit');
 
         $client->submit($crawler->selectButton('form[submit]')->form());
 
@@ -157,6 +149,6 @@ class CalendarControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/admin/calendars/');
 
-        $this->assertEquals(0, $crawler->filter('html:contains("##!planning test\'##test-edit")')->count(), 'Found element html:contains("##!planning test\'##test-edit")');
+        $this->assertEquals(0, $crawler->filter('html:contains("groupe 2")')->count(), 'Found element html:contains("groupe 2")');
     }
 }
