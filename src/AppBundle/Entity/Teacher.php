@@ -10,7 +10,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * Teacher
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\TeacherRepository")
  */
 class Teacher
 {

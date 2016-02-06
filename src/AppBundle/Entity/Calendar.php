@@ -11,7 +11,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * Calendar
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\CalendarRepository")
  */
 class Calendar
 {
