@@ -26,9 +26,7 @@ class CalendarController extends Controller
     {
         $calendar = new Calendar();
 
-        $session = $request->getSession();
-
-        $session->set('introduction', 'true');
+        $serializer = $this->get('app.manager.customSerializer');
 
         $form = $this->createForm(new CalendarType(), $calendar);
 
@@ -38,6 +36,8 @@ class CalendarController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($calendar);
             $em->flush();
+
+            $serializer->serialize($calendar);
 
             $message = $this->get('translator')->trans('calendar.create_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);

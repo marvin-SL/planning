@@ -11,7 +11,6 @@ class EventController extends Controller
 {
     public function newAction(Request $request)
     {
-        // replace this example code with whatever you need
         $event = new Event();
 
         $form = $this->createForm(new EventType(), $event);

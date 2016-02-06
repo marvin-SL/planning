@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * Teacher
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\TeacherRepository")
  */
 class Teacher
 {
@@ -34,6 +36,18 @@ class Teacher
      * @ORM\Column(name="lastname", type="string", length=255)
      */
     private $lastname;
+
+    /**
+     * Hook timestampable behavior
+     * updates publishedAt, updatedAt fields
+     */
+    use TimestampableEntity;
+
+    /**
+     * Hook blameable behavior
+     * updates createdBy, updatedBy fields
+     */
+    use BlameableEntity;
 
 
     /**
