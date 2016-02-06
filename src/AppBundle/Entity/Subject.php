@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Oh\ColorPickerTypeBundle\Validator\Constraints as OhAssertColor;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * Subject
@@ -40,6 +42,18 @@ class Subject
      * @Assert\NotBlank()
      */
     public $color;
+
+    /**
+     * Hook timestampable behavior
+     * updates publishedAt, updatedAt fields
+     */
+    use TimestampableEntity;
+
+    /**
+     * Hook blameable behavior
+     * updates createdBy, updatedBy fields
+     */
+    use BlameableEntity;
 
 
     /**

@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * Event
@@ -59,6 +61,18 @@ class Event
    * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
    */
     private $classroom;
+
+    /**
+     * Hook timestampable behavior
+     * updates publishedAt, updatedAt fields
+     */
+    use TimestampableEntity;
+
+    /**
+     * Hook blameable behavior
+     * updates createdBy, updatedBy fields
+     */
+    use BlameableEntity;
 
     /**
      * Get id

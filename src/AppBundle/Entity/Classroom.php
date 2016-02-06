@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * Classroom
@@ -32,6 +34,18 @@ class Classroom
     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="classroom")
     */
     private $events;
+
+    /**
+     * Hook timestampable behavior
+     * updates publishedAt, updatedAt fields
+     */
+    use TimestampableEntity;
+
+    /**
+     * Hook blameable behavior
+     * updates createdBy, updatedBy fields
+     */
+    use BlameableEntity;
 
 
     /**
