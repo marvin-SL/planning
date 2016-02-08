@@ -72,7 +72,7 @@ Tableau de bord
             </div>
             <div class="panel-body">
                 {% for teacher in teachers.values %}
-                    <a href="{{path('admin_subject_edit', {'id' : teacher.id })}}">{{teacher.firstname}} {{teacher.lastname}}</a>
+                    <a href="{{path('admin_teacher_edit', {'id' : teacher.id })}}">{{teacher.firstname}} {{teacher.lastname}}</a>
                     <small class="pull-right">{{ teacher.updatedAt|time_diff}}</small><br>
                 {% else %}
                     <em>Aucun enseignant(e)s / intervenant(e)s à afficher.</em>
@@ -93,7 +93,7 @@ Tableau de bord
             </div>
             <div class="panel-body">
                 {% for classroom in classrooms.values %}
-                    <a href="{{path('admin_subject_edit', {'id' : classroom.id })}}">{{classroom.name}}</a>
+                    <a href="{{path('admin_classroom_edit', {'id' : classroom.id })}}">{{classroom.name}}</a>
                     <small class="pull-right">{{ classroom.updatedAt|time_diff}}</small><br>
                 {% else %}
                     <em>Aucune salle à afficher.</em>
@@ -114,7 +114,7 @@ Tableau de bord
             </div>
             <div class="panel-body">
                 {% for user in users.values %}
-                    <a href="{{path('admin_subject_edit', {'id' : user.id })}}">{{user.username}}</a>
+                    <a href="{{path('admin_user_edit', {'id' : user.id })}}">{{user.username}}</a>
                     <small class="pull-right">{{ user.updatedAt|time_diff}}</small><br>
                 {% else %}
                     <em>Aucun utilisateur à afficher.</em>
