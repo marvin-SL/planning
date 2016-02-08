@@ -124,7 +124,7 @@ html, body{ height:100%; padding:0px; margin:0px; }
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'button.close'|trans({}, 'forms') }}</button>
+                <button type="button" id="closeButton" class="btn btn-default" data-dismiss="modal">{{ 'button.close'|trans({}, 'forms') }}</button>
             </div>
         </div>
 
@@ -187,11 +187,11 @@ scheduler.showLightbox = function(id){
     document.getElementById("new").click(start, end);
     document.getElementById("app_subject_startDate").value = start;
     document.getElementById("app_subject_endDate").value = end;
-
+    scheduler.deleteEvent(id);
 }
 
 
-scheduler.attachEvent("onDragEnd", function (id){
+scheduler.attachEvent("onEventChanged", function (id){
     var event = scheduler.getEvent(id);
     var start_date = formatFunc(event.start_date);
     var end_date = formatFunc(event.end_date);
