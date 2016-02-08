@@ -22,6 +22,14 @@ class Mailing
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     */
+    private $name;
+
+
+    /**
      * @var array
      *
      * @ORM\Column(name="mails", type="array")
@@ -37,6 +45,30 @@ class Mailing
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Mailing
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -63,4 +95,3 @@ class Mailing
         return $this->mails;
     }
 }
-
