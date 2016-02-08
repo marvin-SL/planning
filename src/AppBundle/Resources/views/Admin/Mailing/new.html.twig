@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+{% block head %} {% endblock %}
+{% block title %}
+Création d'une liste de diffusion
+{{ parent() }}
+{% endblock %}
+
+
+{% block titre %} Création d'une liste de diffusion {% endblock %}
+{% block body %}
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Création d'une liste de diffusion
+            </h1>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-5">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+				<div class="form-group">
+					<label for="email">
+					 {{ form_label(form.mails) }}
+					</label>
+                     {{ form_errors(form.mails) }}
+                     {{ form_widget(form.mails, {'attr': { 'class' : 'form-control' } } ) }}
+				</div>
+                    {{ form_widget(form.save, { 'attr': { 'class' : 'btn btn-success' } } ) }}
+                    {{ form_end(form) }}
+		</div>
+		<div class="col-md-5">
+		</div>
+	</div>
+
+
+{% endblock %}
