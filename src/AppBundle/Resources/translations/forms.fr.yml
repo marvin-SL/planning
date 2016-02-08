@@ -14,6 +14,7 @@ input:
     calendar: Choisissez un planning
     subject: Choisissez une matière
     classroom: Choisissez une salle
+    mailing: Choisissez une liste de diffusion
 
 "Bad credentials": "Identifiant ou mot de passe incorrect(s)"
 "User account is disabled.": "Votre compte a été désactivé"
