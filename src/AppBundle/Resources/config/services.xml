@@ -32,6 +32,11 @@
             <argument type="service" id="mailer" />
             <argument type="service" id="templating"/>
         </service>
+
+        <service id="app.registration.listener" class="AppBundle\EventListener\RegistrationListener">
+            <tag name="kernel.event_subscriber" />
+            <argument type="service" id="router" />
+        </service>
     </services>
 
 </container>
