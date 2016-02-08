@@ -191,7 +191,7 @@ scheduler.showLightbox = function(id){
 }
 
 
-scheduler.attachEvent("onDragEnd", function (id){
+scheduler.attachEvent("onEventChanged", function (id){
     var event = scheduler.getEvent(id);
     var start_date = formatFunc(event.start_date);
     var end_date = formatFunc(event.end_date);
