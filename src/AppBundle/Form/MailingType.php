@@ -11,6 +11,7 @@ class MailingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->add('name', 'text', array('label' => 'Libellé :'))
         ->add('mails', 'text', array('label' => 'e-mails :'))
         ->add('save', 'submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
         ;
