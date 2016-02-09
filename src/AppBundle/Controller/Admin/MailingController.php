@@ -75,9 +75,9 @@ class MailingController extends Controller
         ));
     }
 
-    public function writeMail($id)
+    public function writeMailAction($id)
     {
-        //TODO: créer une forme pour saisir le texte du mail 
+        //TODO: créer une forme pour saisir le texte du mail
 
         $form->handleRequest($request);
 
