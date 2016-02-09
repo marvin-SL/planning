@@ -50,7 +50,7 @@ class MailingController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if (!$entity = $em->getRepository('AppBundle:Mailing')->findOneBy(array('id' => $id,))) {
-            throw $this->createNotFoundException(sprintf('Unable to find calendar with id "%s"', $id));
+            throw $this->createNotFoundException(sprintf('Unable to find mailing list with id "%s"', $id));
         };
 
         //$deleteForm = $this->createDeleteForm($id);
@@ -73,5 +73,31 @@ class MailingController extends Controller
           // 'delete_form' => $deleteForm->createView(),
            'entity' => $entity,
         ));
+    }
+
+    public function writeMail($id)
+    {
+        //TODO: créer une forme pour saisir le texte du mail 
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($mailing);
+            $em->flush();
+
+            $message = $this->get('translator')->trans('mailing.create_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
+
+            return $this->redirect($this->generateUrl('admin_mailing_index'));
+        }
+
+        return $this->render('AppBundle:Admin/Mailing:new.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+    public function sendAction($id)
+    {
+        return array();
     }
 }
