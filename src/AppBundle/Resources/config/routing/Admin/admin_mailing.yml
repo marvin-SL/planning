@@ -9,3 +9,11 @@ admin_mailing_new:
 admin_mailing_edit:
       path:    /{id}/edit
       defaults:  {_controller: AppBundle:Admin/Mailing:edit}
+
+admin_mailing_send:
+      path:    /{id}/send
+      defaults:  {_controller: AppBundle:Admin/Mailing:send}
+
+admin_mailing_write:
+      path:    /{id}/write-email
+      defaults:  {_controller: AppBundle:Admin/Mailing:writeMail}
