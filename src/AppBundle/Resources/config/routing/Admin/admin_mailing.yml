@@ -5,3 +5,7 @@ admin_mailing_index:
 admin_mailing_new:
       path:    /new
       defaults:  {_controller: AppBundle:Admin/Mailing:new}
+
+admin_mailing_edit:
+      path:    /{id}/edit
+      defaults:  {_controller: AppBundle:Admin/Mailing:edit}
