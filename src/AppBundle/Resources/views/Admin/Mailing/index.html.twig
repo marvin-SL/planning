@@ -47,6 +47,8 @@ Liste des agendas
                                     <td>{{list.updatedAt|time_diff }}</td>
                                     <td>
                                         <a href="{{path('admin_mailing_edit', {'id' : list.id })}}">Editer</a>
+                                        |
+                                        <a href="{{path('admin_mailing_send', {'id' : list.id })}}"><i class="fa fa-envelope-o"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}
