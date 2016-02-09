@@ -12,8 +12,12 @@ class MailingController extends Controller
 {
     public function indexAction(Request $request)
     {
-        return $this->render('AppBundle:Admin/Mailing:index.html.twig', array(
+        $em = $this->getDoctrine()->getManager();
 
+        $mailingLists = $em->getRepository('AppBundle:Mailing')->findAll();
+
+        return $this->render('AppBundle:Admin/Mailing:index.html.twig', array(
+            "mailingLists" => $mailingLists,
         ));
     }
 
@@ -38,6 +42,36 @@ class MailingController extends Controller
 
         return $this->render('AppBundle:Admin/Mailing:new.html.twig', array(
             'form' => $form->createView(),
+        ));
+    }
+
+    public function editAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if (!$entity = $em->getRepository('AppBundle:Mailing')->findOneBy(array('id' => $id,))) {
+            throw $this->createNotFoundException(sprintf('Unable to find calendar with id "%s"', $id));
+        };
+
+        //$deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createForm(new MailingType(), $entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            $message = $this->get('translator')->trans('mailing.update_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
+
+            return $this->redirect($this->generateUrl('admin_mailing_index'));
+        }
+
+        return $this->render('AppBundle:Admin/Mailing:edit.html.twig', array(
+           'edit_form' => $editForm->createView(),
+          // 'delete_form' => $deleteForm->createView(),
+           'entity' => $entity,
         ));
     }
 }
