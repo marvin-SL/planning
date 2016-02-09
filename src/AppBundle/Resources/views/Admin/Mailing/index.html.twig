@@ -28,9 +28,9 @@ Liste des agendas
 	</div>
     <div class="row">
         <div class="col-lg-12">
-            {% if calendars is defined %}
+            {% if mailingLists is not empty %}
                     <div class="table-responsive">
-                        <table id="calendarTable" class="table table-bordered table-hover">
+                        <table id="listTable" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>Libellé</th>
@@ -40,20 +40,16 @@ Liste des agendas
                                 </tr>
                             </thead>
                             <tbody>
-                                {#}{% for calendar in calendars %}
+                                {% for list in mailingLists %}
                                 <tr>
-                                    <td>{{calendar.title}}</td>
-                                    <td>{{calendar.slug}}</td>
-                                    <td>{{calendar.createdAt| localizeddate('long', 'short') }}</td>
-                                    <td>{{calendar.updatedAt|time_diff }}</td>
+                                    <td>{{list.name}}</td>
+                                    <td>{{list.createdAt| localizeddate('long', 'short') }}</td>
+                                    <td>{{list.updatedAt|time_diff }}</td>
                                     <td>
-                                        <a href="{{path('admin_calendar_show', {'slug' : calendar.slug })}}">Voir</a> |
-                                        <a href="{{path('admin_calendar_edit', {'slug' : calendar.slug })}}">Editer</a>
-                                        |
-                                        <a href="{{path('admin_calendar_notification', {'slug' : calendar.slug })}}"><i class="fa fa-envelope-o"></i></a>
+                                        <a href="{{path('admin_mailing_edit', {'id' : list.id })}}">Editer</a>
                                     </td>
                                 </tr>
-                            {% endfor %}#}
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
