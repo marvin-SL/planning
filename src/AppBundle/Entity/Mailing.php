@@ -40,6 +40,19 @@ class Mailing
     private $mails;
 
     /**
+     * @Gedmo\Slug(fields={"name"}, updatable=true)
+     * @ORM\Column(length=255, unique=true)
+     */
+    protected $slug;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="sentAt", type="datetime", nullable=true)
+     */
+    private $sentAt;
+
+    /**
      * Hook timestampable behavior
      * updates publishedAt, updatedAt fields
      */
@@ -108,5 +121,53 @@ class Mailing
     public function getMails()
     {
         return $this->mails;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Mailing
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set sentAt
+     *
+     * @param \DateTime $sentAt
+     *
+     * @return Mailing
+     */
+    public function setSentAt(\DateTime $sentAt)
+    {
+        $this->sentAt = $sentAt;
+
+        return $this;
+    }
+
+    /**
+     * Get sentAt
+     *
+     * @return \DateTime
+     */
+    public function getSentAt()
+    {
+        return $this->sentAt;
     }
 }
