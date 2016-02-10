@@ -20,7 +20,7 @@ Création d'une liste de diffusion
 	<div class="row">
 		<div class="col-md-2">
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-8">
                 {{ form_start(form) }}
                 {{ form_errors(form) }}
                 <div class="form-group">
@@ -28,19 +28,19 @@ Création d'une liste de diffusion
                      {{ form_label(form.name) }}
                     </label>
                      {{ form_errors(form.name) }}
-                     {{ form_widget(form.name, {'attr': { 'class' : 'form-control' } } ) }}
+                     {{ form_widget(form.name, {'attr': { 'class' : 'form-control', 'placeholder':'Ex : "M2 groupe 2" pour les adresses mail du groupe 2, ou bien "Master 2" pour les adresses mail des M2, tous groupes confondus' } } ) }}
                 </div>
 				<div class="form-group">
 					<label for="email">
 					 {{ form_label(form.mails) }}
-					</label>
+					</label> (Séparer les adresses par un " ; " )
                      {{ form_errors(form.mails) }}
-                     {{ form_widget(form.mails, {'attr': { 'class' : 'form-control' } } ) }}
+                     {{ form_widget(form.mails, {'attr': { 'class' : 'form-control', 'placeholder':'jean@domain.com;paul@domain.com' } } ) }}
 				</div>
                     {{ form_widget(form.save, { 'attr': { 'class' : 'btn btn-success' } } ) }}
                     {{ form_end(form) }}
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-2">
 		</div>
 	</div>
 
