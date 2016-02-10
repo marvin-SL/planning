@@ -1,0 +1,9 @@
+{% extends 'AppBundle:Admin/Emails:template.html.twig' %}
+
+{% block body %}
+    {{comment}}
+{% endblock %}
+
+{% block signature %}
+{{app.user.firstname}} {{ app.user.lastname}} 
+{% endblock %}
