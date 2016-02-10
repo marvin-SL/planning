@@ -48,7 +48,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     public function testNewEvent()
     {
         $this->login();
-        $this->url('http://localhost/planning/admin/calendars/groupe-2/edit');
+        $this->url('http://localhost/planning/admin/calendars/planning-test-test-edit/edit');
         sleep(5);
         $this->clickOnElement('addButton');
         sleep(5);
@@ -143,7 +143,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     public function testEditEvent()
     {
         $this->login();
-        $this->url('http://localhost/planning/admin/calendars/groupe-2/edit');
+        $this->url('http://localhost/planning/admin/calendars/planning-test-test-edit/edit');
         sleep(3);
         $this->byXPath("/html/body/div[1]/div/div/div[4]/div[2]/div/table/tbody/tr[1]/td[5]/a")->click();
         sleep(3);
@@ -209,7 +209,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
     public function testDeleteEvent()
     {
         $this->login();
-        $this->url('http://localhost/planning/admin/calendars/groupe-2/edit');
+        $this->url('http://localhost/planning/admin/calendars/planning-test-test-edit/edit');
         sleep(2);
         $this->byXPath("/html/body/div[1]/div/div/div[4]/div[2]/div/table/tbody/tr[1]/td[5]/a")->click();
         sleep(2);
