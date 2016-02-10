@@ -45,12 +45,12 @@ class MailingController extends Controller
         ));
     }
 
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
 
-        if (!$entity = $em->getRepository('AppBundle:Mailing')->findOneBy(array('id' => $id))) {
-            throw $this->createNotFoundException(sprintf('Unable to find mailing list with id "%s"', $id));
+        if (!$entity = $em->getRepository('AppBundle:Mailing')->findOneBy(array('slug' => $slug))) {
+            throw $this->createNotFoundException(sprintf('Unable to find mailing list with slug "%s"', $slug));
         };
 
         //$deleteForm = $this->createDeleteForm($id);
@@ -75,13 +75,13 @@ class MailingController extends Controller
         ));
     }
 
-    public function writeMailAction($id)
+    public function writeMailAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $listes = $em->getRepository('AppBundle:Mailing')->findAll();
+        $list = $em->getRepository('AppBundle:Mailing')->findOneBy(array('slug'=>$slug));
 
         return $this->render('AppBundle:Admin/Mailing:writeMail.html.twig', array(
-            'listes' => $listes,
+            'list' => $list,
         ));
     }
 
@@ -99,7 +99,7 @@ class MailingController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $object = $request->request->get('object');
-        $recipients = $request->request->get('recipient');
+        $recipients =  $request->request->get('recipient');
 
         $body = $this->renderView(
             'AppBundle:Admin/Notification:notification.html.twig',
