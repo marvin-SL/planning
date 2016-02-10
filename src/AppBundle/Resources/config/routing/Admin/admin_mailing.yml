@@ -11,7 +11,7 @@ admin_mailing_edit:
       defaults:  {_controller: AppBundle:Admin/Mailing:edit}
 
 admin_mailing_send:
-      path:    /{id}/send
+      path:    /send
       defaults:  {_controller: AppBundle:Admin/Mailing:send}
 
 admin_mailing_write:
