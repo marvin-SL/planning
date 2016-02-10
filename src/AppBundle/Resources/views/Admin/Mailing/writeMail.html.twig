@@ -28,11 +28,7 @@ Notifier usagers
             <div class="form-group">
                 <div class="col-sm-10">
                     <label for="recipient">Destinataire(s)</label>
-                    <select class="form-control" id="recipient" name="recipient" required="required">
-                        <option></option>
-                        {% for liste in listes %}
-                            <option>{{liste.name}}</option>
-                        {% endfor %}
+                    <input type="text" value="{{list.name}}" readonly class="form-control" id="recipient" name="recipient">
                     </select>
                 </div>
             </div>
