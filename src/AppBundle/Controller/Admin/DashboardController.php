@@ -34,6 +34,9 @@ class DashboardController extends Controller
         ->getRepository('AppBundle:Teacher')->findBy(array(), array('createdAt' => 'DESC'), 5);
         $users['values'] = $this->getDoctrine()
         ->getRepository('AppBundle:User')->findBy(array(), array('createdAt' => 'DESC'), 5);
+        $mailings['values'] = $this->getDoctrine()
+        ->getRepository('AppBundle:Mailing')->findBy(array(), array('createdAt' => 'DESC'), 5);
+
 
         $calendars['count'] = $this->getDoctrine()
         ->getRepository('AppBundle:Calendar')->count();
@@ -45,6 +48,8 @@ class DashboardController extends Controller
         ->getRepository('AppBundle:Teacher')->count();
         $users['count'] = $this->getDoctrine()
         ->getRepository('AppBundle:User')->count();
+        $mailings['count'] = $this->getDoctrine()
+        ->getRepository('AppBundle:Mailing')->count();
 
         return $this->render('AppBundle:Admin/Dashboard:index.html.twig', array(
             "calendars" => $calendars,
@@ -52,6 +57,7 @@ class DashboardController extends Controller
             "subjects" => $subjects,
             "teachers" => $teachers,
             "users" => $users,
+            "mailings" => $mailings,
         ));
     }
 }

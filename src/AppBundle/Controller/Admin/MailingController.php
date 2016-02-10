@@ -138,13 +138,17 @@ class MailingController extends Controller
             'text/html', )
         );
 
-        if (!$recipients = $em->getRepository('AppBundle:Mailing')->findByName($recipients)) {
+        if (!$recipients = $em->getRepository('AppBundle:Mailing')->findOneBy(array("name" => $recipients))) {
             throw $this->createNotFoundException(sprintf('Unable to find mailing list "%s"', $recipients));
         };
 
         foreach ($recipients as $recipient) {
             $notificationManager->send($object, $body, 'sender@test.com', explode(';', $recipient->getMails()));
         }
+        
+        $recipients->setSentAt(new \DateTime("now"));
+        $em->persist($recipients);
+        $em->flush();
 
         $message = $this->get('translator')->trans('mailing.send_success', array(), 'flashes');
         $this->get('session')->getFlashBag()->add('success', $message);
