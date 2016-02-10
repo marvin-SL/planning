@@ -17,3 +17,7 @@ admin_mailing_send:
 admin_mailing_write:
       path:    /{slug}/write-email
       defaults:  {_controller: AppBundle:Admin/Mailing:writeMail}
+
+admin_mailing_delete:
+ path:        /{slug}/delete
+ defaults:  {_controller: AppBundle:Admin/Mailing:delete}

@@ -78,7 +78,7 @@ class MailingController extends Controller
             throw $this->createNotFoundException(sprintf('Unable to find mailing list with slug "%s"', $slug));
         };
 
-        //$deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($slug);
         $editForm = $this->createForm(new MailingType(), $entity);
         $editForm->handleRequest($request);
 
@@ -95,7 +95,7 @@ class MailingController extends Controller
 
         return $this->render('AppBundle:Admin/Mailing:edit.html.twig', array(
             'edit_form' => $editForm->createView(),
-            // 'delete_form' => $deleteForm->createView(),
+            'delete_form' => $deleteForm->createView(),
             'entity' => $entity,
         ));
     }
@@ -150,5 +150,49 @@ class MailingController extends Controller
         $this->get('session')->getFlashBag()->add('success', $message);
 
         return $this->redirect($this->generateUrl('admin_mailing_index'));
+    }
+
+    /**
+    * Deletes a Mailing entity by id
+    *
+    * @param Request $request
+    * @param int     $id
+    *
+    * @return Symfony\Component\HttpFoundation\Response
+    */
+    public function deleteAction(Request $request, $slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createDeleteForm($slug);
+
+        if ($form->handleRequest($request)->isValid()) {
+            if (!$entity = $em->getRepository('AppBundle:Mailing')->findOneBy(array('slug' => $slug))) {
+                throw $this->createNotFoundException('Unable to find Mailing entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+
+            $message = $this->get('translator')->trans('mailing.delete_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
+        }
+
+        return $this->redirect($this->generateUrl('admin_mailing_index'));
+    }
+
+    /**
+    * Creates a form to delete a Mailing entity by id.
+    *
+    * @param mixed $id The entity id
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createDeleteForm($slug)
+    {
+        return $this->createFormBuilder()
+        ->setAction($this->generateUrl('admin_mailing_delete', array('slug' => $slug)))
+        ->setMethod('DELETE')
+        ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
+        ->getForm();
     }
 }
