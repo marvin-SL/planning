@@ -6,43 +6,54 @@ Gestion des salles
 {% block titre %}Gestion des salles){% endblock %}
 {% block body %}
 
-    <div class="row">
-            <div class="col-md-12 page-header">
-                <div class="col-md-10">
-                    <h1 class="text-left">
-                        Gestion des salles
-                    </h1>
-                </div>
-                <div class="col-md-2">
-                    <a class="btn btn-lg btn-success margin-top-20" id="addButton" href="{{path('admin_classroom_new')}}">{{ 'text.add_entity'|trans({}, 'messages') }}</a>
-                </div>
-            </div>
-    </div>
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Intitulé</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for classroom in classrooms %}
-                    <tr>
-                        <td>{{classroom.name}}</td>
-                        <td><a href="{{path('admin_classroom_edit', {'id' : classroom.id })}}">Editer</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+<div class="row">
+    <div class="col-md-12 page-header">
+        <div class="col-md-10">
+            <h1 class="text-left">
+                Gestion des salles
+            </h1>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-lg btn-success margin-top-20" id="addButton" href="{{path('admin_classroom_new')}}">{{ 'text.add_entity'|trans({}, 'messages') }}</a>
         </div>
     </div>
-    <div class="col-md-4">
-    </div>
+</div>
+{% if classrooms is not empty %}
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
 
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Intitulé</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for classroom in classrooms %}
+                <tr>
+                    <td>{{classroom.name}}</td>
+                    <td><a href="{{path('admin_classroom_edit', {'id' : classroom.id })}}">Editer</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-4">
+</div>
+
+{% else %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="alert alert-warning">
+            <h2>Il n'existe aucune salle.</h2>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 
 {% endblock %}
