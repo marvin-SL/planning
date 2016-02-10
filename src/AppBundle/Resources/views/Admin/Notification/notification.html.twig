@@ -1,7 +1,7 @@
 {% extends 'AppBundle:Admin/Notification:template.html.twig' %}
 
 {% block body %}
-    {{comment}}
+    {{comment | raw}}
 {% endblock %}
 
 {% block signature %}

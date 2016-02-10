@@ -31,7 +31,8 @@
         "stephanecollot/datetimepicker-bundle": "dev-master",
         "phpunit/phpunit-selenium": ">=1.2",
         "satooshi/php-coveralls": "^1.0",
-        "symfony/filesystem": "^3.0"
+        "symfony/filesystem": "^3.0",
+        "stfalcon/tinymce-bundle": "dev-master"
     },
 
 "minimum-stability": "dev",
