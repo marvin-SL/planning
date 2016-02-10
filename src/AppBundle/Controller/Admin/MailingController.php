@@ -17,7 +17,7 @@ class MailingController extends Controller
         $mailingLists = $em->getRepository('AppBundle:Mailing')->findAll();
 
         return $this->render('AppBundle:Admin/Mailing:index.html.twig', array(
-            "mailingLists" => $mailingLists,
+            'mailingLists' => $mailingLists,
         ));
     }
 
@@ -49,7 +49,7 @@ class MailingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if (!$entity = $em->getRepository('AppBundle:Mailing')->findOneBy(array('id' => $id,))) {
+        if (!$entity = $em->getRepository('AppBundle:Mailing')->findOneBy(array('id' => $id))) {
             throw $this->createNotFoundException(sprintf('Unable to find mailing list with id "%s"', $id));
         };
 
@@ -69,35 +69,56 @@ class MailingController extends Controller
         }
 
         return $this->render('AppBundle:Admin/Mailing:edit.html.twig', array(
-           'edit_form' => $editForm->createView(),
-          // 'delete_form' => $deleteForm->createView(),
-           'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            // 'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
         ));
     }
 
     public function writeMailAction($id)
     {
-        //TODO: créer une forme pour saisir le texte du mail
-
-        // $form->handleRequest($request);
-        //
-        // if ($form->isValid()) {
-        //     $em = $this->getDoctrine()->getManager();
-        //     $em->persist($mailing);
-        //     $em->flush();
-        //
-        //     $message = $this->get('translator')->trans('mailing.create_success', array(), 'flashes');
-        //     $this->get('session')->getFlashBag()->add('success', $message);
-        //
-        //     return $this->redirect($this->generateUrl('admin_mailing_index'));
-        // }
+        $em = $this->getDoctrine()->getManager();
+        $listes = $em->getRepository('AppBundle:Mailing')->findAll();
 
         return $this->render('AppBundle:Admin/Mailing:writeMail.html.twig', array(
-            //'form' => $form->createView(),
+            'listes' => $listes,
         ));
     }
-    public function sendAction($id)
+
+    /**
+     * Get preview from markdown.
+     *
+     * @param string $subject
+     * @param string $recipient
+     * @param string $report
+     * @param string $comment
+     */
+    public function sendAction(Request $request)
     {
-        return array();
+        $notificationManager = $this->get('app.manager.notification');
+        $em = $this->getDoctrine()->getManager();
+
+        $object = $request->request->get('object');
+        $recipients = $request->request->get('recipient');
+
+        $body = $this->renderView(
+            'AppBundle:Admin/Notification:notification.html.twig',
+            array(
+                 'comment' => $request->request->get('comment'),
+            'text/html', )
+        );
+
+        if (!$recipients = $em->getRepository('AppBundle:Mailing')->findByName($recipients)) {
+            throw $this->createNotFoundException(sprintf('Unable to find mailing list "%s"', $recipients));
+        };
+
+        foreach ($recipients as $recipient) {
+            $notificationManager->send($object, $body, 'sender@test.com', explode(';', $recipient->getMails()));
+        }
+
+        $message = $this->get('translator')->trans('mailing.send_success', array(), 'flashes');
+        $this->get('session')->getFlashBag()->add('success', $message);
+
+        return $this->redirect($this->generateUrl('admin_mailing_index'));
     }
 }
