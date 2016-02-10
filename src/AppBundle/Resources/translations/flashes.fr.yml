@@ -41,6 +41,8 @@ mailing:
     update_success: La liste de diffusion a bien été mise à jour
     delete_success: La liste de diffusion a bien été supprimée
     create_error: Une erreur s'est produite. La liste de diffusion existe peut être déjà.
+    send_success: Votre message a bien été envoyé
+    send_error: Une erreur s'est produite, veuillez réessayer
 
 notification:
     envoi_success: L'envoi a été réalisé avec succès
