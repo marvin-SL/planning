@@ -35,7 +35,7 @@ class Mailing
     /**
      * @var array
      *
-     * @ORM\Column(name="mails", type="array")
+     * @ORM\Column(name="mails", type="string")
      */
     private $mails;
 
