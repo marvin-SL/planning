@@ -1,4 +1,13 @@
 <?php
+/**
+* AccountController Doc Comment
+*
+* PHP version 5.5.9
+*
+* @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
+* @link   https://github.com/marvin-SL/planning
+*
+*/
 
 namespace AppBundle\Controller\Admin;
 
@@ -10,6 +19,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class TeacherController extends Controller
 {
+    /**
+    * Show all Teacher entities
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function indexAction(Request $request)
     {
         $session = $request->getSession();
@@ -21,6 +35,11 @@ class TeacherController extends Controller
         return $this->render('AppBundle:Admin/Teacher:index.html.twig', array('teachers' => $teachers));
     }
 
+    /**
+    * Create a new Teacher entity
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function newAction(Request $request)
     {
         $teacher = new Teacher();
@@ -47,6 +66,12 @@ class TeacherController extends Controller
         ));
     }
 
+    /**
+    * Edit a Teacher entity by id
+    * @param  Request $request [description]
+    * @param  [type]  $id      [description]
+    * @return [type]           [description]
+    */
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -78,21 +103,21 @@ class TeacherController extends Controller
         }
 
         return $this->render('AppBundle:Admin/Teacher:edit.html.twig', array(
-           'edit_form' => $editForm->createView(),
-           'delete_form' => $deleteForm->createView(),
-           'entity' => $entity,
-           'teachers' => $teachers,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'teachers' => $teachers,
         ));
     }
 
     /**
-     * Deletes a Teacher entity.
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Symfony\Component\HttpFoundation\Response
-     */
+    * Deletes a Teacher entity by id.
+    *
+    * @param Request $request
+    * @param int     $id
+    *
+    * @return Symfony\Component\HttpFoundation\Response
+    */
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -121,18 +146,18 @@ class TeacherController extends Controller
     }
 
     /**
-     * Creates a form to delete a Teacher entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
+    * Creates a form to delete a Teacher entity by id.
+    *
+    * @param mixed $id The entity id
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_teacher_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
-            ->getForm();
+        ->setAction($this->generateUrl('admin_teacher_delete', array('id' => $id)))
+        ->setMethod('DELETE')
+        ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
+        ->getForm();
     }
 }

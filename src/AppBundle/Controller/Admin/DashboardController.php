@@ -1,4 +1,13 @@
 <?php
+/**
+* AccountController Doc Comment
+*
+* PHP version 5.5.9
+*
+* @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
+* @link   https://github.com/marvin-SL/planning
+*
+*/
 
 namespace AppBundle\Controller\Admin;
 
@@ -9,10 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 class DashboardController extends Controller
 {
     /**
-     * Dashboard index
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
+    * Show all entities
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function indexAction(Request $request)
     {
         $calendars['values'] = $this->getDoctrine()

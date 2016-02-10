@@ -1,16 +1,15 @@
 <?php
 /**
-* AccountController Doc Comment
+* AccountController Doc Comment.
 *
 * PHP version 5.5.9
 *
 * @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
-* @link   https://github.com/marvin-SL/planning
 *
+* @link   https://github.com/marvin-SL/planning
 */
 namespace AppBundle\Controller\Admin;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\FOSUserEvents;
@@ -20,22 +19,20 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use AppBundle\Form\ChangePasswordFormType;
 use AppBundle\Entity\User;
 
 /**
-* AccountController
-*
-*/
+ * AccountController.
+ */
 class AccountController extends Controller
 {
-
     /**
-    * List user datas
-    *
-    * @param  Request $request [description]
-    * @return [type]           [description]
-    */
+     * List user datas.
+     *
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
+     */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -44,22 +41,25 @@ class AccountController extends Controller
 
         $user = $em->getRepository('AppBundle:User')->findOneBy(
             array(
-            "id"=>$connectedUser->getId()
-            )
+                'id' => $connectedUser->getId(),
+                )
         );
 
-        return $this->render(
-            'AppBundle:Admin/Account:index.html.twig', array('user'=>$user
-            )
-        );
+            return $this->render(
+                'AppBundle:Admin/Account:index.html.twig',
+                array(
+                    'user' => $user,
+                )
+            );
     }
 
     /**
-    * Changes user password
-    *
-    * @param  Request $request [description]
-    * @return [type]           [description]
-    */
+     * Changes user password.
+     *
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
+     */
     public function changePasswordAction(Request $request)
     {
         $user = $this->getUser();
@@ -100,11 +100,8 @@ class AccountController extends Controller
 
             return $response;
         }
-
-        return $this->render('AppBundle:ChangePassword:changePassword.html.twig', array(
-                'form' => $form->createView()
-            )
-        );
+            return $this->render('AppBundle:ChangePassword:changePassword.html.twig', array('form' => $form->createView(),
+                )
+            );
     }
-
 }

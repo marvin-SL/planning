@@ -1,4 +1,13 @@
 <?php
+/**
+* AccountController Doc Comment
+*
+* PHP version 5.5.9
+*
+* @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
+* @link   https://github.com/marvin-SL/planning
+*
+*/
 
 namespace AppBundle\Controller\Admin;
 
@@ -12,6 +21,11 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class CalendarController extends Controller
 {
+    /**
+    * List of Calendar entity
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function indexAction(Request $request)
     {
         $calendars = $this->getDoctrine()
@@ -22,6 +36,11 @@ class CalendarController extends Controller
         ));
     }
 
+    /**
+    * Create a new Calendar Entity
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function newAction(Request $request)
     {
         $calendar = new Calendar();
@@ -50,6 +69,12 @@ class CalendarController extends Controller
         ));
     }
 
+    /**
+    * Show a Calendar Entity by slug
+    * @param  Request $request [description]
+    * @param  [type]  $slug    [description]
+    * @return [type]           [description]
+    */
     public function showAction(Request $request, $slug)
     {
         $event = new Event();
@@ -81,15 +106,12 @@ class CalendarController extends Controller
         ));
     }
 
-    public function serializeToXmlAction(Calendar $entity)
-    {
-        if (!$serializer = $this->get('app.manager.customSerializer')->serialize($entity)) {
-            throw new Exception('CustomSerializer error', 1);
-        }
-
-        return array();
-    }
-
+    /**
+    * Edit a Calendar Entity by slug
+    * @param  Request $request [description]
+    * @param  [type]  $slug    [description]
+    * @return [type]           [description]
+    */
     public function editAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -116,21 +138,21 @@ class CalendarController extends Controller
         }
 
         return $this->render('AppBundle:Admin/Calendar:edit.html.twig', array(
-           'edit_form' => $editForm->createView(),
-           'delete_form' => $deleteForm->createView(),
-           'entity' => $entity,
-           'events' => $events,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'events' => $events,
         ));
     }
 
     /**
-     * Deletes a Calendar entity.
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Symfony\Component\HttpFoundation\Response
-     */
+    * Deletes a Calendar entity by slug.
+    *
+    * @param Request $request
+    * @param int     $id
+    *
+    * @return Symfony\Component\HttpFoundation\Response
+    */
     public function deleteAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -153,18 +175,18 @@ class CalendarController extends Controller
     }
 
     /**
-     * Creates a form to delete a Calendar entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
+    * Creates a form to delete a Calendar entity by slug.
+    *
+    * @param mixed $id The entity id
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
     private function createDeleteForm($slug)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_calendar_delete', array('slug' => $slug)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
-            ->getForm();
+        ->setAction($this->generateUrl('admin_calendar_delete', array('slug' => $slug)))
+        ->setMethod('DELETE')
+        ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
+        ->getForm();
     }
 }

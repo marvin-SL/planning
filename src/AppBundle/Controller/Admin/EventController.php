@@ -1,4 +1,13 @@
 <?php
+/**
+* AccountController Doc Comment
+*
+* PHP version 5.5.9
+*
+* @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
+* @link   https://github.com/marvin-SL/planning
+*
+*/
 
 namespace AppBundle\Controller\Admin;
 
@@ -9,6 +18,11 @@ use AppBundle\Form\EventType;
 
 class EventController extends Controller
 {
+    /**
+    * Create a new Event entity
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function newAction(Request $request)
     {
         $event = new Event();
@@ -37,6 +51,12 @@ class EventController extends Controller
         ));
     }
 
+    /**
+    * Edit an Event entity by id
+    * @param  Request $request [description]
+    * @param  [type]  $id      [description]
+    * @return [type]           [description]
+    */
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -87,20 +107,20 @@ class EventController extends Controller
         }
 
         return $this->render('AppBundle:Admin/Event:edit.html.twig', array(
-           'edit_form' => $editForm->createView(),
-           'delete_form' => $deleteForm->createView(),
-           'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
         ));
     }
 
     /**
-     * Deletes a Event entity.
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Symfony\Component\HttpFoundation\Response
-     */
+    * Deletes a Event entity by id
+    *
+    * @param Request $request
+    * @param int     $id
+    *
+    * @return Symfony\Component\HttpFoundation\Response
+    */
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -125,18 +145,18 @@ class EventController extends Controller
     }
 
     /**
-     * Creates a form to delete a Event entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
+    * Creates a form to delete a Event entity by id.
+    *
+    * @param mixed $id The entity id
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_event_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
-            ->getForm();
+        ->setAction($this->generateUrl('admin_event_delete', array('id' => $id)))
+        ->setMethod('DELETE')
+        ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
+        ->getForm();
     }
 }

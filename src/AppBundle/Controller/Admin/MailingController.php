@@ -1,4 +1,13 @@
 <?php
+/**
+* AccountController Doc Comment
+*
+* PHP version 5.5.9
+*
+* @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
+* @link   https://github.com/marvin-SL/planning
+*
+*/
 
 namespace AppBundle\Controller\Admin;
 
@@ -10,6 +19,11 @@ use AppBundle\Form\MailingType;
 
 class MailingController extends Controller
 {
+    /**
+    * Show all Mailing entities
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -21,6 +35,11 @@ class MailingController extends Controller
         ));
     }
 
+    /**
+    * Add a new Mailing entity
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function newAction(Request $request)
     {
         $mailing = new Mailing();
@@ -45,6 +64,12 @@ class MailingController extends Controller
         ));
     }
 
+    /**
+    * Edit a Mailing entity by slug
+    * @param  Request $request [description]
+    * @param  [type]  $slug    [description]
+    * @return [type]           [description]
+    */
     public function editAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -75,6 +100,11 @@ class MailingController extends Controller
         ));
     }
 
+    /**
+    * Generate a view to send an email by Mailing entity's slug
+    * @param  [type] $slug [description]
+    * @return [type]       [description]
+    */
     public function writeMailAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -86,13 +116,13 @@ class MailingController extends Controller
     }
 
     /**
-     * Get preview from markdown.
-     *
-     * @param string $subject
-     * @param string $recipient
-     * @param string $report
-     * @param string $comment
-     */
+    * Send an mail
+    *
+    * @param string $subject
+    * @param string $recipient
+    * @param string $report
+    * @param string $comment
+    */
     public function sendAction(Request $request)
     {
         $notificationManager = $this->get('app.manager.notification');
@@ -102,9 +132,9 @@ class MailingController extends Controller
         $recipients =  $request->request->get('recipient');
 
         $body = $this->renderView(
-            'AppBundle:Admin/Notification:notification.html.twig',
-            array(
-                 'comment' => $request->request->get('comment'),
+        'AppBundle:Admin/Notification:notification.html.twig',
+        array(
+            'comment' => $request->request->get('comment'),
             'text/html', )
         );
 

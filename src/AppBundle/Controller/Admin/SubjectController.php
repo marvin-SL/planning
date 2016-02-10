@@ -1,4 +1,13 @@
 <?php
+/**
+* AccountController Doc Comment
+*
+* PHP version 5.5.9
+*
+* @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
+* @link   https://github.com/marvin-SL/planning
+*
+*/
 
 namespace AppBundle\Controller\Admin;
 
@@ -9,6 +18,11 @@ use AppBundle\Form\SubjectType;
 
 class SubjectController extends Controller
 {
+    /**
+    * Show all Subject entities
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -21,9 +35,13 @@ class SubjectController extends Controller
         ));
     }
 
+    /**
+    * Create a new Subject entity
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function newAction(Request $request)
     {
-        // replace this example code with whatever you need
         $subject = new Subject();
 
         $session = $request->getSession();
@@ -47,6 +65,13 @@ class SubjectController extends Controller
             'form' => $form->createView(),
         ));
     }
+
+    /**
+    * Edit an Subject entity by id
+    * @param  Request $request [description]
+    * @param  [type]  $id      [description]
+    * @return [type]           [description]
+    */
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -77,32 +102,32 @@ class SubjectController extends Controller
                     $serializer->serialize($calendar);
                 }
 
-                    $message = $this->get('translator')->trans('subject.update_success', array(), 'flashes');
-                    $this->get('session')->getFlashBag()->add('success', $message);
-
-                    return $this->redirect($this->generateUrl('admin_subject_index'));
-            }
+                $message = $this->get('translator')->trans('subject.update_success', array(), 'flashes');
+                $this->get('session')->getFlashBag()->add('success', $message);
 
                 return $this->redirect($this->generateUrl('admin_subject_index'));
+            }
+
+            return $this->redirect($this->generateUrl('admin_subject_index'));
 
         }
 
         return $this->render('AppBundle:Admin/Subject:edit.html.twig', array(
-           'edit_form' => $editForm->createView(),
-           'delete_form' => $deleteForm->createView(),
-           'entity' => $entity,
-           'subjects' => $subjects,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'subjects' => $subjects,
         ));
     }
 
     /**
-     * Deletes a Subject entity.
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Symfony\Component\HttpFoundation\Response
-     */
+    * Deletes a Subject entity by id.
+    *
+    * @param Request $request
+    * @param int     $id
+    *
+    * @return Symfony\Component\HttpFoundation\Response
+    */
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -113,29 +138,29 @@ class SubjectController extends Controller
                 throw $this->createNotFoundException('Unable to find Subject entity.');
             }
 
-                $em->remove($entity);
-                $em->flush();
+            $em->remove($entity);
+            $em->flush();
 
-                $message = $this->get('translator')->trans('subject.delete_success', array(), 'flashes');
-                $this->get('session')->getFlashBag()->add('success', $message);
+            $message = $this->get('translator')->trans('subject.delete_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
         }
 
         return $this->redirect($this->generateUrl('admin_subject_index'));
     }
 
     /**
-     * Creates a form to delete a Subject entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
+    * Creates a form to delete a Subject entity by id.
+    *
+    * @param mixed $id The entity id
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_subject_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
-            ->getForm();
+        ->setAction($this->generateUrl('admin_subject_delete', array('id' => $id)))
+        ->setMethod('DELETE')
+        ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
+        ->getForm();
     }
 }
