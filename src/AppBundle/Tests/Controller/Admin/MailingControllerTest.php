@@ -97,7 +97,7 @@ class MailingControllerTest extends WebTestCase
             $form['app_mailing[name]'] = 'test-edit';
 
 
-            $form['app_mailing[mails]'] = 'dd@dd.fr;ee@ee.fr';
+            $form['app_mailing[mails]'] = 'dd@dd.fr;ee@ee.fr;marvin.ipsos@gmail.com';
 
             $this->assertTrue($client->getResponse()->isSuccessful(), 'mails edited');
 
@@ -138,6 +138,35 @@ class MailingControllerTest extends WebTestCase
             $crawler = $client->request('GET', '/admin/mailing/');
 
             $this->assertEquals(0, $crawler->filter('html:contains("test-edit")')->count(), 'Found element html:contains("test-edit")');
+        }
+
+
+        /**
+         * test on Write action
+         */
+        public function testWriteMail()
+        {
+            $client = static::createClient();
+
+            $this->login($client, 'marvin.sainteluce', 'cmw');
+
+            $crawler = $client->request('GET', '/admin/mailing/liste-de-diffusion-g2/write-email');
+
+            $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/mailing/liste-de-diffusion-g2/write-email');
+
+            $form = $crawler->selectButton('submitButton')->form();
+
+            $form['object'] = "Foobar objet";
+
+            $form['comment'] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue quam, consequa";
+
+            $client->submit($form);
+            $client->followRedirects();
+
+            $crawler = $client->request('GET', '/admin/dashboard');
+file_put_contents('dump.html', $client->getResponse());
+            $this->assertGreaterThan(0, $crawler->filter('html:contains("Notification envoyée")')->count(), 'Not found element html:contains("Notification envoyée")');
+
         }
 
 }
