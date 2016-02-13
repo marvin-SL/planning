@@ -164,9 +164,8 @@ class MailingControllerTest extends WebTestCase
             $client->followRedirects();
 
             $crawler = $client->request('GET', '/admin/dashboard');
-file_put_contents('dump.html', $client->getResponse());
+
             $this->assertGreaterThan(0, $crawler->filter('html:contains("Notification envoyée")')->count(), 'Not found element html:contains("Notification envoyée")');
 
         }
-
 }
