@@ -19,8 +19,8 @@ class LoadMailingData extends AbstractFixture
 
     public function load(ObjectManager $manager)
     {
-        $this->saveMailing($manager, "liste de diffusion G1", "test1@aa.fr;test2@aa.fr,test3@aa.fr,marvin.ipsos@gmail.com");
-        $this->saveMailing($manager, "liste de diffusion G2", "test4@aa.fr;test5@aa.fr,test6@aa.fr");
+        $this->saveMailing($manager, "liste de diffusion G1", "test1@aa.fr;test2@aa.fr;test3@aa.fr;marvin.ipsos@gmail.com");
+        $this->saveMailing($manager, "liste de diffusion G2", "test4@aa.fr;test5@aa.fr;test6@aa.fr;marvin.ipsos@gmail.com");
 
         $manager->flush();
     }
