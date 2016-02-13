@@ -138,7 +138,12 @@ Tableau de bord
                     <a href="{{path('admin_mailing_edit', {'slug' : mailing.slug })}}">{{mailing.name}}</a>
                     |
                     <a href="{{path('admin_mailing_write', {'slug' : mailing.slug })}}"><i class="fa fa-envelope-o"></i></a>
-                    <small class="pull-right">Notification envoyée {{ mailing.sentAt|time_diff}}</small><br>
+                    {% if mailing.sentAt is not empty %}
+                        <small class="pull-right">Notification envoyée {{ mailing.sentAt|time_diff}}</small><br>
+                        {% else %}
+                        <small class="pull-right">-</small><br>
+                    {% endif %}
+
                 {% else %}
                     <em>Aucune liste de diffusion à afficher</em>
                 {% endfor %}
