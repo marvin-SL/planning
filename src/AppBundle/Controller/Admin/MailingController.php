@@ -142,11 +142,18 @@ class MailingController extends Controller
             throw $this->createNotFoundException(sprintf('Unable to find mailing list "%s"', $recipients));
         };
 
-        $notificationManager->send($object, $body, 'sender@test.com', explode(';', $recipients->getMails()));
+        try {
+            $notificationManager->send($object, $body, 'sender@test.com', explode(';', $recipients->getMails()));
 
-        $recipients->setSentAt(new \DateTime("now"));
-        $em->persist($recipients);
-        $em->flush();
+            $recipients->setSentAt(new \DateTime("now"));
+            $em->persist($recipients);
+            $em->flush();
+
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 1);
+
+        }
+
 
         $message = $this->get('translator')->trans('mailing.send_success', array(), 'flashes');
         $this->get('session')->getFlashBag()->add('success', $message);
