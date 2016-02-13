@@ -142,10 +142,8 @@ class MailingController extends Controller
             throw $this->createNotFoundException(sprintf('Unable to find mailing list "%s"', $recipients));
         };
 
-        foreach ($recipients as $recipient) {
-            $notificationManager->send($object, $body, 'sender@test.com', explode(';', $recipient->getMails()));
-        }
-        
+        $notificationManager->send($object, $body, 'sender@test.com', explode(';', $recipients->getMails()));
+
         $recipients->setSentAt(new \DateTime("now"));
         $em->persist($recipients);
         $em->flush();
