@@ -16,50 +16,59 @@ Gestion des matières
 
 {% endfor %}
 
-
-    <div class="row">
-            <div class="col-md-12 page-header">
-                <div class="col-md-10">
-                    <h1 class="text-left">
-                        Gestion des matières
-                    </h1>
-                </div>
-                <div class="col-md-2">
-                    <a class="btn btn-lg btn-success margin-top-20" href="{{path('admin_subject_new')}}">{{ 'text.add_entity'|trans({}, 'messages') }}</a>
-                </div>
-            </div>
-    </div>
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Libellé</th>
-                        <th>Enseignant(s)</th>
-                        <th>Couleur</th>
-                        <th>Editer</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {% for subject in subjects %}
-                    <tr>
-                        <td>{{subject.name}}</td>
-                        <td>
-                        {% for teacher in subject.teachers %}
-                            {{ teacher.firstname }}, {{ teacher.lastname }}</br>
-                        {% endfor %}
-                        </td>
-                        <td style="background-color:{{subject.color}}"></td>
-                        <td><a href="{{path('admin_subject_edit', {'id' : subject.id })}}">Editer</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+<div class="row">
+    <div class="col-md-12 page-header">
+        <div class="col-md-10">
+            <h1 class="text-left">
+                Gestion des matières
+            </h1>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-lg btn-success margin-top-20" href="{{path('admin_subject_new')}}">{{ 'text.add_entity'|trans({}, 'messages') }}</a>
         </div>
     </div>
-    <div class="col-md-4">
+</div>
+{% if subjects is not empty %}
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Libellé</th>
+                    <th>Enseignant(s)</th>
+                    <th>Couleur</th>
+                    <th>Editer</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for subject in subjects %}
+                <tr>
+                    <td>{{subject.name}}</td>
+                    <td>
+                        {% for teacher in subject.teachers %}
+                        {{ teacher.firstname }}, {{ teacher.lastname }}</br>
+                        {% endfor %}
+                    </td>
+                    <td style="background-color:{{subject.color}}"></td>
+                    <td><a href="{{path('admin_subject_edit', {'id' : subject.id })}}">Editer</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+</div>
+<div class="col-md-4">
+</div>
+{% else %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="alert alert-warning">
+            <h2>Il n'existe aucune matière.</h2>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

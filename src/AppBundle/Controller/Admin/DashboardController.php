@@ -1,4 +1,13 @@
 <?php
+/**
+* AccountController Doc Comment
+*
+* PHP version 5.5.9
+*
+* @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
+* @link   https://github.com/marvin-SL/planning
+*
+*/
 
 namespace AppBundle\Controller\Admin;
 
@@ -9,10 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 class DashboardController extends Controller
 {
     /**
-     * Dashboard index
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
+    * Show all entities
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function indexAction(Request $request)
     {
         $calendars['values'] = $this->getDoctrine()
@@ -25,6 +34,9 @@ class DashboardController extends Controller
         ->getRepository('AppBundle:Teacher')->findBy(array(), array('createdAt' => 'DESC'), 5);
         $users['values'] = $this->getDoctrine()
         ->getRepository('AppBundle:User')->findBy(array(), array('createdAt' => 'DESC'), 5);
+        $mailings['values'] = $this->getDoctrine()
+        ->getRepository('AppBundle:Mailing')->findBy(array(), array('createdAt' => 'DESC'), 5);
+
 
         $calendars['count'] = $this->getDoctrine()
         ->getRepository('AppBundle:Calendar')->count();
@@ -36,6 +48,8 @@ class DashboardController extends Controller
         ->getRepository('AppBundle:Teacher')->count();
         $users['count'] = $this->getDoctrine()
         ->getRepository('AppBundle:User')->count();
+        $mailings['count'] = $this->getDoctrine()
+        ->getRepository('AppBundle:Mailing')->count();
 
         return $this->render('AppBundle:Admin/Dashboard:index.html.twig', array(
             "calendars" => $calendars,
@@ -43,6 +57,7 @@ class DashboardController extends Controller
             "subjects" => $subjects,
             "teachers" => $teachers,
             "users" => $users,
+            "mailings" => $mailings,
         ));
     }
 }

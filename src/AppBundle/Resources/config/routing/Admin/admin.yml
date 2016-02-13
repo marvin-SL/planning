@@ -29,3 +29,7 @@ admin_user:
 admin_account:
     resource: "@AppBundle/Resources/config/routing/Admin/admin_account.yml"
     prefix:   /admin/account
+
+admin_mailing:
+    resource: "@AppBundle/Resources/config/routing/Admin/admin_mailing.yml"
+    prefix:   /admin/mailing

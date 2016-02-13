@@ -1,4 +1,13 @@
 <?php
+/**
+* AccountController Doc Comment
+*
+* PHP version 5.5.9
+*
+* @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
+* @link   https://github.com/marvin-SL/planning
+*
+*/
 
 namespace AppBundle\Controller\Admin;
 
@@ -9,6 +18,11 @@ use AppBundle\Form\UserType;
 
 class UserController extends Controller
 {
+    /**
+    * Show all User entities
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -20,6 +34,11 @@ class UserController extends Controller
         ));
     }
 
+    /**
+    * Create a new User entity
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function newAction(Request $request)
     {
         $entity = new User();
@@ -31,7 +50,7 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-              $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity);
+            $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity);
             $password = 'cmw';
             $entity->setPassword($encoder->encodePassword($password, $entity->getSalt()));
             $entity->setUsername($entity->getFirstName().'.'.$entity->getLastName());
@@ -52,6 +71,12 @@ class UserController extends Controller
         ));
     }
 
+    /**
+    * Edit a User entity by id
+    * @param  Request $request [description]
+    * @param  [type]  $id      [description]
+    * @return [type]           [description]
+    */
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -78,21 +103,21 @@ class UserController extends Controller
         }
 
         return $this->render('AppBundle:Admin/User:edit.html.twig', array(
-           'form' => $editForm->createView(),
-           'delete_form' => $deleteForm->createView(),
-           'entity' => $entity,
-           'users' => $users,
+            'form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'users' => $users,
         ));
     }
 
     /**
-     * Deletes a User entity.
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Symfony\Component\HttpFoundation\Response
-     */
+    * Delete a User entity by id
+    *
+    * @param Request $request
+    * @param int     $id
+    *
+    * @return Symfony\Component\HttpFoundation\Response
+    */
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -114,18 +139,18 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a form to delete a User entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
+    * Creates a form to delete a User entity by id.
+    *
+    * @param mixed $id The entity id
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_user_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
-            ->getForm();
+        ->setAction($this->generateUrl('admin_user_delete', array('id' => $id)))
+        ->setMethod('DELETE')
+        ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'forms'))
+        ->getForm();
     }
 }

@@ -1,0 +1,9 @@
+{% extends 'AppBundle:Admin/Notification:template.html.twig' %}
+
+{% block body %}
+    {{comment | raw}}
+{% endblock %}
+
+{% block signature %}
+{{app.user.firstname}} {{ app.user.lastname}}
+{% endblock %}

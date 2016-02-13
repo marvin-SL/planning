@@ -1,0 +1,23 @@
+admin_mailing_index:
+  path:        /
+  defaults:  {_controller: AppBundle:Admin/Mailing:index}
+
+admin_mailing_new:
+      path:    /new
+      defaults:  {_controller: AppBundle:Admin/Mailing:new}
+
+admin_mailing_edit:
+      path:    /{slug}/edit
+      defaults:  {_controller: AppBundle:Admin/Mailing:edit}
+
+admin_mailing_send:
+      path:    /send
+      defaults:  {_controller: AppBundle:Admin/Mailing:send}
+
+admin_mailing_write:
+      path:    /{slug}/write-email
+      defaults:  {_controller: AppBundle:Admin/Mailing:writeMail}
+
+admin_mailing_delete:
+ path:        /{slug}/delete
+ defaults:  {_controller: AppBundle:Admin/Mailing:delete}

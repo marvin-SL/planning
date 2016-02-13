@@ -29,6 +29,7 @@
 
         <service id="app.manager.notification" class="%app.manager.notification.class%">
             <argument type="service" id="security.context"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="mailer" />
             <argument type="service" id="templating"/>
         </service>

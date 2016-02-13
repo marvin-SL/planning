@@ -122,6 +122,34 @@ Tableau de bord
             </div>
         </div>
     </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 block">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Liste de diffusion
+                    <span class="pull-right">
+                        <span class="badge">{{ mailings.count}}</span>
+                        <a class="badge" href="{{ path('admin_mailing_index') }}"><i class="fa fa-list"></i></a>
+                    </span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% for mailing in mailings.values %}
+                    <a href="{{path('admin_mailing_edit', {'slug' : mailing.slug })}}">{{mailing.name}}</a>
+                    |
+                    <a href="{{path('admin_mailing_write', {'slug' : mailing.slug })}}"><i class="fa fa-envelope-o"></i></a>
+                    {% if mailing.sentAt is not empty %}
+                        <small class="pull-right">Notification envoyée {{ mailing.sentAt|time_diff}}</small><br>
+                        {% else %}
+                        <small class="pull-right">-</small><br>
+                    {% endif %}
+
+                {% else %}
+                    <em>Aucune liste de diffusion à afficher</em>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 {% block javascripts %}
 {% endblock %} <!--block js-->
