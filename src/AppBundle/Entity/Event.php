@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Event
@@ -32,31 +33,34 @@ class Event
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="start_date", type="datetime")
      */
     private $startDate;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="end_date", type="datetime")
      */
     private $endDate;
 
     /**
+   * @Assert\NotBlank()
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Calendar", cascade={"persist"}, inversedBy="events")
    * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
    */
     private $calendar;
 
     /**
+   * @Assert\NotBlank()
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Subject", cascade={"persist"})
    * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
    */
     private $subject;
 
     /**
+   * @Assert\NotBlank()
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Classroom", cascade={"persist"}, inversedBy="events")
    * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
    */

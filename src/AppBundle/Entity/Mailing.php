@@ -6,12 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Mailing
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\MailingRepository")
+ * @UniqueEntity("name")
  */
 class Mailing
 {
@@ -27,6 +30,7 @@ class Mailing
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
@@ -35,6 +39,7 @@ class Mailing
     /**
      * @var array
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="mails", type="string")
      */
     private $mails;

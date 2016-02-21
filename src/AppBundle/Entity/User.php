@@ -8,11 +8,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
 * @ORM\Entity
 * @ORM\Table(name="user")
 * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserRepository")
+* @UniqueEntity("email")
+* @UniqueEntity(
+* 	fields={"firstname", "lastname"},
+* 	message="Le couple nom/prenom est déjà pris"
+* 	)
 */
 class User extends BaseUser
 {
