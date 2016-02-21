@@ -47,7 +47,6 @@ class Calendar
 
     /**
      * @var datetime
-     * @Assert\NotBlank()
      * @ORM\Column(name="lastEventEditedAt", type="datetime", nullable=true)
      */
     private $lastEventEditedAt;
