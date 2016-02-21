@@ -130,6 +130,7 @@ class MailingController extends Controller
 
         $object = $request->request->get('object');
         $recipients =  $request->request->get('recipient');
+        $ccs = $request->request->get('cc');
 
         $body = $this->renderView(
         'AppBundle:Admin/Notification:notification.html.twig',
@@ -143,7 +144,7 @@ class MailingController extends Controller
         };
 
         try {
-            $notificationManager->send($object, $body, 'sender@test.com', explode(';', $recipients->getMails()));
+            $notificationManager->send($object, $body, 'sender@test.com', explode(';', $recipients->getMails()), $copy = null, explode(';', $ccs));
 
             $recipients->setSentAt(new \DateTime("now"));
             $em->persist($recipients);
