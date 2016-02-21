@@ -12,7 +12,7 @@ class MailingType extends AbstractType
     {
         $builder
         ->add('name', 'text', array('label' => 'Libellé :'))
-        ->add('mails', 'textarea', array('label' => 'e-mails :'))
+        ->add('mails', 'text', array('label' => 'e-mails :'))
         ->add('save', 'submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
         ;
     }
