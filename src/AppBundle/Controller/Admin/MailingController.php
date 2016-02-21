@@ -132,6 +132,14 @@ class MailingController extends Controller
         $recipients =  $request->request->get('recipient');
         $ccs = $request->request->get('cc');
 
+        if($ccs == ""){
+            $ccs = null;
+        }
+        else {
+            $ccs = explode(';', $ccs);
+        }
+
+
         $body = $this->renderView(
         'AppBundle:Admin/Notification:notification.html.twig',
         array(
@@ -144,7 +152,7 @@ class MailingController extends Controller
         };
 
         try {
-            $notificationManager->send($object, $body, 'sender@test.com', explode(';', $recipients->getMails()), $copy = null, explode(';', $ccs));
+            $notificationManager->send($object, $body, 'saytaine@gmail.com', explode(';', $recipients->getMails()), $copy = null, $ccs);
 
             $recipients->setSentAt(new \DateTime("now"));
             $em->persist($recipients);
