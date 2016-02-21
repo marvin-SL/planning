@@ -8,71 +8,68 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
-* @ORM\Entity
-* @ORM\Table(name="user")
-* @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserRepository")
-* @UniqueEntity("email")
-* @UniqueEntity(
-* 	fields={"firstname", "lastname"},
-* 	message="Le couple nom/prenom est déjà pris"
-* 	)
-*/
+ * @ORM\Entity
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\UserRepository")
+ * @UniqueEntity("email")
+ * @UniqueEntity(
+ *     fields={"firstname", "lastname"},
+ *     message="Le couple nom/prenom est déjà pris"
+ * )
+ */
 class User extends BaseUser
 {
-  /**
-  * @ORM\Id
-  * @ORM\Column(type="integer")
-  * @ORM\GeneratedValue(strategy="AUTO")
-  */
-  protected $id;
+    /**
+   * @ORM\Id
+   * @ORM\Column(type="integer")
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+    protected $id;
 
   /**
    * @var string
    *
    * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
    */
-  protected $firstname;
+    protected $firstname;
 
   /**
    * @var string
    *
    * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
    */
-  protected $lastname;
+    protected $lastname;
 
   /**
-   * @var \DateTime $passwordChangedAt
+   * @var \DateTime
    *
    * @Gedmo\Timestampable(on="change", field={"password"})
    * @ORM\Column(type="datetime", nullable=true)
    */
-  private $passwordChangedAt;
+    private $passwordChangedAt;
 
-  /**
+  /*
    * Hook timestampable behavior
    * updates publishedAt, updatedAt fields
    */
-  use TimestampableEntity;
+    use TimestampableEntity;
 
-  /**
+  /*
    * Hook blameable behavior
    * updates createdBy, updatedBy fields
    */
-  use BlameableEntity;
+    use BlameableEntity;
 
-
-  public function __construct()
-  {
-    parent::__construct();
-
-  }
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
-     * Set firstname
+     * Set firstname.
      *
      * @param string $firstname
      *
@@ -86,7 +83,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get firstname
+     * Get firstname.
      *
      * @return string
      */
@@ -96,7 +93,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set lastname
+     * Set lastname.
      *
      * @param string $lastname
      *
@@ -110,7 +107,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get lastname
+     * Get lastname.
      *
      * @return string
      */
@@ -120,24 +117,24 @@ class User extends BaseUser
     }
 
     /**
-    * Get highest role of the user
-    *
-    * @return ArrayCollection
-    */
+     * Get highest role of the user.
+     *
+     * @return ArrayCollection
+     */
     public function getHighestRole()
     {
-        $highestRole = "Utilisateur";
+        $highestRole = 'Utilisateur';
         if ($this->hasRole('ROLE_SUPER_ADMIN')) {
-            $highestRole = "Super administrateur";
+            $highestRole = 'Super administrateur';
         } elseif ($this->hasRole('ROLE_ADMIN')) {
-            $highestRole = "Administrateur";
+            $highestRole = 'Administrateur';
         }
 
         return $highestRole;
     }
 
     /**
-     * Set passwordChanged
+     * Set passwordChanged.
      *
      * @param \DateTime $passwordChanged
      *
@@ -151,7 +148,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get passwordChanged
+     * Get passwordChanged.
      *
      * @return \DateTime
      */
@@ -161,7 +158,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set passwordChangedAt
+     * Set passwordChangedAt.
      *
      * @param \DateTime $passwordChangedAt
      *
@@ -175,7 +172,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get passwordChangedAt
+     * Get passwordChangedAt.
      *
      * @return \DateTime
      */

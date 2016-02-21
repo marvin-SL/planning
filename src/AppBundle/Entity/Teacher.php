@@ -110,5 +110,4 @@ class Teacher
     {
         return $this->lastname;
     }
-
 }
