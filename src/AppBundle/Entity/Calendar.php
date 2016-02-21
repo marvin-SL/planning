@@ -6,12 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Calendar
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\CalendarRepository")
+ * @UniqueEntity("title")
  */
 class Calendar
 {
@@ -26,7 +29,7 @@ class Calendar
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;

@@ -5,12 +5,15 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Classroom
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\ClassroomRepository")
+ * @UniqueEntity("name")
  */
 class Classroom
 {
@@ -25,15 +28,11 @@ class Classroom
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
-    /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="classroom")
-    */
-    private $events;
 
     /**
      * Hook timestampable behavior
@@ -79,47 +78,5 @@ class Classroom
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add event
-     *
-     * @param \AppBundle\Entity\Event $event
-     *
-     * @return Classroom
-     */
-    public function addEvent(\AppBundle\Entity\Event $event)
-    {
-        $this->events[] = $event;
-
-        return $this;
-    }
-
-    /**
-     * Remove event
-     *
-     * @param \AppBundle\Entity\Event $event
-     */
-    public function removeEvent(\AppBundle\Entity\Event $event)
-    {
-        $this->events->removeElement($event);
-    }
-
-    /**
-     * Get events
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEvents()
-    {
-        return $this->events;
     }
 }

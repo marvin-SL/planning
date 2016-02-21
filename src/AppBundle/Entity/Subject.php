@@ -7,12 +7,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Oh\ColorPickerTypeBundle\Validator\Constraints as OhAssertColor;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Subject
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\SubjectRepository")
+ * @UniqueEntity("name")
  */
 class Subject
 {
@@ -28,6 +30,7 @@ class Subject
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -38,6 +41,7 @@ class Subject
     private $teachers;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=7, nullable=false)
      * @Assert\NotBlank()
      */
