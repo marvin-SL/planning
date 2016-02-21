@@ -35,7 +35,7 @@ class Calendar
     private $title;
 
     /**
-    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", mappedBy="calendar")
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Event", cascade={"persist"}, mappedBy="calendar")
     */
     private $events;
 
@@ -44,6 +44,12 @@ class Calendar
      * @ORM\Column(length=255, unique=true)
      */
     protected $slug;
+
+    /**
+     * @var datetime
+     * @ORM\Column(name="lastEventEditedAt", type="datetime", nullable=true)
+     */
+    private $lastEventEditedAt;
 
     /**
      * Hook timestampable behavior
@@ -158,5 +164,29 @@ class Calendar
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set lastEventEditedAt
+     *
+     * @param \DateTime $lastEventEditedAt
+     *
+     * @return Calendar
+     */
+    public function setLastEventEditedAt($lastEventEditedAt)
+    {
+        $this->lastEventEditedAt = $lastEventEditedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get lastEventEditedAt
+     *
+     * @return \DateTime
+     */
+    public function getLastEventEditedAt()
+    {
+        return $this->lastEventEditedAt;
     }
 }

@@ -34,7 +34,7 @@ class NotificationManager extends BaseManager
      * @param  [type] $cc        [description]
      * @return [type]            [description]
      */
-    public function send($subject, $body, $sender, $recipient, $copy = null, $cc = null)
+    public function send($subject, $body, $sender, $recipient, $copy = null, $ccs = null)
     {
         $message = \Swift_Message::newInstance()
         ->setSubject($subject)
@@ -42,8 +42,11 @@ class NotificationManager extends BaseManager
         ->setBcc($copy)
         ->setto($recipient)
         ->setBody($body, 'text/html');
-        if ($cc != null) {
-            $message->addCc($cc);
+        if ($ccs != null) {
+            foreach($ccs as $cc){
+                $message->addCc($cc);
+            }
+
         }
 
         $this->mailer->send($message);

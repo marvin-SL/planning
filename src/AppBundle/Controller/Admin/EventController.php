@@ -34,6 +34,7 @@ class EventController extends Controller
         $serializer = $this->get('app.manager.customSerializer');
 
         if ($form->isValid()) {
+            $event->getCalendar()->setLastEventEditedAt(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -85,12 +86,14 @@ class EventController extends Controller
 
                 $entity->setStartDate(new \DateTime($startDate));
                 $entity->setEndDate(new \DateTime($endDate));
+                $calendar->setLastEventEditedAt(new \DateTime('now'));
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
                 $serializer->serialize($calendar);
             } else {
                 if ($editForm->isValid()) {
+                    $calendar->setLastEventEditedAt(new \DateTime('now'));
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($entity);
                     $em->flush();

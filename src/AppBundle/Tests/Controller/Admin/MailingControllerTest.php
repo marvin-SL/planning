@@ -158,6 +158,8 @@ class MailingControllerTest extends WebTestCase
 
             $form['object'] = "Foobar objet";
 
+            $form['cc'] = "azzzerty@aa.fr;qwerty@aa.com";
+
             $form['comment'] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue quam, consequa";
 
             $client->submit($form);

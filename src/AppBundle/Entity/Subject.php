@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\SubjectRepository")
  * @UniqueEntity("name")
+ * @UniqueEntity("color")
  */
 class Subject
 {

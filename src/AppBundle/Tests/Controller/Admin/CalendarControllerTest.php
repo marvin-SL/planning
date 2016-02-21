@@ -34,8 +34,26 @@ class CalendarControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('html:contains("groupe-1")')->count(), 'Missing element html:contains("groupe-1")');
     }
 
+
+    /**
+     * test on failing to show calandar.
+     */
+   public function testShow()
+   {
+        $client = static::createClient();
+
+        $this->login($client, 'marvin.sainteluce', 'cmw');
+
+        $crawler = $client->request('GET', '/admin/calendars/groupe-1/show');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/calendars/groupe-1/show');
+
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("groupe 1")')->count(), 'Missing element html:contains("groupe 1")');
+
+   }
+
      /**
-      * test on failing to show calender.
+      * test on failing to show calandar.
       */
     public function failShow()
     {

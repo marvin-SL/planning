@@ -1,14 +1,13 @@
 <?php
 /**
-* AccountController Doc Comment
+* AccountController Doc Comment.
 *
 * PHP version 5.5.9
 *
 * @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
-* @link   https://github.com/marvin-SL/planning
 *
+* @link   https://github.com/marvin-SL/planning
 */
-
 namespace AppBundle\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,10 +19,12 @@ use AppBundle\Form\MailingType;
 class MailingController extends Controller
 {
     /**
-    * Show all Mailing entities
-    * @param  Request $request [description]
-    * @return [type]           [description]
-    */
+     * Show all Mailing entities.
+     *
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
+     */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -36,10 +37,12 @@ class MailingController extends Controller
     }
 
     /**
-    * Add a new Mailing entity
-    * @param  Request $request [description]
-    * @return [type]           [description]
-    */
+     * Add a new Mailing entity.
+     *
+     * @param Request $request [description]
+     *
+     * @return [type] [description]
+     */
     public function newAction(Request $request)
     {
         $mailing = new Mailing();
@@ -65,11 +68,13 @@ class MailingController extends Controller
     }
 
     /**
-    * Edit a Mailing entity by slug
-    * @param  Request $request [description]
-    * @param  [type]  $slug    [description]
-    * @return [type]           [description]
-    */
+     * Edit a Mailing entity by slug.
+     *
+     * @param Request $request [description]
+     * @param [type]  $slug    [description]
+     *
+     * @return [type] [description]
+     */
     public function editAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -101,14 +106,16 @@ class MailingController extends Controller
     }
 
     /**
-    * Generate a view to send an email by Mailing entity's slug
-    * @param  [type] $slug [description]
-    * @return [type]       [description]
-    */
+     * Generate a view to send an email by Mailing entity's slug.
+     *
+     * @param [type] $slug [description]
+     *
+     * @return [type] [description]
+     */
     public function writeMailAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $list = $em->getRepository('AppBundle:Mailing')->findOneBy(array('slug'=>$slug));
+        $list = $em->getRepository('AppBundle:Mailing')->findOneBy(array('slug' => $slug));
 
         return $this->render('AppBundle:Admin/Mailing:writeMail.html.twig', array(
             'list' => $list,
@@ -116,44 +123,48 @@ class MailingController extends Controller
     }
 
     /**
-    * Send an mail
-    *
-    * @param string $subject
-    * @param string $recipient
-    * @param string $report
-    * @param string $comment
-    */
+     * Send an mail.
+     *
+     * @param string $subject
+     * @param string $recipient
+     * @param string $report
+     * @param string $comment
+     */
     public function sendAction(Request $request)
     {
         $notificationManager = $this->get('app.manager.notification');
         $em = $this->getDoctrine()->getManager();
 
         $object = $request->request->get('object');
-        $recipients =  $request->request->get('recipient');
+        $recipients = $request->request->get('recipient');
+        $ccs = $request->request->get('cc');
+
+        if ($ccs == '') {
+            $ccs = null;
+        } else {
+            $ccs = explode(';', $ccs);
+        }
 
         $body = $this->renderView(
-        'AppBundle:Admin/Notification:notification.html.twig',
-        array(
+            'AppBundle:Admin/Notification:notification.html.twig',
+            array(
             'comment' => $request->request->get('comment'),
             'text/html', )
         );
 
-        if (!$recipients = $em->getRepository('AppBundle:Mailing')->findOneBy(array("name" => $recipients))) {
+        if (!$recipients = $em->getRepository('AppBundle:Mailing')->findOneBy(array('name' => $recipients))) {
             throw $this->createNotFoundException(sprintf('Unable to find mailing list "%s"', $recipients));
         };
 
         try {
-            $notificationManager->send($object, $body, 'sender@test.com', explode(';', $recipients->getMails()));
+            $notificationManager->send($object, $body, 'saytaine@gmail.com', explode(';', $recipients->getMails()), $copy = null, $ccs);
 
-            $recipients->setSentAt(new \DateTime("now"));
+            $recipients->setSentAt(new \DateTime('now'));
             $em->persist($recipients);
             $em->flush();
-
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), 1);
-
         }
-
 
         $message = $this->get('translator')->trans('mailing.send_success', array(), 'flashes');
         $this->get('session')->getFlashBag()->add('success', $message);
@@ -162,13 +173,13 @@ class MailingController extends Controller
     }
 
     /**
-    * Deletes a Mailing entity by id
-    *
-    * @param Request $request
-    * @param int     $id
-    *
-    * @return Symfony\Component\HttpFoundation\Response
-    */
+     * Deletes a Mailing entity by id.
+     *
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
     public function deleteAction(Request $request, $slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -190,12 +201,12 @@ class MailingController extends Controller
     }
 
     /**
-    * Creates a form to delete a Mailing entity by id.
-    *
-    * @param mixed $id The entity id
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to delete a Mailing entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createDeleteForm($slug)
     {
         return $this->createFormBuilder()
