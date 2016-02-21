@@ -31,7 +31,11 @@ Tableau de bord
             <div class="panel-body">
                 {% for calendar in calendars.values %}
                     <a href="{{path('admin_calendar_show', {'slug' : calendar.slug })}}">{{calendar.title}}</a>
-                    <small class="pull-right">{{ calendar.updatedAt|time_diff}}</small><br>
+                    {% if calendar.lastEventEditedAt is not empty %}
+                        <small class="pull-right">{{ calendar.lastEventEditedAt|time_diff}}</small><br>
+                        {% else %}
+                        <small class="pull-right">-</small><br>
+                    {% endif %}
                 {% else %}
                     <em>Aucun planning à afficher.</em>
                 {% endfor %}

@@ -89,7 +89,7 @@ class CalendarController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            //$event->setCalendar($entity);
+            $event->getCalendar()->setLastEventEditedAt(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
