@@ -7,3 +7,7 @@ index:
 admin:
     resource: "@AppBundle/Resources/config/routing/Admin/admin.yml"
     prefix:   /
+
+User:
+    resource: "@AppBundle/Resources/config/routing/User/user.yml"
+    prefix:   /
