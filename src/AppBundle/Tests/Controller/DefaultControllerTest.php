@@ -1,4 +1,13 @@
 <?php
+/**
+* CalendarControllerTest Doc Comment.
+*
+* PHP version 5.5.9
+*
+* @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
+*
+* @link   https://github.com/marvin-SL/planning
+*/
 
 namespace AppBundle\Tests\Controller;
 
@@ -19,15 +28,5 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("groupe 3")')->count(), 'Missing element html:contains("groupe 1")');
-    }
-
-
-    public function testFail()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/calendar/azerty12121212');
-
-        $this->assertTrue($client->getResponse()->isNotFound());
     }
 }
