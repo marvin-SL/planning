@@ -10,6 +10,14 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        return $this->render('AppBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        if (!$entities = $em->getRepository('AppBundle:Calendar')->findAll()) {
+            throw $this->createNotFoundException(sprintf('Unable to find calendars'));
+        };
+
+        return $this->render('AppBundle:Default:index.html.twig', array(
+            'entities' => $entities
+        ));
     }
 }
