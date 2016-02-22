@@ -1,25 +1,57 @@
-{% extends '::base.html.twig' %}
-{% block head %}<script src="http://code.jquery.com/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script> {% endblock %}
-
-{% block title %}test{% endblock %}
+{% extends 'visitor.html.twig' %}
+{% block head %} {% endblock %}
+{% block title %} {% endblock %}
 
 {% block stylesheets %}
 {% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler.css' %}
 <link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
 {% endstylesheets %}
+{% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
+
+
+<style type="text/css">
+html, body{ height:100%; padding:0px; margin:0px; }
+.well {
+    text-align: right;
+}
+.container-fluid #scheduler_here {
+    height: 700px;
+    width: 100%;
+    border: 1px solid #cecece;
+    top : 50px;
+}
+#scheduler_here {
+    border-radius: 4px;
+}
+</style>
 {% endblock %}
 
 {% block body %}
+    <div class="dhx_cal_container panel" id="scheduler_here">
 
-<style type="text/css">
-html, body{
+        <div class="dhx_cal_navline">
+            <div class="dhx_cal_prev_button">&nbsp;</div>
+            <div class="dhx_cal_next_button">&nbsp;</div>
+            <div class="dhx_cal_today_button"></div>
+            <div class="dhx_cal_date"></div>
+            <div class="dhx_minical_icon" id="dhx_minical_icon"
+    onclick="show_minical()">&nbsp;</div>
+            <div class="dhx_cal_tab" name="day_tab"></div>
+            <div class="dhx_cal_tab" name="week_tab"></div>
+            <div class="dhx_cal_tab" name="month_tab"></div>
+            <div class="dhx_cal_tab" name="year_tab"></div>
+        </div>
+        <div class="dhx_cal_header"></div>
+        <div class="dhx_cal_data"></div>
+    </div>
 
-}
-</style>
-
-<!-- <div class="calendar" style='height:50px;'>
-    <div class="myscheduler" style='width:100%; height:100%;'></div>
-</div> -->
+    <div class="well">
+        <div>
+            <a class="logo" title="DHTMLX - JavaScript Web App Framework &amp; UI Widgets" href="http://dhtmlx.com/docs/products/dhtmlxScheduler/"></a>
+        </div>
+    </div>
 
 {% endblock %}
 
@@ -27,20 +59,50 @@ html, body{
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
-{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_serialize.js' %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_minical.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
-<!-- <script type="text/javascript" charset="utf-8">
-$(function(){
-    $(".myscheduler").dhx_scheduler({
-        xml_date:"%Y-%m-%d %H:%i",
-        date:new Date(2014,4,25),
-        mode:"month"
-    });
+<script type="text/javascript">
+scheduler.load("/planning/data/groupe-1.xml");
+scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+scheduler.config.readonly = true;
 
-    scheduler.load("{#}{{ asset('public/events.xml')}}#}")
-});
-</script> -->
+scheduler.data_attributes = function(){
+    return [
+        ["start_date", scheduler.templates.xml_format],
+        ["end_date", scheduler.templates.xml_format],
+        ["subject"],
+        ["classroom"],
+        ["notice"],
+        ["id"],
+    ];
+};
 
+scheduler.config.first_hour = 8;
+scheduler.config.show_loading = true;
+scheduler.config.time_step = 30;
+
+scheduler.init('scheduler_here',new Date(),"week");
+scheduler.templates.event_text=function(start,end,event){
+    return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classroom+"</b><br>"+"infos: <b>"+event.notice+"</b></br>";
+
+}
+
+function show_minical(){
+    if (scheduler.isCalendarVisible()){
+        scheduler.destroyCalendar();
+    } else {
+        scheduler.renderCalendar({
+            position:"dhx_minical_icon",
+            date:scheduler._date,
+            navigation:true,
+            handler:function(date,calendar){
+                scheduler.setCurrentView(date);
+                scheduler.destroyCalendar()
+            }
+        });
+    }
+}
+</script>
 {% endblock %}
