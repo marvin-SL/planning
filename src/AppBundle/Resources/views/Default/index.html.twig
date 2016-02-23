@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body %}
+{{ wo_render_breadcrumbs() }}
     {% for entity in entities %}
         <a href = "{{path('user_calendar_show', {'slug' : entity.slug})}}">{{entity.title}}</a>
     {% endfor %}

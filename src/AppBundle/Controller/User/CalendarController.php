@@ -10,11 +10,18 @@ class CalendarController extends Controller
 {
     public function showAction(Request $request, $slug)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+
+        $breadcrumbs->addRouteItem("Accueil", "index");
+        $breadcrumbs->addRouteItem($slug, "user_calendar_show", [
+        'slug' => $slug,
+        ]);
+
         $em = $this->getDoctrine()->getManager();
         if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array('slug' => $slug,))) {
             throw $this->createNotFoundException(sprintf('Unable to find calendar with slug "%s"', $slug));
         };
-        
+
         return $this->render('AppBundle:User/Calendar:show.html.twig', array(
             'entity' => $entity,
         ));
