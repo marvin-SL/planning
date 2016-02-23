@@ -146,6 +146,12 @@ html, body{ height:100%; padding:0px; margin:0px; }
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_minical.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/locale_fr.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/locale_recurring_fr.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
