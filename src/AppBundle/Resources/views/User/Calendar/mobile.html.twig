@@ -12,12 +12,12 @@
 
 
 <style type="text/css" media="screen">
-	html, body{
-		margin:0px;
-		padding:0px;
-		height:100%;
-		overflow:hidden;
-	}
+html, body{
+    margin:0px;
+    padding:0px;
+    height:100%;
+    overflow:hidden;
+}
 </style>
 {% endblock %}
 
@@ -28,24 +28,39 @@
 {% endjavascripts %}
 
 
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
 scheduler.config.readonly = true;
 
-scheduler.config.first_hour = 8;
-scheduler.config.show_loading = true;
-scheduler.config.time_step = 30;
+dhx.Date.Locale.month_full = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+var labels = {
+    icon_back:"Retour",
+    icon_today:"Aujourd&#39;hui",
+    list_tab:"Liste",
+    day_tab:"Jour",
+    month_tab:"Mois",
+};
+//
+// scheduler.config.form_date = "%m-%Y-%d %h:%i %a"; //default is "%d-%m-%Y %H:%i"
+// scheduler.config.header_date = "%D, %d.%m.%Y"; //default is "%d.%m.%Y"
+// scheduler.config.item_date = "%d %M"; //default is "%d.%m.%Y"
+// scheduler.config.calendar_date = "%M %Y"; //default is "%F %Y"
+// scheduler.config.hour_date = "%h:%i %a"; //default is "%H:%i'
 
+dhx.extend(scheduler.locale.labels,labels,true);
+scheduler.xy.icon_today = 150;
+scheduler.xy.list_tab = 80;
+scheduler.xy.day_tab = 62;
+scheduler.xy.month_tab = 80;
 
-//dhx.ready() function ensures that your code will be executed as soon as the page finishes loading
 dhx.ready(function(){
-    //the method allows you to hide the address bar on iPhone/iPod to save the space for application
     dhx.ui.fullScreen();
-    //object constructor
     dhx.ui({
         view: "scheduler",
-	id: "scheduler"
+        id: "scheduler"
     });
-    // method load() lets you to populate the scheduler with data
+    dhx.i18n.fullDateFormat="%Y-%m-%d %H:%i";
+    dhx.i18n.setLocale();
+
     $$("scheduler").load("/planning/data/{{entity.slug}}.xml","scheduler");
 });
 
