@@ -1,0 +1,53 @@
+{% extends 'mobile.html.twig' %}
+{% block head %}
+<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+{% endblock %}
+{% block title %} {% endblock %}
+
+{% block stylesheets %}
+
+{% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhxscheduler_mobile.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
+
+
+<style type="text/css" media="screen">
+	html, body{
+		margin:0px;
+		padding:0px;
+		height:100%;
+		overflow:hidden;
+	}
+</style>
+{% endblock %}
+
+
+{% block javascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhxscheduler_mobile.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+
+<script type="text/javascript">
+scheduler.config.readonly = true;
+
+scheduler.config.first_hour = 8;
+scheduler.config.show_loading = true;
+scheduler.config.time_step = 30;
+
+
+//dhx.ready() function ensures that your code will be executed as soon as the page finishes loading
+dhx.ready(function(){
+    //the method allows you to hide the address bar on iPhone/iPod to save the space for application
+    dhx.ui.fullScreen();
+    //object constructor
+    dhx.ui({
+        view: "scheduler",
+	id: "scheduler"
+    });
+    // method load() lets you to populate the scheduler with data
+    $$("scheduler").load("/planning/data/{{entity.slug}}.xml","scheduler");
+});
+
+</script>
+{% endblock %}

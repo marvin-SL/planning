@@ -27,4 +27,16 @@ class CalendarController extends Controller
             'entity' => $entity,
         ));
     }
+
+    public function mobileAction(Request $request, $slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array('slug' => $slug,))) {
+            throw $this->createNotFoundException(sprintf('Unable to find calendar with slug "%s"', $slug));
+        };
+
+        return $this->render('AppBundle:User/Calendar:mobile.html.twig', array(
+            'entity' => $entity,
+        ));
+    }
 }
