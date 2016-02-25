@@ -15,10 +15,6 @@
 <link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
 {% endstylesheets %}
 
-{% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhtmlxscheduler_mobile.css' %}
-<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
-{% endstylesheets %}
-
 <style type="text/css">
 html, body{ height:100%; padding:0px; margin:0px; }
 .well {
@@ -57,9 +53,6 @@ html, body{ height:100%; padding:0px; margin:0px; }
 {% endblock %}
 
 {% block javascripts %}
-{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_mobile.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
 
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
 <script src="{{ asset_url }}"></script>
