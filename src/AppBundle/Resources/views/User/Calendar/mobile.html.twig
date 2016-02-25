@@ -31,6 +31,7 @@ html, body{
 <script type="text/javascript" charset="utf-8">
 scheduler.config.readonly = true;
 
+
 dhx.Date.Locale.month_full = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 var labels = {
     icon_back:"Retour",
@@ -51,6 +52,53 @@ scheduler.xy.icon_today = 150;
 scheduler.xy.list_tab = 80;
 scheduler.xy.day_tab = 62;
 scheduler.xy.month_tab = 80;
+
+scheduler.templates.event_title = function(obj,type){
+	return "<div class='dhx_day_title'>"+scheduler.templates.event_date(obj.start_date)+"</div><div style='margin:10px'><div class='dhx_event_time'>"+scheduler.templates.event_time(obj)+"</div>"+scheduler.templates.event_marker(obj,type)+"<div class='dhx_event_text'>"+obj.subject+"</div></div>";
+};
+
+scheduler.templates.month_event_title = function(obj,type){
+	return scheduler.templates.event_marker(obj,type)+"<div class='dhx_event_time'>"+scheduler.templates.event_time(obj)+"</div><div class='dhx_event_text'>"+obj.subject+"</div>";
+}
+
+scheduler.templates.day_event = function(obj,type){
+	return obj.subject;
+}
+
+scheduler.templates.selected_event = function(obj){
+     var html = "", fts="", fte="";
+     var start = obj.start_date;
+     var end = obj.end_date;
+
+     if(!start) return html;
+     html += "<div  class='selected_event "+scheduler.templates.event_class(obj)+"' style='"+(obj.color?"background-color:"+obj.color+";":"")+(obj.fontColor||obj.textColor?"color:"+(obj.fontColor||obj.textColor):"")+"'>";
+     html += "<div class='event_title'>"+obj.subject+"</div>";
+
+     if(dhx.Date.datePart(start).valueOf()==dhx.Date.datePart(end).valueOf()){
+         var fd = dhx.i18n.dateFormatStr(start);
+         fts = dhx.i18n.timeFormatStr(start);
+         fte = dhx.i18n.timeFormatStr(end);
+         html += "<div class='event_text'>"+fd+"</div>";
+         html += "<div class='event_text'>"+scheduler.locale.labels.label_from+" "+fts+" "+scheduler.locale.labels.label_to+" "+fte+"</div>";
+     }
+     else{
+         var fds = dhx.i18n.longDateFormatStr(start);
+         var fde = dhx.i18n.longDateFormatStr(end);
+         /*if not "all-day" event*/
+         if(!(dhx.Date.datePart(start).valueOf()==start.valueOf()&&dhx.Date.datePart(end).valueOf()==end.valueOf())){
+             fts = dhx.i18n.timeFormatStr(start)+" ";
+             fte = dhx.i18n.timeFormatStr(end)+" ";
+         }
+         html += "<div class='event_text'>"+scheduler.locale.labels.label_from+" "+fts+fds+"</div>";
+         html += "<div class='event_text'>"+scheduler.locale.labels.label_to+" "+fte+fde+"</div>";
+     }
+     if(obj.notice&&obj.notice!==""){
+         html += "<div class='event_title'>"+scheduler.locale.labels.label_details+"</div>";
+         html += "<div class='event_text'>"+obj.notice+"</div>";
+     }
+     html += "</div>";
+     return html;
+};
 
 dhx.ready(function(){
     dhx.ui.fullScreen();
