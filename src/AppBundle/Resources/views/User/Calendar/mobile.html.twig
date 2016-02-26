@@ -72,7 +72,7 @@ scheduler.templates.selected_event = function(obj){
 
      if(!start) return html;
      html += "<div  class='selected_event "+scheduler.templates.event_class(obj)+"' style='"+(obj.color?"background-color:"+obj.color+";":"")+(obj.fontColor||obj.textColor?"color:"+(obj.fontColor||obj.textColor):"")+"'>";
-     html += "<div class='event_title'>"+obj.subject+obj.classroom+"</div>";
+     html += "<div class='event_title'>"+obj.subject+' '+obj.classroom+"</div>";
 
      if(dhx.Date.datePart(start).valueOf()==dhx.Date.datePart(end).valueOf()){
          var fd = dhx.i18n.dateFormatStr(start);
