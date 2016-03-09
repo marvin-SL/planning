@@ -1,0 +1,116 @@
+{% extends 'mobile.html.twig' %}
+{% block head %}
+<meta  name = "viewport" content = "initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no">
+{% endblock %}
+{% block title %} {% endblock %}
+
+{% block stylesheets %}
+
+{% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhxscheduler_mobile.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
+
+
+<style type="text/css" media="screen">
+html, body{
+    margin:0px;
+    padding:0px;
+    height:100%;
+    overflow:hidden;
+}
+</style>
+{% endblock %}
+
+
+{% block javascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhxscheduler_mobile.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+
+<script type="text/javascript" charset="utf-8">
+scheduler.config.readonly = true;
+
+
+dhx.Date.Locale.month_full = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+var labels = {
+    icon_back:"Retour",
+    icon_today:"Aujourd&#39;hui",
+    list_tab:"Liste",
+    day_tab:"Jour",
+    month_tab:"Mois",
+};
+//
+// scheduler.config.form_date = "%m-%Y-%d %h:%i %a"; //default is "%d-%m-%Y %H:%i"
+// scheduler.config.header_date = "%D, %d.%m.%Y"; //default is "%d.%m.%Y"
+// scheduler.config.item_date = "%d %M"; //default is "%d.%m.%Y"
+// scheduler.config.calendar_date = "%M %Y"; //default is "%F %Y"
+// scheduler.config.hour_date = "%h:%i %a"; //default is "%H:%i'
+
+dhx.extend(scheduler.locale.labels,labels,true);
+scheduler.xy.icon_today = 150;
+scheduler.xy.list_tab = 80;
+scheduler.xy.day_tab = 62;
+scheduler.xy.month_tab = 80;
+
+scheduler.templates.event_title = function(obj,type){
+	return "<div class='dhx_day_title'>"+scheduler.templates.event_date(obj.start_date)+"</div><div style='margin:10px'><div class='dhx_event_time'>"+scheduler.templates.event_time(obj)+"</div>"+scheduler.templates.event_marker(obj,type)+"<div class='dhx_event_text'>"+obj.subject+"</div></div>";
+};
+
+scheduler.templates.month_event_title = function(obj,type){
+	return scheduler.templates.event_marker(obj,type)+"<div class='dhx_event_time'>"+scheduler.templates.event_time(obj)+"</div><div class='dhx_event_text'>"+obj.subject+"</div>";
+}
+
+scheduler.templates.day_event = function(obj,type){
+	return obj.subject;
+}
+
+scheduler.templates.selected_event = function(obj){
+     var html = "", fts="", fte="";
+     var start = obj.start_date;
+     var end = obj.end_date;
+
+     if(!start) return html;
+     html += "<div  class='selected_event "+scheduler.templates.event_class(obj)+"' style='"+(obj.color?"background-color:"+obj.color+";":"")+(obj.fontColor||obj.textColor?"color:"+(obj.fontColor||obj.textColor):"")+"'>";
+     html += "<div class='event_title'>"+obj.subject+' '+obj.classroom+"</div>";
+
+     if(dhx.Date.datePart(start).valueOf()==dhx.Date.datePart(end).valueOf()){
+         var fd = dhx.i18n.dateFormatStr(start);
+         fts = dhx.i18n.timeFormatStr(start);
+         fte = dhx.i18n.timeFormatStr(end);
+         html += "<div class='event_text'>"+fd+"</div>";
+         html += "<div class='event_text'>"+scheduler.locale.labels.label_from+" "+fts+" "+scheduler.locale.labels.label_to+" "+fte+"</div>";
+     }
+     else{
+         var fds = dhx.i18n.longDateFormatStr(start);
+         var fde = dhx.i18n.longDateFormatStr(end);
+         /*if not "all-day" event*/
+         if(!(dhx.Date.datePart(start).valueOf()==start.valueOf()&&dhx.Date.datePart(end).valueOf()==end.valueOf())){
+             fts = dhx.i18n.timeFormatStr(start)+" ";
+             fte = dhx.i18n.timeFormatStr(end)+" ";
+         }
+         html += "<div class='event_text'>"+scheduler.locale.labels.label_from+" "+fts+fds+"</div>";
+         html += "<div class='event_text'>"+scheduler.locale.labels.label_to+" "+fte+fde+"</div>";
+     }
+     if(obj.notice&&obj.notice!==""){
+         html += "<div class='event_title'>"+scheduler.locale.labels.label_details+"</div>";
+         html += "<div class='event_text'>"+obj.notice+"</div>";
+     }
+     html += "</div>";
+     return html;
+};
+
+dhx.ready(function(){
+    dhx.ui.fullScreen();
+    dhx.ui({
+        view: "scheduler",
+        id: "scheduler"
+    });
+    dhx.i18n.fullDateFormat="%Y-%m-%d %H:%i";
+    dhx.i18n.setLocale();
+
+    $$("scheduler").load("/planning/data/{{entity.slug}}.xml","scheduler");
+});
+
+</script>
+{% endblock %}

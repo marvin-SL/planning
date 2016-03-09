@@ -24,6 +24,10 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+
+        $breadcrumbs->addRouteItem("Accueil", "index");
+
         $em = $this->getDoctrine()->getManager();
 
         if (!$entities = $em->getRepository('AppBundle:Calendar')->findAll()) {
