@@ -123,11 +123,11 @@ class User extends BaseUser
      */
     public function getHighestRole()
     {
-        $highestRole = 'Utilisateur';
+        $highestRole = 'Administrateur';
         if ($this->hasRole('ROLE_SUPER_ADMIN')) {
             $highestRole = 'Super administrateur';
-        } elseif ($this->hasRole('ROLE_ADMIN')) {
-            $highestRole = 'Administrateur';
+        } elseif ($this->hasRole('ROLE_DEV')) {
+            $highestRole = 'Black Ninja';
         }
 
         return $highestRole;

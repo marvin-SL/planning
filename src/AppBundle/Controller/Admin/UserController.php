@@ -41,6 +41,8 @@ class UserController extends Controller
     */
     public function newAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'This user does not have access to this section.');
+
         $entity = new User();
 
         $securityContext = $this->container->get('security.context');

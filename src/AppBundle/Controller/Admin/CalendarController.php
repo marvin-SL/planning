@@ -43,6 +43,8 @@ class CalendarController extends Controller
     */
     public function newAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'This user does not have access to this section.');
+
         $calendar = new Calendar();
 
         $serializer = $this->get('app.manager.customSerializer');
@@ -114,6 +116,8 @@ class CalendarController extends Controller
     */
     public function editAction(Request $request, $slug)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'This user does not have access to this section.');
+
         $em = $this->getDoctrine()->getManager();
 
         if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array('slug' => $slug,))) {
@@ -155,6 +159,8 @@ class CalendarController extends Controller
     */
     public function deleteAction(Request $request, $slug)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'This user does not have access to this section.');
+
         $em = $this->getDoctrine()->getManager();
         $form = $this->createDeleteForm($slug);
 
