@@ -41,7 +41,7 @@ class UserController extends Controller
     */
     public function newAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'This user does not have access to this section.');
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'This user does not have access to this section.');
 
         $entity = new User();
 
@@ -81,7 +81,7 @@ class UserController extends Controller
     */
     public function editAction(Request $request, $id)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'This user does not have access to this section.');
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'This user does not have access to this section.');
 
         $em = $this->getDoctrine()->getManager();
 
@@ -124,8 +124,8 @@ class UserController extends Controller
     */
     public function deleteAction(Request $request, $id)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'This user does not have access to this section.');
-        
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'This user does not have access to this section.');
+
         $em = $this->getDoctrine()->getManager();
         $form = $this->createDeleteForm($id);
 

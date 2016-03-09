@@ -43,7 +43,7 @@ class CalendarController extends Controller
     */
     public function newAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'This user does not have access to this section.');
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'This user does not have access to this section.');
 
         $calendar = new Calendar();
 
@@ -116,7 +116,7 @@ class CalendarController extends Controller
     */
     public function editAction(Request $request, $slug)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'This user does not have access to this section.');
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'This user does not have access to this section.');
 
         $em = $this->getDoctrine()->getManager();
 
@@ -159,7 +159,7 @@ class CalendarController extends Controller
     */
     public function deleteAction(Request $request, $slug)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'This user does not have access to this section.');
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'This user does not have access to this section.');
 
         $em = $this->getDoctrine()->getManager();
         $form = $this->createDeleteForm($slug);
