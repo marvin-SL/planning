@@ -70,11 +70,6 @@ class UserType extends AbstractType
             ),
             'multiple' => true,
         ));
-        $form->add('enabled', 'checkbox', array(
-            'label' => 'Actif',
-            'attr' => array('checked' => 'checked'),
-            'required' => false,
-        ));
     }
 
     /**
@@ -89,11 +84,6 @@ class UserType extends AbstractType
                 'ROLE_SUPER_ADMIN' => 'Super administrateur',
             ),
             'multiple' => true,
-        ));
-        $form->add('enabled', 'checkbox', array(
-            'label' => 'Actif',
-            'attr' => array('checked' => 'checked'),
-            'required' => false,
         ));
     }
 
