@@ -211,6 +211,8 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->login();
         $this->url('http://localhost/planning/admin/calendars/planning-test-test-edit/edit');
         sleep(2);
+        $this->byXpath("/html/body/div[2]/div[3]/a")->click();
+        sleep(2);
         $this->byXPath("/html/body/div[1]/div/div/div[4]/div[2]/div/table/tbody/tr[1]/td[5]/a")->click();
         sleep(2);
         $this->clickOnElement('deleteButton');
