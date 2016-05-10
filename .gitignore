@@ -12,3 +12,5 @@
 *~
 events.xml
 /web/data/*.xml
+.htaccess
+.htpasswd
