@@ -52,10 +52,20 @@ Notifier usagers
             </form>
         </div>
     </div>
-
-{% block javascripts %}
-    <script src="{{ asset('bundles/app/js/selectize.min.js') }}"></script>
-    <script src="{{ asset('bundles/app/js/select.js') }}"></script>
 {% endblock %}
 
+{% block javascripts %}
+<script src="{{ asset('bundles/app/js/selectize.min.js') }}"></script>
+<script src="{{ asset('bundles/app/js/select.js') }}"></script>
+<script>
+$(function() {
+    $('#submitButton').click(function(e) {
+        e.preventDefault();
+        if (window.confirm("Confirmer l'envoie du mail ?")) {
+            $( "form:first" ).submit();
+        }
+    });
+});
+
+</script>
 {% endblock %}

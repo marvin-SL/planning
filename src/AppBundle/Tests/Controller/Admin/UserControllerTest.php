@@ -57,7 +57,7 @@ class UserControllerTest extends WebTestCase
             'appbundle_user[email]' => 'aa@aa.fr',
             'appbundle_user[lastname]' => 'foo',
             'appbundle_user[firstname]' => 'bar',
-            'appbundle_user[roles]' => 'ROLE_USER',
+            'appbundle_user[roles]' => 'ROLE_ADMIN',
         ));
 
         $client->submit($form);
@@ -125,7 +125,7 @@ class UserControllerTest extends WebTestCase
             'appbundle_user[email]' => 'sam.winchester@cmw.com',
             'appbundle_user[lastname]' => 'winchester',
             'appbundle_user[firstname]' => 'samuel',
-            'appbundle_user[roles]' => 'ROLE_USER'
+            'appbundle_user[roles]' => 'ROLE_ADMIN'
         ));
 
         $client->submit($form);

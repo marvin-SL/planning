@@ -20,6 +20,7 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use AppBundle\Entity\User;
+use AppBundle\Form\UserType;
 
 /**
  * AccountController.
@@ -45,10 +46,28 @@ class AccountController extends Controller
                 )
         );
 
+        if (!$entity = $em->getRepository('AppBundle:User')->find($user->getId())) {
+            throw $this->createNotFoundException(sprintf('Unable to find user with id "%s"', $user->getId()));
+        }
+
+        $form = $this->createForm(new UserType($this->container->get('security.context')), $user);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $message = $this->get('translator')->trans('user.update_success', array(), 'flashes');
+            $this->get('session')->getFlashBag()->add('success', $message);
+
+            return $this->redirect($this->generateUrl('admin_user_index'));
+        }
             return $this->render(
                 'AppBundle:Admin/Account:index.html.twig',
                 array(
-                    'user' => $user,
+                    'form' => $form->createView(),
                 )
             );
     }
@@ -100,7 +119,8 @@ class AccountController extends Controller
 
             return $response;
         }
-            return $this->render('AppBundle:ChangePassword:changePassword.html.twig', array('form' => $form->createView(),
+            return $this->render('AppBundle:ChangePassword:changePassword.html.twig', array(
+                'form' => $form->createView(),
                 )
             );
     }

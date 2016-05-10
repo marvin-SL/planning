@@ -10,8 +10,9 @@
 
 {% block body %}
 {{ wo_render_breadcrumbs() }}
-{% for entity in entities %}
 <div class="row blocks">
+{% for entity in entities %}
+
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 block">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -37,8 +38,8 @@
             </div>
         </div>
     </div>
-</div>
     {% endfor %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}
