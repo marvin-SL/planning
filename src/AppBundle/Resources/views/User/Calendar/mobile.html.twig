@@ -40,12 +40,6 @@ var labels = {
     day_tab:"Jour",
     month_tab:"Mois",
 };
-//
-// scheduler.config.form_date = "%m-%Y-%d %h:%i %a"; //default is "%d-%m-%Y %H:%i"
-// scheduler.config.header_date = "%D, %d.%m.%Y"; //default is "%d.%m.%Y"
-// scheduler.config.item_date = "%d %M"; //default is "%d.%m.%Y"
-// scheduler.config.calendar_date = "%M %Y"; //default is "%F %Y"
-// scheduler.config.hour_date = "%h:%i %a"; //default is "%H:%i'
 
 dhx.extend(scheduler.locale.labels,labels,true);
 scheduler.xy.icon_today = 150;
@@ -84,7 +78,6 @@ scheduler.templates.selected_event = function(obj){
      else{
          var fds = dhx.i18n.longDateFormatStr(start);
          var fde = dhx.i18n.longDateFormatStr(end);
-         /*if not "all-day" event*/
          if(!(dhx.Date.datePart(start).valueOf()==start.valueOf()&&dhx.Date.datePart(end).valueOf()==end.valueOf())){
              fts = dhx.i18n.timeFormatStr(start)+" ";
              fte = dhx.i18n.timeFormatStr(end)+" ";
@@ -109,7 +102,7 @@ dhx.ready(function(){
     dhx.i18n.fullDateFormat="%Y-%m-%d %H:%i";
     dhx.i18n.setLocale();
 
-    $$("scheduler").load("/planning/data/{{entity.slug}}.xml","scheduler");
+    $$("scheduler").load("{{ asset('data/'~entity.getSlug) }}.xml","scheduler");
 });
 
 </script>
