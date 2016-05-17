@@ -33,7 +33,9 @@ html, body{ height:100%; padding:0px; margin:0px; }
 {% endblock %}
 
 {% block body %}
+{% block breadcrumbs %}
 {{ wo_render_breadcrumbs() }}
+{% endblock %}
 <div class="dhx_cal_container panel" id="scheduler_here">
     <div class="dhx_cal_navline">
         <div class="dhx_cal_prev_button">&nbsp;</div>
@@ -71,7 +73,6 @@ html, body{ height:100%; padding:0px; margin:0px; }
 {% endjavascripts %}
 
 <script type="text/javascript">
-// scheduler.load("/planning/data/{{entity.slug}}.xml");
 scheduler.load("{{ asset('data/'~entity.getSlug) }}.xml")
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 scheduler.config.readonly = true;
