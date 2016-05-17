@@ -21,16 +21,13 @@
     <![endif]-->
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    <!-- jQuery -->
     <script src="{{ asset('bundles/app/js/jquery.js') }}"></script>
     {% block head %}{% endblock %}
 </head>
 
 <body>
     <div id="wrapper">
-        <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -40,7 +37,6 @@
                 </button>
                 <a class="navbar-brand" href="{{ path('admin_dashboard')}}"><img class="logo" src="{{ asset('bundles/app/image/cmw_planning.svg')}}"></a>
             </div>
-            <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
                     {% if is_granted("ROLE_ADMIN") %}
@@ -61,9 +57,7 @@
                     </ul>
                 </li>
             </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             {{knp_menu_render('main', {'template': 'AppBundle:Menu:knp_menu.html.twig', 'currentClass': 'active'})}}
-            <!-- /.navbar-collapse -->
         </nav>
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -71,12 +65,8 @@
                 {% block body %}
                 {% endblock %}
             </div>
-            <!-- /.container-fluid -->
         </div>
-        <!-- /#page-wrapper -->
     </div>
-    <!-- /#wrapper -->
-    <!-- Bootstrap Core JavaScript -->
     <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
     {% block javascripts %}{% endblock %}
 </body>
