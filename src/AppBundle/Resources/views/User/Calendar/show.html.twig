@@ -71,7 +71,8 @@ html, body{ height:100%; padding:0px; margin:0px; }
 {% endjavascripts %}
 
 <script type="text/javascript">
-scheduler.load("/planning/data/{{entity.slug}}.xml");
+// scheduler.load("/planning/data/{{entity.slug}}.xml");
+scheduler.load("{{ asset('data/'~entity.getSlug) }}.xml")
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
 scheduler.config.readonly = true;
 
