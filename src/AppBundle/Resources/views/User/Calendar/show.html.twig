@@ -53,23 +53,11 @@ html, body{ height:100%; padding:0px; margin:0px; }
 {% endblock %}
 
 {% block javascripts %}
-
-{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_year_view.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_minical.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% javascripts '@AppBundle/Resources/public/js/locale_fr.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% javascripts '@AppBundle/Resources/public/js/locale_recurring_fr.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-
+<script src="{{ asset('bundles/app/js/dhtmlxscheduler.js') }}"></script>
+<script src="{{ asset('bundles/app/js/dhtmlxscheduler_year_view.js') }}"></script>
+<script src="{{ asset('bundles/app/js/dhtmlxscheduler_minical.js') }}"></script>
+<script src="{{ asset('bundles/app/js/locale_fr.js') }}"></script>
+<script src="{{ asset('bundles/app/js/locale_recurring_fr.js') }}"></script>
 <script type="text/javascript">
 scheduler.load("/planning/data/{{entity.slug}}.xml");
 scheduler.config.xml_date = "%Y-%m-%d %H:%i";
