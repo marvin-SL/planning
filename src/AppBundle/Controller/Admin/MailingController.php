@@ -157,7 +157,7 @@ class MailingController extends Controller
         };
 
         try {
-            $notificationManager->send($object, $body, 'saytaine@gmail.com', explode(';', $recipients->getMails()), $copy = null, $ccs);
+            $notificationManager->send($object, $body, 'planning@mastercmw.com', explode(';', $recipients->getMails()), $copy = null, $ccs);
 
             $recipients->setSentAt(new \DateTime('now'));
             $em->persist($recipients);
