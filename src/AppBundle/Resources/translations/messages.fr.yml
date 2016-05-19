@@ -6,7 +6,7 @@ text:
     message_alert_before_delete_teacher: Attention, la suppresion d'un enseigant supprime également les évènements en rapport avec celui-ci!
     question_confirm_delete: Confirmez-vous la suppression ?
     add_entity: "Ajouter"
+    changePassword: "Editer mot de passe"
 
 layout:
-       params: "Paramètres"
-       account: "Profil"
+    account: "Profil"
