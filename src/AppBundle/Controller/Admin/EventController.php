@@ -26,7 +26,6 @@ class EventController extends Controller
     public function newAction(Request $request)
     {
         $event = new Event();
-
         $form = $this->createForm(new EventType(), $event);
 
         $form->handleRequest($request);
@@ -43,6 +42,13 @@ class EventController extends Controller
             $this->get('session')->getFlashBag()->add('success', $message);
 
             $serializer->serialize($event->getCalendar());
+
+            $fileCache = $this->container->get('twig')->getCacheFilename('AppBundle:User:Calendar:mobile.html.twig');
+
+            if (is_file($fileCache)) {
+                dump('ici');die;
+                @unlink($fileCache);
+            }
 
             return $this->redirect($this->generateUrl('admin_calendar_edit', array('slug' => $event->getCalendar()->getSlug())));
         }

@@ -52,7 +52,6 @@ html, body{ height:100%; padding:0px; margin:0px; }
 
 <div id="newEvent" class="modal fade" role="dialog">
     <div class="modal-dialog">
-œ
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -215,9 +214,6 @@ scheduler.attachEvent("onDblClick", function(id, e){
     window.location.href = Routing.generate('admin_event_edit', {id : id});
  });
 
- scheduler.attachEvent("onScaleDblClick", function (id, e){
-    alert('dlbclick');
-});
 
 function show_minical(){
     if (scheduler.isCalendarVisible()){
