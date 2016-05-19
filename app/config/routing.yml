@@ -11,3 +11,7 @@ fos_user:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+fos_user_profile_show:
+    path:      /admin/account/
+    defaults:  { _controller: AppBundle:Account:index, _method: POST }

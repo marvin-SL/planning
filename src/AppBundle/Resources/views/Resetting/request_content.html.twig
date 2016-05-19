@@ -7,7 +7,7 @@
                     {% if invalid_username is defined %}
                     <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
                     {% endif %}
-                    <input type="text" id="username" name="_username" required="required" class="form-control" placeholder="{{ 'security.login.username'|trans }}" autofocus>
+                    <input type="text" id="username" name="username" required="required" class="form-control" placeholder="{{ 'security.login.username'|trans }}" autofocus>
 
                 </div>
                 <input class="btn btn-primary btn-lg btn-block" type="submit" id="_submit" name="_submit" value="{{ 'resetting.request.submit'|trans }}" />
