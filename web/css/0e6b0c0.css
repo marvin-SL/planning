@@ -25,12 +25,10 @@
 	background: #EDEFF1;
 	height: auto;
 	padding-bottom: 30px;
-	position: relative;
+	margin-top: 100px;
 	width: 100%;
 	border-bottom: 1px solid #CCCCCC;
 	border-top: 1px solid #DDDDDD;
-    position: absolute;
-    bottom : 0;
 }
 .footer p {
 	margin: 0;
