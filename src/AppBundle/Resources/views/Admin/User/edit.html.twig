@@ -11,9 +11,7 @@ Edition
 {% block titre %}Edition {% endblock %}
 
 {% block body %}
-
-
-    <div class="row">
+<div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
                 Edition de l'utilisateur {{entity.username}}
@@ -48,6 +46,7 @@ Edition
                  {{ form_errors(form.firstname) }}
                  {{ form_widget(form.firstname, { 'id': 'firstname',  'attr': { 'class' : 'form-control' } } ) }}
             </div>
+            <div class="form-group">
                 <label for="roles">
                     {{form_label(form.roles) }}
                 </label>

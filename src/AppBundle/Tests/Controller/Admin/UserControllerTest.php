@@ -134,7 +134,7 @@ class UserControllerTest extends WebTestCase
 
         $crawler = $client->followRedirect();
 
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("samuel")')->count(), 'Missing element html:contains("Foo-edited")');
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("samuel")')->count(), 'Missing element html:contains("samuel")');
     }
 
     /**

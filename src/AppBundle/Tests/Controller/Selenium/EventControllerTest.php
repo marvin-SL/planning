@@ -225,7 +225,7 @@ class EventControllerTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->buttondown();
         $this->buttonup();
 
-        $message = $this->byXpath('//*[@id="flashes"]');
+        $message = $this->byXpath('/html/body/div[1]/div/div/div[1]');
 
         $this->assertRegExp('/bien été supprimé/i', $message->text());
     }
