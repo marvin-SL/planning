@@ -45,6 +45,4 @@ assetic:
     use_controller: true
 
 swiftmailer:
-    transport: gmail
-    username:  marvin.ipsos@gmail.com
-    password:  ipsos123
+    delivery_address: webmaster.mastercmw.com

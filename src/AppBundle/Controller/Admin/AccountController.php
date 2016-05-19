@@ -65,7 +65,7 @@ class AccountController extends Controller
             return $this->redirect($this->generateUrl('admin_user_index'));
         }
             return $this->render(
-                'AppBundle:Admin/Account:index.html.twig',
+                'AppBundle:Profile:edit.html.twig',
                 array(
                     'form' => $form->createView(),
                 )

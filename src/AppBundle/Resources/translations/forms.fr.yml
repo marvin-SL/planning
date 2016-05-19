@@ -5,7 +5,6 @@ button:
     delete: Supprimer
     close: Fermer
     cancel: Annuler
-
     validate: Valider
     save: Enregistrer
     submit_to_validation: Soumettre à validation
@@ -15,6 +14,9 @@ input:
     subject: Choisissez une matière
     classroom: Choisissez une salle
     mailing: Choisissez une liste de diffusion
+
+label:
+    password: Mot de passe
 
 "Bad credentials": "Identifiant ou mot de passe incorrect(s)"
 "User account is disabled.": "Votre compte a été désactivé"

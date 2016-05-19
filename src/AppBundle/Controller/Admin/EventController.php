@@ -43,10 +43,9 @@ class EventController extends Controller
 
             $serializer->serialize($event->getCalendar());
 
-            $fileCache = $this->container->get('twig')->getCacheFilename('AppBundle:User:Calendar:mobile.html.twig');
+            $fileCache = $this->container->get('twig')->getCacheFilename('AppBundle:User/Calendar:mobile.html.twig');
 
             if (is_file($fileCache)) {
-                dump('ici');die;
                 @unlink($fileCache);
             }
 

@@ -51,6 +51,11 @@ class User extends BaseUser
    */
     private $passwordChangedAt;
 
+  /**
+    * @var boolean
+    */
+    protected $enabled;
+
   /*
    * Hook timestampable behavior
    * updates publishedAt, updatedAt fields
@@ -66,6 +71,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        $this->enabled = true;
     }
 
     /**
