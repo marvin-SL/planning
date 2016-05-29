@@ -8,6 +8,10 @@ use AppBundle\Entity\Calendar;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  *  CustomSerializer manager.
@@ -24,21 +28,25 @@ class CustomSerializerManager extends BaseManager
 
     public function serialize(Calendar $calendar, $deleteCalendar = false)
     {
+
         $fs = new Filesystem();
 
         $subjects = $this->em->getRepository('AppBundle:Subject')->findAll();
-
         $tabTeachers = [];
 
         if ($deleteCalendar == false) {
             for ($i = 0; $i < sizeof($subjects); ++$i) {
                 $tabTeachers[] = $subjects[$i]->getName();
                 foreach ($subjects[$i]->getTeachers() as $teacher) {
+
                     for ($y = 0; $y < sizeof($subjects[$i]); ++$y) {
+
                         $tabTeachers[$subjects[$i]->getName()][] = $teacher->getLastname();
+
                     }
                 }
             }
+
 
             $query = $this->em->getRepository('AppBundle:Event')->findCalendarEvents($calendar);
             $rootNode = new \SimpleXMLElement('<data></data>');
@@ -60,7 +68,9 @@ class CustomSerializerManager extends BaseManager
                 $eventNode->addChild('end_date', $eventList->getEndDate()->format('Y-m-d H:i:s'));
                 $eventNode->addChild('classroom', $eventList->getClassroom()->getName());
                 $eventNode->addChild('notice', $eventList->getNotice());
-                $eventNode->addChild('subject', $eventList->getSubject()->getName().' / '.implode(',', $tabTeachers[$eventList->getSubject()->getName()]));
+                if (isset($tabTeachers[$eventList->getSubject()->getName()])) {
+                    $eventNode->addChild('subject', $eventList->getSubject()->getName().' / '.implode(',', $tabTeachers[$eventList->getSubject()->getName()]));
+                }
                 $eventNode->addChild('color', $eventList->getSubject()->getColor());
 
                 $path = $this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml';

@@ -132,6 +132,8 @@ class SubjectController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createDeleteForm($id);
+        $serializer = $this->get('app.manager.customSerializer');
+        $calendars = $em->getRepository('AppBundle:Calendar')->findAll();
 
         if ($form->handleRequest($request)->isValid()) {
             if (!$entity = $em->getRepository('AppBundle:Subject')->find($id)) {
@@ -140,6 +142,9 @@ class SubjectController extends Controller
 
             $em->remove($entity);
             $em->flush();
+            foreach ($calendars as $calendar) {
+                $serializer->serialize($calendar);
+            }
 
             $message = $this->get('translator')->trans('subject.delete_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);
