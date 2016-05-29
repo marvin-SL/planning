@@ -101,9 +101,9 @@ dhx.ready(function(){
     });
     dhx.i18n.fullDateFormat="%Y-%m-%d %H:%i";
     dhx.i18n.setLocale();
-
+    $$("scheduler").refresh();
     $$("scheduler").load("{{ asset('data/'~entity.getSlug) }}.xml","scheduler");
+    $$("scheduler").setDate(new Date());
 });
-
 </script>
 {% endblock %}
