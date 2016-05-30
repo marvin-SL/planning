@@ -122,7 +122,7 @@ class TeacherController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createDeleteForm($id);
-
+        $serializer = $this->get('app.manager.customSerializer');
 
         if ($form->handleRequest($request)->isValid()) {
             if (!$entity = $em->getRepository('AppBundle:Teacher')->find($id)) {
@@ -134,8 +134,7 @@ class TeacherController extends Controller
             $calendars = $em->getRepository('AppBundle:Calendar')->findAll();
 
             foreach ($calendars as $calendar) {
-                $serializer = $this->get('app.manager.customSerializer')->serialize($calendar, true);
-                $serializer = $this->get('app.manager.customSerializer')->serialize($calendar);
+                $serializer->serialize($calendar);
             }
 
             $message = $this->get('translator')->trans('teacher.delete_success', array(), 'flashes');
