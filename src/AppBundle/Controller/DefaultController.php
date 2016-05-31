@@ -38,4 +38,27 @@ class DefaultController extends Controller
             'entities' => $entities
         ));
     }
+
+    /**
+     * [mobileIndexAction description]
+     * @param  Request $request [description]
+     * @param  [type]  $slug    [description]
+     * @return [type]           [description]
+     */
+     public function indexMobileAction(Request $request)
+     {
+         $breadcrumbs = $this->get("white_october_breadcrumbs");
+
+         $breadcrumbs->addRouteItem("Accueil", "index");
+
+         $em = $this->getDoctrine()->getManager();
+
+         if (!$entities = $em->getRepository('AppBundle:Calendar')->findAll()) {
+             throw $this->createNotFoundException(sprintf('Unable to find calendars'));
+         };
+
+         return $this->render('AppBundle:Default:indexMobile.html.twig', array(
+             'entities' => $entities
+         ));
+     }
 }
