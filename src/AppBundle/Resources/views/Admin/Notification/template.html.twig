@@ -11,14 +11,24 @@
                 <tr>
                     <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td width="61"><a class="navbar-brand" href="{{ path('admin_dashboard')}}"><img class="logo" src="{{ asset('bundles/app/image/cmw_planning.svg')}}"></a></td>
+                            <td width="61">
+                                <a class="navbar-brand" href="{{ path('admin_dashboard')}}">
+                                {% image '@AppBundle/Resources/public/image/cmw_planning.svg' %}
+                                    <img src="{{ asset_url }}" alt="logo" class="logo"/>
+                                {% endimage %}
+                                </a>
+                            </td>
                             <td width="393"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td height="46" align="right" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                                     </table></td>
                                 </tr>
                                 <tr>
-                                    <td height="30"><img src="{{ asset('bundles/app/image/trait.jpeg')}}" width="393" height="30" border="0" alt=""/></td>
+                                    <td height="30">
+                                        {% image '@AppBundle/Resources/public/image/trait.jpg' %}
+                                            <img src="{{ asset_url }}" alt="logo" class="logo" width="393" height="30" border="0" alt=""/>
+                                        {% endimage %}
+                                    </td>
                                 </tr>
                             </table></td>
                         </tr>
@@ -56,7 +66,11 @@
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td><img src="images/PROMO-GREEN2_07.jpg" width="598" height="7" style="display:block" border="0" alt=""/></td>
+                            <td>
+                                {% image '@AppBundle/Resources/public/image/PROMO-GREEN2_07.jpg' %}
+                                    <img src="{{ asset_url }}" width="598" height="7" style="display:block" border="0" alt=""/>
+                                {% endimage %}
+                            </td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
