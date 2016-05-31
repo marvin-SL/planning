@@ -35,6 +35,12 @@ class CalendarController extends Controller
             throw $this->createNotFoundException(sprintf('Unable to find calendar with slug "%s"', $slug));
         };
 
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addRouteItem("Accueil", "index_mobile");
+        $breadcrumbs->addRouteItem($entity->getTitle(), "user_calendar_mobile", [
+        'slug' => $slug,
+        ]);
+
         return $this->render('AppBundle:User/Calendar:mobile.html.twig', array(
             'entity' => $entity,
         ));

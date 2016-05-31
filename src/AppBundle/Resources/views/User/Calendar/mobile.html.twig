@@ -9,8 +9,12 @@
 {% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhxscheduler_mobile.css' %}
 <link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
 {% endstylesheets %}
-
-
+{% stylesheets '@AppBundle/Resources/public/css/bootstrap.min.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
+{% stylesheets '@AppBundle/Resources/public/css/style.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
+{% endstylesheets %}
 <style type="text/css" media="screen">
 html, body{
     margin:0px;
@@ -20,7 +24,9 @@ html, body{
 }
 </style>
 {% endblock %}
-
+{% block body %}
+{{ wo_render_breadcrumbs() }}
+{% endblock %}
 
 {% block javascripts %}
 {% javascripts '@AppBundle/Resources/public/js/dhxscheduler_mobile.js' %}
