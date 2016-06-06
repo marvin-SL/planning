@@ -34,7 +34,7 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/users");
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("marvin.sainteluce")')->count(), 'Missing element html:contains("marvin.sainteluce")');
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("Super administrateur")')->count(), 'Missing element html:contains("Super administrateur")');
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Black Ninja")')->count(), 'Missing element html:contains("Super administrateur")');
     }
 
     /**
@@ -57,7 +57,7 @@ class UserControllerTest extends WebTestCase
             'appbundle_user[email]' => 'aa@aa.fr',
             'appbundle_user[lastname]' => 'foo',
             'appbundle_user[firstname]' => 'bar',
-            'appbundle_user[roles]' => 'ROLE_ADMIN',
+            'appbundle_user[roles]' => 'ROLE_EDITOR',
         ));
 
         $client->submit($form);

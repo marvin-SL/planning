@@ -42,34 +42,18 @@ class UserType extends AbstractType
             ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            if ($this->securityContext->isGranted('ROLE_DEV')) {
-                $form = $event->getForm();
-                $this->addFieldsForDev($form);
-            } elseif ($this->securityContext->isGranted('ROLE_SUPER_ADMIN')) {
+            if ($this->securityContext->isGranted('ROLE_SUPER_ADMIN')) {
                 $form = $event->getForm();
                 $this->addFieldsForSuperAdmin($form);
             } elseif ($this->securityContext->isGranted('ROLE_ADMIN')) {
                 $form = $event->getForm();
                 $this->addFieldsForAdmin($form);
+            } elseif ($this->securityContext->isGranted('ROLE_EDITOR')) {
+                $form = $event->getForm();
+                $this->addFieldsForEditor($form);
 
             }
         });
-    }
-
-    /**
-     * @param Form $form
-     */
-    private function addFieldsForDev(Form $form)
-    {
-        $form->add('roles', 'choice', array(
-            'label' => 'Rôles',
-            'choices' => array(
-                'ROLE_ADMIN' => 'Administrateur',
-                'ROLE_SUPER_ADMIN' => 'Super administrateur',
-                'ROLE_DEV' => 'Black Ninja'
-            ),
-            'multiple' => true,
-        ));
     }
 
     /**
@@ -80,8 +64,9 @@ class UserType extends AbstractType
         $form->add('roles', 'choice', array(
             'label' => 'Rôles',
             'choices' => array(
+                'ROLE_EDITOR' => 'Editeur',
                 'ROLE_ADMIN' => 'Administrateur',
-                'ROLE_SUPER_ADMIN' => 'Super administrateur',
+                'ROLE_SUPER_ADMIN' => 'Black Ninja'
             ),
             'multiple' => true,
         ));
@@ -93,8 +78,23 @@ class UserType extends AbstractType
     private function addFieldsForAdmin(Form $form)
     {
         $form->add('roles', 'choice', array(
+            'label' => 'Rôles',
             'choices' => array(
+                'ROLE_EDITOR' => 'Editeur',
                 'ROLE_ADMIN' => 'Administrateur',
+            ),
+            'multiple' => true,
+        ));
+    }
+
+    /**
+     * @param Form $form
+     */
+    private function addFieldsForEditor(Form $form)
+    {
+        $form->add('roles', 'choice', array(
+            'choices' => array(
+                'ROLE_EDITOR' => 'Editeur',
             ),
             'multiple' => true,
         ));
