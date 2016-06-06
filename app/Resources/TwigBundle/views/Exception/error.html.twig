@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %} | Ipsos Vizual</title>
+
+    <link rel="icon" type="image/png" href="{{ asset('bundles/app/images/favicon.png') }}" />
+
+    <!-- Bootstrap -->
+    {% block stylesheets %}
+    <link href="{{ asset('bundles/app/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/app/css/bootstrap-theme.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/font-awesome.min.css') }}">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <style media="screen">
+        body {
+            background-color: #029bbc;
+            background: url("{{ asset('bundles/app/images/login-bg.jpg') }}") no-repeat center fixed;
+            background-size: cover;
+            text-align: center;
+        }
+    </style>
+    {% endblock %}
+    <script type="text/javascript" src="{{ asset('bundles/app/js/jquery-2.1.4.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/middle.js') }}"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="{{ asset('bundles/app/js/html5shiv.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/respond.min.js') }}"></script>
+    <![endif]-->
+</head>
+
+<body>
+    {% block body %}
+    <div class="container-fluid text-primary">
+        <img src="{{ asset('bundles/app/images/ipsos-vizual.png') }}" alt="Ipsos Vizual" width="264" />
+        <p>
+            Le serveur a retourné une erreur "{{ status_code }} {{ status_text }}".
+        </p>
+        <p>
+            <i class="fa fa-frown-o" style="font-size:300px;"></i><br>
+            <a class="pure-button button-primary" href="{{ path('app_home')}}"><i class="fa fa-home"></i> Retour à la page d'accueil</a>
+        </p>
+    </div>
+    {% endblock %}
+
+</body>
+</html>

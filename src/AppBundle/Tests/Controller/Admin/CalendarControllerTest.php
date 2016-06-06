@@ -122,7 +122,7 @@ class CalendarControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/calendars/1/edit');
 
         $link = $crawler
-            ->filter('a:contains("Editer")') // find all links with the text "Greet"
+            ->filter('a:contains("Modifier nom")') // find all links with the text "Greet"
             ->eq(0) // select the second link in the list
             ->link()
         ;
