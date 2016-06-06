@@ -9,6 +9,7 @@
 /composer.phar
 /vendor/
 /web/data/
+/web/css/
 /web/bundles/
 *~
 .htaccess
