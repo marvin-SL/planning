@@ -21,7 +21,7 @@ html, body{ height:100%; padding:0px; margin:0px; }
     height: 700px;
     width: 100%;
     border: 1px solid #cecece;
-    top : 50px;
+    
 }
 #scheduler_here {
     border-radius: 4px;
@@ -30,6 +30,13 @@ html, body{ height:100%; padding:0px; margin:0px; }
 {% endblock %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Edition du planning {{entity.getTitle}}
+            </h1>
+        </div>
+    </div>
     <div class="dhx_cal_container panel" id="scheduler_here">
 
         <div class="dhx_cal_navline">
