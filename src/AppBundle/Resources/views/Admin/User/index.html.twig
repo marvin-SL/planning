@@ -37,19 +37,33 @@ Gestion des utilisateurs
                 </thead>
                 <tbody>
                     {% for user in users %}
-                    {% if user.highestRole != 'Black Ninja' %}
-                        <tr>
-                            <td>{{user.username}}</td>
-                            <td>{{user.lastname}}</td>
-                            <td>{{user.firstname}}</td>
-                            <td>{{user.highestRole}}</td>
-                        <td>{{user.createdAt|localizeddate('medium', 'short') }}</td>
-                        <td><small>{% if user.lastLogin is empty %}-{% else %}{{ user.lastLogin|time_diff }}{% endif %}</small></td>
-                        <td>
-                            <a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a>
-                        </td>
-                        </tr>
-                        {% endif %}
+                            {% if user.highestRole == 'Black Ninja' %}
+                                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                    <tr>
+                                        <td>{{user.username}}</td>
+                                        <td>{{user.lastname}}</td>
+                                        <td>{{user.firstname}}</td>
+                                        <td>{{user.highestRole}}</td>
+                                    <td>{{user.createdAt|localizeddate('medium', 'short') }}</td>
+                                    <td><small>{% if user.lastLogin is empty %}-{% else %}{{ user.lastLogin|time_diff }}{% endif %}</small></td>
+                                    <td>
+                                        <a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a>
+                                    </td>
+                                    </tr>
+                                    {% endif %}
+                            {% else %}
+                            <tr>
+                                <td>{{user.username}}</td>
+                                <td>{{user.lastname}}</td>
+                                <td>{{user.firstname}}</td>
+                                <td>{{user.highestRole}}</td>
+                            <td>{{user.createdAt|localizeddate('medium', 'short') }}</td>
+                            <td><small>{% if user.lastLogin is empty %}-{% else %}{{ user.lastLogin|time_diff }}{% endif %}</small></td>
+                            <td>
+                                <a href="{{path('admin_user_edit', {'id' : user.id })}}">Editer</a>
+                            </td>
+                            </tr>
+                            {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
