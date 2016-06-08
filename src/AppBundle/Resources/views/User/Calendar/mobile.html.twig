@@ -22,11 +22,14 @@ html, body{
     height:100%;
     overflow:hidden;
 }
+
+* {
+    box-sizing :unset;
+}
+
 </style>
 {% endblock %}
-{% block body %}
-{{ wo_render_breadcrumbs() }}
-{% endblock %}
+
 
 {% block javascripts %}
 {% javascripts '@AppBundle/Resources/public/js/dhxscheduler_mobile.js' %}
@@ -48,10 +51,10 @@ var labels = {
 };
 
 dhx.extend(scheduler.locale.labels,labels,true);
-scheduler.xy.icon_today = 100;
-scheduler.xy.list_tab = 70;
-scheduler.xy.day_tab = 52;
-scheduler.xy.month_tab = 70;
+scheduler.xy.icon_today = 120;
+scheduler.xy.list_tab = 90;
+scheduler.xy.day_tab = 82;
+scheduler.xy.month_tab = 80;
 
 scheduler.templates.event_title = function(obj,type){
 	return "<div class='dhx_day_title'>"+scheduler.templates.event_date(obj.start_date)+"</div><div style='margin:10px'><div class='dhx_event_time'>"+scheduler.templates.event_time(obj)+"</div>"+scheduler.templates.event_marker(obj,type)+"<div class='dhx_event_text'>"+obj.subject+"</div></div>";
