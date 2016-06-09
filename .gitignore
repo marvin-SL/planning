@@ -11,6 +11,9 @@
 /web/data/
 /web/css/
 /web/bundles/
+/web/image/
+/web/js/
+/web/imgs_dhx_terrace/
 *~
 .htaccess
 .htpasswd
