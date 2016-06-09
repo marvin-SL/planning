@@ -5,7 +5,7 @@
 {% block title %} {% endblock %}
 
 {% block stylesheets %}
-
+<link rel="manifest" href="{{ asset('bundles/app/manifest.json') }}">
 {% stylesheets '@AppBundle/Resources/public/css/dhtmlx/dhxscheduler_mobile.css' %}
 <link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
 {% endstylesheets %}
