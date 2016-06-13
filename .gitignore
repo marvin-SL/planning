@@ -9,7 +9,7 @@
 /composer.phar
 /vendor/
 /web/data/
-/web/css/
+/web/css/*
 /web/bundles/
 /web/image/
 /web/js/
