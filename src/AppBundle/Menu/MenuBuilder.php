@@ -36,9 +36,9 @@ class MenuBuilder
         'extras'    => array('icon'  => 'fa fa-fw fa-dashboard'),
         ));
 
-        $menu->addChild('Planning', array('route' => 'admin_calendar_index',
-        'label' => 'Plannings',
-        'extras'    => array('icon'  => 'fa fa-fw fa-calendar')
+        $menu->addChild('Teacher', array('route' => 'admin_teacher_index',
+        'label' => 'Enseignants',
+        'extras'    => array('icon'  => 'fa fa-graduation-cap')
         ));
 
         $menu->addChild('Subject', array('route' => 'admin_subject_index',
@@ -46,14 +46,14 @@ class MenuBuilder
         'extras'    => array('icon'  => 'fa fa-fw fa-language')
         ));
 
-        $menu->addChild('Teacher', array('route' => 'admin_teacher_index',
-        'label' => 'Enseignants',
-        'extras'    => array('icon'  => 'fa fa-graduation-cap')
-        ));
-
         $menu->addChild('Classroom', array('route' => 'admin_classroom_index',
         'label' => 'Salles',
         'extras'    => array('icon'  => 'fa fa-fw fa-map-marker')
+        ));
+
+        $menu->addChild('Planning', array('route' => 'admin_calendar_index',
+        'label' => 'Plannings',
+        'extras'    => array('icon'  => 'fa fa-fw fa-calendar')
         ));
 
         $menu->addChild('Users', array('route' => 'admin_user_index',
