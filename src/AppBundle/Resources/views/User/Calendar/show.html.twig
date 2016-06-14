@@ -89,14 +89,25 @@ scheduler.data_attributes = function(){
 };
 
 scheduler.config.first_hour = 8;
+scheduler.config.last_hour = 21;
 scheduler.config.show_loading = true;
 scheduler.config.time_step = 30;
 
+var format=scheduler.date.date_to_str("%H:%i");
+
 scheduler.init('scheduler_here',new Date(),"week");
-scheduler.templates.event_text=function(start,end,event){
+scheduler.templates.event_text=function(start,end,event){  //permet d'afficher matiere salle infos dans la vue semaine
     return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classroom+"</b><br>"+"infos: <b>"+event.notice+"</b></br>";
 
 }
+
+scheduler.templates.event_bar_text = function(start,end,event){     //permet d'afficher la date de fin + matiere dans la vue month
+      return format(end)+" "+event.subject;
+};
+
+scheduler.templates.year_tooltip = function(start,end,event){ //permet d'afficher la date de fin + matiere dans la vue année
+    return format(end)+" "+event.subject;
+};
 
 function show_minical(){
     if (scheduler.isCalendarVisible()){

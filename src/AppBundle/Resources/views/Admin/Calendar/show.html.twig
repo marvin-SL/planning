@@ -21,7 +21,7 @@ html, body{ height:100%; padding:0px; margin:0px; }
     height: 700px;
     width: 100%;
     border: 1px solid #cecece;
-    
+
 }
 #scheduler_here {
     border-radius: 4px;
@@ -172,6 +172,7 @@ scheduler.data_attributes = function(){
 };
 
 scheduler.config.first_hour = 8;
+scheduler.config.last_hour = 21;
 scheduler.config.limit_time_select = true;
 scheduler.config.show_loading = true;
 scheduler.config.show_quick_info = false;
@@ -179,12 +180,21 @@ scheduler.config.time_step = 30;
 
 var formatFunc = scheduler.date.date_to_str("%Y-%m-%d %H:%i:%s");
 var formatFunc2 = scheduler.date.date_to_str("%d/%m/%Y %H:%i");
+var format=scheduler.date.date_to_str("%H:%i");
 
 scheduler.init('scheduler_here',new Date(),"week");
-scheduler.templates.event_text=function(start,end,event){
+scheduler.templates.event_text=function(start,end,event){  //permet d'afficher matiere salle infos dans la vue semaine
     return "Matière:<b> "+event.subject+"</b><br>"+"Salle: <b>"+event.classroom+"</b><br>"+"infos: <b>"+event.notice+"</b></br>";
 
 }
+
+scheduler.templates.event_bar_text = function(start,end,event){     //permet d'afficher la date de fin + matiere dans la vue month
+      return format(end)+" "+event.subject;
+};
+
+scheduler.templates.year_tooltip = function(start,end,event){ //permet d'afficher la date de fin + matiere dans la vue année
+    return format(end)+" "+event.subject;
+};
 
 scheduler.showLightbox = function(id){
     var event = scheduler.getEvent(id);

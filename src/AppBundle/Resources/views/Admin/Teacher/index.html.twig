@@ -19,9 +19,9 @@ Gestion des enseignants(es)/intervenants(es)
     </div>
 </div>
 {% if teachers is not empty %}
-<div class="col-md-4">
+<div class="col-md-2">
 </div>
-<div class="col-md-4">
+<div class="col-md-6">
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
@@ -41,7 +41,7 @@ Gestion des enseignants(es)/intervenants(es)
         </table>
     </div>
 </div>
-<div class="col-md-4">
+<div class="col-md-2">
 </div>
 {% else %}
 <div class="row">
@@ -53,4 +53,14 @@ Gestion des enseignants(es)/intervenants(es)
 </div>
 {% endif %}
 
+{% endblock %}
+
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+    $('.table').DataTable( {
+        "scrollX": false
+} );
+});
+</script>
 {% endblock %}
