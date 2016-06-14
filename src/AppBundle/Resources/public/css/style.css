@@ -99,3 +99,8 @@
 		line-height: 1.8;
 	}
 }
+
+.table {
+    table-layout:fixed;
+width: 98% !important;
+}

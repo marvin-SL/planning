@@ -54,6 +54,14 @@ Gestion des salles
     </div>
 </div>
 {% endif %}
+{% endblock %}
 
-
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+    $('.table').DataTable( {
+        "scrollX": false
+} );
+});
+</script>
 {% endblock %}
