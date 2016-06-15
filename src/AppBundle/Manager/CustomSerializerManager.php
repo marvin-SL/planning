@@ -69,7 +69,7 @@ class CustomSerializerManager extends BaseManager
                 $eventNode->addChild('classroom', $eventList->getClassroom()->getName());
                 $eventNode->addChild('notice', $eventList->getNotice());
                 if (isset($tabTeachers[$eventList->getSubject()->getName()])) {
-                    $eventNode->addChild('subject', $eventList->getSubject()->getName().' / '.implode(',', $tabTeachers[$eventList->getSubject()->getName()]));
+                    $eventNode->addChild('subject', $eventList->getSubject()->getName().' | '.implode(',', $tabTeachers[$eventList->getSubject()->getName()]));
                 }
                 $eventNode->addChild('color', $eventList->getSubject()->getColor());
 

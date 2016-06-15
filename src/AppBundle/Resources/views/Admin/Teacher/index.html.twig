@@ -33,7 +33,7 @@ Gestion des enseignants(es)/intervenants(es)
             <tbody>
                 {% for teacher in teachers %}
                 <tr>
-                    <td>{{teacher.lastname}} - {{teacher.firstname}}</td>
+                    <td>{{teacher.lastname}} {{teacher.firstname}}</td>
                     <td><a href="{{path('admin_teacher_edit', {'id' : teacher.id })}}">Editer</a></td>
                 </tr>
                 {% endfor %}
