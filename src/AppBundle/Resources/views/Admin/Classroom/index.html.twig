@@ -60,7 +60,10 @@ Gestion des salles
 <script>
 $(document).ready(function() {
     $('.table').DataTable( {
-        "scrollX": false
+        "scrollX": false,
+        "columnDefs": [
+                    { "width": "10%", "targets": 1 }
+                ]
 } );
 });
 </script>
