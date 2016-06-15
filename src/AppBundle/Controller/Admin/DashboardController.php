@@ -2,7 +2,7 @@
 /**
 * AccountController Doc Comment
 *
-* PHP version 5.5.9
+* PHP version 3.3.9
 *
 * @author Sainte-Luce Marvin <marvin.sainteluce@gmail.com>
 * @link   https://github.com/marvin-SL/planning
@@ -25,17 +25,17 @@ class DashboardController extends Controller
     public function indexAction(Request $request)
     {
         $calendars['values'] = $this->getDoctrine()
-        ->getRepository('AppBundle:Calendar')->findBy(array(), array('createdAt' => 'DESC'), 5);
+        ->getRepository('AppBundle:Calendar')->findBy(array(), array('createdAt' => 'DESC'), 3);
         $classrooms['values'] = $this->getDoctrine()
-        ->getRepository('AppBundle:Classroom')->findBy(array(), array('createdAt' => 'DESC'), 5);
+        ->getRepository('AppBundle:Classroom')->findBy(array(), array('createdAt' => 'DESC'), 3);
         $subjects['values'] = $this->getDoctrine()
-        ->getRepository('AppBundle:Subject')->findBy(array(), array('createdAt' => 'DESC'), 5);
+        ->getRepository('AppBundle:Subject')->findBy(array(), array('createdAt' => 'DESC'), 3);
         $teachers['values'] = $this->getDoctrine()
-        ->getRepository('AppBundle:Teacher')->findBy(array(), array('createdAt' => 'DESC'), 5);
+        ->getRepository('AppBundle:Teacher')->findBy(array(), array('createdAt' => 'DESC'), 3);
         $users['values'] = $this->getDoctrine()
-        ->getRepository('AppBundle:User')->findBy(array(), array('createdAt' => 'DESC'), 5);
+        ->getRepository('AppBundle:User')->findBy(array(), array('createdAt' => 'DESC'), 3);
         $mailings['values'] = $this->getDoctrine()
-        ->getRepository('AppBundle:Mailing')->findBy(array(), array('createdAt' => 'DESC'), 5);
+        ->getRepository('AppBundle:Mailing')->findBy(array(), array('createdAt' => 'DESC'), 3);
 
 
         $calendars['count'] = $this->getDoctrine()
