@@ -133,7 +133,7 @@ class TeacherControllerTest extends WebTestCase
 
         $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/subjects/');
 
-        $this->assertEquals(0, $crawler->filter('html:contains("Julian, Trudy")')->count(), 'Found element html:contains("Julian")');
+        $this->assertEquals(0, $crawler->filter('html:contains("Julian Trudy")')->count(), 'Found element html:contains("Julian")');
 
 
     }

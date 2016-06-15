@@ -34,7 +34,7 @@ class SubjectControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/subjects");
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("Anglais")')->count(), 'Missing element html:contains("Anglais")');
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("Julian, Trudy")')->count(), 'Missing element html:contains("Julian, Trudy")');
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Julian Trudy")')->count(), 'Missing element html:contains("Julian Trudy")');
     }
 
     /**
@@ -143,7 +143,7 @@ class SubjectControllerTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isRedirect(), 'Redirected to /admin/subjects/');
 
         $this->assertEquals(0, $crawler->filter('html:contains("Anglais")')->count(), 'Found element html:contains("Anglais")');
-        $this->assertEquals(0, $crawler->filter('html:contains("Julian, Trudy")')->count(), 'Found element html:contains("Julian, Trudy")');
+        $this->assertEquals(0, $crawler->filter('html:contains("Julian Trudy")')->count(), 'Found element html:contains("Julian Trudy")');
 
 
     }

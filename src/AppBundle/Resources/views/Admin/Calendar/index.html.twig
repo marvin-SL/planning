@@ -5,9 +5,6 @@ Liste des agendas
 {{ parent() }}
 {% endblock %}
 {% block stylesheets %}
-{% stylesheets '@AppBundle/Resources/public/dataTable/datatables.css' %}
-<link rel="stylesheet" href="{{ asset_url }}" media="screen"/>
-{% endstylesheets %}
 {% endblock %}
 
 {% block titre %}Liste des agendas{% endblock %}
@@ -34,7 +31,6 @@ Liste des agendas
                             <thead>
                                 <tr>
                                     <th>Libellé</th>
-                                    <th>Slug</th>
                                     <th>Date création</th>
                                     <th>Date modification</th>
                                     <th class="nosort">Actions</th>
@@ -44,7 +40,6 @@ Liste des agendas
                                 {% for calendar in calendars %}
                                 <tr>
                                     <td>{{calendar.title}}</td>
-                                    <td>{{calendar.slug}}</td>
                                     <td>{{calendar.createdAt| localizeddate('long', 'short') }}</td>
                                     <td>{{calendar.updatedAt|time_diff }}</td>
                                     <td>
@@ -67,20 +62,15 @@ Liste des agendas
     </div>
 
 
-<!-- jQuery -->
-{% block javascripts %}
-{% javascripts '@AppBundle/Resources/public/dataTable/datatables.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% endblock %} <!--block js-->
-
-
 <script type="text/javascript">
 $(document).ready(function(){
     $('#calendarTable').DataTable({
-        "aoColumnDefs": [
-         { 'bSortable': false, 'aTargets': [ 4 ] }
-      ]
+        "scrollX": false,
+        "columnDefs": [
+                    { "width": "10%", "targets": 3 },
+                    { "width": "10%", "targets": 2 },
+                    { "width": "10%", "targets": 1 }
+                ]
     });
 
 });
