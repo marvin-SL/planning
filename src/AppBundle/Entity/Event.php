@@ -231,4 +231,15 @@ class Event
     {
         return $this->endDate;
     }
+
+    public function __clone()
+    {
+        // If the entity has an identity, proceed as normal.
+        if ($this->id) {
+            $event = new Event();
+            $event->id = null;
+
+        }
+        // otherwise do nothing, do NOT throw an exception!
+    }
 }

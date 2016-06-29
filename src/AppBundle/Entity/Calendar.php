@@ -8,6 +8,7 @@ use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Calendar
@@ -50,6 +51,11 @@ class Calendar
      * @ORM\Column(name="lastEventEditedAt", type="datetime", nullable=true)
      */
     private $lastEventEditedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Calendar")
+     */
+    private $modele;
 
     /**
      * Hook timestampable behavior
@@ -188,5 +194,43 @@ class Calendar
     public function getLastEventEditedAt()
     {
         return $this->lastEventEditedAt;
+    }
+
+    /**
+     * Set modele
+     *
+     * @param \AppBundle\Entity\Calendar $modele
+     *
+     * @return Calendar
+     */
+    public function setModele(\AppBundle\Entity\Calendar $modele = null)
+    {
+        $this->modele = $modele;
+
+        return $this;
+    }
+
+    /**
+     * Get modele
+     *
+     * @return \AppBundle\Entity\Calendar
+     */
+    public function getModele()
+    {
+        return $this->modele;
+    }
+
+    public function __clone()
+    {
+        // If the entity has an identity, proceed as normal.
+        if ($this->id) {
+            $calendar = new Calendar();
+            $calendar->id = null;
+
+            foreach ($this->getEvents() as $event) {
+                $calendar->addEvents($event);
+            }
+        }
+        // otherwise do nothing, do NOT throw an exception!
     }
 }
