@@ -18,6 +18,7 @@ use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
 use AppBundle\Form\CalendarType;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class CalendarController extends Controller
 {
@@ -54,10 +55,10 @@ class CalendarController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $form->handleRequest($request);
+        $calendarToCopy = $form->get('modele')->getData();
 
         if ($form->isValid()) {
-
-            if ($calendarToCopy = $em->getRepository('AppBundle:Calendar')->find($calendar->getModele())) {
+            if (isset($calendarToCopy)) {
                 $calendar = clone $calendarToCopy;
                 $calendar->setTitle($form->get('title')->getData());
                 $calendar->setSlug(null);
@@ -66,6 +67,12 @@ class CalendarController extends Controller
                     $event = new Event();
                     $event = clone $eventToCopy;
                     $event->setCalendar($calendar);
+                    if ($nbWeek = $form->get('nbWeek')->getData()) {
+                        $startDate = $event->getStartDate();
+                        $endDate = $event->getEndDate();
+                        $event->setStartDate(new \DateTime($startDate->format('Y-m-d H:i:s')." $nbWeek week"));
+                        $event->setEndDate(new \DateTime($endDate->format('Y-m-d H:i:s')." $nbWeek week"));
+                    }
 
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($event);
@@ -75,12 +82,10 @@ class CalendarController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($calendar);
-            $em->persist($event);
             $em->flush();
 
             $serializer->createEmptyXmlFile($calendar);
             $serializer->serialize($calendar);
-
 
             $message = $this->get('translator')->trans('calendar.create_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);

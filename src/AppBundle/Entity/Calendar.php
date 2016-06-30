@@ -58,6 +58,12 @@ class Calendar
     private $modele;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @var integer
+     */
+    private $nbWeek;
+
+    /**
      * Hook timestampable behavior
      * updates publishedAt, updatedAt fields
      */
@@ -228,5 +234,29 @@ class Calendar
             $calendar->id = null;
         }
         // otherwise do nothing, do NOT throw an exception!
+    }
+
+    /**
+     * Set nbWeek
+     *
+     * @param integer $nbWeek
+     *
+     * @return Calendar
+     */
+    public function setNbWeek($nbWeek)
+    {
+        $this->nbWeek = $nbWeek;
+
+        return $this;
+    }
+
+    /**
+     * Get nbWeek
+     *
+     * @return integer
+     */
+    public function getNbWeek()
+    {
+        return $this->nbWeek;
     }
 }

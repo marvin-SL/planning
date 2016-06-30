@@ -17,13 +17,6 @@ Création d'un nouveau calendrier
             </h1>
         </div>
     </div>
-    <!-- <div class="row">
-        <div class="col-lg-12">
-            <div class="alert alert-info">
-                <h3>Pour créer un calendrier, veuillez saisir son intitulé.</h3> <br><h4>Nommer distinctement les calendriers (par exemple : <em>Master 2 - Groupe 2</em>) facilitera la gestion.</h4>
-            </div>
-        </div>
-    </div> -->
 	<div class="row">
 		<div class="col-md-2">
 		</div>
@@ -44,12 +37,36 @@ Création d'un nouveau calendrier
                      {{ form_errors(form.modele) }}
                      {{ form_widget(form.modele, {'attr': { 'class' : 'form-control' } } ) }}
                 </div>
+                <div class="form-group">
+                    <label for="nbWeek">
+                     {{ form_label(form.nbWeek) }}
+                    </label>
+                     {{ form_errors(form.nbWeek) }}
+                     {{ form_widget(form.nbWeek, {'attr': { 'class' : 'form-control' } } ) }}
+                </div>
                     {{ form_widget(form.save, { 'attr': { 'class' : 'btn btn-success' } } ) }}
                     {{ form_end(form) }}
 		</div>
 		<div class="col-md-5">
 		</div>
 	</div>
+{% endblock %}
 
+{% block javascripts %}
+<script>
+$(function() {
+    $('#app_calendar_nbWeek').prop('disabled','disabled');
+    
+    $('#app_calendar_modele').click(function(e){
 
+        if ($('#app_calendar_modele').val() =="") {
+                $('#app_calendar_nbWeek').prop('disabled','disabled');
+                 $('#app_calendar_nbWeek option[value=""]').prop('selected', true);
+        }
+        else {
+                $('#app_calendar_nbWeek').prop('disabled',false);
+        }
+    });
+});
+</script>
 {% endblock %}

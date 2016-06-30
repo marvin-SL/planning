@@ -18,7 +18,7 @@ class CalendarType extends AbstractType
         ->add('save', 'submit', array('label' => 'button.create', 'translation_domain' => 'forms'))
         ->add('modele', 'entity', array(
               'class' => 'AppBundle:Calendar',
-              'label' => 'Cloner un autre planning :',
+              'label' => 'Cloner un planning :',
               'empty_value' => 'input.calendar', 'translation_domain' => 'forms',
               'required'    => false,
               'query_builder' => function (EntityRepository $er) {
@@ -28,7 +28,21 @@ class CalendarType extends AbstractType
               'choice_label' => function ($calendar) {
                   return $calendar->getTitle();
               },
-            ))
+          ))
+          ->add('nbWeek', 'choice', array(
+               'empty_value' => 'label.week', 'translation_domain' => 'forms',
+               'required'    => false,
+              'label' => "Décaler les évènement de :",
+              'choices' => array(
+                  '+1' => '+ 1 semaine',
+                  '+2' => '+ 2 semaines',
+                  '+3' => '+ 3 semaines',
+                  '-1' => '- 1 semaine',
+                  '-2' => '- 2 semaines',
+                  '-3' => '- 3 semaines',
+              )
+          ))
+
         ;
     }
 

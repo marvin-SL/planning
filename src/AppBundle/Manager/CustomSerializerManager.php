@@ -93,13 +93,9 @@ class CustomSerializerManager extends BaseManager
 
         if (!$fs->exists($this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml')) {
 
-            try {
-                $path = $this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml';
-                file_put_contents($path, $rootNode->asXML());
-            } catch (IOExceptionInterface $e) {
-                echo 'An error occurred while creating your directory at '.$e->getPath();
-            }
-            //mkdir($this->container->get('kernel')->getRootDir().'/../web/data/', 0775, true);
+            $path = $this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml';
+            file_put_contents($path, $rootNode->asXML());
+
         }
 
     }
