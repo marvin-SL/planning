@@ -1,6 +1,8 @@
 admin_event_new:
       path:    /new
       defaults:  {_controller: AppBundle:Admin/Event:new}
+      options:
+          expose: true
 
 admin_event_edit:
     path:    /{id}/edit
