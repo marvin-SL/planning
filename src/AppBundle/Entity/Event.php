@@ -238,7 +238,6 @@ class Event
         if ($this->id) {
             $event = new Event();
             $event->id = null;
-
         }
         // otherwise do nothing, do NOT throw an exception!
     }

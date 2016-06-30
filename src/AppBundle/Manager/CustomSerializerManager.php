@@ -101,6 +101,12 @@ class CustomSerializerManager extends BaseManager
             }
             //mkdir($this->container->get('kernel')->getRootDir().'/../web/data/', 0775, true);
         }
-        
+
+    }
+
+    public function editFileName(Calendar $calendar, $oldSlug)
+    {
+        $fs = new Filesystem();
+        $fs->rename($this->container->get('kernel')->getRootDir().'/../web/data/'.$oldSlug.'.xml', $this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml');
     }
 }

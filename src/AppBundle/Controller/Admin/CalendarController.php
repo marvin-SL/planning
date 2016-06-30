@@ -57,12 +57,12 @@ class CalendarController extends Controller
 
         if ($form->isValid()) {
 
-            if ($toCopy = $em->getRepository('AppBundle:Calendar')->find($calendar->getModele())) {
-                $calendar = clone $toCopy;
+            if ($calendarToCopy = $em->getRepository('AppBundle:Calendar')->find($calendar->getModele())) {
+                $calendar = clone $calendarToCopy;
                 $calendar->setTitle($form->get('title')->getData());
                 $calendar->setSlug(null);
 
-                foreach ($toCopy->getEvents() as $eventToCopy) {
+                foreach ($calendarToCopy->getEvents() as $eventToCopy) {
                     $event = new Event();
                     $event = clone $eventToCopy;
                     $event->setCalendar($calendar);
@@ -146,11 +146,15 @@ class CalendarController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'This user does not have access to this section.');
 
+        $serializer = $this->get('app.manager.customSerializer');
+
         $em = $this->getDoctrine()->getManager();
 
         if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array('slug' => $slug,))) {
             throw $this->createNotFoundException(sprintf('Unable to find calendar with slug "%s"', $slug));
         };
+
+        $oldSlug = $entity->getSlug();
 
         $deleteForm = $this->createDeleteForm($slug);
         $editForm = $this->createForm(new CalendarType(), $entity);
@@ -162,6 +166,8 @@ class CalendarController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+            $serializer->editFileName($entity, $oldSlug);
 
             $message = $this->get('translator')->trans('calendar.update_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);
