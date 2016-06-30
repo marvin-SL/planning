@@ -58,26 +58,24 @@ class CalendarController extends Controller
         if ($form->isValid()) {
 
             if ($toCopy = $em->getRepository('AppBundle:Calendar')->find($calendar->getModele())) {
-                // foreach ($em->getRepository('AppBundle:Calendar')->find($calendar->getModele())->getEvents() as $event) {
-                //     $calendar->addEvent($event);
-                // }
-                //
-
                 $calendar = clone $toCopy;
                 $calendar->setTitle($form->get('title')->getData());
                 $calendar->setSlug(null);
-dump($toCopy->getEvents() );die;
-                //$event = new Event();
-            //    $event = clone $toCopy->getEvents();
+
                 foreach ($toCopy->getEvents() as $eventToCopy) {
-                    dump('ici');die;
                     $event = new Event();
                     $event = clone $eventToCopy;
+                    $event->setCalendar($calendar);
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($event);
+                    $em->flush();
                 }
             }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($calendar);
+            $em->persist($event);
             $em->flush();
 
             $serializer->createEmptyXmlFile($calendar);

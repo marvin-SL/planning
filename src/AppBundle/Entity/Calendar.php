@@ -226,10 +226,6 @@ class Calendar
         if ($this->id) {
             $calendar = new Calendar();
             $calendar->id = null;
-
-            foreach ($this->getEvents() as $event) {
-                $calendar->addEvents($event);
-            }
         }
         // otherwise do nothing, do NOT throw an exception!
     }
