@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EventController extends Controller
 {
@@ -25,6 +26,7 @@ class EventController extends Controller
     */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $event = new Event();
         $form = $this->createForm(new EventType(), $event);
 
@@ -35,6 +37,8 @@ class EventController extends Controller
 
             if ($request->isXmlHttpRequest()) {
                 $event = new Event();
+                $subject = $request->request->get('subject');
+                preg_match('/^[0-9A-Za-z]+/', $subject, $matches);
 
                 $startDate = $request->request->get('start_date');
                 $endDate = $request->request->get('end_date');
@@ -42,13 +46,20 @@ class EventController extends Controller
                 $event->setStartDate(new \DateTime($startDate));
                 $event->setEndDate(new \DateTime($endDate));
                 $event->setNotice($request->request->get('notice'));
-                $event->setCalendar($request->request->get('calendar'));
-                $event->setSubject($request->request->get('subject'));
-                $event->setClassroom($request->request->get('classroom'));
+                $event->setCalendar($em->getRepository('AppBundle:Calendar')->findOneBy(array(
+                    'title' => $request->request->get('calendar')
+                )));
+                $event->setSubject($em->getRepository('AppBundle:Subject')->findOneBy(array(
+                    'name' => $matches
+                )));
+                $event->setClassroom($em->getRepository('AppBundle:Classroom')->findOneBy(array(
+                    'name' => $request->request->get('classroom'))));
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($event);
                 $em->flush();
-                $serializer->serialize($calendar);
+                $serializer->serialize($em->getRepository('AppBundle:Calendar')->findOneBy(array(
+                    'title' => $request->request->get('calendar')
+                )));
             } else {
 
                 if ($form->isValid()) {
@@ -62,12 +73,6 @@ class EventController extends Controller
                     $this->get('session')->getFlashBag()->add('success', $message);
 
                     $serializer->serialize($event->getCalendar());
-
-                    $fileCache = $this->container->get('twig')->getCacheFilename('AppBundle:User/Calendar:mobile.html.twig');
-
-                    if (is_file($fileCache)) {
-                        @unlink($fileCache);
-                    }
 
                     return $this->redirect($this->generateUrl('admin_calendar_edit', array('slug' => $event->getCalendar()->getSlug())));
                 }
@@ -119,6 +124,9 @@ class EventController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $serializer->serialize($calendar);
+
+                return new JsonResponse(array('test' => 'test'));
+        
             } else {
                 if ($editForm->isValid()) {
                     $calendar->setLastEventEditedAt(new \DateTime('now'));

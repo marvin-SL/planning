@@ -222,12 +222,17 @@ scheduler.attachEvent("onEventPasted", function(isCopy, pasted_ev, original_ev) 
             url: newRoute,
             type: "POST",
             data: { start_date : start_date, end_date : end_date, calendar : calendar, classroom : classroom, subject : subject, notice : notice},
-            success: function(data) {
-            },
-            error: function(){
-                alert('Erreur ajax');
+              success: function(data){
+                //   $("div[event_id="+pasted_ev.id+"]").attr({
+                //       "event_id" : data.test
+                //   });
+              },
+            error: function(response){
+                //alert('Erreur ajax');
             }
         });
+
+
 });
 
 scheduler.attachEvent("onEventChanged", function (id){
