@@ -39,6 +39,10 @@ Edition
                  {{ form_widget(edit_form.modele, {'attr': { 'class' : 'hidden' } } ) }}
             </div>
             <div class="form-group">
+                 {{ form_errors(edit_form.nbWeek) }}
+                 {{ form_widget(edit_form.nbWeek, {'attr': { 'class' : 'hidden' } } ) }}
+            </div>
+            <div class="form-group">
                 {{ form_row(edit_form.save, {'label': 'Mettre à jour', 'attr': { 'class' : 'btn btn-success' } } ) }}
                 {{ form_end(edit_form) }}
             </div>
