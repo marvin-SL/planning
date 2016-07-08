@@ -119,11 +119,6 @@ class CalendarController extends Controller
 
         if ($form->isValid()) {
 
-            $fileCache = $this->container->get('twig')->getCacheFilename('AppBundle:User/Calendar:mobile.html.twig');
-            if (is_file($fileCache)) {
-                unlink($fileCache);
-            }
-
             $event->getCalendar()->setLastEventEditedAt(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
@@ -131,7 +126,7 @@ class CalendarController extends Controller
             $serializer = $this->get('app.manager.customSerializer')->serialize($entity);
 
             return $this->redirect($this->generateUrl('admin_calendar_show', array(
-                'slug' => $slug
+                'slug' => $slug,
             )));
         }
 

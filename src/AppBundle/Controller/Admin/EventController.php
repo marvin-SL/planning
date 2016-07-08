@@ -36,7 +36,6 @@ class EventController extends Controller
             $form->handleRequest($request);
 
             if ($request->isXmlHttpRequest()) {
-                $event = new Event();
                 $subject = $request->request->get('subject');
                 preg_match('/^[0-9A-Za-z]+/', $subject, $matches);
 
@@ -60,6 +59,8 @@ class EventController extends Controller
                 $serializer->serialize($em->getRepository('AppBundle:Calendar')->findOneBy(array(
                     'title' => $request->request->get('calendar')
                 )));
+                $eventId = $event->getId();
+                return new JsonResponse(array('eventId' => $eventId));
             } else {
 
                 if ($form->isValid()) {
@@ -125,8 +126,6 @@ class EventController extends Controller
                 $em->flush();
                 $serializer->serialize($calendar);
 
-                return new JsonResponse(array('test' => 'test'));
-        
             } else {
                 if ($editForm->isValid()) {
                     $calendar->setLastEventEditedAt(new \DateTime('now'));

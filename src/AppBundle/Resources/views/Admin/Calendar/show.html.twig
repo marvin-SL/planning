@@ -223,22 +223,19 @@ scheduler.attachEvent("onEventPasted", function(isCopy, pasted_ev, original_ev) 
             type: "POST",
             data: { start_date : start_date, end_date : end_date, calendar : calendar, classroom : classroom, subject : subject, notice : notice},
               success: function(data){
-                //   $("div[event_id="+pasted_ev.id+"]").attr({
-                //       "event_id" : data.test
-                //   });
+                 pasted_id = data.eventId;
+                 scheduler.changeEventId(pasted_ev.id, data.eventId);
               },
             error: function(response){
-                //alert('Erreur ajax');
+                alert('Erreur ajax onEventPasted');
             }
         });
-
-
 });
 
-scheduler.attachEvent("onEventChanged", function (id){
-    var event = scheduler.getEvent(id);
-    var start_date = formatFunc(event.start_date);
-    var end_date = formatFunc(event.end_date);
+scheduler.attachEvent("onEventChanged", function (id, ev){
+scheduler.updateEvent(ev);
+    var start_date = formatFunc(ev.start_date);
+    var end_date = formatFunc(ev.end_date);
     var id = id;
     var edit = Routing.generate('admin_event_edit', {id : id});
 
@@ -249,7 +246,7 @@ scheduler.attachEvent("onEventChanged", function (id){
             success: function(data) {
             },
             error: function(){
-                alert('Erreur ajax');
+                alert('Erreur ajax onEventChanged');
             }
         });
 });
