@@ -31,7 +31,6 @@ class CalendarControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), 'Unexpected HTTP status code for GET /admin/calendars');
 
         $this->assertGreaterThan(0, $crawler->filter('html:contains("groupe 1")')->count(), 'Missing element html:contains("groupe 1")');
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("groupe-1")')->count(), 'Missing element html:contains("groupe-1")');
     }
 
 
