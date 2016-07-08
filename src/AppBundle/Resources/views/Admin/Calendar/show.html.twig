@@ -153,6 +153,9 @@ html, body{ height:100%; padding:0px; margin:0px; }
 {% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_year_view.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+{% javascripts '@AppBundle/Resources/public/js/dhtmlxscheduler_key_nav.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
@@ -206,11 +209,33 @@ scheduler.showLightbox = function(id){
     scheduler.deleteEvent(id);
 }
 
+scheduler.attachEvent("onEventPasted", function(isCopy, pasted_ev, original_ev) {
+    var start_date = formatFunc(pasted_ev.start_date);
+    var end_date = formatFunc(pasted_ev.end_date);
+    var calendar = pasted_ev.calendar;
+    var classroom = pasted_ev.classroom;
+    var subject = pasted_ev.subject;
+    var notice = pasted_ev.notice;
+    var newRoute = Routing.generate('admin_event_new');
 
-scheduler.attachEvent("onEventChanged", function (id){
-    var event = scheduler.getEvent(id);
-    var start_date = formatFunc(event.start_date);
-    var end_date = formatFunc(event.end_date);
+    $.ajax({
+            url: newRoute,
+            type: "POST",
+            data: { start_date : start_date, end_date : end_date, calendar : calendar, classroom : classroom, subject : subject, notice : notice},
+              success: function(data){
+                 pasted_id = data.eventId;
+                 scheduler.changeEventId(pasted_ev.id, data.eventId);
+              },
+            error: function(response){
+                alert('Erreur ajax onEventPasted');
+            }
+        });
+});
+
+scheduler.attachEvent("onEventChanged", function (id, ev){
+scheduler.updateEvent(ev);
+    var start_date = formatFunc(ev.start_date);
+    var end_date = formatFunc(ev.end_date);
     var id = id;
     var edit = Routing.generate('admin_event_edit', {id : id});
 
@@ -221,7 +246,7 @@ scheduler.attachEvent("onEventChanged", function (id){
             success: function(data) {
             },
             error: function(){
-                alert('Erreur ajax');
+                alert('Erreur ajax onEventChanged');
             }
         });
 });

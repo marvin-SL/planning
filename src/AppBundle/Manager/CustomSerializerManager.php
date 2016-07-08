@@ -85,4 +85,24 @@ class CustomSerializerManager extends BaseManager
             }
         }
     }
+
+    public function createEmptyXmlFile(Calendar $calendar)
+    {
+        $fs = new Filesystem();
+        $rootNode = new \SimpleXMLElement('<data></data>');
+
+        if (!$fs->exists($this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml')) {
+
+            $path = $this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml';
+            file_put_contents($path, $rootNode->asXML());
+
+        }
+
+    }
+
+    public function editFileName(Calendar $calendar, $oldSlug)
+    {
+        $fs = new Filesystem();
+        $fs->rename($this->container->get('kernel')->getRootDir().'/../web/data/'.$oldSlug.'.xml', $this->container->get('kernel')->getRootDir().'/../web/data/'.$calendar->getSlug().'.xml');
+    }
 }

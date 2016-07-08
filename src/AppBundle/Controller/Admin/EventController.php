@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class EventController extends Controller
 {
@@ -25,37 +26,65 @@ class EventController extends Controller
     */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $event = new Event();
         $form = $this->createForm(new EventType(), $event);
 
-        $form->handleRequest($request);
-
         $serializer = $this->get('app.manager.customSerializer');
 
-        if ($form->isValid()) {
-            $event->getCalendar()->setLastEventEditedAt(new \DateTime('now'));
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
-            $em->flush();
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
 
-            $message = $this->get('translator')->trans('event.create_success', array(), 'flashes');
-            $this->get('session')->getFlashBag()->add('success', $message);
+            if ($request->isXmlHttpRequest()) {
+                $subject = $request->request->get('subject');
+                preg_match('/^[0-9A-Za-z]+/', $subject, $matches);
 
-            $serializer->serialize($event->getCalendar());
+                $startDate = $request->request->get('start_date');
+                $endDate = $request->request->get('end_date');
 
-            $fileCache = $this->container->get('twig')->getCacheFilename('AppBundle:User/Calendar:mobile.html.twig');
+                $event->setStartDate(new \DateTime($startDate));
+                $event->setEndDate(new \DateTime($endDate));
+                $event->setNotice($request->request->get('notice'));
+                $event->setCalendar($em->getRepository('AppBundle:Calendar')->findOneBy(array(
+                    'title' => $request->request->get('calendar')
+                )));
+                $event->setSubject($em->getRepository('AppBundle:Subject')->findOneBy(array(
+                    'name' => $matches
+                )));
+                $event->setClassroom($em->getRepository('AppBundle:Classroom')->findOneBy(array(
+                    'name' => $request->request->get('classroom'))));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($event);
+                $em->flush();
+                $serializer->serialize($em->getRepository('AppBundle:Calendar')->findOneBy(array(
+                    'title' => $request->request->get('calendar')
+                )));
+                $eventId = $event->getId();
+                return new JsonResponse(array('eventId' => $eventId));
+            } else {
 
-            if (is_file($fileCache)) {
-                @unlink($fileCache);
+                if ($form->isValid()) {
+
+                    $event->getCalendar()->setLastEventEditedAt(new \DateTime('now'));
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($event);
+                    $em->flush();
+
+                    $message = $this->get('translator')->trans('event.create_success', array(), 'flashes');
+                    $this->get('session')->getFlashBag()->add('success', $message);
+
+                    $serializer->serialize($event->getCalendar());
+
+                    return $this->redirect($this->generateUrl('admin_calendar_edit', array('slug' => $event->getCalendar()->getSlug())));
+                }
             }
 
-            return $this->redirect($this->generateUrl('admin_calendar_edit', array('slug' => $event->getCalendar()->getSlug())));
         }
-
         return $this->render('AppBundle:Admin/Event:new.html.twig', array(
             'form' => $form->createView(),
         ));
     }
+
 
     /**
     * Edit an Event entity by id
@@ -96,6 +125,7 @@ class EventController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 $serializer->serialize($calendar);
+
             } else {
                 if ($editForm->isValid()) {
                     $calendar->setLastEventEditedAt(new \DateTime('now'));

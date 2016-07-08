@@ -18,6 +18,7 @@ use AppBundle\Entity\Event;
 use AppBundle\Form\EventType;
 use AppBundle\Form\CalendarType;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class CalendarController extends Controller
 {
@@ -51,13 +52,39 @@ class CalendarController extends Controller
 
         $form = $this->createForm(new CalendarType(), $calendar);
 
+        $em = $this->getDoctrine()->getManager();
+
         $form->handleRequest($request);
+        $calendarToCopy = $form->get('modele')->getData();
 
         if ($form->isValid()) {
+            if (isset($calendarToCopy)) {
+                $calendar = clone $calendarToCopy;
+                $calendar->setTitle($form->get('title')->getData());
+                $calendar->setSlug(null);
+
+                foreach ($calendarToCopy->getEvents() as $eventToCopy) {
+                    $event = new Event();
+                    $event = clone $eventToCopy;
+                    $event->setCalendar($calendar);
+                    if ($nbWeek = $form->get('nbWeek')->getData()) {
+                        $startDate = $event->getStartDate();
+                        $endDate = $event->getEndDate();
+                        $event->setStartDate(new \DateTime($startDate->format('Y-m-d H:i:s')." $nbWeek week"));
+                        $event->setEndDate(new \DateTime($endDate->format('Y-m-d H:i:s')." $nbWeek week"));
+                    }
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($event);
+                    $em->flush();
+                }
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($calendar);
             $em->flush();
 
+            $serializer->createEmptyXmlFile($calendar);
             $serializer->serialize($calendar);
 
             $message = $this->get('translator')->trans('calendar.create_success', array(), 'flashes');
@@ -92,11 +119,6 @@ class CalendarController extends Controller
 
         if ($form->isValid()) {
 
-            $fileCache = $this->container->get('twig')->getCacheFilename('AppBundle:User/Calendar:mobile.html.twig');
-            if (is_file($fileCache)) {
-                unlink($fileCache);
-            }
-
             $event->getCalendar()->setLastEventEditedAt(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
@@ -104,7 +126,7 @@ class CalendarController extends Controller
             $serializer = $this->get('app.manager.customSerializer')->serialize($entity);
 
             return $this->redirect($this->generateUrl('admin_calendar_show', array(
-                'slug' => $slug
+                'slug' => $slug,
             )));
         }
 
@@ -124,11 +146,15 @@ class CalendarController extends Controller
     {
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'This user does not have access to this section.');
 
+        $serializer = $this->get('app.manager.customSerializer');
+
         $em = $this->getDoctrine()->getManager();
 
         if (!$entity = $em->getRepository('AppBundle:Calendar')->findOneBy(array('slug' => $slug,))) {
             throw $this->createNotFoundException(sprintf('Unable to find calendar with slug "%s"', $slug));
         };
+
+        $oldSlug = $entity->getSlug();
 
         $deleteForm = $this->createDeleteForm($slug);
         $editForm = $this->createForm(new CalendarType(), $entity);
@@ -140,6 +166,8 @@ class CalendarController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+            $serializer->editFileName($entity, $oldSlug);
 
             $message = $this->get('translator')->trans('calendar.update_success', array(), 'flashes');
             $this->get('session')->getFlashBag()->add('success', $message);

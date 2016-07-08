@@ -17,6 +17,7 @@ input:
 
 label:
     password: Mot de passe
+    week: Ne pas décaler les évenements
 
 "Bad credentials": "Identifiant ou mot de passe incorrect(s)"
 "User account is disabled.": "Votre compte a été désactivé"
